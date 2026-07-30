@@ -54,9 +54,9 @@ export default function Page(){
         </div>
       </section>
 
-      {/* CINTA 15 MARCAS 26px + ALUMINIO DIAMANTADO */}
+      {/* CINTA 15 MARCAS 100% VISIBLES - 28px NEGRO PURO */}
       <div style={{
-        height:"56px",
+        height:"58px",
         backgroundColor:"#c2c8ce",
         backgroundImage:`url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239aa0a8' fillOpacity='0.4'%3E%3Cpath d='M0 20 L10 10 L20 20 L10 30 Z M20 20 L30 10 L40 20 L30 30 Z'/%3E%3C/g%3E%3C/svg%3E")`,
         borderTop:"4px solid #E10600",
@@ -65,11 +65,12 @@ export default function Page(){
         alignItems:"center",
         overflow:"hidden"
       }}>
-        <div style={{background:"rgba(255,255,255,0.96)", height:"36px", display:"flex", alignItems:"center", width:"100%", overflow:"hidden"}}>
-          <div style={{display:"flex", animation:"marquee 32s linear infinite", gap:"36px", alignItems:"center"}}>
+        <div style={{background:"white", height:"40px", display:"flex", alignItems:"center", width:"100%", overflow:"hidden"}}>
+          {/* ACA AJUSTAS LA VELOCIDAD -> 32s lento, 18s rapido */}
+          <div style={{display:"flex", animation:"marquee 32s linear infinite", gap:"38px", alignItems:"center"}}>
             {[...marcas,...marcas,...marcas].map((url,idx)=>(
-              <div key={idx} style={{height:"26px", display:"flex", alignItems:"center", flexShrink:0}}>
-                <img src={url} alt="marca" style={{height:"26px", width:"auto", maxWidth:"95px", minWidth:"40px", objectFit:"contain"}} />
+              <div key={idx} style={{height:"28px", display:"flex", alignItems:"center", flexShrink:0}}>
+                <img src={url} alt="marca" style={{height:"26px", width:"auto", maxWidth:"100px", objectFit:"contain", filter:"brightness(0) contrast(100%)"}} />
               </div>
             ))}
           </div>
@@ -78,15 +79,11 @@ export default function Page(){
       <style>{`@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-33.33%)}}`}</style>
 
       <section id="nosotros" className="px-6 md:px-24 py-16 grid md:grid-cols-2 gap-12 items-center bg-black">
-        <div><h2 className="text-5xl font-black italic">NOSOTROS / <span className="text-[#E10600]">HISTORIA</span></h2><p className="mt-6 text-white/70 text-sm">Balladares Motors en {ADDRESS}</p></div>
-        <div className="relative max-w- ml-auto p- bg-zinc-400"><img src="/taller/2.jpg" className="w-full h- object-cover" alt="Entrada"/></div>
+        <div><h2 className="text-5xl font-black italic">NOSOTROS / <span className="text-[#E10600]">HISTORIA</span></h2></div>
+        <img src="/taller/2.jpg" className="w-full max-w- h- object-cover border-2 border-[#E10600] ml-auto" alt="taller"/>
       </section>
-
-      <section id="servicios" className="bg-white text-black px-6 md:px-24 py-16"><h2 className="text-5xl font-black italic">SERVICIOS</h2><div className="grid md:grid-cols-3 gap-6 mt-10">{[{n:"Reprogramación ECU",p:"Potencia + Economía"},{n:"DPF OFF",p:"Solución definitiva"},{n:"EGR OFF",p:"Sin fallas"},{n:"Scanner Multimarca",p:"Desde $25.000"},{n:"Alineación 3D",p:"Desde $18.000"},{n:"Mecánica General",p:"Todas las marcas"}].map(s=><div key={s.n} className="border- border-black p-6"><div className="font-black italic">{s.n}</div><div className="text-[#E10600] font-bold text-sm">{s.p}</div></div>)}</div></section>
-
-      <section id="galeria" className="px-6 md:px-24 py-20 bg-[#0A0A0A]"><h2 className="text-5xl font-black italic">TALLER / <span className="text-[#E10600]">GALERÍA</span></h2><div className="grid grid-cols-2 md:grid-cols-3 gap-5 mt-10">{[1,2,3,4,5,6].map(n=><div key={n} className="p- bg-zinc-500"><img src={`/taller/${n}.jpg`} className="w-full aspect-[4/3] object-cover" alt="taller"/></div>)}</div></section>
-
-      <section id="contacto" className="bg-[#111] px-6 md:px-24 py-16 grid md:grid-cols-2 gap-12"><div><h2 className="text-4xl font-black italic">CONTACTO</h2><p className="mt-4 text-sm">{ADDRESS}<br/>+56 9 3228 5399</p><a href={WHATSAPP} target="_blank" className="mt-6 inline-flex bg-[#25D366] text-white px-8 py-3 font-black rounded-full">WHATSAPP</a></div><iframe src="https://www.google.com/maps?q=Rodolfo+Briceño+2718,+Concepción&z=17&output=embed" width="100%" height="350" style={{border:0}}></iframe></section>
+      <section id="galeria" className="px-6 md:px-24 py-20 bg-[#0A0A0A]"><div className="grid grid-cols-2 md:grid-cols-3 gap-5 mt-10">{[1,2,3,4,5,6].map(n=><div key={n} className="p- bg-zinc-500"><img src={`/taller/${n}.jpg`} className="w-full aspect-[4/3] object-cover" alt="taller"/></div>)}</div></section>
+      <section id="contacto" className="bg-[#111] px-6 md:px-24 py-16 grid md:grid-cols-2 gap-12"><div><h2 className="text-4xl font-black italic">CONTACTO</h2><p className="mt-4 text-sm">{ADDRESS}</p></div><iframe src="https://www.google.com/maps?q=Rodolfo+Briceño+2718,+Concepción&z=17&output=embed" width="100%" height="350" style={{border:0}}></iframe></section>
     </main>
   );
 }
