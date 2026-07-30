@@ -8,27 +8,28 @@ const ADDRESS = "Rodolfo Briceño #2718, Concepción";
 const heroSlides = [
   "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=2070&auto=format&fit=crop",
-  
+ 
 ];
 
 const frases = ["SERVICIOS DE REPROGRAMACIÓN DE ECU","MECÁNICA GENERAL MULTIMARCA","DIAGNÓSTICO CLARO Y PROFESIONAL","DPF OFF • EGR OFF • STAGE 1 & 2"];
 
+// 15 MARCAS - TODAS SVG NEGRAS QUE SI SE VEN
 const marcas = [
-  { n:"Ford", u:"https://upload.wikimedia.org/wikipedia/commons/3/3e/Ford_logo_flat.svg" },
-  { n:"BMW", u:"https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg" },
-  { n:"Mercedes", u:"https://upload.wikimedia.org/wikipedia/commons/9/90/Mercedes-Logo.svg" },
-  { n:"Audi", u:"https://upload.wikimedia.org/wikipedia/commons/9/92/Audi-Logo_2016.svg" },
-  { n:"VW", u:"https://upload.wikimedia.org/wikipedia/commons/6/6d/Volkswagen_logo_2019.svg" },
-  { n:"Toyota", u:"https://upload.wikimedia.org/wikipedia/commons/e/e7/Toyota_EU.svg" },
-  { n:"Honda", u:"https://upload.wikimedia.org/wikipedia/commons/7/7e/Honda_logo.png" },
-  { n:"Nissan", u:"https://upload.wikimedia.org/wikipedia/commons/2/23/Nissan_logo.svg" },
-  { n:"Hyundai", u:"https://upload.wikimedia.org/wikipedia/commons/8/8e/Hyundai_Motor_Company_logo.svg" },
-  { n:"Kia", u:"https://upload.wikimedia.org/wikipedia/commons/4/42/Kia_logo.svg" },
-  { n:"Chevy", u:"https://upload.wikimedia.org/wikipedia/commons/1/13/Chevrolet_logo.svg" },
-  { n:"Porsche", u:"https://upload.wikimedia.org/wikipedia/commons/a/a6/Porsche_Logo.svg" },
-  { n:"Subaru", u:"https://upload.wikimedia.org/wikipedia/commons/8/8d/Subaru_logo.svg" },
-  { n:"Mazda", u:"https://upload.wikimedia.org/wikipedia/commons/c/c5/Mazda_logo_with_emblem.svg" },
-  { n:"Jeep", u:"https://upload.wikimedia.org/wikipedia/commons/5/5a/Jeep_logo.svg" },
+  "https://cdn.worldvectorlogo.com/logos/ford-6.svg",
+  "https://cdn.worldvectorlogo.com/logos/bmw.svg",
+  "https://cdn.worldvectorlogo.com/logos/mercedes-benz-9.svg",
+  "https://cdn.worldvectorlogo.com/logos/audi-14.svg",
+  "https://cdn.worldvectorlogo.com/logos/volkswagen.svg",
+  "https://cdn.worldvectorlogo.com/logos/toyota-1.svg",
+  "https://cdn.worldvectorlogo.com/logos/honda-4.svg",
+  "https://cdn.worldvectorlogo.com/logos/nissan-6.svg",
+  "https://cdn.worldvectorlogo.com/logos/hyundai.svg",
+  "https://cdn.worldvectorlogo.com/logos/kia-motors-1.svg",
+  "https://cdn.worldvectorlogo.com/logos/chevrolet.svg",
+  "https://cdn.worldvectorlogo.com/logos/porsche-6.svg",
+  "https://cdn.worldvectorlogo.com/logos/subaru-4.svg",
+  "https://cdn.worldvectorlogo.com/logos/mazda-2.svg",
+  "https://cdn.worldvectorlogo.com/logos/jeep-5.svg",
 ];
 
 export default function Page(){
@@ -49,49 +50,32 @@ export default function Page(){
           <img src="/BB.png" alt="Balladares Motors" style={{width:"360px", maxWidth:"70vw", height:"auto", maxHeight:"100px", objectFit:"contain", margin:"0 auto", display:"block"}} />
           <div className="mt-8 h- flex items-center justify-center"><h1 className="text- md:text- font-black italic leading-none tracking-tighter">{frases[t]}</h1></div>
           <div className="mt-4 bg-white text-black inline-block px-6 py-2 font-mono font-black text- tracking-[0.15em] skew-x-[-12deg] border-l-4 border-[#E10600]"><span className="block skew-x-">DPF OFF • EGR OFF • POTENCIA REAL • {ADDRESS}</span></div>
-          <div className="mt-6 flex gap-3 justify-center"><a href="#servicios" className="bg-[#E10600] px-6 py-2.5 font-black italic text- skew-x-[-12deg]"><span className="block skew-x-">VER SERVICIOS →</span></a><a href={WHATSAPP} className="bg-white text-black px-6 py-2.5 font-black italic text- skew-x-[-12deg]"><span className="block skew-x-">WHATSAPP</span></a></div>
         </div>
       </section>
 
-      {/* CINTA ALUMINIO DIAMANTADO TALLER - TODAS LAS MARCAS */}
+      {/* CINTA ALUMINIO DIAMANTADO - 15 MARCAS TODAS VISIBLES */}
       <div style={{
-        height:"48px",
-        backgroundColor:"#b8bec4",
-        backgroundImage:`
-          linear-gradient(45deg, #8a8f96 25%, transparent 25%),
-          linear-gradient(-45deg, #8a8f96 25%, transparent 25%),
-          linear-gradient(45deg, transparent 75%, #8a8f96 75%),
-          linear-gradient(-45deg, transparent 75%, #8a8f96 75%)
-        `,
-        backgroundSize:"20px 20px",
-        backgroundPosition:"0 0, 0 10px, 10px -10px, -10px 0px",
+        height:"46px",
+        backgroundColor:"#c2c8ce",
+        backgroundImage:`url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239aa0a8' fillOpacity='0.4'%3E%3Cpath d='M0 20 L10 10 L20 20 L10 30 Z M20 20 L30 10 L40 20 L30 30 Z M10 0 L20 10 L10 20 L0 10 Z M30 0 L40 10 L30 20 L20 10 Z'/%3E%3C/g%3E%3C/svg%3E")`,
         borderTop:"4px solid #E10600",
         borderBottom:"4px solid #E10600",
         display:"flex",
         alignItems:"center",
-        overflow:"hidden",
-        boxShadow:"inset 0 2px 4px rgba(0,0,0,0.4), inset 0 -2px 4px rgba(255,255,255,0.6)"
+        overflow:"hidden"
       }}>
-        <div style={{background:"rgba(255,255,255,0.92)", height:"30px", display:"flex", alignItems:"center", width:"100%", overflow:"hidden"}}>
-          <div style={{display:"flex", animation:"marquee 50s linear infinite", gap:"28px", alignItems:"center", whiteSpace:"nowrap"}}>
-            {[...marcas,...marcas,...marcas,...marcas,...marcas].map((m,idx)=>
-              <img key={idx} src={m.u} alt={m.n} style={{height:"18px", width:"auto", maxWidth:"85px", objectFit:"contain", flexShrink:0, filter:"drop-shadow(0 1px 1px rgba(0,0,0,0.2))"}} onError={(e:any)=>e.currentTarget.style.display='none'} />
+        <div style={{background:"rgba(255,255,255,0.94)", height:"30px", display:"flex", alignItems:"center", width:"100%"}}>
+          <div style={{display:"flex", animation:"marquee 35s linear infinite", gap:"28px", alignItems:"center"}}>
+            {[...marcas,...marcas,...marcas,...marcas].map((url,idx)=>
+              <img key={idx} src={url} alt="marca" style={{height:"20px", width:"auto", maxWidth:"80px", objectFit:"contain", flexShrink:0}} />
             )}
           </div>
         </div>
-      </div>
-      <style>{`@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-20%)}}`}</style>
+      <style>{`@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-25%)}}`}</style>
 
-      <section id="nosotros" className="px-6 md:px-24 py-16 grid md:grid-cols-2 gap-12 items-center bg-black">
-        <div><h2 className="text-5xl font-black italic">NOSOTROS / <span className="text-[#E10600]">HISTORIA</span></h2><p className="mt-6 text-white/70 text-sm">Balladares Motors en {ADDRESS}</p></div>
-        <div className="relative max-w- ml-auto p- bg-zinc-400"><img src="/taller/2.jpg" className="w-full h- object-cover" alt="Entrada"/></div>
-      </section>
-
-      <section id="servicios" className="bg-white text-black px-6 md:px-24 py-16"><h2 className="text-5xl font-black italic">SERVICIOS</h2><div className="grid md:grid-cols-3 gap-6 mt-10">{[{n:"Reprogramación ECU",p:"Potencia + Economía"},{n:"DPF OFF",p:"Solución definitiva"},{n:"EGR OFF",p:"Sin fallas"},{n:"Scanner Multimarca",p:"Desde $25.000"},{n:"Alineación 3D",p:"Desde $18.000"},{n:"Mecánica General",p:"Todas las marcas"}].map(s=><div key={s.n} className="border- border-black p-6"><div className="font-black italic">{s.n}</div><div className="text-[#E10600] font-bold text-sm">{s.p}</div></div>)}</div></section>
-
-      <section id="galeria" className="px-6 md:px-24 py-20 bg-[#0A0A0A]"><h2 className="text-5xl font-black italic">TALLER / <span className="text-[#E10600]">GALERÍA</span></h2><div className="grid grid-cols-2 md:grid-cols-3 gap-5 mt-10">{[1,2,3,4,5,6].map(n=><div key={n} className="p- bg-zinc-500"><img src={`/taller/${n}.jpg`} className="w-full aspect-[4/3] object-cover" alt="taller"/></div>)}</div></section>
-
-      <section id="contacto" className="bg-[#111] px-6 md:px-24 py-16 grid md:grid-cols-2 gap-12"><div><h2 className="text-4xl font-black italic">CONTACTO</h2><p className="mt-4 text-sm">{ADDRESS}<br/>+56 9 3228 5399</p><a href={WHATSAPP} target="_blank" className="mt-6 inline-flex bg-[#25D366] text-white px-8 py-3 font-black rounded-full">WHATSAPP</a></div><iframe src="https://www.google.com/maps?q=Rodolfo+Briceño+2718,+Concepción&z=17&output=embed" width="100%" height="350" style={{border:0}}></iframe></section>
+      <section id="nosotros" className="px-6 md:px-24 py-16 grid md:grid-cols-2 gap-12 items-center bg-black"><div><h2 className="text-5xl font-black italic">NOSOTROS / <span className="text-[#E10600]">HISTORIA</span></h2></div><img src="/taller/2.jpg" className="w-full max-w- h- object-cover border-2 border-[#E10600] ml-auto" alt="taller"/></section>
+      <section id="galeria" className="px-6 md:px-24 py-16 bg-[#0A0A0A]"><div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-8">{[1,2,3,4,5,6].map(n=><img key={n} src={`/taller/${n}.jpg`} className="w-full aspect-[4/3] object-cover border border-white/10" alt="taller"/>)}</div></section>
+      <section id="contacto" className="bg-[#111] px-6 md:px-24 py-12 grid md:grid-cols-2 gap-8"><div><h2 className="text-4xl font-black italic">CONTACTO</h2><p className="mt-4 text-sm">{ADDRESS}</p></div><iframe src="https://www.google.com/maps?q=Rodolfo+Briceño+2718,+Concepción&z=17&output=embed" width="100%" height="350" style={{border:0}}></iframe></section>
     </main>
   );
 }
