@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-body{background:#0A0A0A;color:white}
+
+body{background:#0A0A0A;color:white;font-family: Montserrat, sans-serif}
 .skew-racing{transform:skew(-12deg)}
 .unskew{transform:skew(12deg)}
