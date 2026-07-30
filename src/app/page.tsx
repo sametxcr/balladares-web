@@ -28,7 +28,6 @@ const marcas = [
 export default function Page(){
   const [i,setI]=useState(0);
   useEffect(()=>{const t=setInterval(()=>setI(p=>(p+1)%slides.length),4000);return()=>clearInterval(t)},[]);
-
   return (
     <main className="bg-black text-white">
       <nav className="fixed top-0 w-full z-50 bg-black/90 border-b border-[#E10600] flex justify-between items-center px-6 py-3">
@@ -51,7 +50,6 @@ export default function Page(){
         <div className="absolute bottom-6 left-10 flex gap-2">{slides.map((_,idx)=><button key={idx} onClick={()=>setI(idx)} className={`h-1 w-10 ${idx===i?"bg-[#E10600]":"bg-white/30"}`}/>)}</div>
       </section>
 
-      {/* CINTA ALUMINIO DIAMANTADO - 15 MARCAS 26px NEGRO PURO */}
       <div style={{
         height:"58px",
         backgroundColor:"#c2c8ce",
@@ -63,7 +61,6 @@ export default function Page(){
         overflow:"hidden"
       }}>
         <div style={{background:"white", height:"40px", display:"flex", alignItems:"center", width:"100%", overflow:"hidden"}}>
-          {/* VELOCIDAD DE LA CINTA -> cambia 32s por 20s rapido o 50s lento */}
           <div style={{display:"flex", animation:"marquee 32s linear infinite", gap:"38px", alignItems:"center"}}>
             {[...marcas,...marcas,...marcas].map((url,idx)=>(
               <div key={idx} style={{height:"26px", display:"flex", alignItems:"center", flexShrink:0}}>
@@ -72,6 +69,7 @@ export default function Page(){
             ))}
           </div>
         </div>
+      </div>
       <style>{`@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-33.33%)}}`}</style>
 
       <section className="bg-[#111] border-y border-white/10 grid grid-cols-2 md:grid-cols-4">
@@ -80,7 +78,7 @@ export default function Page(){
 
       <section className="px-6 md:px-24 py-20 grid md:grid-cols-2 gap-10">
         <div><h2 className="text-4xl font-black italic">NOSOTROS / <span className="text-[#E10600]">HISTORIA</span></h2><p className="mt-6 text-white/70 leading-relaxed">Balladares Motors es un taller bien conocido en Concepción. Nacimos de la pasión por las carreras en pista y circuito, atendiendo autos de gama alta y todas las marcas. Contamos con elevadores, máquina de alineación 3D, balanceo y ajuste de motor completo.</p></div>
-        <div className="bg-[#111] p-2 skew-x-[-12deg]"><div className="skew-x- bg-[url('/taller/2.jpg')] h-80 bg-cover"/></div>
+        <div className="bg-[#111] p-2 skew-x-[-12deg]"><div className="skew-x- bg-[url('/taller/2.jpg')] h-80 bg-cover bg-center"/></div>
       </section>
 
       <section className="bg-white text-black px-6 md:px-24 py-20">
