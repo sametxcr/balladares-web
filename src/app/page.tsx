@@ -8,7 +8,7 @@ const ADDRESS = "Rodolfo Briceño #2718, Concepción";
 const heroSlides = [
   "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=2070&auto=format&fit=crop",
-  
+  "https://images.unsplash.com/photo-1511910849309-0dffb8785146?q=80&w=2000&auto=format&fit=crop",
 ];
 
 const frases = ["SERVICIOS DE REPROGRAMACIÓN DE ECU","MECÁNICA GENERAL MULTIMARCA","DIAGNÓSTICO CLARO Y PROFESIONAL","DPF OFF • EGR OFF • STAGE 1 & 2"];
@@ -54,9 +54,9 @@ export default function Page(){
         </div>
       </section>
 
-      {/* CINTA ALUMINIO DIAMANTADO - FIX BUILD */}
+      {/* CINTA 15 MARCAS 26px + ALUMINIO DIAMANTADO */}
       <div style={{
-        height:"46px",
+        height:"56px",
         backgroundColor:"#c2c8ce",
         backgroundImage:`url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239aa0a8' fillOpacity='0.4'%3E%3Cpath d='M0 20 L10 10 L20 20 L10 30 Z M20 20 L30 10 L40 20 L30 30 Z'/%3E%3C/g%3E%3C/svg%3E")`,
         borderTop:"4px solid #E10600",
@@ -65,15 +65,17 @@ export default function Page(){
         alignItems:"center",
         overflow:"hidden"
       }}>
-        <div style={{background:"rgba(255,255,255,0.94)", height:"30px", display:"flex", alignItems:"center", width:"100%", overflow:"hidden"}}>
-          <div style={{display:"flex", animation:"marquee 35s linear infinite", gap:"28px", alignItems:"center"}}>
-            {[...marcas,...marcas,...marcas,...marcas].map((url,idx)=>(
-              <img key={idx} src={url} alt="marca" style={{height:"18px", width:"auto", maxWidth:"80px", objectFit:"contain", flexShrink:0}} />
+        <div style={{background:"rgba(255,255,255,0.96)", height:"36px", display:"flex", alignItems:"center", width:"100%", overflow:"hidden"}}>
+          <div style={{display:"flex", animation:"marquee 32s linear infinite", gap:"36px", alignItems:"center"}}>
+            {[...marcas,...marcas,...marcas].map((url,idx)=>(
+              <div key={idx} style={{height:"26px", display:"flex", alignItems:"center", flexShrink:0}}>
+                <img src={url} alt="marca" style={{height:"26px", width:"auto", maxWidth:"95px", minWidth:"40px", objectFit:"contain"}} />
+              </div>
             ))}
           </div>
         </div>
       </div>
-      <style>{`@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-25%)}}`}</style>
+      <style>{`@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-33.33%)}}`}</style>
 
       <section id="nosotros" className="px-6 md:px-24 py-16 grid md:grid-cols-2 gap-12 items-center bg-black">
         <div><h2 className="text-5xl font-black italic">NOSOTROS / <span className="text-[#E10600]">HISTORIA</span></h2><p className="mt-6 text-white/70 text-sm">Balladares Motors en {ADDRESS}</p></div>
