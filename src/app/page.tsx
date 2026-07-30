@@ -8,7 +8,7 @@ const ADDRESS = "Rodolfo Briceño #2718, Concepción";
 const heroSlides = [
   "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=2070&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1511910849309-0dffb8785146?q=80&w=2000&auto=format&fit=crop",
+  
 ];
 
 const frases = ["SERVICIOS DE REPROGRAMACIÓN DE ECU","MECÁNICA GENERAL MULTIMARCA","DIAGNÓSTICO CLARO Y PROFESIONAL","DPF OFF • EGR OFF • STAGE 1 & 2"];
