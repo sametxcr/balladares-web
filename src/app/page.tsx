@@ -11,26 +11,21 @@ const heroSlides = [
   "https://images.unsplash.com/photo-1511910849309-0dffb8785146?q=80&w=2000&auto=format&fit=crop",
 ];
 
-const frases = [
-  "SERVICIOS DE REPROGRAMACIÓN DE ECU",
-  "MECÁNICA GENERAL MULTIMARCA",
-  "DIAGNÓSTICO CLARO Y PROFESIONAL",
-  "DPF OFF • EGR OFF • STAGE 1 & 2"
-];
+const frases = ["SERVICIOS DE REPROGRAMACIÓN DE ECU","MECÁNICA GENERAL MULTIMARCA","DIAGNÓSTICO CLARO Y PROFESIONAL","DPF OFF • EGR OFF • STAGE 1 & 2"];
 
 const marcas = [
-  { n:"Toyota", u:"https://upload.wikimedia.org/wikipedia/commons/e/e7/Toyota_EU.svg" },
   { n:"Ford", u:"https://upload.wikimedia.org/wikipedia/commons/3/3e/Ford_logo_flat.svg" },
   { n:"BMW", u:"https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg" },
   { n:"Mercedes", u:"https://upload.wikimedia.org/wikipedia/commons/9/90/Mercedes-Logo.svg" },
   { n:"Audi", u:"https://upload.wikimedia.org/wikipedia/commons/9/92/Audi-Logo_2016.svg" },
   { n:"VW", u:"https://upload.wikimedia.org/wikipedia/commons/6/6d/Volkswagen_logo_2019.svg" },
+  { n:"Toyota", u:"https://upload.wikimedia.org/wikipedia/commons/e/e7/Toyota_EU.svg" },
   { n:"Honda", u:"https://upload.wikimedia.org/wikipedia/commons/7/7e/Honda_logo.png" },
   { n:"Nissan", u:"https://upload.wikimedia.org/wikipedia/commons/2/23/Nissan_logo.svg" },
+  { n:"Hyundai", u:"https://upload.wikimedia.org/wikipedia/commons/8/8e/Hyundai_Motor_Company_logo.svg" },
+  { n:"Kia", u:"https://upload.wikimedia.org/wikipedia/commons/4/42/Kia_logo.svg" },
   { n:"Chevy", u:"https://upload.wikimedia.org/wikipedia/commons/1/13/Chevrolet_logo.svg" },
-  { n:"Hyundai", u:"https://upload.wikimedia.org/wikipedia/commons/4/44/Hyundai_Motor_Company_logo.svg" },
-  { n:"Kia", u:"https://upload.wikimedia.org/wikipedia/commons/0/0d/Kia_logo.svg" },
-  { n:"Porsche", u:"https://upload.wikimedia.org/wikipedia/commons/0/0a/Porsche_Shield.svg" },
+  { n:"Porsche", u:"https://upload.wikimedia.org/wikipedia/commons/a/a6/Porsche_Logo.svg" },
   { n:"Subaru", u:"https://upload.wikimedia.org/wikipedia/commons/8/8d/Subaru_logo.svg" },
   { n:"Mazda", u:"https://upload.wikimedia.org/wikipedia/commons/c/c5/Mazda_logo_with_emblem.svg" },
   { n:"Jeep", u:"https://upload.wikimedia.org/wikipedia/commons/5/5a/Jeep_logo.svg" },
@@ -49,11 +44,8 @@ export default function Page(){
       </nav>
 
       <section id="inicio" className="relative h- w-full overflow-hidden mt- flex items-center justify-center">
-        {heroSlides.map((src,idx)=>(
-          <div key={idx} className={`absolute inset-0 transition-opacity duration-1000 ${idx===i? "opacity-100" : "opacity-0"}`} style={{backgroundImage:`url(${src})`,backgroundSize:"cover",backgroundPosition:"center"}}><div className="absolute inset-0 bg-black/70"/></div>
-        ))}
+        {heroSlides.map((src,idx)=><div key={idx} className={`absolute inset-0 transition-opacity duration-1000 ${idx===i? "opacity-100" : "opacity-0"}`} style={{backgroundImage:`url(${src})`,backgroundSize:"cover",backgroundPosition:"center"}}><div className="absolute inset-0 bg-black/70"/></div>)}
         <div className="relative z-10 text-center px-6 max-w-5xl w-full">
-          {/* LOGO 50% MAS CHICO - CENTRADO */}
           <img src="/BB.png" alt="Balladares Motors" style={{width:"360px", maxWidth:"70vw", height:"auto", maxHeight:"100px", objectFit:"contain", margin:"0 auto", display:"block"}} />
           <div className="mt-8 h- flex items-center justify-center"><h1 className="text- md:text- font-black italic leading-none tracking-tighter">{frases[t]}</h1></div>
           <div className="mt-4 bg-white text-black inline-block px-6 py-2 font-mono font-black text- tracking-[0.15em] skew-x-[-12deg] border-l-4 border-[#E10600]"><span className="block skew-x-">DPF OFF • EGR OFF • POTENCIA REAL • {ADDRESS}</span></div>
@@ -61,15 +53,34 @@ export default function Page(){
         </div>
       </section>
 
-      {/* CINTA LOGOS CHICA 20px - FIX GIGANTE */}
-      <div style={{background:"white", height:"38px", display:"flex", alignItems:"center", overflow:"hidden", borderTop:"4px solid #E10600", borderBottom:"4px solid #E10600"}}>
-        <div style={{display:"flex", animation:"marquee 70s linear infinite", gap:"36px", alignItems:"center"}}>
-          {[...marcas,...marcas,...marcas,...marcas].map((m,idx)=>
-            <img key={idx} src={m.u} alt={m.n} style={{height:"18px", width:"auto", objectFit:"contain", flexShrink:0}} />
-          )}
+      {/* CINTA ALUMINIO DIAMANTADO TALLER - TODAS LAS MARCAS */}
+      <div style={{
+        height:"48px",
+        backgroundColor:"#b8bec4",
+        backgroundImage:`
+          linear-gradient(45deg, #8a8f96 25%, transparent 25%),
+          linear-gradient(-45deg, #8a8f96 25%, transparent 25%),
+          linear-gradient(45deg, transparent 75%, #8a8f96 75%),
+          linear-gradient(-45deg, transparent 75%, #8a8f96 75%)
+        `,
+        backgroundSize:"20px 20px",
+        backgroundPosition:"0 0, 0 10px, 10px -10px, -10px 0px",
+        borderTop:"4px solid #E10600",
+        borderBottom:"4px solid #E10600",
+        display:"flex",
+        alignItems:"center",
+        overflow:"hidden",
+        boxShadow:"inset 0 2px 4px rgba(0,0,0,0.4), inset 0 -2px 4px rgba(255,255,255,0.6)"
+      }}>
+        <div style={{background:"rgba(255,255,255,0.92)", height:"30px", display:"flex", alignItems:"center", width:"100%", overflow:"hidden"}}>
+          <div style={{display:"flex", animation:"marquee 50s linear infinite", gap:"28px", alignItems:"center", whiteSpace:"nowrap"}}>
+            {[...marcas,...marcas,...marcas,...marcas,...marcas].map((m,idx)=>
+              <img key={idx} src={m.u} alt={m.n} style={{height:"18px", width:"auto", maxWidth:"85px", objectFit:"contain", flexShrink:0, filter:"drop-shadow(0 1px 1px rgba(0,0,0,0.2))"}} onError={(e:any)=>e.currentTarget.style.display='none'} />
+            )}
+          </div>
         </div>
       </div>
-      <style>{`@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-25%)}}`}</style>
+      <style>{`@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-20%)}}`}</style>
 
       <section id="nosotros" className="px-6 md:px-24 py-16 grid md:grid-cols-2 gap-12 items-center bg-black">
         <div><h2 className="text-5xl font-black italic">NOSOTROS / <span className="text-[#E10600]">HISTORIA</span></h2><p className="mt-6 text-white/70 text-sm">Balladares Motors en {ADDRESS}</p></div>
