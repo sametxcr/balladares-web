@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 const WHATSAPP = "56900000000";
 
 const slides = [
-  { title: "REPRO STAGE 1 & 2", sub: "Potencia real para tu motor", img: "/hero/repro.jpg" },
-  { title: "DIAGNÓSTICO DE ÚLTIMA GENERACIÓN", sub: "Scanner multimarca para todas las marcas", img: "/hero/scanner.jpg" },
-  { title: "SERVICIO DE PISTA Y CALLE", sub: "Alineación 3D, balanceo, elevadores", img: "/hero/pista.jpg" },
+  { title: "REPRO STAGE 1 & 2", sub: "Potencia real para tu motor", img: "/hero/repro.jpg", pos: "50% 20%" },
+  { title: "DIAGNÓSTICO DE ÚLTIMA GENERACIÓN", sub: "Scanner multimarca", img: "/hero/scanner.jpg", pos: "50% 50%" },
+  { title: "SERVICIO DE PISTA Y CALLE", sub: "Alineación 3D, balanceo", img: "/hero/pista.jpg", pos: "50% 20%" }, // <- esta es la que se ve muy grande, bájale el 20% a 10% si quieres ver más techo
 ];
 
 const servicios = [
@@ -45,7 +45,12 @@ export default function Page(){
       <section id="inicio" className="h-[85vh] relative overflow-hidden mt-[56px] bg-zinc-900">
         {slides.map((s,idx)=>(
           <div key={idx} className={`absolute inset-0 transition-opacity duration-1000 ${idx===i?"opacity-100":"opacity-0"}`}>
-            <img src={s.img} alt={s.title} className="absolute inset-0 w-full h-full object-cover" />
+            <img
+  src={s.img}
+  alt={s.title}
+  className="absolute inset-0 w-full h-full"
+  style={{objectFit:"cover", objectPosition: s.pos}}
+            />
             <div className="absolute inset-0 bg-black/60" />
             <div className="relative h-full flex flex-col justify-center px-6 md:px-24">
               <h1 className="text-5xl md:text-8xl font-black italic leading-none max-w-4xl">{s.title}</h1>
