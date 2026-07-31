@@ -59,6 +59,11 @@ export default function Page(){
               </p>
               <a href="#servicios" className="mt-8 w-fit bg-red-600 px-8 py-3 font-black hover:bg-white hover:text-black transition" style={{transform:"skewX(-12deg)"}}>
                 <span style={{transform:"skewX(12deg)", display:"block"}}>VER SERVICIOS →</span>
+				const slides = [
+  {sub: "Potencia real para tu motor"},
+  {sub: "Scanner multimarca para todas las marcas"},
+  {sub: "Alineación 3D, balanceo, elevadores"},
+];
               </a>
             </div>
           </div>
