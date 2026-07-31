@@ -42,12 +42,11 @@ export default function Page(){
         </a>
       </nav>
 
-      {/* HERO CON IMG TAG - ESTE SI FUNCIONA */}
-      <section id="inicio" className="h- relative overflow-hidden mt- bg-zinc-900">
+      <section id="inicio" className="h-[85vh] relative overflow-hidden mt-[56px] bg-zinc-900">
         {slides.map((s,idx)=>(
           <div key={idx} className={`absolute inset-0 transition-opacity duration-1000 ${idx===i?"opacity-100":"opacity-0"}`}>
             <img src={s.img} alt={s.title} className="absolute inset-0 w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-black/60 bg-gradient-to-r from-black via-black/60 to-transparent"/>
+            <div className="absolute inset-0 bg-black/60" />
             <div className="relative h-full flex flex-col justify-center px-6 md:px-24">
               <h1 className="text-5xl md:text-8xl font-black italic leading-none max-w-4xl">{s.title}</h1>
               <p className="mt-6 text-lg bg-white text-black inline-block px-5 py-2 font-bold w-fit" style={{transform:"skewX(-12deg)"}}>
@@ -60,7 +59,7 @@ export default function Page(){
           </div>
         ))}
         <div className="absolute bottom-8 left-10 flex gap-2">
-          {slides.map((_,idx)=><button key={idx} onClick={()=>setI(idx)} className={`h-1 w-12 transition-all ${idx===i?"bg-red-600":"bg-white/30"}`}/>)}
+          {slides.map((_,idx)=><button key={idx} onClick={()=>setI(idx)} className={`h-1 w-12 transition-all ${idx===i?"bg-red-600":"bg-white/30"}`} />)}
         </div>
       </section>
 
@@ -76,7 +75,7 @@ export default function Page(){
         </div>
         <div className="bg-zinc-900 p-2 border border-white/10" style={{transform:"skewX(-6deg)"}}>
           <div style={{transform:"skewX(6deg)"}}>
-            <img src="/hero/pista.jpg" alt="taller" className="h- w-full object-cover" />
+            <img src="/hero/pista.jpg" alt="taller" className="h-[400px] w-full object-cover" />
           </div>
         </div>
       </section>
@@ -98,3 +97,4 @@ export default function Page(){
     </main>
   );
 }
+
