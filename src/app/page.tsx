@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 const WHATSAPP = "56900000000";
 
 const slides = [
-  { title: "REPRO STAGE 1 & 2", sub: "Potencia real para tu motor", img: "/hero/repro.jpg", pos: "50% 50%" },
+  { title: "REPRO STAGE 1 & 2", sub: "Potencia real para tu motor", img: "/hero/repro.jpg", pos: "50% 15%" },
   { title: "DIAGNÓSTICO DE ÚLTIMA GENERACIÓN", sub: "Scanner multimarca", img: "/hero/scanner.jpg", pos: "50% 50%" },
-  { title: "SERVICIO DE PISTA Y CALLE", sub: "Alineación 3D, balanceo", img: "/hero/pista.jpg", pos: "50% 50%" }, // <- esta es la que se ve muy grande, bájale el 20% a 10% si quieres ver más techo
+  { title: "SERVICIO DE PISTA Y CALLE", sub: "Alineación 3D, balanceo", img: "/hero/pista.jpg", pos: "50% 15%" }, // <- esta es la que se ve muy grande, bájale el 20% a 10% si quieres ver más techo
 ];
 
 const servicios = [
