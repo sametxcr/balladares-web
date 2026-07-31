@@ -5,7 +5,7 @@ const WHATSAPP = "56900000000";
 
 const slides = [
   { title: "REPRO STAGE 1 & 2", sub: "Potencia real para tu motor", img: "/hero/repro.jpg", pos: "100% 30%", scale: 0.7 },
-  { title: "DIAGNÓSTICO DE ÚLTIMA GENERACIÓN", sub: "Scanner multimarca para todas las marcas", img: "/hero/scanner.jpg", pos: "50% 50%", scale: 0.6 },
+  { title: "DIAGNÓSTICO DE ÚLTIMA GENERACIÓN", sub: "Scanner multimarca para todas las marcas", img: "/hero/scanner.jpg", pos: "50% 50%", scale: 0.9 },
   { title: "SERVICIO DE PISTA Y CALLE", sub: "Alineación 3D, balanceo, elevadores", img: "/hero/pista.jpg", pos: "100% 30%", scale: 0.7 },
 ];
 
