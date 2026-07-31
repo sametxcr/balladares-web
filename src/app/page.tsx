@@ -75,7 +75,7 @@ export default function Page(){
         </div>
         <div className="bg-zinc-900 p-2 border border-white/10" style={{transform:"skewX(-6deg)"}}>
           <div style={{transform:"skewX(6deg)"}}>
-            <img src="/hero/pista.jpg" alt="taller" className="h-[400px] w-full object-cover" />
+            <img src="/hero/entrada.jpg" alt="taller" className="h-[400px] w-full object-cover" />
           </div>
         </div>
       </section>
