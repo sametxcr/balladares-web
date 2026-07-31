@@ -1,24 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
 
-const WHATSAPP = "56900000000"; // cambia aquí tu número real
+const WHATSAPP = "56900000000";
 
 const slides = [
-  {
-    title: "REPRO STAGE 1 & 2",
-    sub: "Potencia real para tu motor",
-    img: "/hero/hero1.jpg" // cambia solo la ruta aquí
-  },
-  {
-    title: "DIAGNÓSTICO DE ÚLTIMA GENERACIÓN",
-    sub: "Scanner multimarca para todas las marcas",
-    img: "/hero/hero2.jpg"
-  },
-  {
-    title: "SERVICIO DE PISTA Y CALLE",
-    sub: "Alineación 3D, balanceo, elevadores",
-    img: "/hero/hero3.jpg"
-  },
+  { title: "REPRO STAGE 1 & 2", sub: "Potencia real para tu motor", img: "/hero/repro.jpg" },
+  { title: "DIAGNÓSTICO DE ÚLTIMA GENERACIÓN", sub: "Scanner multimarca para todas las marcas", img: "/hero/scanner.jpg" },
+  { title: "SERVICIO DE PISTA Y CALLE", sub: "Alineación 3D, balanceo, elevadores", img: "/hero/pista.jpg" },
 ];
 
 const servicios = [
@@ -32,14 +20,10 @@ const servicios = [
 
 export default function Page(){
   const [i,setI]=useState(0);
-  useEffect(()=>{
-    const t=setInterval(()=>setI(p=>(p+1)%slides.length),4500);
-    return()=>clearInterval(t)
-  },[]);
+  useEffect(()=>{ const t=setInterval(()=>setI(p=>(p+1)%slides.length),4500); return()=>clearInterval(t) },[]);
 
   return (
     <main className="bg-black text-white overflow-x-hidden">
-      {/* NAV */}
       <nav className="fixed top-0 w-full z-50 bg-black/95 border-b border-red-600/30 flex justify-between items-center px-6 py-3 backdrop-blur">
         <div className="font-black text-xl italic tracking-wider flex items-center">
           <span className="text-white">BALLADARES</span>
@@ -54,43 +38,39 @@ export default function Page(){
         <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="bg-[#FF0000] px-6 py-2 font-black skew-x-[-12deg] hover:bg-red-700 transition"><span className="skew-x- block">COTIZAR</span></a>
       </nav>
 
-      {/* HERO */}
       <section id="inicio" className="h- relative overflow-hidden mt-">
         {slides.map((s,idx)=>(
-          <div key={idx} className={`absolute inset-0 transition-opacity duration- ${idx===i?"opacity-100":"opacity-0"}`} style={{backgroundImage:`url(${s.img})`,backgroundSize:"cover",backgroundPosition:"center"}}>
-            <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-black/20"/>
+          <div key={idx} className={`absolute inset-0 transition-opacity duration-1000 ${idx===i?"opacity-100":"opacity-0"}`} style={{backgroundImage:`url(${s.img})`,backgroundSize:"cover",backgroundPosition:"center"}}>
+            <div className="absolute inset-0 bg-black/60"/>
             <div className="relative h-full flex flex-col justify-center px-6 md:px-24">
-              <h1 className="text-5xl md:text-8xl font-black italic leading-[0.9] max-w-4xl whitespace-pre-line">{s.title}</h1>
+              <h1 className="text-5xl md:text-8xl font-black italic leading-none max-w-4xl">{s.title}</h1>
               <p className="mt-6 text-lg md:text-xl bg-white text-black inline-block px-5 py-2 font-bold w-fit skew-x-[-12deg]"><span className="skew-x- block">{s.sub}</span></p>
               <a href="#servicios" className="mt-8 w-fit bg-[#FF0000] px-8 py-3 font-black skew-x-[-12deg] hover:bg-white hover:text-black transition"><span className="skew-x- block">VER SERVICIOS →</span></a>
             </div>
           </div>
         ))}
         <div className="absolute bottom-8 left-10 flex gap-2">
-          {slides.map((_,idx)=><button key={idx} onClick={()=>setI(idx)} className={`h- w-12 transition-all ${idx===i?"bg-[#FF0000]":"bg-white/30"}`}/>)}
+          {slides.map((_,idx)=><button key={idx} onClick={()=>setI(idx)} className={`h-1 w-12 transition-all ${idx===i?"bg-[#FF0000]":"bg-white/30"}`}/>)}
         </div>
       </section>
 
-      {/* TRUST BAR - igual que tu screenshot */}
       <section className="bg-[#111] border-y border-white/10 grid grid-cols-2 md:grid-cols-4">
         {["+15 AÑOS EXPERIENCIA","SCANNER ÚLTIMA GEN","TODAS LAS MARCAS","SERVICIO DE PISTA"].map(t=><div key={t} className="p-5 text-center font-black text-sm border-r border-white/5 last:border-0"><span className="text-[#FF0000]">✓</span> {t}</div>)}
       </section>
 
-      {/* NOSOTROS */}
       <section id="nosotros" className="px-6 md:px-24 py-20 grid md:grid-cols-2 gap-12 items-center">
         <div>
           <h2 className="text-4xl font-black italic">NOSOTROS / <span className="text-[#FF0000]">HISTORIA</span></h2>
           <p className="mt-6 text-white/60 leading-relaxed">Balladares Motors es un taller bien conocido en Concepción. Nacimos de la pasión por las carreras en pista y circuito, atendiendo autos de gama alta y todas las marcas. Contamos con elevadores, máquina de alineación 3D, balanceo y ajuste de motor completo.</p>
           <ul className="mt-8 space-y-3">{["Scanner multimarca","Elevadores profesionales","Alineación y balanceo","Repro Stage 1 y 2"].map(x=><li key={x} className="flex gap-3 font-bold"><span className="text-[#FF0000]">■</span>{x}</li>)}</ul>
         </div>
-        <div className="relative skew-x-[-6deg] bg-zinc-900 p-2">
-          <div className="skew-x- bg-[url('/hero/taller.jpg')] h- bg-cover bg-center"/>
+        <div className="relative skew-x-[-6deg] bg-zinc-900 p-2 border border-white/10">
+          <div className="skew-x- h- bg-cover bg-center" style={{backgroundImage: "url('/hero/pista.jpg')"}}/>
         </div>
       </section>
 
-      {/* SERVICIOS */}
       <section id="servicios" className="bg-white text-black px-6 md:px-24 py-20">
-        <h2 className="text-5xl font-black italic skew-x-[-6deg]">SERVICIOS</h2>
+        <h2 className="text-5xl font-black italic">SERVICIOS</h2>
         <div className="grid md:grid-cols-3 gap-6 mt-10">
           {servicios.map(s=><div key={s.n} className="border-2 border-black p-6 hover:bg-black hover:text-white transition group">
             <div className="font-black text-xl">{s.n}</div>
@@ -101,7 +81,6 @@ export default function Page(){
       </section>
 
       <footer id="contacto" className="bg-black border-t border-[#FF0000] py-10 text-center text-white/50 text-sm">balladares-motors.cl - Concepción, Chile - 2026</footer>
-
       <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="fixed bottom-6 right-6 bg-[#25D366] w-14 h-14 rounded-full flex items-center justify-center text-2xl font-black shadow-xl hover:scale-110 transition">W</a>
     </main>
   );
