@@ -1,40 +1,100 @@
 "use client";
 import { useState, useEffect } from "react";
 
+const WHATSAPP = "56900000000";
+
 const slides = [
   { title: "REPRO STAGE 1 & 2", sub: "Potencia real para tu motor", img: "/hero/repro.jpg" },
-  { title: "DIAGNÓSTICO", sub: "Scanner multimarca", img: "/hero/scanner.jpg" },
-  { title: "PISTA Y CALLE", sub: "Alineación 3D, balanceo", img: "/hero/pista.jpg" },
+  { title: "DIAGNÓSTICO DE ÚLTIMA GENERACIÓN", sub: "Scanner multimarca para todas las marcas", img: "/hero/scanner.jpg" },
+  { title: "SERVICIO DE PISTA Y CALLE", sub: "Alineación 3D, balanceo, elevadores", img: "/hero/pista.jpg" },
+];
+
+const servicios = [
+  { n: "Repro Stage 1/2", p: "Desde $180.000" },
+  { n: "Scanner Multimarca", p: "Desde $25.000" },
+  { n: "Alineación 3D", p: "Desde $18.000" },
+  { n: "Balanceo", p: "Desde $12.000" },
+  { n: "Ajuste Motor", p: "Cotizar" },
+  { n: "Mecánica General", p: "Cotizar" },
 ];
 
 export default function Page(){
   const [i,setI]=useState(0);
-  useEffect(()=>{ const t=setInterval(()=>setI(p=>(p+1)%3),4000); return()=>clearInterval(t)},[]);
+  useEffect(()=>{ const t=setInterval(()=>setI(p=>(p+1)%slides.length),4500); return()=>clearInterval(t) },[]);
 
   return (
-    <main style={{background:"black", color:"white"}}>
-      <nav style={{position:"fixed", top:0, width:"100%", zIndex:50, background:"black", borderBottom:"2px solid red", display:"flex", justifyContent:"space-between", padding:"12px 24px"}}>
-        <div style={{fontWeight:900, fontStyle:"italic"}}>BALLADARES <span style={{background:"red", padding:"2px 8px"}}>MOTORS</span></div>
-        <div style={{display:"flex", gap:20, fontWeight:700}}><span>INICIO</span><span>NOSOTROS</span><span>SERVICIOS</span></div>
+    <main className="bg-black text-white overflow-x-hidden">
+      <nav className="fixed top-0 w-full z-50 bg-black border-b-2 border-red-600 flex justify-between items-center px-6 py-3">
+        <div className="font-black text-xl italic tracking-wider flex items-center">
+          <span>BALLADARES</span>
+          <span className="bg-red-600 px-3 ml-2" style={{transform:"skewX(-12deg)", display:"inline-block"}}>
+            <span style={{transform:"skewX(12deg)", display:"inline-block"}}>MOTORS</span>
+          </span>
+        </div>
+        <div className="hidden md:flex gap-8 text-sm font-bold">
+          <a href="#inicio" className="hover:text-red-500">INICIO</a>
+          <a href="#nosotros" className="hover:text-red-500">NOSOTROS</a>
+          <a href="#servicios" className="hover:text-red-500">SERVICIOS</a>
+          <a href="#contacto" className="hover:text-red-500">CONTACTO</a>
+        </div>
+        <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="bg-red-600 px-6 py-2 font-black" style={{transform:"skewX(-12deg)"}}>
+          <span style={{transform:"skewX(12deg)", display:"block"}}>COTIZAR</span>
+        </a>
       </nav>
 
-      <section style={{height:"85vh", marginTop:56, position:"relative", overflow:"hidden"}}>
-        {slides.map((s, idx) => (
-          <div key={idx} style={{position:"absolute", inset:0, opacity: idx===i?1:0, transition:"opacity 1s", display: idx===i?"block":"none"}}>
-            <img src={s.img} alt={s.title} style={{position:"absolute", inset:0, width:"100%", height:"100%", objectFit:"cover"}} />
-            <div style={{position:"absolute", inset:0, background:"rgba(0,0,0,0.6)"}} />
-            <div style={{position:"relative", height:"100%", display:"flex", flexDirection:"column", justifyContent:"center", padding:"0 80px"}}>
-              <h1 style={{fontSize:80, fontWeight:900, fontStyle:"italic", lineHeight:0.9, maxWidth:700}}>{s.title}</h1>
-              <p style={{marginTop:16, background:"white", color:"black", display:"inline-block", padding:"6px 16px", fontWeight:700, width:"fit-content"}}>{s.sub}</p>
+      {/* HERO CON IMG TAG - ESTE SI FUNCIONA */}
+      <section id="inicio" className="h- relative overflow-hidden mt- bg-zinc-900">
+        {slides.map((s,idx)=>(
+          <div key={idx} className={`absolute inset-0 transition-opacity duration-1000 ${idx===i?"opacity-100":"opacity-0"}`}>
+            <img src={s.img} alt={s.title} className="absolute inset-0 w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-black/60 bg-gradient-to-r from-black via-black/60 to-transparent"/>
+            <div className="relative h-full flex flex-col justify-center px-6 md:px-24">
+              <h1 className="text-5xl md:text-8xl font-black italic leading-none max-w-4xl">{s.title}</h1>
+              <p className="mt-6 text-lg bg-white text-black inline-block px-5 py-2 font-bold w-fit" style={{transform:"skewX(-12deg)"}}>
+                <span style={{transform:"skewX(12deg)", display:"block"}}>{s.sub}</span>
+              </p>
+              <a href="#servicios" className="mt-8 w-fit bg-red-600 px-8 py-3 font-black hover:bg-white hover:text-black transition" style={{transform:"skewX(-12deg)"}}>
+                <span style={{transform:"skewX(12deg)", display:"block"}}>VER SERVICIOS →</span>
+              </a>
             </div>
           </div>
         ))}
-        <div style={{position:"absolute", bottom:20, left:40, display:"flex", gap:8}}>
-          {slides.map((_,idx)=><button key={idx} onClick={()=>setI(idx)} style={{height:4, width:40, background: idx===i?"red":"rgba(255,255,255,0.3)", border:0}} />)}
+        <div className="absolute bottom-8 left-10 flex gap-2">
+          {slides.map((_,idx)=><button key={idx} onClick={()=>setI(idx)} className={`h-1 w-12 transition-all ${idx===i?"bg-red-600":"bg-white/30"}`}/>)}
         </div>
       </section>
 
-      <section style={{padding:40, textAlign:"center"}}>Si ves las 3 fotos rotando aquí arriba, ya quedó. Si ves negro, es que las fotos no están en /public/hero/</section>
+      <section className="bg-[#111] border-y border-white/10 grid grid-cols-2 md:grid-cols-4">
+        {["+15 AÑOS EXPERIENCIA","SCANNER ÚLTIMA GEN","TODAS LAS MARCAS","SERVICIO DE PISTA"].map(t=><div key={t} className="p-5 text-center font-black text-sm border-r border-white/5 last:border-0"><span className="text-red-600">✓</span> {t}</div>)}
+      </section>
+
+      <section id="nosotros" className="px-6 md:px-24 py-20 grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 className="text-4xl font-black italic">NOSOTROS / <span className="text-red-600">HISTORIA</span></h2>
+          <p className="mt-6 text-white/60 leading-relaxed">Balladares Motors es un taller bien conocido en Concepción. Nacimos de la pasión por las carreras en pista y circuito, atendiendo autos de gama alta y todas las marcas. Contamos con elevadores, máquina de alineación 3D, balanceo y ajuste de motor completo.</p>
+          <ul className="mt-8 space-y-3">{["Scanner multimarca","Elevadores profesionales","Alineación y balanceo","Repro Stage 1 y 2"].map(x=><li key={x} className="flex gap-3 font-bold"><span className="text-red-600">■</span>{x}</li>)}</ul>
+        </div>
+        <div className="bg-zinc-900 p-2 border border-white/10" style={{transform:"skewX(-6deg)"}}>
+          <div style={{transform:"skewX(6deg)"}}>
+            <img src="/hero/pista.jpg" alt="taller" className="h- w-full object-cover" />
+          </div>
+        </div>
+      </section>
+
+      <section id="servicios" className="bg-white text-black px-6 md:px-24 py-20">
+        <h2 className="text-5xl font-black italic">SERVICIOS</h2>
+        <div className="grid md:grid-cols-3 gap-6 mt-10">
+          {servicios.map(s=><div key={s.n} className="border-2 border-black p-6 hover:bg-black hover:text-white transition group">
+            <div className="font-black text-xl">{s.n}</div>
+            <div className="mt-2 text-red-600 font-bold group-hover:text-white">{s.p}</div>
+            <a href={`https://wa.me/${WHATSAPP}?text=Hola, quiero cotizar ${encodeURIComponent(s.n)}`} target="_blank" className="mt-5 inline-block bg-red-600 text-white px-5 py-2 text-sm font-black">COTIZAR</a>
+          </div>)}
+        </div>
+      </section>
+
+      <footer id="contacto" className="bg-black border-t-2 border-red-600 py-10 text-center text-white/50 text-sm">balladares-motors.cl - Concepción, Chile - 2026</footer>
+
+      <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="fixed bottom-6 right-6 bg-[#25D366] w-14 h-14 rounded-full flex items-center justify-center text-2xl font-black shadow-xl hover:scale-110 transition">W</a>
     </main>
-  )
+  );
 }
