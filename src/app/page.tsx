@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 
-const WHATSAPP = "56900000000";
+const WHATSAPP = "56932285399";
 
 const slides = [
   { title: "REPRO STAGE 1 & 2", img: "/hero/repro.jpg", pos: "50% 50%" },
@@ -10,12 +10,24 @@ const slides = [
 ];
 
 const servicios = [
-  { n: "Repro Stage 1/2", p: "Desde $180.000", d: "Potencia +25% / Torque +30%", icon: "⚡", accent: "from-red-600 to-orange-500" },
-  { n: "Scanner Multimarca", p: "Desde $25.000", d: "Diagnóstico computarizado full", icon: "💻", accent: "from-blue-600 to-cyan-400" },
-  { n: "Alineación 3D", p: "Desde $18.000", d: "Precisión milimétrica láser", icon: "🎯", accent: "from-zinc-700 to-zinc-500" },
-  { n: "Balanceo", p: "Desde $12.000", d: "Vibración cero a alta velocidad", icon: "⚖️", accent: "from-yellow-500 to-amber-500" },
-  { n: "Ajuste Motor", p: "Cotizar", d: "Rectificación y armado pro", icon: "🔧", accent: "from-red-600 to-red-800" },
-  { n: "Mecánica General", p: "Cotizar", d: "Frenos, suspensión, distribución", icon: "🏁", accent: "from-white to-zinc-400" },
+  { n: "Repro Stage 1/2", p: "Desde $180.000", d: "Potencia +25% / Torque +30%", accent: "from-red-600 to-orange-500", icon: (
+    <svg viewBox="0 0 24 24" className="w-7 h-7" fill="currentColor"><path d="M13 2L3 14h6l-1 8 10-12h-6l1-8z"/></svg>
+  )},
+  { n: "Scanner Multimarca", p: "Desde $25.000", d: "Diagnóstico computarizado full", icon: (
+    <svg viewBox="0 0 24 24" className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+  ), accent: "from-blue-600 to-cyan-400" },
+  { n: "Alineación 3D", p: "Desde $18.000", d: "Precisión milimétrica láser", icon: (
+    <svg viewBox="0 0 24 24" className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1l2.1-2.1M17 7l2.1-2.1"/></svg>
+  ), accent: "from-zinc-700 to-zinc-500" },
+  { n: "Balanceo", p: "Desde $12.000", d: "Vibración cero a alta velocidad", icon: (
+    <svg viewBox="0 0 24 24" className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="9"/><path d="M12 7a5 5 0 0 1 5 5"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg>
+  ), accent: "from-yellow-500 to-amber-500" },
+  { n: "Ajuste Motor", p: "Cotizar", d: "Rectificación y armado pro", icon: (
+    <svg viewBox="0 0 24 24" className="w-7 h-7" fill="currentColor"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.1-3.1a1 1 0 0 0 0-1.4l-1.6-1.6a1 1 0 0 0-1.4 0l-3.1 3.1zM3 17.3L4.7 19l6-3.8-1.7-1.7L3 17.3zM5 20l-1 1a1 1 0 0 1-1.4 0l-.6-.6a1 1 0 0 1 0-1.4L3 18"/></svg>
+  ), accent: "from-red-600 to-red-800" },
+  { n: "Mecánica General", p: "Cotizar", d: "Frenos, suspensión, distribución", icon: (
+    <svg viewBox="0 0 24 24" className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 17H3a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v3"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M9 17h6"/></svg>
+  ), accent: "from-white to-zinc-400" },
 ];
 
 const galeria = [
@@ -36,13 +48,20 @@ export default function Page(){
 
   return (
     <main className="bg-black text-white overflow-x-hidden">
-      {/* NAV - NO TOCAR */}
-      <nav className="fixed top-0 w-full z-50 bg-black border-b-2 border-red-600 flex justify-between items-center px-6 py-3">
-        <div className="font-black text-xl italic tracking-wider flex items-center">
-          <span>BALLADARES</span>
-          <span className="bg-red-600 px-3 ml-2" style={{transform:"skewX(-12deg)", display:"inline-block"}}>
-            <span style={{transform:"skewX(12deg)", display:"inline-block"}}>MOTORS</span>
-          </span>
+      {/* NAV CON LOGO BB.png */}
+      <nav className="fixed top-0 w-full z-50 bg-black border-b-2 border-red-600 flex justify-between items-center px-4 md:px-6 py-2">
+        <div className="flex items-center">
+          <img 
+            src="/BB.png" 
+            alt="Balladares Motors Logo" 
+            className="h-9 md:h-11 w-auto"
+            style={{
+              objectFit: "contain",
+              transform: "scaleX(1.25) scaleY(0.92)",
+              transformOrigin: "left center",
+              filter: "brightness(1.1) contrast(1.1)"
+            }}
+          />
         </div>
         <div className="hidden md:flex gap-8 text-sm font-bold">
           <a href="#inicio" className="hover:text-red-500">INICIO</a>
@@ -51,13 +70,12 @@ export default function Page(){
           <a href="#galeria" className="hover:text-red-500">GALERÍA</a>
           <a href="#contacto" className="hover:text-red-500">CONTACTO</a>
         </div>
-        <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="bg-red-600 px-6 py-2 font-black" style={{transform:"skewX(-12deg)"}}>
+        <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="bg-red-600 px-5 md:px-6 py-2 font-black text-sm" style={{transform:"skewX(-12deg)"}}>
           <span style={{transform:"skewX(12deg)", display:"block"}}>COTIZAR</span>
         </a>
       </nav>
 
-      {/* HERO - NO TOCAR - QUEDO PERFECTO */}
-      <section id="inicio" className="h-[85vh] relative overflow-hidden mt-[56px] bg-zinc-900">
+      <section id="inicio" className="h-[85vh] relative overflow-hidden mt-[52px] bg-zinc-900">
         {slides.map((s,idx)=>(
           <div key={idx} className={`absolute inset-0 transition-opacity duration-1000 ${idx===i?"opacity-100":"opacity-0"}`}>
             <img src={s.img} alt={s.title} className="absolute inset-0 w-full h-full object-cover" style={{objectPosition: s.pos}} />
@@ -92,7 +110,6 @@ export default function Page(){
         </div>
       </section>
 
-      {/* SERVICIOS - NUEVO ESTILO RACING */}
       <section id="servicios" className="bg-white text-black px-6 md:px-24 py-20">
         <div className="flex items-end justify-between flex-wrap gap-4">
           <h2 className="text-5xl font-black italic leading-none">SERVICIOS <span className="text-red-600">RACING</span></h2>
@@ -102,15 +119,12 @@ export default function Page(){
         <div className="grid md:grid-cols-3 gap-8 mt-12">
           {servicios.map(s=>(
             <div key={s.n} className="group relative">
-              {/* marco racing inclinado */}
               <div className="absolute -inset-[1px] bg-black group-hover:bg-red-600 transition-all" style={{transform:"skewX(-4deg)"}} />
               <div className="relative bg-white p-[2px]" style={{transform:"skewX(-4deg)"}}>
                 <div className="bg-white p-6" style={{transform:"skewX(4deg)"}}>
-                  {/* top accent */}
                   <div className={`h-1 w-full bg-gradient-to-r ${s.accent} mb-4`} />
-                  {/* icono 3D */}
                   <div className="flex items-start justify-between">
-                    <div className="w-14 h-14 bg-black text-white flex items-center justify-center text-2xl font-black shadow-[4px_4px_0px_#dc2626] group-hover:shadow-[6px_6px_0px_#dc2626] transition-all" style={{transform:"rotate(-2deg)"}}>
+                    <div className="w-14 h-14 bg-black text-white flex items-center justify-center font-black shadow-[4px_4px_0px_#dc2626] group-hover:shadow-[6px_6px_0px_#dc2626] group-hover:translate-x-[-1px] group-hover:translate-y-[-1px] transition-all" style={{transform:"rotate(-2deg)"}}>
                       {s.icon}
                     </div>
                     <span className="text-[10px] font-black tracking-[0.2em] bg-black text-white px-2 py-1">PRO</span>
@@ -128,7 +142,6 @@ export default function Page(){
         </div>
       </section>
 
-      {/* GALERÍA */}
       <section id="galeria" className="bg-[#0a0a0a] px-6 md:px-24 py-20 border-y border-white/10">
         <h2 className="text-4xl font-black italic">GALERÍA / <span className="text-red-600">PEGA REAL</span></h2>
         <div className="grid md:grid-cols-4 gap-4 mt-8">
@@ -142,27 +155,25 @@ export default function Page(){
             </div>
           ))}
         </div>
-        <p className="text-white/40 text-xs mt-4 font-bold">* Fotos reales del taller. Sube más a /public/hero/ para que aparezcan aquí.</p>
+        <p className="text-white/40 text-xs mt-4 font-bold">* Fotos reales. Cuando subas más a /public/hero/ o /public/taller/ las agregamos.</p>
       </section>
 
-      {/* MARCAS */}
       <section className="bg-black border-b border-white/10 py-10 px-6 md:px-24 overflow-hidden">
-        <div className="flex gap-12 animate-[marquee_20s_linear_infinite] whitespace-nowrap">
+        <div className="flex gap-12 whitespace-nowrap">
           {[...marcas, ...marcas].map((m, i)=>(
             <span key={i} className="font-black italic text-2xl text-white/20 hover:text-white/60 transition">{m}</span>
           ))}
         </div>
       </section>
 
-      {/* CONTACTO + MAPA + FORM */}
       <section id="contacto" className="grid md:grid-cols-2">
         <div className="bg-zinc-900 p-10 md:p-16">
           <h2 className="text-4xl font-black italic">COTIZA EN <span className="text-red-600">30 SEG</span></h2>
           <div className="grid grid-cols-2 gap-4 mt-8">
-            <input value={form.marca} onChange={e=>setForm({...form, marca:e.target.value})} placeholder="Marca (Nissan)" className="bg-black border border-white/10 p-3 text-sm font-bold outline-none focus:border-red-600" />
-            <input value={form.modelo} onChange={e=>setForm({...form, modelo:e.target.value})} placeholder="Modelo (GT-R)" className="bg-black border border-white/10 p-3 text-sm font-bold outline-none focus:border-red-600" />
-            <input value={form.ano} onChange={e=>setForm({...form, ano:e.target.value})} placeholder="Año (2002)" className="bg-black border border-white/10 p-3 text-sm font-bold outline-none focus:border-red-600" />
-            <select value={form.servicio} onChange={e=>setForm({...form, servicio:e.target.value})} className="bg-black border border-white/10 p-3 text-sm font-bold outline-none focus:border-red-600">
+            <input value={form.marca} onChange={e=>setForm({...form, marca:e.target.value})} placeholder="Marca (Nissan)" className="bg-black border border-white/10 p-3 text-sm font-bold outline-none focus:border-red-600 text-white" />
+            <input value={form.modelo} onChange={e=>setForm({...form, modelo:e.target.value})} placeholder="Modelo (GT-R)" className="bg-black border border-white/10 p-3 text-sm font-bold outline-none focus:border-red-600 text-white" />
+            <input value={form.ano} onChange={e=>setForm({...form, ano:e.target.value})} placeholder="Año (2002)" className="bg-black border border-white/10 p-3 text-sm font-bold outline-none focus:border-red-600 text-white" />
+            <select value={form.servicio} onChange={e=>setForm({...form, servicio:e.target.value})} className="bg-black border border-white/10 p-3 text-sm font-bold outline-none focus:border-red-600 text-white">
               {servicios.map(s=><option key={s.n}>{s.n}</option>)}
             </select>
           </div>
@@ -171,7 +182,7 @@ export default function Page(){
           <div className="mt-10 space-y-3 text-sm">
             <div className="flex gap-3"><span className="text-red-600 font-black">DIR:</span> <span className="text-white/70">Concepción, Bío Bío - a pasos de Paicaví</span></div>
             <div className="flex gap-3"><span className="text-red-600 font-black">HOR:</span> <span className="text-white/70">Lun - Sáb 09:00 a 19:00</span></div>
-            <div className="flex gap-3"><span className="text-red-600 font-black">TEL:</span> <span className="text-white/70">+56 9 0000 0000</span></div>
+            <div className="flex gap-3"><span className="text-red-600 font-black">TEL:</span> <span className="text-white/70">+56 9 3228 5399</span></div>
           </div>
         </div>
         <div className="relative bg-[#111] min-h-[500px]">
@@ -183,7 +194,7 @@ export default function Page(){
           <div className="absolute bottom-6 left-6 bg-black border-2 border-red-600 p-4 font-black italic" style={{transform:"skewX(-6deg)"}}>
             <div style={{transform:"skewX(6deg)"}}>
               <div className="text-red-600 text-xs">ENCUÉNTRANOS</div>
-              <div className="text-lg">BALLADARES MOTORS</div>
+              <div className="text-lg text-white">BALLADARES MOTORS</div>
               <div className="text-xs text-white/60">Concepción, Chile</div>
             </div>
           </div>
