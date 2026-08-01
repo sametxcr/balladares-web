@@ -52,6 +52,7 @@ export default function Page(){
   return (
     <main className="bg-black text-white overflow-x-hidden">
       <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Russo+One&family=Orbitron:wght@900&display=swap');
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         .marquee { animation: marquee 35s linear infinite; }
         .racing-box {
@@ -72,6 +73,7 @@ export default function Page(){
           pointer-events: none;
         }
         .racing-text {
+          font-family: 'Russo One', 'Orbitron', sans-serif;
           font-style: italic;
           font-weight: 900;
           font-size: inherit;
@@ -124,8 +126,9 @@ export default function Page(){
                         zIndex: 0
                       }} />
                       {/* Texto cromado */}
-                      <div className="relative z-10 px-4 py-1" style={{transform: "skewX(-12deg)"}}>
+                                            <div className="relative z-10 px-4 py-1" style={{transform: "skewX(-12deg)"}}>
                         <span className="block text-[40px] md:text-[76px] font-black italic leading-[0.85] tracking-[-0.02em]" style={{
+                          fontFamily: "'Russo One', 'Orbitron', sans-serif",
                           transform: "skewX(0deg)",
                           background: "linear-gradient(180deg, #ffffff 0%, #f5f5f5 20%, #a3a3a3 45%, #ffffff 50%, #e5e5e5 55%, #9a9a9a 100%)",
                           WebkitBackgroundClip: "text",
