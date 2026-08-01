@@ -5,9 +5,9 @@ const WHATSAPP = "56932285399";
 const INSTAGRAM = "https://www.instagram.com/balladaresmotor/";
 
 const slides = [
-  { title: ["repro stage", "1 & 2"], sub: "Potencia real +25% torque +30%", img: "/hero/repro.jpg", pos: "50% 50%" },
-  { title: ["servicios de", "pista y calle"], sub: "Alineación 3D, balanceo, elevadores pro", img: "/hero/pista.jpg", pos: "50% 82%" },
-  { title: ["diagnostico de", "ultima generacion"], sub: "Scanner multimarca - Todas las marcas", img: "/hero/scanner.jpg", pos: "50% 50%" },
+  { title: ["repro stage", "1 & 2"], titleImgs: ["/hero/titles/repro_stage_logo.webp", "/hero/titles/chrome_racing_1_and_2.webp"], sub: "Potencia real +25% torque +30%", img: "/hero/repro.jpg", pos: "50% 50%" },
+  { title: ["servicios de", "pista y calle"], titleImgs: ["/hero/titles/servicios_de_chrome_racing_logo.webp", "/hero/titles/pista_y_calle_racing.webp"], sub: "Alineación 3D, balanceo, elevadores pro", img: "/hero/pista.jpg", pos: "50% 82%" },
+  { title: ["diagnostico de", "ultima generacion"], titleImgs: ["/hero/titles/diagnostico_de_racing_logo.webp", "/hero/titles/ultima_generacion_racing_logo.webp"], sub: "Scanner multimarca - Todas las marcas", img: "/hero/scanner.jpg", pos: "50% 50%" },
 ];
 
 const servicios = [
@@ -105,43 +105,19 @@ export default function Page(){
         <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="bg-red-600 px-6 md:px-8 py-2.5 font-black text-sm hover:bg-white hover:text-black transition shadow-[3px_3px_0px_white]" style={{transform:"skewX(-12deg)"}}><span style={{transform:"skewX(12deg)", display:"block"}}>COTIZAR →</span></a>
       </nav>
 
-                  <section id="inicio" className="h-[92vh] relative overflow-hidden mt-[58px] bg-zinc-900">
+                        <section id="inicio" className="h-[92vh] relative overflow-hidden mt-[58px] bg-zinc-900">
         {slides.map((s,idx)=>(
           <div key={idx} className={`absolute inset-0 transition-opacity duration-1000 ${idx===i?"opacity-100":"opacity-0"}`}>
             <img src={s.img} alt={s.title.join(" ")} className="absolute inset-0 w-full h-full object-cover" style={{objectPosition: s.pos}} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent" />
             <div className="relative h-full flex flex-col justify-between px-4 md:px-24 py-10 md:py-20">
-              <div className="mt-16 md:mt-24 flex flex-col items-start">
-                <div className="flex flex-col gap-1">
-                  {s.title.map((line, li) => (
-                    <div key={li} className="relative">
-                      {/* Borde rojo exterior tipo RACING */}
-                      <div className="absolute inset-0" style={{
-                        transform: "skewX(-12deg)",
-                        border: "4px solid #dc2626",
-                        background: "#000",
-                        clipPath: "polygon(3% 0, 100% 0, 97% 100%, 0% 100%)",
-                        padding: "8px 28px",
-                        margin: "-8px -18px",
-                        zIndex: 0
-                      }} />
-                      {/* Texto cromado */}
-                                            <div className="relative z-10 px-4 py-1" style={{transform: "skewX(-12deg)"}}>
-                        <span className="block text-[40px] md:text-[76px] font-black italic leading-[0.85] tracking-[-0.02em]" style={{
-                          fontFamily: "'Russo One', 'Orbitron', sans-serif",
-                          transform: "skewX(0deg)",
-                          background: "linear-gradient(180deg, #ffffff 0%, #f5f5f5 20%, #a3a3a3 45%, #ffffff 50%, #e5e5e5 55%, #9a9a9a 100%)",
-                          WebkitBackgroundClip: "text",
-                          WebkitTextFillColor: "transparent",
-                          backgroundClip: "text",
-                          filter: "drop-shadow(3px 3px 0 #000) drop-shadow(4px 0 0 #000) drop-shadow(-1px 0 0 #000) drop-shadow(0 4px 0 #000)",
-                          WebkitTextStroke: "1.5px #000"
-                        }}>{line}</span>
-                      </div>
-                      {li === 0 && <div className="h-5 md:h-8" />}
-                    </div>
-                  ))}
-                </div>
+              <div className="mt-16 md:mt-24 flex flex-col items-start gap-2">
+                {s.titleImgs.map((imgSrc, li) => (
+                  <div key={li} className="relative">
+                    <img src={imgSrc} alt={s.title[li]} className="h-[52px] md:h-[92px] w-auto drop-shadow-[4px_4px_8px_rgba(0,0,0,0.9)]" style={{transform: li===1 ? "translateX(24px)" : "none"}} />
+                    {li === 0 && <div className="h-3 md:h-5" />}
+                  </div>
+                ))}
               </div>
               <div className="flex flex-col gap-3 items-start mb-2">
                 <a href="#servicios" className="w-fit bg-red-600 px-8 md:px-10 py-3 md:py-3.5 font-black text-[14px] md:text-[15px] hover:bg-white hover:text-black transition shadow-[4px_4px_0px_rgba(0,0,0,0.8)]" style={{transform:"skewX(-12deg)"}}><span style={{transform:"skewX(12deg)", display:"block"}}>VER SERVICIOS →</span></a>
