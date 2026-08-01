@@ -103,21 +103,42 @@ export default function Page(){
         <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="bg-red-600 px-6 md:px-8 py-2.5 font-black text-sm hover:bg-white hover:text-black transition shadow-[3px_3px_0px_white]" style={{transform:"skewX(-12deg)"}}><span style={{transform:"skewX(12deg)", display:"block"}}>COTIZAR →</span></a>
       </nav>
 
-      <section id="inicio" className="h-[92vh] relative overflow-hidden mt-[58px] bg-zinc-900">
+                  <section id="inicio" className="h-[92vh] relative overflow-hidden mt-[58px] bg-zinc-900">
         {slides.map((s,idx)=>(
           <div key={idx} className={`absolute inset-0 transition-opacity duration-1000 ${idx===i?"opacity-100":"opacity-0"}`}>
             <img src={s.img} alt={s.title.join(" ")} className="absolute inset-0 w-full h-full object-cover" style={{objectPosition: s.pos}} />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/10" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent" />
             <div className="relative h-full flex flex-col justify-between px-4 md:px-24 py-10 md:py-20">
-              <div className="mt-20 md:mt-28 flex flex-col items-start gap-4">
-                {s.title.map((line, li) => (
-                  <div key={li}>
-                    <div className="racing-box">
-                      <span className="racing-text text-[38px] md:text-[72px]">{line}</span>
+              <div className="mt-16 md:mt-24 flex flex-col items-start">
+                <div className="flex flex-col gap-1">
+                  {s.title.map((line, li) => (
+                    <div key={li} className="relative">
+                      {/* Borde rojo exterior tipo RACING */}
+                      <div className="absolute inset-0" style={{
+                        transform: "skewX(-12deg)",
+                        border: "4px solid #dc2626",
+                        background: "#000",
+                        clipPath: "polygon(3% 0, 100% 0, 97% 100%, 0% 100%)",
+                        padding: "8px 28px",
+                        margin: "-8px -18px",
+                        zIndex: 0
+                      }} />
+                      {/* Texto cromado */}
+                      <div className="relative z-10 px-4 py-1" style={{transform: "skewX(-12deg)"}}>
+                        <span className="block text-[40px] md:text-[76px] font-black italic leading-[0.85] tracking-[-0.02em]" style={{
+                          transform: "skewX(0deg)",
+                          background: "linear-gradient(180deg, #ffffff 0%, #f5f5f5 20%, #a3a3a3 45%, #ffffff 50%, #e5e5e5 55%, #9a9a9a 100%)",
+                          WebkitBackgroundClip: "text",
+                          WebkitTextFillColor: "transparent",
+                          backgroundClip: "text",
+                          filter: "drop-shadow(3px 3px 0 #000) drop-shadow(4px 0 0 #000) drop-shadow(-1px 0 0 #000) drop-shadow(0 4px 0 #000)",
+                          WebkitTextStroke: "1.5px #000"
+                        }}>{line}</span>
+                      </div>
+                      {li === 0 && <div className="h-5 md:h-8" />}
                     </div>
-                    {li === 0 && <div className="h-3 md:h-5" />}
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
               <div className="flex flex-col gap-3 items-start mb-2">
                 <a href="#servicios" className="w-fit bg-red-600 px-8 md:px-10 py-3 md:py-3.5 font-black text-[14px] md:text-[15px] hover:bg-white hover:text-black transition shadow-[4px_4px_0px_rgba(0,0,0,0.8)]" style={{transform:"skewX(-12deg)"}}><span style={{transform:"skewX(12deg)", display:"block"}}>VER SERVICIOS →</span></a>
