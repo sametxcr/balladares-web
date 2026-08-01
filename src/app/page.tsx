@@ -23,21 +23,21 @@ const servicios = [
 const galeriaTaller = Array.from({ length: 35 }, (_, i) => `/taller/${i + 1}.jpg`);
 
 const marcas = [
-  { name: "NISSAN", logo: "https://api.iconify.design/logos:nissan.svg" },
-  { name: "TOYOTA", logo: "https://api.iconify.design/logos:toyota.svg" },
-  { name: "SUBARU", logo: "https://api.iconify.design/logos:subaru.svg" },
-  { name: "MITSUBISHI", logo: "https://api.iconify.design/logos:mitsubishi.svg" },
-  { name: "BMW", logo: "https://api.iconify.design/logos:bmw.svg" },
-  { name: "AUDI", logo: "https://api.iconify.design/logos:audi.svg" },
-  { name: "CHEVROLET", logo: "https://api.iconify.design/logos:chevrolet.svg" },
-  { name: "FORD", logo: "https://api.iconify.design/logos:ford.svg" },
-  { name: "HONDA", logo: "https://api.iconify.design/logos:honda.svg" },
-  { name: "MAZDA", logo: "https://api.iconify.design/logos:mazda.svg" },
-  { name: "MERCEDES", logo: "https://api.iconify.design/logos:mercedes-benz.svg" },
-  { name: "VOLKSWAGEN", logo: "https://api.iconify.design/logos:volkswagen.svg" },
-  { name: "HYUNDAI", logo: "https://api.iconify.design/logos:hyundai.svg" },
-  { name: "KIA", logo: "https://api.iconify.design/logos:kia.svg" },
-  { name: "PEUGEOT", logo: "https://api.iconify.design/logos:peugeot.svg" },
+  { name: "NISSAN", logo: "/brands/brand_nissan_3d.png" },
+  { name: "TOYOTA", logo: "/brands/brand_toyota_3d.png" },
+  { name: "SUBARU", logo: "/brands/brand_subaru_3d.png" },
+  { name: "MITSUBISHI", logo: "/brands/brand_mitsubishi_3d.png" },
+  { name: "BMW", logo: "/brands/brand_bmw_3d.png" },
+  { name: "AUDI", logo: "/brands/brand_audi_3d.png" },
+  { name: "CHEVROLET", logo: "/brands/brand_chevrolet_3d.png" },
+  { name: "FORD", logo: "/brands/brand_ford_3d.png" },
+  { name: "HONDA", logo: "/brands/brand_honda_3d.png" },
+  { name: "MAZDA", logo: "/brands/brand_mazda_3d.png" },
+  { name: "MERCEDES", logo: "/brands/brand_mercedes_3d.png" },
+  { name: "VOLKSWAGEN", logo: "/brands/brand_volkswagen_3d.png" },
+  { name: "HYUNDAI", logo: "/brands/brand_hyundai_3d.png" },
+  { name: "KIA", logo: "/brands/brand_kia_3d.png" },
+  { name: "PEUGEOT", logo: "/brands/brand_peugeot_3d.png" },
 ];
 
 export default function Page(){
@@ -51,7 +51,12 @@ export default function Page(){
 
   return (
     <main className="bg-black text-white overflow-x-hidden">
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Russo+One&family=Orbitron:wght@900&display=swap'); @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } } .marquee { animation: marquee 35s linear infinite; } .logo-3d-box { background: radial-gradient(circle at 30% 30%, #2a2a2a, #0a0a0a); border: 2px solid rgba(255,255,255,0.1); box-shadow: 3px 3px 0px #dc2626, 0 4px 15px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.1); }`}</style>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Russo+One&family=Orbitron:wght@900&display=swap');
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .marquee { animation: marquee 60s linear infinite; }
+        .marquee:hover { animation-play-state: paused; }
+      `}</style>
 
       <nav className="fixed top-0 w-full z-50 bg-black border-b-2 border-red-600 flex justify-between items-center px-4 md:px-6 py-2.5">
         <img src="/BB.png" alt="Balladares Motors" className="h-11 md:h-[52px] w-auto" style={{objectFit:"contain", transform:"scaleX(1.44) scaleY(1.06)", transformOrigin:"left center"}} />
@@ -139,17 +144,17 @@ export default function Page(){
       </section>
 
       <section className="bg-gradient-to-r from-black via-zinc-900 to-black border-y-2 border-red-600 py-8 md:py-10 overflow-hidden relative">
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,rgba(220,38,38,0.1)_50%,transparent_100%)] animate-pulse" />
-        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-black to-transparent z-10" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-black to-transparent z-10" />
-        <div className="marquee flex w-max items-center gap-2 md:gap-4">
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,rgba(220,38,38,0.08)_50%,transparent_100%)]" />
+        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-black to-transparent z-10" />
+        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-black to-transparent z-10" />
+        <div className="marquee flex w-max items-center">
           {[...marcas, ...marcas, ...marcas, ...marcas].map((m, i)=>(
-            <div key={i} className="flex items-center gap-3 md:gap-4 mx-4 md:mx-6 group cursor-pointer">
-              <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-[18px] bg-white flex items-center justify-center p-3 md:p-4 shadow-[0_0_0_2px_rgba(255,255,255,0.1),4px_4px_0px_#dc2626,0_8px_25px_rgba(0,0,0,0.6)] group-hover:shadow-[0_0_0_2px_white,6px_6px_0px_#dc2626,0_12px_35px_rgba(220,38,38,0.4)] group-hover:-translate-y-1 group-hover:scale-105 transition-all duration-300" style={{transform:"rotate(-2deg)"}}>
-                <div className="absolute inset-0 rounded-[16px] bg-gradient-to-br from-white/40 via-transparent to-black/10 pointer-events-none" />
-                <img src={m.logo} alt={m.name} className="w-full h-full object-contain drop-shadow-[0_2px_6px_rgba(0,0,0,0.3)] relative z-10" loading="lazy" />
+            <div key={i} className="flex items-center gap-4 mx-6 md:mx-8 group">
+              <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-[20px] bg-white flex items-center justify-center p-3 shadow-[0_0_0_2px_rgba(255,255,255,0.15),5px_5px_0px_#dc2626,0_10px_30px_rgba(0,0,0,0.7)] group-hover:shadow-[0_0_0_2px_white,7px_7px_0px_#dc2626,0_15px_40px_rgba(220,38,38,0.5)] group-hover:-translate-y-1 group-hover:scale-105 transition-all duration-300">
+                <div className="absolute inset-0 rounded-[20px] bg-gradient-to-br from-white/50 via-transparent to-black/10 pointer-events-none" />
+                <img src={m.logo} alt={m.name} className="w-full h-full object-contain relative z-10" />
               </div>
-              <span className="font-black italic text-[16px] md:text-[20px] text-white tracking-wider group-hover:text-red-500 transition drop-shadow-[2px_2px_0px_rgba(0,0,0,0.8)]">{m.name}</span>
+              <span className="font-black italic text-[18px] md:text-[22px] text-white tracking-wider group-hover:text-red-500 transition drop-shadow-[2px_2px_0px_rgba(0,0,0,0.9)]">{m.name}</span>
             </div>
           ))}
         </div>
