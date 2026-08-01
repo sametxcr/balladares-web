@@ -77,9 +77,9 @@ export default function Page(){
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10" />
             <div className="relative h-full flex flex-col justify-between px-4 md:px-24 py-10 md:py-20">
               <div className="mt-20 md:mt-32">
-                <h1 className="text-[42px] md:text-[78px] font-black italic leading-[0.9] tracking-[-0.02em] text-left max-w-5xl drop-shadow-[3px_3px_0px_rgba(0,0,0,0.8)]">
+                <h1 className="flex flex-col gap-2 md:gap-3 text-left max-w-5xl">
                   {s.title.map((line, li) => (
-                    <span key={li} className="block">{line}</span>
+                    <span key={li} className="block text-[44px] md:text-[82px] font-black italic leading-[0.9] tracking-[-0.02em] text-white racing-title" style={{marginLeft: li===1 ? "0.5em" : "0", transform: "skewX(-8deg)", textShadow: "3px 3px 0px #000, 6px 6px 0px rgba(0,0,0,0.6), 0px 0px 20px rgba(0,0,0,0.8), -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000"}}>{line}</span>
                   ))}
                 </h1>
               </div>
