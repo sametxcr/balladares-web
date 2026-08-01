@@ -74,11 +74,11 @@ export default function Page(){
             <img src={s.img} alt={s.title.join(" ")} className="absolute inset-0 w-full h-full object-cover" style={{objectPosition: s.pos}} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent" />
             <div className="relative h-full flex flex-col justify-between px-4 md:px-24 py-10 md:py-20">
-              <div className="mt-16 md:mt-24 flex flex-col items-start gap-2">
+              <div className="mt-12 md:mt-20 flex flex-col items-start gap-1">
                 {s.titleImgs.map((imgSrc, li) => (
                   <div key={li} className="relative">
-                    <img src={imgSrc} alt={s.title[li]} className="h-[82px] md:h-[154px] w-auto max-w-[92vw] md:max-w-[780px] object-contain drop-shadow-[10px_10px_15px_rgba(0,0,0,1)]" style={{transform: li===1 ? "translateX(20px)" : "none"}} />
-                    {li === 0 && <div className="h-4 md:h-6" />}
+                    <img src={imgSrc} alt={s.title[li]} className="h-[98px] md:h-[185px] w-auto max-w-[95vw] md:max-w-[850px] object-contain drop-shadow-[10px_10px_15px_rgba(0,0,0,1)]" style={{transform: li===1 ? "translateX(22px)" : "none"}} />
+                    {li === 0 && <div className="h-2 md:h-3" />}
                   </div>
                 ))}
               </div>
@@ -143,18 +143,18 @@ export default function Page(){
         {selectedImg && (<div onClick={()=>setSelectedImg(null)} className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 cursor-pointer"><img src={selectedImg} alt="full" className="max-w-full max-h-full object-contain" /></div>)}
       </section>
 
-      <section className="bg-gradient-to-r from-black via-zinc-900 to-black border-y-2 border-red-600 py-8 md:py-10 overflow-hidden relative">
+      <section className="bg-gradient-to-r from-black via-zinc-900 to-black border-y-2 border-red-600 py-4 md:py-5 overflow-hidden relative">
         <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,rgba(220,38,38,0.08)_50%,transparent_100%)]" />
-        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-black to-transparent z-10" />
-        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-black to-transparent z-10" />
+        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-black to-transparent z-10" />
+        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-black to-transparent z-10" />
         <div className="marquee flex w-max items-center">
           {[...marcas, ...marcas, ...marcas, ...marcas].map((m, i)=>(
-            <div key={i} className="flex items-center gap-4 mx-6 md:mx-8 group">
-              <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-[20px] bg-white flex items-center justify-center p-3 shadow-[0_0_0_2px_rgba(255,255,255,0.15),5px_5px_0px_#dc2626,0_10px_30px_rgba(0,0,0,0.7)] group-hover:shadow-[0_0_0_2px_white,7px_7px_0px_#dc2626,0_15px_40px_rgba(220,38,38,0.5)] group-hover:-translate-y-1 group-hover:scale-105 transition-all duration-300">
-                <div className="absolute inset-0 rounded-[20px] bg-gradient-to-br from-white/50 via-transparent to-black/10 pointer-events-none" />
+            <div key={i} className="flex items-center gap-3 mx-5 md:mx-6 group">
+              <div className="relative w-12 h-12 md:w-14 md:h-14 rounded-[14px] bg-white flex items-center justify-center p-2 shadow-[0_0_0_1px_rgba(255,255,255,0.15),3px_3px_0px_#dc2626,0_6px_15px_rgba(0,0,0,0.6)] group-hover:shadow-[0_0_0_1px_white,4px_4px_0px_#dc2626,0_8px_20px_rgba(220,38,38,0.4)] group-hover:-translate-y-0.5 transition-all duration-300">
+                <div className="absolute inset-0 rounded-[14px] bg-gradient-to-br from-white/40 via-transparent to-black/10 pointer-events-none" />
                 <img src={m.logo} alt={m.name} className="w-full h-full object-contain relative z-10" />
               </div>
-              <span className="font-black italic text-[18px] md:text-[22px] text-white tracking-wider group-hover:text-red-500 transition drop-shadow-[2px_2px_0px_rgba(0,0,0,0.9)]">{m.name}</span>
+              <span className="font-black italic text-[14px] md:text-[16px] text-white tracking-wider group-hover:text-red-500 transition drop-shadow-[1px_1px_0px_rgba(0,0,0,0.8)]">{m.name}</span>
             </div>
           ))}
         </div>
