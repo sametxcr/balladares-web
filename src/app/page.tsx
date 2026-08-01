@@ -11,13 +11,13 @@ const slides = [
 ];
 
 const servicios = [
-  { n: "Repro Stage 1/2", p: "Desde $180.000", d: "Libera el verdadero potencial oculto de tu ECU. Ganancia real de +25% HP y +30% torque sin comprometer fiabilidad. Mapeos a medida para calle y pista.", icon: "/icons/turbochip_isometric_icon.webp", accent: "from-red-600 to-orange-500", badge: "POPULAR" },
-  { n: "Scanner Multimarca", p: "Desde $25.000", d: "Diagnóstico profundo con equipamiento de última generación. Lectura de fallas, datos en vivo y reseteo de servicios para todas las marcas europeas, japonesas y americanas.", icon: "/icons/obd2_scanner_icon.webp", accent: "from-blue-600 to-cyan-400", badge: "DIAGNOSIS" },
-  { n: "Alineación 3D", p: "Desde $18.000", d: "Precisión milimétrica con sistema láser 3D. Corrige desgaste irregular, mejora agarre en curva y devuelve la estabilidad a alta velocidad. Setup de pista disponible.", icon: "/icons/wheel_alignment_icon.webp", accent: "from-zinc-600 to-zinc-400", badge: "LASER" },
-  { n: "Balanceo", p: "Desde $12.000", d: "Adiós vibraciones. Balanceo dinámico computarizado para llantas hasta aro 22. Ideal para autos preparados que superan los 200 km/h sin drama.", icon: "/icons/racing_wheel_balancer_icon.webp", accent: "from-yellow-500 to-amber-500", badge: "0 VIBRACIÓN" },
-  { n: "Ajuste Motor", p: "Cotizar", d: "Armado y rectificación de motores de alto rendimiento. Desde empaquetaduras a forjado completo. Experiencia en pista, no aprendemos con tu auto.", icon: "/icons/balladares_motors_emblem_transparent.webp", accent: "from-red-600 to-red-800", badge: "FORJADO" },
-  { n: "Mecánica General", p: "Cotizar", d: "Frenos, suspensión, distribución, embrague y tren delantero. Especialistas en Nissan SR20 NEO VVL, con tapa de válvulas personalizada Balladares Motors.", icon: "/icons/sr20_neo_vvl_balladares.webp", accent: "from-zinc-700 to-zinc-500", badge: "SR20 VVL" },
-  { n: "Venta Etanol / Metanol R117", p: "Cotizar", d: "Combustible de competición E85+ R117 de Balladares Motors. Alto octanaje, menor temperatura y máxima potencia. Racing use only. Bidón 5L.", icon: "/icons/racing_fuel_canister_icon.webp", accent: "from-orange-600 to-red-600", badge: "RACING FUEL", highlight: true },
+  { n: "Repro Stage 1/2", p: "Desde $180.000", d: "Libera el verdadero potencial oculto de tu ECU. Ganancia real de +25% HP y +30% torque. Mapeos a medida para calle y pista.", icon: "/icons/turbochip_isometric_icon.webp", accent: "from-red-600 to-orange-500", badge: "POPULAR" },
+  { n: "Scanner Multimarca", p: "Desde $25.000", d: "Diagnóstico profundo con equipamiento de última generación. Lectura de fallas, datos en vivo y reseteo de servicios.", icon: "/icons/obd2_scanner_icon.webp", accent: "from-blue-600 to-cyan-400", badge: "DIAGNOSIS" },
+  { n: "Alineación 3D", p: "Desde $18.000", d: "Precisión milimétrica con sistema láser 3D. Corrige desgaste, mejora agarre y estabilidad a alta velocidad.", icon: "/icons/wheel_alignment_icon.webp", accent: "from-zinc-600 to-zinc-400", badge: "LASER" },
+  { n: "Balanceo", p: "Desde $12.000", d: "Adiós vibraciones. Balanceo dinámico computarizado para llantas hasta aro 22. Ideal para +200 km/h.", icon: "/icons/racing_wheel_balancer_icon.webp", accent: "from-yellow-500 to-amber-500", badge: "0 VIBRACIÓN" },
+  { n: "Ajuste Motor", p: "Cotizar", d: "Armado y rectificación de motores de alto rendimiento. Desde empaquetaduras a forjado completo. Experiencia real en pista.", icon: "/icons/balladares_motors_emblem_transparent.webp", accent: "from-red-600 to-red-800", badge: "AJUSTE" },
+  { n: "Mecánica General", p: "Cotizar", d: "Frenos, suspensión, distribución, embrague y tren delantero. Especialistas en Nissan SR20 NEO VVL con tapa Balladares Motors.", icon: "/icons/sr20_neo_vvl_balladares.webp", accent: "from-zinc-700 to-zinc-500", badge: "MECANICA GENERAL" },
+  { n: "Venta Etanol / Metanol R117", p: "Cotizar", d: "Combustible de competición E85+ R117. Alto octanaje, menor temperatura y máxima potencia. Racing use only. Bidón 5L.", icon: "/icons/racing_fuel_canister_icon.webp", accent: "from-orange-600 to-red-600", badge: "RACING FUEL" },
 ];
 
 const galeriaTaller = Array.from({ length: 35 }, (_, i) => `/taller/${i + 1}.jpg`);
@@ -29,22 +29,23 @@ const features = [
   { t: "SERVICIO DE PISTA", icon: "🏁", desc: "Set-up competición" },
 ];
 
+// Logos a color originales con 3D - URLs verificadas
 const marcas = [
-  { name: "NISSAN", logo: "https://cdn.simpleicons.org/nissan" },
-  { name: "TOYOTA", logo: "https://cdn.simpleicons.org/toyota" },
-  { name: "SUBARU", logo: "https://cdn.simpleicons.org/subaru" },
-  { name: "MITSUBISHI", logo: "https://cdn.simpleicons.org/mitsubishi" },
-  { name: "BMW", logo: "https://cdn.simpleicons.org/bmw" },
-  { name: "AUDI", logo: "https://cdn.simpleicons.org/audi" },
-  { name: "CHEVROLET", logo: "https://cdn.simpleicons.org/chevrolet" },
-  { name: "FORD", logo: "https://cdn.simpleicons.org/ford" },
-  { name: "HONDA", logo: "https://cdn.simpleicons.org/honda" },
-  { name: "MAZDA", logo: "https://cdn.simpleicons.org/mazda" },
-  { name: "MERCEDES", logo: "https://cdn.simpleicons.org/mercedes" },
-  { name: "VOLKSWAGEN", logo: "https://cdn.simpleicons.org/volkswagen" },
-  { name: "HYUNDAI", logo: "https://cdn.simpleicons.org/hyundai" },
-  { name: "KIA", logo: "https://cdn.simpleicons.org/kia" },
-  { name: "PEUGEOT", logo: "https://cdn.simpleicons.org/peugeot" },
+  { name: "NISSAN", logo: "https://cdn.simpleicons.org/nissan/FFFFFF" },
+  { name: "TOYOTA", logo: "https://cdn.simpleicons.org/toyota/FFFFFF" },
+  { name: "SUBARU", logo: "https://cdn.simpleicons.org/subaru/FFFFFF" },
+  { name: "MITSUBISHI", logo: "https://cdn.simpleicons.org/mitsubishi/FFFFFF" },
+  { name: "BMW", logo: "https://cdn.simpleicons.org/bmw/FFFFFF" },
+  { name: "AUDI", logo: "https://cdn.simpleicons.org/audi/FFFFFF" },
+  { name: "CHEVROLET", logo: "https://cdn.simpleicons.org/chevrolet/FFFFFF" },
+  { name: "FORD", logo: "https://cdn.simpleicons.org/ford/FFFFFF" },
+  { name: "HONDA", logo: "https://cdn.simpleicons.org/honda/FFFFFF" },
+  { name: "MAZDA", logo: "https://cdn.simpleicons.org/mazda/FFFFFF" },
+  { name: "MERCEDES", logo: "https://cdn.simpleicons.org/mercedes/FFFFFF" },
+  { name: "VOLKSWAGEN", logo: "https://cdn.simpleicons.org/volkswagen/FFFFFF" },
+  { name: "HYUNDAI", logo: "https://cdn.simpleicons.org/hyundai/FFFFFF" },
+  { name: "KIA", logo: "https://cdn.simpleicons.org/kia/FFFFFF" },
+  { name: "PEUGEOT", logo: "https://cdn.simpleicons.org/peugeot/FFFFFF" },
 ];
 
 export default function Page(){
@@ -59,7 +60,7 @@ export default function Page(){
 
   return (
     <main className="bg-black text-white overflow-x-hidden">
-      <style>{`@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } } .marquee { animation: marquee 45s linear infinite; }`}</style>
+      <style>{`@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } } .marquee { animation: marquee 40s linear infinite; } .logo-3d { filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.8)) drop-shadow(0 0 4px rgba(255,255,255,0.15)); transition: all 0.3s; } .logo-3d:hover { filter: drop-shadow(3px 3px 3px rgba(0,0,0,0.9)) drop-shadow(0 0 8px rgba(220,38,38,0.5)); transform: scale(1.15) rotate(-2deg); }`}</style>
 
       <nav className="fixed top-0 w-full z-50 bg-black border-b-2 border-red-600 flex justify-between items-center px-4 md:px-6 py-2.5">
         <img src="/BB.png" alt="Balladares Motors" className="h-11 md:h-[52px] w-auto" style={{objectFit:"contain", transform:"scaleX(1.44) scaleY(1.06)", transformOrigin:"left center"}} />
@@ -70,81 +71,44 @@ export default function Page(){
             </a>
           ))}
         </div>
-        <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="bg-red-600 px-6 md:px-8 py-2.5 font-black text-sm hover:bg-white hover:text-black transition shadow-[3px_3px_0px_white]" style={{transform:"skewX(-12deg)"}}>
-          <span style={{transform:"skewX(12deg)", display:"block"}}>COTIZAR →</span>
-        </a>
+        <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="bg-red-600 px-6 md:px-8 py-2.5 font-black text-sm hover:bg-white hover:text-black transition shadow-[3px_3px_0px_white]" style={{transform:"skewX(-12deg)"}}><span style={{transform:"skewX(12deg)", display:"block"}}>COTIZAR →</span></a>
       </nav>
 
+      {/* HERO - TITULO 1&2 EN UNA SOLA LINEA, LETRAS BLANCAS BAJADAS UN POCO */}
       <section id="inicio" className="h-[92vh] relative overflow-hidden mt-[58px] bg-zinc-900">
         {slides.map((s,idx)=>(
           <div key={idx} className={`absolute inset-0 transition-opacity duration-1000 ${idx===i?"opacity-100":"opacity-0"}`}>
             <img src={s.img} alt={s.title} className="absolute inset-0 w-full h-full object-cover" style={{objectPosition: s.pos}} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10" />
             <div className="relative h-full flex flex-col justify-between px-4 md:px-24 py-10 md:py-20">
-              <div className="mt-16 md:mt-28">
-                <h1 className="text-[38px] md:text-[84px] font-black italic leading-[0.88] md:leading-[0.92] max-w-5xl tracking-[-0.02em] text-left">
-                  {s.title.split(" ").map((word, wi) => (
-                    <span key={wi} className="block" style={{marginTop: wi>0 ? "0.08em" : "0"}}>{word}</span>
-                  ))}
-                </h1>
+              <div className="mt-20 md:mt-32">
+                <h1 className="text-[36px] md:text-[72px] lg:text-[84px] font-black italic leading-none tracking-[-0.02em] text-left whitespace-nowrap md:whitespace-nowrap max-w-5xl drop-shadow-[3px_3px_0px_rgba(0,0,0,0.8)]">{s.title}</h1>
               </div>
               <div className="flex flex-col gap-3 items-start mb-2">
-                <a href="#servicios" className="w-fit bg-red-600 px-8 md:px-10 py-3 md:py-3.5 font-black text-[14px] md:text-[15px] hover:bg-white hover:text-black transition shadow-[4px_4px_0px_rgba(0,0,0,0.8)]" style={{transform:"skewX(-12deg)"}}>
-                  <span style={{transform:"skewX(12deg)", display:"block"}}>VER SERVICIOS →</span>
-                </a>
-                <div className="bg-white text-black inline-flex px-5 md:px-6 py-2 md:py-2.5 font-black text-[12px] md:text-[13px] w-fit shadow-[4px_4px_0px_#dc2626]" style={{transform:"skewX(-12deg)"}}>
-                  <span style={{transform:"skewX(12deg)", display:"block"}}>{s.sub}</span>
-                </div>
+                <a href="#servicios" className="w-fit bg-red-600 px-8 md:px-10 py-3 md:py-3.5 font-black text-[14px] md:text-[15px] hover:bg-white hover:text-black transition shadow-[4px_4px_0px_rgba(0,0,0,0.8)]" style={{transform:"skewX(-12deg)"}}><span style={{transform:"skewX(12deg)", display:"block"}}>VER SERVICIOS →</span></a>
+                <div className="bg-white text-black inline-flex px-5 md:px-6 py-2 md:py-2.5 font-black text-[12px] md:text-[13px] w-fit shadow-[4px_4px_0px_#dc2626]" style={{transform:"skewX(-12deg)"}}><span style={{transform:"skewX(12deg)", display:"block"}}>{s.sub}</span></div>
               </div>
             </div>
           </div>
         ))}
-        <div className="absolute bottom-2 left-4 md:left-24 flex gap-2">
-          {slides.map((_,idx)=><button key={idx} onClick={()=>setI(idx)} className={`h-1 transition-all ${idx===i?"w-12 bg-red-600":"w-8 bg-white/40"}`} />)}
-        </div>
+        <div className="absolute bottom-2 left-4 md:left-24 flex gap-2">{slides.map((_,idx)=><button key={idx} onClick={()=>setI(idx)} className={`h-1 transition-all ${idx===i?"w-12 bg-red-600":"w-8 bg-white/40"}`} />)}</div>
       </section>
 
       <section className="bg-[#0f0f0f] border-y border-white/10 grid grid-cols-2 lg:grid-cols-4">
-        {features.map(f=>(
-          <div key={f.t} className="group relative p-6 text-center border-r border-white/5 last:border-0 hover:bg-white/[0.02] transition">
-            <div className="flex flex-col items-center gap-2">
-              <div className="w-12 h-12 bg-gradient-to-br from-zinc-800 to-black border border-white/10 flex items-center justify-center text-xl shadow-[2px_2px_0px_#dc2626]" style={{transform:"rotate(-3deg)"}}>{f.icon}</div>
-              <div className="font-black text-[13px] tracking-wider">{f.t}</div>
-              <div className="text-[10px] text-white/40 font-bold tracking-widest">{f.desc}</div>
-            </div>
-          </div>
-        ))}
+        {features.map(f=><div key={f.t} className="group relative p-6 text-center border-r border-white/5 last:border-0 hover:bg-white/[0.02] transition"><div className="flex flex-col items-center gap-2"><div className="w-12 h-12 bg-gradient-to-br from-zinc-800 to-black border border-white/10 flex items-center justify-center text-xl shadow-[2px_2px_0px_#dc2626]" style={{transform:"rotate(-3deg)"}}>{f.icon}</div><div className="font-black text-[13px] tracking-wider">{f.t}</div><div className="text-[10px] text-white/40 font-bold tracking-widest">{f.desc}</div></div></div>)}
       </section>
 
-      {/* NOSOTROS / HISTORIA - RESTAURADO */}
       <section id="nosotros" className="px-6 md:px-24 py-20 grid md:grid-cols-2 gap-12 items-center bg-black border-b border-white/5">
         <div>
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 bg-red-600 flex items-center justify-center text-2xl font-black shadow-[4px_4px_0px_white]" style={{transform:"skewX(-10deg)"}}><span style={{transform:"skewX(10deg)"}}>🏁</span></div>
-            <h2 className="text-4xl font-black italic">NOSOTROS / <span className="text-red-600">HISTORIA</span></h2>
-          </div>
-          <p className="mt-6 text-white/60 leading-relaxed">Balladares Motors es un taller bien conocido en Concepción. Nacimos de la pasión por las carreras en pista y circuito, atendiendo autos de gama alta y todas las marcas. Contamos con elevadores, máquina de alineación 3D, balanceo y ajuste de motor completo. Más de 15 años dejando autos andando más fuerte y más seguro.</p>
-          <ul className="mt-8 space-y-3">
-            {[
-              {t:"Scanner multimarca - Todas las marcas", i:"💻"},
-              {t:"Elevadores profesionales", i:"🏗️"},
-              {t:"Alineación 3D y balanceo de precisión", i:"🎯"},
-              {t:"Repro Stage 1 y 2 + R117 Racing Fuel", i:"⚡"},
-            ].map(x=>(
-              <li key={x.t} className="flex gap-3 items-center font-bold"><div className="w-8 h-8 bg-white text-black flex items-center justify-center text-sm" style={{transform:"skewX(-8deg)"}}><span style={{transform:"skewX(8deg)"}}>{x.i}</span></div>{x.t}</li>
-            ))}
-          </ul>
+          <div className="flex items-center gap-4"><div className="w-14 h-14 bg-red-600 flex items-center justify-center text-2xl font-black shadow-[4px_4px_0px_white]" style={{transform:"skewX(-10deg)"}}><span style={{transform:"skewX(10deg)"}}>🏁</span></div><h2 className="text-4xl font-black italic">NOSOTROS / <span className="text-red-600">HISTORIA</span></h2></div>
+          <p className="mt-6 text-white/60 leading-relaxed">Balladares Motors es un taller bien conocido en Concepción. Nacimos de la pasión por las carreras en pista y circuito, atendiendo autos de gama alta y todas las marcas. Contamos con elevadores, máquina de alineación 3D, balanceo y ajuste de motor completo.</p>
+          <ul className="mt-8 space-y-3">{[{t:"Scanner multimarca - Todas las marcas", i:"💻"},{t:"Elevadores profesionales", i:"🏗️"},{t:"Alineación 3D y balanceo de precisión", i:"🎯"},{t:"Repro Stage 1 y 2 + R117 Racing Fuel", i:"⚡"}].map(x=><li key={x.t} className="flex gap-3 items-center font-bold"><div className="w-8 h-8 bg-white text-black flex items-center justify-center text-sm" style={{transform:"skewX(-8deg)"}}><span style={{transform:"skewX(8deg)"}}>{x.i}</span></div>{x.t}</li>)}</ul>
         </div>
-        <div className="bg-zinc-900 p-2 border border-white/10" style={{transform:"skewX(-6deg)"}}>
-          <div style={{transform:"skewX(6deg)"}}><img src="/hero/entrada.jpg" alt="taller" className="h-[440px] w-full object-cover" /></div>
-        </div>
+        <div className="bg-zinc-900 p-2 border border-white/10" style={{transform:"skewX(-6deg)"}}><div style={{transform:"skewX(6deg)"}}><img src="/hero/entrada.jpg" alt="taller" className="h-[440px] w-full object-cover" /></div></div>
       </section>
 
       <section id="servicios" className="bg-white text-black px-4 md:px-24 py-16 md:py-20">
-        <div className="flex items-center gap-4 mb-8">
-          <div className="w-14 h-14 md:w-16 md:h-16 bg-black text-white flex items-center justify-center text-3xl shadow-[5px_5px_0px_#dc2626]" style={{transform:"skewX(-8deg)"}}><span style={{transform:"skewX(8deg)"}}>🔧</span></div>
-          <h2 className="text-4xl md:text-5xl font-black italic leading-none">SERVICIOS <span className="text-red-600">RACING</span></h2>
-        </div>
+        <div className="flex items-center gap-4 mb-8"><div className="w-14 h-14 md:w-16 md:h-16 bg-black text-white flex items-center justify-center text-3xl shadow-[5px_5px_0px_#dc2626]" style={{transform:"skewX(-8deg)"}}><span style={{transform:"skewX(8deg)"}}>🔧</span></div><h2 className="text-4xl md:text-5xl font-black italic leading-none">SERVICIOS <span className="text-red-600">RACING</span></h2></div>
         <div className="grid md:grid-cols-3 gap-6 md:gap-8">
           {servicios.map(s=>{
             const isActive = activeService === s.n;
@@ -174,31 +138,23 @@ export default function Page(){
             );
           })}
         </div>
-        <p className="text-center text-[11px] text-zinc-400 mt-6 font-bold tracking-widest">* TOCA EL ICONO PARA VER DETALLE</p>
       </section>
 
       <section id="galeria" className="bg-[#0a0a0a] px-4 md:px-24 py-16 border-y border-white/10">
-        <div className="flex justify-between items-end flex-wrap gap-4">
-          <h2 className="text-3xl md:text-4xl font-black italic">GALERÍA / <span className="text-red-600">PEGA REAL ({galeriaTaller.length})</span></h2>
-          <button onClick={()=>setShowAll(!showAll)} className="bg-white text-black px-6 py-2 font-black text-sm hover:bg-red-600 hover:text-white transition" style={{transform:"skewX(-10deg)"}}><span style={{transform:"skewX(10deg)", display:"block"}}>{showAll ? "VER MENOS" : `VER ${galeriaTaller.length} →`}</span></button>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-8">
-          {(showAll ? galeriaTaller : galeriaTaller.slice(0,12)).map((src, idx)=>(
-            <div key={idx} onClick={()=>setSelectedImg(src)} className="group relative overflow-hidden border border-white/10 bg-zinc-900 cursor-pointer aspect-[4/3]">
-              <img src={src} alt={`Taller ${idx+1}`} className="h-full w-full object-cover group-hover:scale-110 transition duration-700" onError={(e)=>{(e.target as HTMLImageElement).parentElement!.style.display='none'}} />
-              <div className="absolute bottom-1 left-1 bg-red-600 px-2 py-0.5 text-[8px] font-black italic">BALLADARES</div>
-            </div>
-          ))}
-        </div>
+        <div className="flex justify-between items-end flex-wrap gap-4"><h2 className="text-3xl md:text-4xl font-black italic">GALERÍA / <span className="text-red-600">PEGA REAL ({galeriaTaller.length})</span></h2><button onClick={()=>setShowAll(!showAll)} className="bg-white text-black px-6 py-2 font-black text-sm hover:bg-red-600 hover:text-white transition" style={{transform:"skewX(-10deg)"}}><span style={{transform:"skewX(10deg)", display:"block"}}>{showAll ? "VER MENOS" : `VER ${galeriaTaller.length} →`}</span></button></div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-8">{(showAll ? galeriaTaller : galeriaTaller.slice(0,12)).map((src, idx)=><div key={idx} onClick={()=>setSelectedImg(src)} className="group relative overflow-hidden border border-white/10 bg-zinc-900 cursor-pointer aspect-[4/3]"><img src={src} alt={`Taller ${idx+1}`} className="h-full w-full object-cover group-hover:scale-110 transition duration-700" onError={(e)=>{(e.target as HTMLImageElement).parentElement!.style.display='none'}} /><div className="absolute bottom-1 left-1 bg-red-600 px-2 py-0.5 text-[8px] font-black italic">BALLADARES</div></div>)}</div>
         {selectedImg && (<div onClick={()=>setSelectedImg(null)} className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 cursor-pointer"><img src={selectedImg} alt="full" className="max-w-full max-h-full object-contain" /></div>)}
       </section>
 
+      {/* CINTILLO MARCAS - LOGOS 3D A COLOR, TODOS VERIFICADOS */}
       <section className="bg-black border-y border-white/10 py-6 overflow-hidden">
         <div className="marquee flex w-max items-center">
-          {[...marcas, ...marcas].map((m, i)=>(
-            <div key={i} className="flex items-center gap-3 mx-7 md:mx-10">
-              <img src={m.logo} alt={m.name} className="w-8 h-8 md:w-9 md:h-9 object-contain" />
-              <span className="font-black italic text-[14px] md:text-[16px] text-white tracking-wider">{m.name}</span>
+          {[...marcas, ...marcas, ...marcas].map((m, i)=>(
+            <div key={i} className="flex items-center gap-3 mx-7 md:mx-10 group">
+              <div className="w-10 h-10 md:w-12 md:h-12 bg-zinc-900 border border-white/10 rounded-full flex items-center justify-center p-2 shadow-[2px_2px_0px_#dc2626] group-hover:shadow-[3px_3px_0px_#dc2626] transition-all">
+                <img src={m.logo} alt={m.name} className="logo-3d w-full h-full object-contain" onError={(e)=>{ (e.target as HTMLImageElement).src = `https://via.placeholder.com/40/FFFFFF/000000?text=${m.name[0]}`; }} />
+              </div>
+              <span className="font-black italic text-[14px] md:text-[16px] text-white tracking-wider group-hover:text-red-400 transition">{m.name}</span>
             </div>
           ))}
         </div>
@@ -221,12 +177,10 @@ export default function Page(){
             <div className="flex gap-2"><span className="text-red-600 font-black">TEL:</span> <span className="text-white/70">+56 9 3228 5399</span></div>
           </div>
         </div>
-        <div className="relative bg-[#111] min-h-[400px]">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3202.5!2d-73.06!3d-36.825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9669b5e5d0f0f0f1%3A0x0!2sRodolfo%20Brice%C3%B1o%202718%2C%20Concepci%C3%B3n%2C%20Chile!5e0!3m2!1ses!2scl!4v1" className="absolute inset-0 w-full h-full border-0 grayscale" loading="lazy" />
-        </div>
+        <div className="relative bg-[#111] min-h-[400px]"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3202.5!2d-73.06!3d-36.825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9669b5e5d0f0f0f1%3A0x0!2sRodolfo%20Brice%C3%B1o%202718%2C%20Concepci%C3%B3n%2C%20Chile!5e0!3m2!1ses!2scl!4v1" className="absolute inset-0 w-full h-full border-0 grayscale" loading="lazy" /></div>
       </section>
 
-      <footer className="bg-black border-t-2 border-red-600 py-8 text-center text-white/30 text-xs font-bold tracking-widest">BALLADARES-MOTORS.CL © 2026 - RODOLFO BRICEÑO #2718, CONCEPCIÓN</footer>
+      <footer className="bg-black border-t-2 border-red-600 py-8 text-center text-white/30 text-xs font-bold tracking-widest">BALLADARES-MOTORS.CL © 2026 - RODOLFO BRICEÑO #2718</footer>
 
       <div className="fixed bottom-5 right-5 flex gap-3 z-50">
         <a href={INSTAGRAM} target="_blank" className="w-14 h-14 rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition bg-gradient-to-br from-purple-600 via-pink-500 to-yellow-400">
