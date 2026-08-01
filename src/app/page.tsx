@@ -12,39 +12,32 @@ const slides = [
 
 const servicios = [
   { n: "Repro Stage 1/2", p: "Desde $180.000", d: "Libera el verdadero potencial oculto de tu ECU. +25% HP y +30% torque. Mapeos a medida para calle y pista.", icon: "/icons/turbochip_isometric_icon.webp", accent: "from-red-600 to-orange-500", badge: "POPULAR" },
-  { n: "Scanner Multimarca", p: "Desde $25.000", d: "Diagnóstico profundo con equipamiento de última generación. Lectura de fallas, datos en vivo.", icon: "/icons/obd2_scanner_icon.webp", accent: "from-blue-600 to-cyan-400", badge: "DIAGNOSIS" },
-  { n: "Alineación 3D", p: "Desde $18.000", d: "Precisión milimétrica con sistema láser 3D. Corrige desgaste y devuelve estabilidad.", icon: "/icons/wheel_alignment_icon.webp", accent: "from-zinc-600 to-zinc-400", badge: "LASER" },
-  { n: "Balanceo", p: "Desde $12.000", d: "Adiós vibraciones. Balanceo dinámico computarizado hasta aro 22.", icon: "/icons/racing_wheel_balancer_icon.webp", accent: "from-yellow-500 to-amber-500", badge: "0 VIBRACIÓN" },
-  { n: "Ajuste Motor", p: "Cotizar", d: "Armado y rectificación de motores de alto rendimiento. De empaquetaduras a forjado completo.", icon: "/icons/balladares_motors_emblem_transparent.webp", accent: "from-red-600 to-red-800", badge: "AJUSTE" },
-  { n: "Mecánica General", p: "Cotizar", d: "Frenos, suspensión, distribución, embrague. Especialistas en Nissan SR20 NEO VVL Balladares Motors.", icon: "/icons/sr20_neo_vvl_balladares.webp", accent: "from-zinc-700 to-zinc-500", badge: "MECANICA GENERAL" },
-  { n: "Venta Etanol / Metanol R117", p: "Cotizar", d: "Combustible de competición E85+ R117. Alto octanaje, menor temperatura y máxima potencia.", icon: "/icons/racing_fuel_canister_icon.webp", accent: "from-orange-600 to-red-600", badge: "RACING FUEL" },
+  { n: "Scanner Multimarca", p: "Desde $25.000", d: "Diagnóstico profundo con equipamiento de última generación.", icon: "/icons/obd2_scanner_icon.webp", accent: "from-blue-600 to-cyan-400", badge: "DIAGNOSIS" },
+  { n: "Alineación 3D", p: "Desde $18.000", d: "Precisión milimétrica con sistema láser 3D.", icon: "/icons/wheel_alignment_icon.webp", accent: "from-zinc-600 to-zinc-400", badge: "LASER" },
+  { n: "Balanceo", p: "Desde $12.000", d: "Adiós vibraciones. Balanceo dinámico computarizado.", icon: "/icons/racing_wheel_balancer_icon.webp", accent: "from-yellow-500 to-amber-500", badge: "0 VIBRACIÓN" },
+  { n: "Ajuste Motor", p: "Cotizar", d: "Armado y rectificación de motores de alto rendimiento.", icon: "/icons/balladares_motors_emblem_transparent.webp", accent: "from-red-600 to-red-800", badge: "AJUSTE" },
+  { n: "Mecánica General", p: "Cotizar", d: "Frenos, suspensión, distribución. Especialistas en SR20 NEO VVL Balladares Motors.", icon: "/icons/sr20_neo_vvl_balladares.webp", accent: "from-zinc-700 to-zinc-500", badge: "MECANICA GENERAL" },
+  { n: "Venta Etanol / Metanol R117", p: "Cotizar", d: "Combustible de competición E85+ R117. Alto octanaje.", icon: "/icons/racing_fuel_canister_icon.webp", accent: "from-orange-600 to-red-600", badge: "RACING FUEL" },
 ];
 
 const galeriaTaller = Array.from({ length: 35 }, (_, i) => `/taller/${i + 1}.jpg`);
 
-const features = [
-  { t: "+15 AÑOS EXPERIENCIA", icon: "🏆", desc: "Pura pista y calle" },
-  { t: "SCANNER ÚLTIMA GEN", icon: "🖥️", desc: "Diagnóstico real" },
-  { t: "TODAS LAS MARCAS", icon: "🚗", desc: "Japo, Euro, USA" },
-  { t: "SERVICIO DE PISTA", icon: "🏁", desc: "Set-up competición" },
-];
-
 const marcas = [
-  { name: "NISSAN", logo: "https://cdn.simpleicons.org/nissan/FFFFFF" },
-  { name: "TOYOTA", logo: "https://cdn.simpleicons.org/toyota/FFFFFF" },
-  { name: "SUBARU", logo: "https://cdn.simpleicons.org/subaru/FFFFFF" },
-  { name: "MITSUBISHI", logo: "https://cdn.simpleicons.org/mitsubishi/FFFFFF" },
-  { name: "BMW", logo: "https://cdn.simpleicons.org/bmw/FFFFFF" },
-  { name: "AUDI", logo: "https://cdn.simpleicons.org/audi/FFFFFF" },
-  { name: "CHEVROLET", logo: "https://cdn.simpleicons.org/chevrolet/FFFFFF" },
-  { name: "FORD", logo: "https://cdn.simpleicons.org/ford/FFFFFF" },
-  { name: "HONDA", logo: "https://cdn.simpleicons.org/honda/FFFFFF" },
-  { name: "MAZDA", logo: "https://cdn.simpleicons.org/mazda/FFFFFF" },
-  { name: "MERCEDES", logo: "https://cdn.simpleicons.org/mercedes/FFFFFF" },
-  { name: "VOLKSWAGEN", logo: "https://cdn.simpleicons.org/volkswagen/FFFFFF" },
-  { name: "HYUNDAI", logo: "https://cdn.simpleicons.org/hyundai/FFFFFF" },
-  { name: "KIA", logo: "https://cdn.simpleicons.org/kia/FFFFFF" },
-  { name: "PEUGEOT", logo: "https://cdn.simpleicons.org/peugeot/FFFFFF" },
+  { name: "NISSAN", logo: "https://api.iconify.design/logos:nissan.svg" },
+  { name: "TOYOTA", logo: "https://api.iconify.design/logos:toyota.svg" },
+  { name: "SUBARU", logo: "https://api.iconify.design/logos:subaru.svg" },
+  { name: "MITSUBISHI", logo: "https://api.iconify.design/logos:mitsubishi.svg" },
+  { name: "BMW", logo: "https://api.iconify.design/logos:bmw.svg" },
+  { name: "AUDI", logo: "https://api.iconify.design/logos:audi.svg" },
+  { name: "CHEVROLET", logo: "https://api.iconify.design/logos:chevrolet.svg" },
+  { name: "FORD", logo: "https://api.iconify.design/logos:ford.svg" },
+  { name: "HONDA", logo: "https://api.iconify.design/logos:honda.svg" },
+  { name: "MAZDA", logo: "https://api.iconify.design/logos:mazda.svg" },
+  { name: "MERCEDES", logo: "https://api.iconify.design/logos:mercedes-benz.svg" },
+  { name: "VOLKSWAGEN", logo: "https://api.iconify.design/logos:volkswagen.svg" },
+  { name: "HYUNDAI", logo: "https://api.iconify.design/logos:hyundai.svg" },
+  { name: "KIA", logo: "https://api.iconify.design/logos:kia.svg" },
+  { name: "PEUGEOT", logo: "https://api.iconify.design/logos:peugeot.svg" },
 ];
 
 export default function Page(){
@@ -58,7 +51,47 @@ export default function Page(){
 
   return (
     <main className="bg-black text-white overflow-x-hidden">
-      <style>{`@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } } .marquee { animation: marquee 40s linear infinite; }`}</style>
+      <style>{`
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .marquee { animation: marquee 35s linear infinite; }
+        .racing-box {
+          display: inline-flex;
+          background: #000;
+          border: 3px solid #dc2626;
+          padding: 2px 18px 2px 14px;
+          transform: skewX(-12deg);
+          box-shadow: 4px 4px 0px rgba(0,0,0,0.8), 0 0 15px rgba(220,38,38,0.3);
+          position: relative;
+        }
+        .racing-box::after {
+          content: '';
+          position: absolute;
+          inset: -3px;
+          border: 1px solid rgba(255,255,255,0.2);
+          transform: skewX(0deg);
+          pointer-events: none;
+        }
+        .racing-text {
+          font-style: italic;
+          font-weight: 900;
+          font-size: inherit;
+          line-height: 0.9;
+          background: linear-gradient(180deg, #ffffff 0%, #e5e5e5 30%, #a3a3a3 48%, #ffffff 52%, #d4d4d4 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          filter: drop-shadow(2px 2px 0 #000) drop-shadow(1px 1px 0 #000);
+          -webkit-text-stroke: 1px #000;
+          transform: skewX(12deg);
+          display: block;
+          letter-spacing: -0.02em;
+        }
+        .logo-3d-box {
+          background: radial-gradient(circle at 30% 30%, #2a2a2a, #0a0a0a);
+          border: 2px solid rgba(255,255,255,0.1);
+          box-shadow: 3px 3px 0px #dc2626, 0 4px 15px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.1);
+        }
+      `}</style>
 
       <nav className="fixed top-0 w-full z-50 bg-black border-b-2 border-red-600 flex justify-between items-center px-4 md:px-6 py-2.5">
         <img src="/BB.png" alt="Balladares Motors" className="h-11 md:h-[52px] w-auto" style={{objectFit:"contain", transform:"scaleX(1.44) scaleY(1.06)", transformOrigin:"left center"}} />
@@ -74,14 +107,17 @@ export default function Page(){
         {slides.map((s,idx)=>(
           <div key={idx} className={`absolute inset-0 transition-opacity duration-1000 ${idx===i?"opacity-100":"opacity-0"}`}>
             <img src={s.img} alt={s.title.join(" ")} className="absolute inset-0 w-full h-full object-cover" style={{objectPosition: s.pos}} />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/10" />
             <div className="relative h-full flex flex-col justify-between px-4 md:px-24 py-10 md:py-20">
-              <div className="mt-20 md:mt-32">
-                <h1 className="flex flex-col gap-2 md:gap-3 text-left max-w-5xl">
-                  {s.title.map((line, li) => (
-                    <span key={li} className="block text-[44px] md:text-[82px] font-black italic leading-[0.9] tracking-[-0.02em] text-white racing-title" style={{marginLeft: li===1 ? "0.5em" : "0", transform: "skewX(-8deg)", textShadow: "3px 3px 0px #000, 6px 6px 0px rgba(0,0,0,0.6), 0px 0px 20px rgba(0,0,0,0.8), -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000"}}>{line}</span>
-                  ))}
-                </h1>
+              <div className="mt-20 md:mt-28 flex flex-col items-start gap-4">
+                {s.title.map((line, li) => (
+                  <div key={li}>
+                    <div className="racing-box">
+                      <span className="racing-text text-[38px] md:text-[72px]">{line}</span>
+                    </div>
+                    {li === 0 && <div className="h-3 md:h-5" />}
+                  </div>
+                ))}
               </div>
               <div className="flex flex-col gap-3 items-start mb-2">
                 <a href="#servicios" className="w-fit bg-red-600 px-8 md:px-10 py-3 md:py-3.5 font-black text-[14px] md:text-[15px] hover:bg-white hover:text-black transition shadow-[4px_4px_0px_rgba(0,0,0,0.8)]" style={{transform:"skewX(-12deg)"}}><span style={{transform:"skewX(12deg)", display:"block"}}>VER SERVICIOS →</span></a>
@@ -93,14 +129,10 @@ export default function Page(){
         <div className="absolute bottom-2 left-4 md:left-24 flex gap-2">{slides.map((_,idx)=><button key={idx} onClick={()=>setI(idx)} className={`h-1 transition-all ${idx===i?"w-12 bg-red-600":"w-8 bg-white/40"}`} />)}</div>
       </section>
 
-      <section className="bg-[#0f0f0f] border-y border-white/10 grid grid-cols-2 lg:grid-cols-4">
-        {features.map(f=><div key={f.t} className="p-6 text-center border-r border-white/5 last:border-0"><div className="flex flex-col items-center gap-2"><div className="w-12 h-12 bg-gradient-to-br from-zinc-800 to-black border border-white/10 flex items-center justify-center text-xl shadow-[2px_2px_0px_#dc2626]" style={{transform:"rotate(-3deg)"}}>{f.icon}</div><div className="font-black text-[13px]">{f.t}</div><div className="text-[10px] text-white/40 font-bold">{f.desc}</div></div></div>)}
-      </section>
-
       <section id="nosotros" className="px-6 md:px-24 py-20 grid md:grid-cols-2 gap-12 items-center bg-black border-b border-white/5">
         <div>
           <div className="flex items-center gap-4"><div className="w-14 h-14 bg-red-600 flex items-center justify-center text-2xl font-black shadow-[4px_4px_0px_white]" style={{transform:"skewX(-10deg)"}}><span style={{transform:"skewX(10deg)"}}>🏁</span></div><h2 className="text-4xl font-black italic">NOSOTROS / <span className="text-red-600">HISTORIA</span></h2></div>
-          <p className="mt-6 text-white/60 leading-relaxed">Balladares Motors es un taller bien conocido en Concepción. Nacimos de la pasión por las carreras en pista y circuito, atendiendo autos de gama alta y todas las marcas. Contamos con elevadores, máquina de alineación 3D, balanceo y ajuste de motor completo.</p>
+          <p className="mt-6 text-white/60 leading-relaxed">Balladares Motors es un taller bien conocido en Concepción. Nacimos de la pasión por las carreras en pista y circuito.</p>
         </div>
         <div className="bg-zinc-900 p-2 border border-white/10" style={{transform:"skewX(-6deg)"}}><div style={{transform:"skewX(6deg)"}}><img src="/hero/entrada.jpg" alt="taller" className="h-[440px] w-full object-cover" /></div></div>
       </section>
@@ -139,8 +171,18 @@ export default function Page(){
         {selectedImg && (<div onClick={()=>setSelectedImg(null)} className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 cursor-pointer"><img src={selectedImg} alt="full" className="max-w-full max-h-full object-contain" /></div>)}
       </section>
 
-      <section className="bg-black border-y border-white/10 py-6 overflow-hidden">
-        <div className="marquee flex w-max items-center">{[...marcas, ...marcas, ...marcas].map((m, i)=><div key={i} className="flex items-center gap-3 mx-7 md:mx-10 group"><div className="w-10 h-10 md:w-12 md:h-12 bg-zinc-900 border border-white/10 rounded-full flex items-center justify-center p-2 shadow-[2px_2px_0px_#dc2626]"><img src={m.logo} alt={m.name} className="w-full h-full object-contain" /></div><span className="font-black italic text-[14px] md:text-[16px] text-white tracking-wider">{m.name}</span></div>)}</div>
+      <section className="bg-black border-y border-white/10 py-7 overflow-hidden">
+        <div className="marquee flex w-max items-center">
+          {[...marcas, ...marcas, ...marcas].map((m, i)=>(
+            <div key={i} className="flex items-center gap-4 mx-8 md:mx-10 group">
+              <div className="logo-3d-box w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center p-3 group-hover:scale-110 transition-transform">
+                <img src={m.logo} alt={m.name} className="w-full h-full object-contain drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]" onError={(e)=>{ const el=e.target as HTMLImageElement; el.style.display='none'; (el.nextElementSibling as HTMLElement).style.display='block'; }} />
+                <span className="hidden font-black text-[10px] text-white">{m.name[0]}</span>
+              </div>
+              <span className="font-black italic text-[15px] md:text-[17px] text-white tracking-wider group-hover:text-red-400 transition">{m.name}</span>
+            </div>
+          ))}
+        </div>
       </section>
 
       <section id="contacto" className="grid md:grid-cols-2">
@@ -155,15 +197,11 @@ export default function Page(){
             </select>
           </div>
           <a href={waLink} target="_blank" className="mt-5 inline-flex w-full justify-center bg-[#25D366] text-black font-black py-3.5 hover:bg-white transition text-sm">ENVIAR POR WHATSAPP →</a>
-          <div className="mt-8 space-y-3 text-sm">
-            <div className="flex gap-2"><span className="text-red-600 font-black">DIR:</span> <span className="text-white/80 font-bold">RODOLFO BRICEÑO #2718, CONCEPCIÓN</span></div>
-            <div className="flex gap-2"><span className="text-red-600 font-black">TEL:</span> <span className="text-white/70">+56 9 3228 5399</span></div>
-          </div>
         </div>
         <div className="relative bg-[#111] min-h-[400px]"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3202.5!2d-73.06!3d-36.825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9669b5e5d0f0f0f1%3A0x0!2sRodolfo%20Brice%C3%B1o%202718%2C%20Concepci%C3%B3n%2C%20Chile!5e0!3m2!1ses!2scl!4v1" className="absolute inset-0 w-full h-full border-0 grayscale" loading="lazy" /></div>
       </section>
 
-      <footer className="bg-black border-t-2 border-red-600 py-8 text-center text-white/30 text-xs font-bold tracking-widest">BALLADARES-MOTORS.CL © 2026 - RODOLFO BRICEÑO #2718</footer>
+      <footer className="bg-black border-t-2 border-red-600 py-8 text-center text-white/30 text-xs font-bold tracking-widest">BALLADARES-MOTORS.CL © 2026</footer>
 
       <div className="fixed bottom-5 right-5 flex gap-3 z-50">
         <a href={INSTAGRAM} target="_blank" className="w-14 h-14 rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition bg-gradient-to-br from-purple-600 via-pink-500 to-yellow-400"><svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
