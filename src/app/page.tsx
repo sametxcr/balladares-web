@@ -23,21 +23,21 @@ const servicios = [
 const galeriaTaller = Array.from({ length: 35 }, (_, i) => `/taller/${i + 1}.jpg`);
 
 const marcas = [
-  { name: "NISSAN", logo: "https://api.iconify.design/logos:nissan.svg" },
-  { name: "TOYOTA", logo: "https://api.iconify.design/logos:toyota.svg" },
-  { name: "SUBARU", logo: "https://api.iconify.design/logos:subaru.svg" },
-  { name: "MITSUBISHI", logo: "https://api.iconify.design/logos:mitsubishi.svg" },
-  { name: "BMW", logo: "https://api.iconify.design/logos:bmw.svg" },
-  { name: "AUDI", logo: "https://api.iconify.design/logos:audi.svg" },
-  { name: "CHEVROLET", logo: "https://api.iconify.design/logos:chevrolet.svg" },
-  { name: "FORD", logo: "https://api.iconify.design/logos:ford.svg" },
-  { name: "HONDA", logo: "https://api.iconify.design/logos:honda.svg" },
-  { name: "MAZDA", logo: "https://api.iconify.design/logos:mazda.svg" },
-  { name: "MERCEDES", logo: "https://api.iconify.design/logos:mercedes-benz.svg" },
-  { name: "VOLKSWAGEN", logo: "https://api.iconify.design/logos:volkswagen.svg" },
-  { name: "HYUNDAI", logo: "https://api.iconify.design/logos:hyundai.svg" },
-  { name: "KIA", logo: "https://api.iconify.design/logos:kia.svg" },
-  { name: "PEUGEOT", logo: "https://api.iconify.design/logos:peugeot.svg" },
+  { name: "NISSAN", logo: "/brands/brand_nissan_3d.png" },
+  { name: "TOYOTA", logo: "/brands/brand_toyota_3d.png" },
+  { name: "SUBARU", logo: "/brands/brand_subaru_3d.png" },
+  { name: "MITSUBISHI", logo: "/brands/brand_mitsubishi_3d.png" },
+  { name: "BMW", logo: "/brands/brand_bmw_3d.png" },
+  { name: "AUDI", logo: "/brands/brand_audi_3d.png" },
+  { name: "CHEVROLET", logo: "/brands/brand_chevrolet_3d.png" },
+  { name: "FORD", logo: "/brands/brand_ford_3d.png" },
+  { name: "HONDA", logo: "/brands/brand_honda_3d.png" },
+  { name: "MAZDA", logo: "/brands/brand_mazda_3d.png" },
+  { name: "MERCEDES", logo: "/brands/brand_mercedes_3d.png" },
+  { name: "VOLKSWAGEN", logo: "/brands/brand_volkswagen_3d.png" },
+  { name: "HYUNDAI", logo: "/brands/brand_hyundai_3d.png" },
+  { name: "KIA", logo: "/brands/brand_kia_3d.png" },
+  { name: "PEUGEOT", logo: "/brands/brand_peugeot_3d.png" },
 ];
 
 export default function Page(){
@@ -51,7 +51,7 @@ export default function Page(){
 
   return (
     <main className="bg-black text-white overflow-x-hidden">
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Russo+One&family=Orbitron:wght@900&display=swap'); @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } } .marquee { animation: marquee 35s linear infinite; } .logo-3d-box { background: radial-gradient(circle at 30% 30%, #2a2a2a, #0a0a0a); border: 2px solid rgba(255,255,255,0.1); box-shadow: 3px 3px 0px #dc2626, 0 4px 15px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.1); }`}</style>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Russo+One&family=Orbitron:wght@900&display=swap'); @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } } .marquee { animation: marquee 25s linear infinite; } .logo-3d-box { background: radial-gradient(circle at 35% 25%, #ffffff 0%, #e5e5e5 15%, #2a2a2a 45%, #0a0a0a 100%); border: 2px solid rgba(255,255,255,0.25); box-shadow: 4px 4px 0px #dc2626, 0 6px 20px rgba(0,0,0,0.7), inset 0 2px 3px rgba(255,255,255,0.3), inset 0 -2px 3px rgba(0,0,0,0.5); }`}</style>
 
       <nav className="fixed top-0 w-full z-50 bg-black border-b-2 border-red-600 flex justify-between items-center px-4 md:px-6 py-2.5">
         <img src="/BB.png" alt="Balladares Motors" className="h-11 md:h-[52px] w-auto" style={{objectFit:"contain", transform:"scaleX(1.44) scaleY(1.06)", transformOrigin:"left center"}} />
@@ -72,7 +72,7 @@ export default function Page(){
               <div className="mt-16 md:mt-24 flex flex-col items-start gap-2">
                 {s.titleImgs.map((imgSrc, li) => (
                   <div key={li} className="relative">
-                    <img src={imgSrc} alt={s.title[li]} className="h-[48px] md:h-[84px] w-auto drop-shadow-[6px_6px_10px_rgba(0,0,0,0.95)]" style={{transform: li===1 ? "translateX(20px)" : "none"}} />
+                    <img src={imgSrc} alt={s.title[li]} className="h-[68px] md:h-[128px] w-auto max-w-[90vw] md:max-w-[680px] object-contain drop-shadow-[8px_8px_12px_rgba(0,0,0,1)]" style={{transform: li===1 ? "translateX(20px)" : "none"}} />
                     {li === 0 && <div className="h-4 md:h-6" />}
                   </div>
                 ))}
