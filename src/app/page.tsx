@@ -5,19 +5,19 @@ const WHATSAPP = "56932285399";
 const INSTAGRAM = "https://www.instagram.com/balladaresmotor/";
 
 const slides = [
-  { title: ["repro stage", "1 & 2"], titleImgs: ["/hero/titles/repro_stage_logo.webp", "/hero/titles/chrome_racing_1_and_2.webp"], sub: "Potencia real +25% torque +30%", img: "/hero/repro.jpg", pos: "50% 50%" },
-  { title: ["servicios de", "pista y calle"], titleImgs: ["/hero/titles/servicios_de_chrome_racing_logo.webp", "/hero/titles/pista_y_calle_racing.webp"], sub: "Alineación 3D, balanceo, elevadores pro", img: "/hero/pista.jpg", pos: "50% 82%" },
-  { title: ["diagnostico de", "ultima generacion"], titleImgs: ["/hero/titles/diagnostico_de_racing_logo.webp", "/hero/titles/ultima_generacion_racing_logo.webp"], sub: "Scanner multimarca - Todas las marcas", img: "/hero/scanner.jpg", pos: "50% 50%" },
+  { title: ["repro stage", "1 & 2"], titleImgs: ["/hero/titles/repro_stage_transparent.png", "/hero/titles/1and2_transparent.png"], sub: "Potencia real +25% torque +30%", img: "/hero/repro.jpg", pos: "50% 50%" },
+  { title: ["servicios de", "pista y calle"], titleImgs: ["/hero/titles/servicios_de_transparent.png", "/hero/titles/pista_y_calle_transparent.png"], sub: "Alineación 3D, balanceo, elevadores pro", img: "/hero/pista.jpg", pos: "50% 82%" },
+  { title: ["diagnostico de", "ultima generacion"], titleImgs: ["/hero/titles/diagnostico_de_transparent.png", "/hero/titles/ultima_generacion_transparent.png"], sub: "Scanner multimarca - Todas las marcas", img: "/hero/scanner.jpg", pos: "50% 50%" },
 ];
 
 const servicios = [
-  { n: "Repro Stage 1/2", p: "Desde $180.000", d: "Libera el verdadero potencial oculto de tu ECU. +25% HP y +30% torque. Mapeos a medida para calle y pista.", icon: "/icons/turbochip_isometric_icon.webp", accent: "from-red-600 to-orange-500", badge: "POPULAR" },
+  { n: "Repro Stage 1/2", p: "Desde $180.000", d: "Libera el verdadero potencial oculto de tu ECU. +25% HP y +30% torque.", icon: "/icons/turbochip_isometric_icon.webp", accent: "from-red-600 to-orange-500", badge: "POPULAR" },
   { n: "Scanner Multimarca", p: "Desde $25.000", d: "Diagnóstico profundo con equipamiento de última generación.", icon: "/icons/obd2_scanner_icon.webp", accent: "from-blue-600 to-cyan-400", badge: "DIAGNOSIS" },
   { n: "Alineación 3D", p: "Desde $18.000", d: "Precisión milimétrica con sistema láser 3D.", icon: "/icons/wheel_alignment_icon.webp", accent: "from-zinc-600 to-zinc-400", badge: "LASER" },
   { n: "Balanceo", p: "Desde $12.000", d: "Adiós vibraciones. Balanceo dinámico computarizado.", icon: "/icons/racing_wheel_balancer_icon.webp", accent: "from-yellow-500 to-amber-500", badge: "0 VIBRACIÓN" },
   { n: "Ajuste Motor", p: "Cotizar", d: "Armado y rectificación de motores de alto rendimiento.", icon: "/icons/balladares_motors_emblem_transparent.webp", accent: "from-red-600 to-red-800", badge: "AJUSTE" },
-  { n: "Mecánica General", p: "Cotizar", d: "Frenos, suspensión, distribución. Especialistas en SR20 NEO VVL Balladares Motors.", icon: "/icons/sr20_neo_vvl_balladares.webp", accent: "from-zinc-700 to-zinc-500", badge: "MECANICA GENERAL" },
-  { n: "Venta Etanol / Metanol R117", p: "Cotizar", d: "Combustible de competición E85+ R117. Alto octanaje.", icon: "/icons/racing_fuel_canister_icon.webp", accent: "from-orange-600 to-red-600", badge: "RACING FUEL" },
+  { n: "Mecánica General", p: "Cotizar", d: "Frenos, suspensión, distribución. Especialistas en SR20 NEO VVL.", icon: "/icons/sr20_neo_vvl_balladares.webp", accent: "from-zinc-700 to-zinc-500", badge: "MECANICA GENERAL" },
+  { n: "Venta Etanol / Metanol R117", p: "Cotizar", d: "Combustible de competición E85+ R117.", icon: "/icons/racing_fuel_canister_icon.webp", accent: "from-orange-600 to-red-600", badge: "RACING FUEL" },
 ];
 
 const galeriaTaller = Array.from({ length: 35 }, (_, i) => `/taller/${i + 1}.jpg`);
@@ -51,49 +51,7 @@ export default function Page(){
 
   return (
     <main className="bg-black text-white overflow-x-hidden">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Russo+One&family=Orbitron:wght@900&display=swap');
-        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .marquee { animation: marquee 35s linear infinite; }
-        .racing-box {
-          display: inline-flex;
-          background: #000;
-          border: 3px solid #dc2626;
-          padding: 2px 18px 2px 14px;
-          transform: skewX(-12deg);
-          box-shadow: 4px 4px 0px rgba(0,0,0,0.8), 0 0 15px rgba(220,38,38,0.3);
-          position: relative;
-        }
-        .racing-box::after {
-          content: '';
-          position: absolute;
-          inset: -3px;
-          border: 1px solid rgba(255,255,255,0.2);
-          transform: skewX(0deg);
-          pointer-events: none;
-        }
-        .racing-text {
-          font-family: 'Russo One', 'Orbitron', sans-serif;
-          font-style: italic;
-          font-weight: 900;
-          font-size: inherit;
-          line-height: 0.9;
-          background: linear-gradient(180deg, #ffffff 0%, #e5e5e5 30%, #a3a3a3 48%, #ffffff 52%, #d4d4d4 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          filter: drop-shadow(2px 2px 0 #000) drop-shadow(1px 1px 0 #000);
-          -webkit-text-stroke: 1px #000;
-          transform: skewX(12deg);
-          display: block;
-          letter-spacing: -0.02em;
-        }
-        .logo-3d-box {
-          background: radial-gradient(circle at 30% 30%, #2a2a2a, #0a0a0a);
-          border: 2px solid rgba(255,255,255,0.1);
-          box-shadow: 3px 3px 0px #dc2626, 0 4px 15px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.1);
-        }
-      `}</style>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Russo+One&family=Orbitron:wght@900&display=swap'); @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } } .marquee { animation: marquee 35s linear infinite; } .logo-3d-box { background: radial-gradient(circle at 30% 30%, #2a2a2a, #0a0a0a); border: 2px solid rgba(255,255,255,0.1); box-shadow: 3px 3px 0px #dc2626, 0 4px 15px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.1); }`}</style>
 
       <nav className="fixed top-0 w-full z-50 bg-black border-b-2 border-red-600 flex justify-between items-center px-4 md:px-6 py-2.5">
         <img src="/BB.png" alt="Balladares Motors" className="h-11 md:h-[52px] w-auto" style={{objectFit:"contain", transform:"scaleX(1.44) scaleY(1.06)", transformOrigin:"left center"}} />
@@ -105,7 +63,7 @@ export default function Page(){
         <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="bg-red-600 px-6 md:px-8 py-2.5 font-black text-sm hover:bg-white hover:text-black transition shadow-[3px_3px_0px_white]" style={{transform:"skewX(-12deg)"}}><span style={{transform:"skewX(12deg)", display:"block"}}>COTIZAR →</span></a>
       </nav>
 
-                        <section id="inicio" className="h-[92vh] relative overflow-hidden mt-[58px] bg-zinc-900">
+      <section id="inicio" className="h-[92vh] relative overflow-hidden mt-[58px] bg-zinc-900">
         {slides.map((s,idx)=>(
           <div key={idx} className={`absolute inset-0 transition-opacity duration-1000 ${idx===i?"opacity-100":"opacity-0"}`}>
             <img src={s.img} alt={s.title.join(" ")} className="absolute inset-0 w-full h-full object-cover" style={{objectPosition: s.pos}} />
@@ -114,8 +72,8 @@ export default function Page(){
               <div className="mt-16 md:mt-24 flex flex-col items-start gap-2">
                 {s.titleImgs.map((imgSrc, li) => (
                   <div key={li} className="relative">
-                    <img src={imgSrc} alt={s.title[li]} className="h-[52px] md:h-[92px] w-auto drop-shadow-[4px_4px_8px_rgba(0,0,0,0.9)]" style={{transform: li===1 ? "translateX(24px)" : "none"}} />
-                    {li === 0 && <div className="h-3 md:h-5" />}
+                    <img src={imgSrc} alt={s.title[li]} className="h-[48px] md:h-[84px] w-auto drop-shadow-[6px_6px_10px_rgba(0,0,0,0.95)]" style={{transform: li===1 ? "translateX(20px)" : "none"}} />
+                    {li === 0 && <div className="h-4 md:h-6" />}
                   </div>
                 ))}
               </div>
@@ -127,6 +85,15 @@ export default function Page(){
           </div>
         ))}
         <div className="absolute bottom-2 left-4 md:left-24 flex gap-2">{slides.map((_,idx)=><button key={idx} onClick={()=>setI(idx)} className={`h-1 transition-all ${idx===i?"w-12 bg-red-600":"w-8 bg-white/40"}`} />)}</div>
+      </section>
+
+      <section className="bg-[#0f0f0f] border-y border-white/10 grid grid-cols-2 lg:grid-cols-4">
+        {[
+          { t: "+15 AÑOS EXPERIENCIA", icon: "🏆", desc: "Pura pista y calle" },
+          { t: "SCANNER ÚLTIMA GEN", icon: "🖥️", desc: "Diagnóstico real" },
+          { t: "TODAS LAS MARCAS", icon: "🚗", desc: "Japo, Euro, USA" },
+          { t: "SERVICIO DE PISTA", icon: "🏁", desc: "Set-up competición" },
+        ].map(f=><div key={f.t} className="p-6 text-center border-r border-white/5 last:border-0"><div className="flex flex-col items-center gap-2"><div className="w-12 h-12 bg-gradient-to-br from-zinc-800 to-black border border-white/10 flex items-center justify-center text-xl shadow-[2px_2px_0px_#dc2626]" style={{transform:"rotate(-3deg)"}}>{f.icon}</div><div className="font-black text-[13px]">{f.t}</div><div className="text-[10px] text-white/40 font-bold">{f.desc}</div></div></div>)}
       </section>
 
       <section id="nosotros" className="px-6 md:px-24 py-20 grid md:grid-cols-2 gap-12 items-center bg-black border-b border-white/5">
