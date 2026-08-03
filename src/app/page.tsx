@@ -2,8 +2,7 @@
 import { useState, useEffect } from "react";
 
 const WHATSAPP = "56932285399";
-const INSTAGRAM = "
-instagram.com/balladaresmotor/";
+const INSTAGRAM = "https://www.instagram.com/balladaresmotor/";
 
 const slides = [
   { title: ["repro stage", "1 & 2"], titleImgs: ["/hero/titles/repro_stage_transparent.png", "/hero/titles/1and2_transparent.png"], sub: "Potencia real +25% torque +30%", img: "/hero/repro.jpg", pos: "50% 50%" },
@@ -96,7 +95,7 @@ export default function Page(){
       <section className="bg-[#0f0f0f] border-y border-white/10 grid grid-cols-2 lg:grid-cols-4">
         {[
           { t: "+15 AÑOS EXPERIENCIA", icon: "🏆", desc: "Pura pista y calle" },
-          { t: "SCANNER ÚLTIMA GEN", icon: "🖥", desc: "Diagnóstico real" },
+          { t: "SCANNER ÚLTIMA GEN", icon: "🖥️", desc: "Diagnóstico real" },
           { t: "TODAS LAS MARCAS", icon: "🚗", desc: "Japo, Euro, USA" },
           { t: "SERVICIO DE PISTA", icon: "🏁", desc: "Set-up competición" },
         ].map(f=><div key={f.t} className="p-6 text-center border-r border-white/5 last:border-0"><div className="flex flex-col items-center gap-2"><div className="w-12 h-12 bg-gradient-to-br from-zinc-800 to-black border border-white/10 flex items-center justify-center text-xl shadow-[2px_2px_0px_#dc2626]" style={{transform:"rotate(-3deg)"}}>{f.icon}</div><div className="font-black text-[13px]">{f.t}</div><div className="text-[10px] text-white/40 font-bold">{f.desc}</div></div></div>)}
@@ -186,3 +185,4 @@ export default function Page(){
     </main>
   );
 }
+
