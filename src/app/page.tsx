@@ -3,13 +3,11 @@ import { useState, useEffect } from "react";
 const WHATSAPP = "56932285399";
 const INSTAGRAM = "https://www.instagram.com/balladaresmotor/";
 const YOUTUBE_ID = "0q6KurtImDI";
-
 const slides = [
   { title: ["repro stage", "1 & 2"], titleImgs: ["/hero/titles/repro_stage_transparent.png", "/hero/titles/1and2_transparent.png"], sub: "Potencia real +25% torque +30%", img: "/hero/repro.jpg", pos: "50% 50%" },
   { title: ["servicios de", "pista y calle"], titleImgs: ["/hero/titles/servicios_de_transparent.png", "/hero/titles/pista_y_calle_transparent.png"], sub: "Alineación 3D, balanceo, elevadores pro", img: "/hero/pista.jpg", pos: "50% 82%" },
   { title: ["diagnostico de", "ultima generacion"], titleImgs: ["/hero/titles/diagnostico_de_transparent.png", "/hero/titles/ultima_generacion_transparent.png"], sub: "Scanner multimarca - Todas las marcas", img: "/hero/scanner.jpg", pos: "50% 50%" },
 ];
-
 const servicios = [
   { n: "Repro Stage 1/2", p: "Desde $180.000", d: "Libera el verdadero potencial oculto de tu ECU. +25% HP y +30% torque.", icon: "/icons/turbochip_isometric_icon.webp", accent: "from-red-600 to-orange-500", badge: "POPULAR" },
   { n: "Scanner Multimarca", p: "Desde $25.000", d: "Diagnóstico profundo con equipamiento de última generación.", icon: "/icons/obd2_scanner_icon.webp", accent: "from-blue-600 to-cyan-400", badge: "DIAGNOSIS" },
@@ -37,7 +35,6 @@ const marcas = [
   { name: "KIA", logo: "/brands/brand_kia_3d.png" },
   { name: "PEUGEOT", logo: "/brands/brand_peugeot_3d.png" },
 ];
-
 export default function Page(){
   const [i,setI]=useState(0);
   const [form,setForm]=useState({marca:"", modelo:"", ano:"", servicio:"Repro Stage 1/2"});
@@ -51,7 +48,7 @@ export default function Page(){
     <main className="bg-black text-white overflow-x-hidden">
       {showIntro && (
         <div className="fixed inset-0 z-[200] bg-black flex items-center justify-center">
-          <button onClick={()=>setShowIntro(false)} className="absolute top-4 right-4 z-30 w-12 h-12 bg-white/10 hover:bg-red-600 border border-white/20 rounded-full flex items-center justify-center text-xl font-black">✕</button>
+          <button onClick={()=>setShowIntro(false)} className="absolute top-4 right-4 z-30 w-12 h-12 bg-white/10 hover:bg-red-600 border border-white/20 rounded-full flex items-center justify-center text-white text-xl font-black">✕</button>
           <iframe className="w-full h-full aspect-[9/16] md:aspect-video max-w- md:max-w-full" src={`https://www.youtube.com/embed/${YOUTUBE_ID}?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1&playsinline=1`} title="Intro" allow="autoplay; encrypted-media" allowFullScreen />
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"><button onClick={()=>setShowIntro(false)} className="bg-white/10 border border-white/20 text-white px-6 py-2.5 font-black text-sm" style={{transform:"skewX(-12deg)"}}><span style={{transform:"skewX(12deg)", display:"block"}}>SALTAR INTRO →</span></button></div>
         </div>
@@ -66,7 +63,6 @@ export default function Page(){
         </div>
         <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="bg-red-600 px-6 md:px-8 py-2.5 font-black text-sm shadow-[3px_3px_0px_white]" style={{transform:"skewX(-12deg)"}}><span style={{transform:"skewX(12deg)", display:"block"}}>COTIZAR →</span></a>
       </nav>
-
       <section id="inicio" className="h- relative overflow-hidden mt- bg-zinc-900">
         {slides.map((s,idx)=>(
           <div key={idx} className={`absolute inset-0 transition-opacity duration-1000 ${idx===i?"opacity-100":"opacity-0"}`}>
@@ -76,7 +72,7 @@ export default function Page(){
               <div className="mt-12 md:mt-20 flex flex-col items-start gap-1">
                 {s.titleImgs.map((imgSrc, li) => (
                   <div key={li} className="relative">
-                    <img src={imgSrc} alt={s.title[li]} className="h- md:h- w-auto max-w- md:max-w- object-contain drop-shadow-[10px_10px_15px_rgba(0,0,0,1)]" style={{transform: li===1? "translateX(22px)" : "none"}} onError={(e)=>{ const img=e.target as HTMLImageElement; img.style.display='none'; const fb=img.nextElementSibling as HTMLElement; if(fb) fb.classList.remove('hidden'); }} />
+                    <img src={imgSrc} alt={s.title[li]} className="h- md:h- w-auto max-w- md:max-w- object-contain drop-shadow-[10px_10px_15px_rgba(0,0,1)]" style={{transform: li===1? "translateX(22px)" : "none"}} onError={(e)=>{ const el=e.target as HTMLImageElement; el.style.display='none'; const fb=el.nextElementSibling as HTMLElement; if(fb) fb.classList.remove('hidden'); }} />
                     <div className="hidden text- md:text- font-black italic leading-[0.9] uppercase tracking-tighter drop-shadow-[8px_8px_0px_black]">{s.title[li]}</div>
                   </div>
                 ))}
@@ -90,16 +86,13 @@ export default function Page(){
         ))}
         <div className="absolute bottom-2 left-4 md:left-24 flex gap-2">{slides.map((_,idx)=><button key={idx} onClick={()=>setI(idx)} className={`h-1 transition-all ${idx===i?"w-12 bg-red-600":"w-8 bg-white/40"}`} />)}</div>
       </section>
-
       <section className="bg-[#0f0f0f] border-y border-white/10 grid grid-cols-2 lg:grid-cols-4">
         {[{ t: "+15 AÑOS EXPERIENCIA", icon: "🏆", desc: "Pura pista y calle" },{ t: "SCANNER ÚLTIMA GEN", icon: "🖥", desc: "Diagnóstico real" },{ t: "TODAS LAS MARCAS", icon: "🚗", desc: "Japo, Euro, USA" },{ t: "SERVICIO DE PISTA", icon: "🏁", desc: "Set-up competición" },].map(f=><div key={f.t} className="p-6 text-center border-r border-white/5 last:border-0"><div className="flex flex-col items-center gap-2"><div className="w-12 h-12 bg-gradient-to-br from-zinc-800 to-black border border-white/10 flex items-center justify-center text-xl shadow-[2px_2px_0px_#dc2626]" style={{transform:"rotate(-3deg)"}}>{f.icon}</div><div className="font-black text-">{f.t}</div><div className="text- text-white/40 font-bold">{f.desc}</div></div></div>)}
       </section>
-
       <section id="nosotros" className="px-6 md:px-24 py-20 grid md:grid-cols-2 gap-12 items-center bg-black border-b border-white/5">
         <div><div className="flex items-center gap-4"><div className="w-14 h-14 bg-red-600 flex items-center justify-center text-2xl font-black shadow-[4px_4px_0px_white]" style={{transform:"skewX(-10deg)"}}><span style={{transform:"skewX(10deg)"}}>🏁</span></div><h2 className="text-4xl font-black italic">NOSOTROS / <span className="text-red-600">HISTORIA</span></h2></div><p className="mt-6 text-white/60 leading-relaxed">Balladares Motors es un taller bien conocido en Concepción. Nacimos de la pasión por las carreras en pista y circuito.</p></div>
         <div className="bg-zinc-900 p-2 border border-white/10" style={{transform:"skewX(-6deg)"}}><div style={{transform:"skewX(6deg)"}}><img src="/hero/entrada.jpg" alt="taller" className="h- w-full object-cover" /></div></div>
       </section>
-
       <section id="servicios" className="bg-white text-black px-4 md:px-24 py-16 md:py-20">
         <div className="flex items-center gap-4 mb-8"><div className="w-14 h-14 md:w-16 md:h-16 bg-black text-white flex items-center justify-center text-3xl shadow-[5px_5px_0px_#dc2626]" style={{transform:"skewX(-8deg)"}}><span style={{transform:"skewX(8deg)"}}>🔧</span></div><h2 className="text-4xl md:text-5xl font-black italic leading-none">SERVICIOS <span className="text-red-600">RACING</span></h2></div>
         <div className="grid md:grid-cols-3 gap-6 md:gap-8">
@@ -127,13 +120,11 @@ export default function Page(){
           })}
         </div>
       </section>
-
       <section id="galeria" className="bg-[#0a0a0a] px-4 md:px-24 py-16 border-y border-white/10">
         <div className="flex justify-between items-end flex-wrap gap-4"><h2 className="text-3xl md:text-4xl font-black italic">GALERÍA / <span className="text-red-600">PEGA REAL ({galeriaTaller.length})</span></h2><button onClick={()=>setShowAll(!showAll)} className="bg-white text-black px-6 py-2 font-black text-sm hover:bg-red-600 hover:text-white transition" style={{transform:"skewX(-10deg)"}}><span style={{transform:"skewX(10deg)", display:"block"}}>{showAll? "VER MENOS" : `VER ${galeriaTaller.length} →`}</span></button></div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-8">{(showAll? galeriaTaller : galeriaTaller.slice(0,12)).map((src, idx)=><div key={idx} onClick={()=>setSelectedImg(src)} className="group relative overflow-hidden border border-white/10 bg-zinc-900 cursor-pointer aspect-[4/3]"><img src={src} alt={`Taller ${idx+1}`} className="h-full w-full object-cover group-hover:scale-110 transition duration-700" onError={(e)=>{(e.target as HTMLImageElement).parentElement!.style.display='none'}} /></div>)}</div>
         {selectedImg && (<div onClick={()=>setSelectedImg(null)} className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 cursor-pointer"><img src={selectedImg} alt="full" className="max-w-full max-h-full object-contain" /></div>)}
       </section>
-
       <section className="bg-gradient-to-r from-black via-zinc-900 to-black border-y-2 border-red-600 py-4 md:py-5 overflow-hidden relative">
         <div className="marquee flex w-max items-center">
           {[...marcas,...marcas].map((m, i)=>(
@@ -144,7 +135,6 @@ export default function Page(){
           ))}
         </div>
       </section>
-
       <section id="contacto" className="grid md:grid-cols-2">
         <div className="bg-zinc-900 p-8 md:p-16">
           <h2 className="text-3xl md:text-4xl font-black italic">COTIZA EN <span className="text-red-600">30 SEG</span></h2>
