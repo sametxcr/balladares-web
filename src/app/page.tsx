@@ -55,20 +55,15 @@ export default function Page(){
     <main className="bg-black text-white overflow-x-hidden">
       {showIntro && (
         <div className="fixed inset-0 z-[200] bg-black flex items-center justify-center">
-          <button onClick={()=>setShowIntro(false)} className="absolute top-4 right-4 md:top-6 md:right-6 z-30 w-12 h-12 bg-white/10 hover:bg-red-600 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white text-xl font-black hover:rotate-90 transition-all duration-300">✕</button>
-          <iframe className="w-full h-full aspect-[9/16] md:aspect-video max-w- md:max-w-full" src={`https://www.youtube.com/embed/${YOUTUBE_ID}?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1&playsinline=1`} title="Intro" allow="autoplay; encrypted-media" allowFullScreen />
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-3">
+          <button onClick={()=>setShowIntro(false)} className="absolute top-4 right-4 md:top-6 md:right-6 z-30 w-12 h-12 bg-white/10 hover:bg-red-600 border border-white/20 rounded-full flex items-center justify-center text-white text-xl font-black">✕</button>
+          <iframe className="w-full h-full md:aspect-video aspect-[9/16] max-w- md:max-w-full" src={`https://www.youtube.com/embed/${YOUTUBE_ID}?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1&playsinline=1`} title="Intro" allow="autoplay; encrypted-media" allowFullScreen />
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20">
             <button onClick={()=>setShowIntro(false)} className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-6 py-2.5 font-black text-sm hover:bg-white hover:text-black transition" style={{transform:"skewX(-12deg)"}}><span style={{transform:"skewX(12deg)", display:"block"}}>SALTAR INTRO →</span></button>
           </div>
         </div>
       )}
 
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Russo+One&family=Orbitron:wght@900&display=swap');
-        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-       .marquee { animation: marquee 60s linear infinite; }
-       .marquee:hover { animation-play-state: paused; }
-      `}</style>
+      <style>{`@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }.marquee { animation: marquee 60s linear infinite; }.marquee:hover { animation-play-state: paused; }`}</style>
 
       <nav className="fixed top-0 w-full z-50 bg-black border-b-2 border-red-600 flex justify-between items-center px-4 md:px-6 py-2.5">
         <img src="/BB.png" alt="Balladares Motors" className="h-11 md:h- w-auto" style={{objectFit:"contain", transform:"scaleX(1.44) scaleY(1.06)", transformOrigin:"left center"}} />
@@ -89,7 +84,8 @@ export default function Page(){
               <div className="mt-12 md:mt-20 flex flex-col items-start gap-1">
                 {s.titleImgs.map((imgSrc, li) => (
                   <div key={li} className="relative">
-                    <img src={imgSrc} alt={s.title[li]} className="h- md:h- w-auto max-w- md:max-w- object-contain drop-shadow-[10px_10px_15px_rgba(0,0,0,1)]" style={{transform: li===1? "translateX(22px)" : "none"}} />
+                    <img src={imgSrc} alt={s.title[li]} onError={(e)=>{ (e.target as HTMLImageElement).style.display='none'; (e.target as HTMLImageElement).nextElementSibling!.classList.remove('hidden') }} className="h- md:h- w-auto max-w- md:max-w- object-contain drop-shadow-[10px_10px_15px_rgba(0,0,0,1)]" style={{transform: li===1? "translateX(22px)" : "none"}} />
+                    <div className="hidden text- md:text- font-black italic leading-none tracking-tighter drop-shadow-[6px_6px_0px_black]">{s.title[li].toUpperCase()}</div>
                     {li === 0 && <div className="h-2 md:h-3" />}
                   </div>
                 ))}
@@ -139,7 +135,6 @@ export default function Page(){
                         <div className="text-white font-black italic text-lg mb-2">{s.n.toUpperCase()}</div>
                         <div className="text-white/70 text- leading-relaxed">{s.d}</div>
                       </div>
-                    </div>
                     <div className="p-5"><div className="font-black text- italic tracking-tight leading-tight">{s.n.toUpperCase()}</div><div className="mt-2 text-red-600 font-black text-">{s.p}</div><a href={`https://wa.me/${WHATSAPP}?text=Hola, quiero cotizar ${encodeURIComponent(s.n)}`} target="_blank" onClick={e=>e.stopPropagation()} className="mt-4 inline-flex w-full justify-center bg-black text-white py-3 text-sm font-black group-hover:bg-red-600 transition">COTIZAR →</a></div>
                   </div>
                 </div>
@@ -161,9 +156,8 @@ export default function Page(){
         <div className="marquee flex w-max items-center">
           {[...marcas,...marcas,...marcas].map((m, i)=>(
             <div key={i} className="flex items-center gap-3 mx-5 md:mx-6 group">
-              <div className="relative w-12 h-12 md:w-14 md:h-14 rounded- bg-white flex items-center justify-center p-2 shadow-[0_0_0_1px_rgba(255,255,255,0.15),3px_3px_0px_#dc2626,0_6px_15px_rgba(0,0,0,0.6)]">
-                <div className="absolute inset-0 rounded- bg-gradient-to-br from-white/40 via-transparent to-black/10 pointer-events-none" />
-                <img src={m.logo} alt={m.name} className="w-full h-full object-contain relative z-10" />
+              <div className="relative w-12 h-12 md:w-14 md:h-14 rounded- bg-white flex items-center justify-center p-2 shadow-[3px_3px_0px_#dc2626]">
+                <img src={m.logo} alt={m.name} className="w-full h-full object-contain" />
               </div>
               <span className="font-black italic text- md:text- text-white tracking-wider">{m.name}</span>
             </div>
@@ -184,7 +178,7 @@ export default function Page(){
           </div>
           <a href={waLink} target="_blank" className="mt-5 inline-flex w-full justify-center bg-[#25D366] text-black font-black py-3.5 hover:bg-white transition text-sm">ENVIAR POR WHATSAPP →</a>
         </div>
-        <div className="relative bg-[#111] min-h-"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3202.5!2d-73.06!3d-36.825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9669b5e5d0f0f0f1%3A0x0!2sRodolfo%20Brice%C3%B1o%202718%2C%20Concepci%C3%B3n%2C%20Chile!5e0!3m2!1ses!2scl!4v1" className="absolute inset-0 w-full h-full border-0 grayscale" loading="lazy" /></div>
+        <div className="relative bg-[#111] min-h-"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3202.5!2d-73.06!3d-36.825!2m3!1f0!2f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9669b5e5d0f0f0f1%3A0x0!2sRodolfo%20Brice%C3%B1o%202718%2C%20Concepci%C3%B3n%2C%20Chile!5e0!3m2!1ses!2scl!4v1" className="absolute inset-0 w-full h-full border-0 grayscale" loading="lazy" /></div>
       </section>
 
       <footer className="bg-black border-t-2 border-red-600 py-8 text-center text-white/30 text-xs font-bold tracking-widest">BALLADARES-MOTORS.CL © 2026</footer>
