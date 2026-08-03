@@ -1,8 +1,9 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 const WHATSAPP = "56932285399";
 const INSTAGRAM = "https://www.instagram.com/balladaresmotor/";
+const YOUTUBE_ID = "0q6KurtImDI";
 
 const slides = [
   { title: ["repro stage", "1 & 2"], titleImgs: ["/hero/titles/repro_stage_transparent.png", "/hero/titles/1and2_transparent.png"], sub: "Potencia real +25% torque +30%", img: "/hero/repro.jpg", pos: "50% 50%" },
@@ -47,19 +48,16 @@ export default function Page(){
   const [showAll,setShowAll]=useState(false);
   const [activeService,setActiveService]=useState<string | null>(null);
   const [showIntro,setShowIntro]=useState(true);
-  const videoRef = useRef<HTMLVideoElement>(null);
   useEffect(()=>{ const t=setInterval(()=>setI(p=>(p+1)%slides.length),5000); return()=>clearInterval(t) },[]);
-  useEffect(()=>{ if(showIntro && videoRef.current){ videoRef.current.play().catch(()=>{}) } },[showIntro]);
   const waLink = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(`Hola Balladares Motors! Quiero cotizar:\nMarca: ${form.marca}\nModelo: ${form.modelo}\nAño: ${form.ano}\nServicio: ${form.servicio}`)}`;
 
   return (
     <main className="bg-black text-white overflow-x-hidden">
-      {/* VIDEO INTRO AL INICIO CON X */}
       {showIntro && (
         <div className="fixed inset-0 z-[200] bg-black flex items-center justify-center">
           <button onClick={()=>setShowIntro(false)} className="absolute top-4 right-4 md:top-6 md:right-6 z-30 w-12 h-12 bg-white/10 hover:bg-red-600 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white text-xl font-black hover:rotate-90 transition-all duration-300">✕</button>
-          <video ref={videoRef} src="/intro.mp4" autoPlay muted playsInline controls onEnded={()=>setShowIntro(false)} className="w-full h-full object-contain md:object-cover" />
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20">
+          <iframe className="w-full h-full aspect-[9/16] md:aspect-video max-w- md:max-w-full" src={`https://www.youtube.com/embed/${YOUTUBE_ID}?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1&playsinline=1`} title="Intro" allow="autoplay; encrypted-media" allowFullScreen />
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-3">
             <button onClick={()=>setShowIntro(false)} className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-6 py-2.5 font-black text-sm hover:bg-white hover:text-black transition" style={{transform:"skewX(-12deg)"}}><span style={{transform:"skewX(12deg)", display:"block"}}>SALTAR INTRO →</span></button>
           </div>
         </div>
@@ -161,9 +159,10 @@ export default function Page(){
         <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-black to-transparent z-10" />
         <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-black to-transparent z-10" />
         <div className="marquee flex w-max items-center">
-          {[...marcas,...marcas].map((m, i)=>(
+          {[...marcas,...marcas,...marcas].map((m, i)=>(
             <div key={i} className="flex items-center gap-3 mx-5 md:mx-6 group">
               <div className="relative w-12 h-12 md:w-14 md:h-14 rounded- bg-white flex items-center justify-center p-2 shadow-[0_0_0_1px_rgba(255,255,255,0.15),3px_3px_0px_#dc2626,0_6px_15px_rgba(0,0,0,0.6)]">
+                <div className="absolute inset-0 rounded- bg-gradient-to-br from-white/40 via-transparent to-black/10 pointer-events-none" />
                 <img src={m.logo} alt={m.name} className="w-full h-full object-contain relative z-10" />
               </div>
               <span className="font-black italic text- md:text- text-white tracking-wider">{m.name}</span>
