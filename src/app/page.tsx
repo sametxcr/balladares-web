@@ -54,28 +54,23 @@ export default function Page(){
     <main className="bg-black text-white overflow-x-hidden">
       {showIntro && (
         <div className="fixed inset-0 z-[200] bg-black flex items-center justify-center">
-          <button onClick={()=>setShowIntro(false)} className="absolute top-4 right-4 z-30 w-12 h-12 bg-white/10 hover:bg-red-600 border border-white/20 rounded-full flex items-center justify-center text-white text-xl font-black transition">✕</button>
-          <iframe className="w-full h-full aspect-[9/16] md:aspect-video max-w- md:max-w-full" src={`https://www.youtube.com/embed/${YOUTUBE_ID}?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1&playsinline=1`} title="Intro Balladares Motors" allow="autoplay; encrypted-media" allowFullScreen />
+          <button onClick={()=>setShowIntro(false)} className="absolute top-4 right-4 z-30 w-12 h-12 bg-white/10 hover:bg-red-600 border border-white/20 rounded-full flex items-center justify-center text-white text-xl font-black">✕</button>
+          <iframe className="w-full h-full aspect-[9/16] md:aspect-video max-w- md:max-w-full" src={`https://www.youtube.com/embed/${YOUTUBE_ID}?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1&playsinline=1`} title="Intro" allow="autoplay; encrypted-media" allowFullScreen />
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20">
-            <button onClick={()=>setShowIntro(false)} className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-6 py-2.5 font-black text-sm hover:bg-white hover:text-black transition" style={{transform:"skewX(-12deg)"}}><span style={{transform:"skewX(12deg)", display:"block"}}>SALTAR INTRO →</span></button>
+            <button onClick={()=>setShowIntro(false)} className="bg-white/10 border border-white/20 text-white px-6 py-2.5 font-black text-sm" style={{transform:"skewX(-12deg)"}}><span style={{transform:"skewX(12deg)", display:"block"}}>SALTAR INTRO →</span></button>
           </div>
         </div>
       )}
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Russo+One&family=Orbitron:wght@900&display=swap');
-        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-       .marquee { animation: marquee 60s linear infinite; }
-       .marquee:hover { animation-play-state: paused; }
-      `}</style>
+      <style>{`@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }.marquee { animation: marquee 60s linear infinite; }`}</style>
 
       <nav className="fixed top-0 w-full z-50 bg-black border-b-2 border-red-600 flex justify-between items-center px-4 md:px-6 py-2.5">
         <img src="/BB.png" alt="Balladares Motors" className="h-11 md:h- w-auto" style={{objectFit:"contain", transform:"scaleX(1.44) scaleY(1.06)", transformOrigin:"left center"}} />
         <div className="hidden lg:flex gap-3 text- font-black tracking-wider">
           {[{id:"inicio", label:"INICIO"},{id:"nosotros", label:"NOSOTROS"},{id:"servicios", label:"SERVICIOS"},{id:"galeria", label:"GALERÍA"},{id:"contacto", label:"CONTACTO"}].map(link=>(
-            <a key={link.id} href={`#${link.id}`} className="relative px-4 py-2 border border-white/10 hover:border-red-600 hover:bg-red-600/10 transition-all group" style={{transform:"skewX(-12deg)"}}><span className="group-hover:text-red-500 transition" style={{transform:"skewX(12deg)", display:"block"}}>{link.label}</span></a>
+            <a key={link.id} href={`#${link.id}`} className="relative px-4 py-2 border border-white/10 hover:border-red-600 hover:bg-red-600/10 group" style={{transform:"skewX(-12deg)"}}><span className="group-hover:text-red-500" style={{transform:"skewX(12deg)", display:"block"}}>{link.label}</span></a>
           ))}
         </div>
-        <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="bg-red-600 px-6 md:px-8 py-2.5 font-black text-sm hover:bg-white hover:text-black transition shadow-[3px_3px_0px_white]" style={{transform:"skewX(-12deg)"}}><span style={{transform:"skewX(12deg)", display:"block"}}>COTIZAR →</span></a>
+        <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="bg-red-600 px-6 md:px-8 py-2.5 font-black text-sm shadow-[3px_3px_0px_white]" style={{transform:"skewX(-12deg)"}}><span style={{transform:"skewX(12deg)", display:"block"}}>COTIZAR →</span></a>
       </nav>
 
       <section id="inicio" className="h- relative overflow-hidden mt- bg-zinc-900">
@@ -137,7 +132,6 @@ export default function Page(){
                         <div className="text-white font-black italic text-lg mb-2">{s.n.toUpperCase()}</div>
                         <div className="text-white/70 text- leading-relaxed">{s.d}</div>
                       </div>
-                    </div>
                     <div className="p-5"><div className="font-black text- italic tracking-tight leading-tight">{s.n.toUpperCase()}</div><div className="mt-2 text-red-600 font-black text-">{s.p}</div><a href={`https://wa.me/${WHATSAPP}?text=Hola, quiero cotizar ${encodeURIComponent(s.n)}`} target="_blank" onClick={e=>e.stopPropagation()} className="mt-4 inline-flex w-full justify-center bg-black text-white py-3 text-sm font-black group-hover:bg-red-600 transition">COTIZAR →</a></div>
                   </div>
                 </div>
@@ -189,8 +183,8 @@ export default function Page(){
       <footer className="bg-black border-t-2 border-red-600 py-8 text-center text-white/30 text-xs font-bold tracking-widest">BALLADARES-MOTORS.CL © 2026</footer>
 
       <div className="fixed bottom-5 right-5 flex gap-3 z-50">
-        <a href={INSTAGRAM} target="_blank" className="w-14 h-14 rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition bg-gradient-to-br from-purple-600 via-pink-500 to-yellow-400"><svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
-        <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="w-14 h-14 rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition bg-[#25D366]"><svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.55 4.104 1.516 5.823L0 24l6.35-1.66A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.785 0-3.46-.487-4.9-1.334l-.35-.208-3.772.988.998-3.674-.23-.374A9.92 0 012 12c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10zm5.405-7.473c-.296-.149-1.75-.864-2.022-.963-.272-.099-.47-.149-.668.149-.198.297-.767.963-.94 1.161-.173.198-.347.223-.644.074-.296-.149-1.251-.461-2.383-1.47-.881-.785-1.476-1.75-1.65-2.047-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.149-.173.198-.297.297-.495.099-.198.05-.371-.025-.521-.074-.148-.668-1.609-.915-2.203-.241-.58-.486-.502-.668-.512l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.478 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.71.306 1.263.49 1.695.627.712.226 1.36.194 1.872.118.571-.085 1.75-.715 1.997-1.406.247-.691.247-1.283.173-1.406-.074-.124-.272-.198-.57-.347z"/></svg></a>
+        <a href={INSTAGRAM} target="_blank" className="w-14 h-14 rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition bg-gradient-to-br from-purple-600 via-pink-500 to-yellow-400"><svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 0 100 2.881 1.44 0 000-2.881z"/></svg></a>
+        <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="w-14 h-14 rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition bg-[#25D366]"><svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.55 4.104 1.516 5.823L0 24l6.35-1.66A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.785 0-3.46-.487-4.9-1.334l-.35-.208-3.772.988.998-3.674-.23-.374A9.92 9.92 0 012 12c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10zm5.405-7.473c-.296-.149-1.75-.864-2.022-.963-.272-.099-.47-.149-.668.149-.198.297-.767.963-.94 1.161-.173.198-.347.223-.644.074-.296-.149-1.251-.461-2.383-1.47-.881-.785-1.476-1.75-1.65-2.047-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.149-.173.198-.297.297-.495.099-.198.05-.371-.025-.521-.074-.148-.668-1.609-.915-2.203-.241-.58-.486-.502-.668-.512l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.478 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.71.306 1.263.49 1.695.627.712.226 1.36.194 1.872.118.571-.085 1.75-.715 1.997-1.406.247-.691.247-1.283.173-1.406-.074-.124-.272-.198-.57-.347z"/></svg></a>
       </div>
     </main>
   );
