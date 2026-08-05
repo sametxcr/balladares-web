@@ -16,12 +16,12 @@ const slides = [
 ];
 
 const servicios = [
-  { n: "Repro Stage 1/2", p: "Desde $180.000", d: "Libera el verdadero potencial oculto de tu ECU. +25% HP y +30% torque.", icon: "/icons/turbochip_isometric_icon.webp", accent: "from-red-600 to-orange-500", badge: "POPULAR" },
-  { n: "Scanner Multimarca", p: "Desde $25.000", d: "Diagnóstico profundo con equipamiento de última generación.", icon: "/icons/obd2_scanner_icon.webp", accent: "from-blue-600 to-cyan-400", badge: "DIAGNOSIS" },
-  { n: "Alineación 3D", p: "Desde $18.000", d: "Precisión milimétrica con sistema láser 3D.", icon: "/icons/wheel_alignment_icon.webp", accent: "from-zinc-600 to-zinc-400", badge: "LASER" },  
-  { n: "Ajuste Motor", p: "Cotizar", d: "Armado y rectificación de motores de alto rendimiento.", icon: "/icons/balladares_motors_emblem_transparent.webp", accent: "from-red-600 to-red-800", badge: "AJUSTE" },
-  { n: "Mecánica General", p: "Cotizar", d: "Frenos, suspensión, distribución. Especialistas en SR20 NEO VVL.", icon: "/icons/sr20_neo_vvl_balladares.webp", accent: "from-zinc-700 to-zinc-500", badge: "MECANICA GENERAL" },
-  { n: "Venta Etanol / Metanol R117", p: "Cotizar", d: "Combustible de competición E85+ R117.", icon: "/icons/racing_fuel_canister_icon.webp", accent: "from-orange-600 to-red-600", badge: "RACING FUEL" },
+  { n: "Repro Stage 1/2", p: "Desde $180.000", d: "Libera el verdadero potencial oculto de tu ECU. Potencia tu auto de forma segura +torque +potencia +economia.", icon: "/icons/turbochip_isometric_icon.webp", accent: "from-red-600 to-orange-500", badge: "POPULAR" },
+  { n: "Scanner Multimarca", p: "Desde $25.000", d: "Diagnóstico profundo con equipamiento de última generación. Soporte Tecnico en diferentes marcas", icon: "/icons/obd2_scanner_icon.webp", accent: "from-blue-600 to-cyan-400", badge: "DIAGNOSIS" },
+  { n: "Alineación con Laser + Balanceo", p: "Desde $18.000", d: "Precisión milimétrica con sistema láser 3D. Evita el desgaste excesivo de tus neumaticos y vibraciones al conducir", icon: "/icons/wheel_alignment_icon.webp", accent: "from-zinc-600 to-zinc-400", badge: "LASER" },  
+  { n: "Ajuste Motor", p: "Cotizar", d: "Armado y rectificación de motores de estandar y alto rendimiento. Resultados optimos con el soporte de diferentes maestranzas", icon: "/icons/balladares_motors_emblem_transparent.webp", accent: "from-red-600 to-red-800", badge: "AJUSTE" },
+  { n: "Mecánica General", p: "Cotizar", d: "Encuentra todos los servicios basicos en un solo lugar - mantencion por kilometraje - servicio de diagnostico - reparacion tren delantero - reparacion y mantencion sistema de frenos - afinamiento - cambio aceite y muchos mas cotiza aca.", icon: "/icons/sr20_neo_vvl_balladares.webp", accent: "from-zinc-700 to-zinc-500", badge: "MECANICA GENERAL" },
+  { n: "Venta Etanol / Metanol R117", p: "Cotizar", d: "Protege tu motor con combustible de carrera.", icon: "/icons/racing_fuel_canister_icon.webp", accent: "from-orange-600 to-red-600", badge: "RACING FUEL" },
 ];
 
 const galeriaTaller = Array.from({ length: 35 }, (_, i) => `/taller/${i + 1}.jpg`);
