@@ -138,7 +138,7 @@ export default function Page(){
         {/* 2 VIDEOS EN LOOP ABAJO - SIN SONIDO */}
         <div className="grid md:grid-cols-2 gap-4 md:gap-6 mt-6">
           <div className="relative bg-zinc-900 border border-white/10 overflow-hidden aspect-[9/16] md:aspect-[4/5]">
-            <video src="/repetirloop.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover" />
+            <video src="/repetirloop.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover" style={{objectPosition:"30% 50%"}} />
             <div className="absolute bottom-0 left-0 bg-red-600 text-white text- font-black px-3 py-1 tracking-widest">REPEAT LOOP</div>
           </div>
           <div className="relative bg-zinc-900 border border-white/10 overflow-hidden aspect-[9/16] md:aspect-[4/5]">
