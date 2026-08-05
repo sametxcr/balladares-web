@@ -209,13 +209,13 @@ export default function Page(){
       </section>
 
       <footer className="bg-black border-t-2 border-red-600 py-8 text-center text-white/30 text-xs font-bold tracking-widest">BALLADARES-MOTORS.CL © 2026</footer>
-	  {/* ICONOS FLOTANTES ORIGINALES */}
-<div className="fixed bottom-5 right-5 flex flex-col gap-3" style={{zIndex: 99}}>
-  <a href={INSTAGRAM} target="_blank" className="w- h- bg-white border-2 border-black rounded-full flex items-center justify-center shadow-[4px_4px_0px_black] hover:bg-zinc-100 hover:scale-110 transition-all">
-    <svg viewBox="0 0 24 24" className="w-6 h-6 fill-black"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.9.3 2.3.5.6.2.9.5 1.3.9.4.4.7.8.9 1.3.2.4.4 1.1.5 2.3.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.9-.5 2.3-.2.6-.5.9-.9 1.3-.4.4-.8.7-1.3.9-.4.2-1.1.4-2.3.5-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.9-.3-2.3-.5a3.6 3.6 0 0 1-1.3-.9 3.6 0 0 1-.9-1.3c-.2-.4-.4-1.1-.5-2.3C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.3-1.9.5-2.3.2-.6.5-.9.9-1.3.4-.4.8-.7 1.3-.9.4-.2 1.1-.4 2.3-.5C8.4 2.2 8.8 2.2 12 2.2Zm0 1.8c-3.1 0-3.4 0-4.7.1-1.1-1.6.2-1.9.4-.5.2-.8.4-1.1.8-.3.3-.6.6-.8 1.1-.1.3-.3.9-.4 1.9C3 9.6 3 9.9 3 13s0 3.4.1 4.7c.1 1.2 1.6.4 1.9.2.5.4.8.8 1.1.3.3.6.6 1.1.8.3.1.9.3 1.9.4 1.3.1 1.6.1 4.7.1s3.4 0 4.7-.1c1-.1 1.6-.2 1.9-.4.5-.2.8-.4 1.1-.8.3-.3.6-.6.8-1.1.1-.3.3-.9.4-1.9.1-1.3.1-1.6.1-4.7s0-3.4-.1-4.7c-.1-1-.2-1.6-.4-1.9a2.8 2.8 0 0 0-.8-1.1 2.8 0 0 0-1.1-.8c-.3-.1-.9-.3-1.9-.4-1.3-.1-1.6-.1-4.7-.1Zm0 3.7a5.3 5.3 0 1 1 0 10.6 5.3 5.3 0 0 1 0-10.6Zm0 1.8a3.5 3.5 0 1 0 0 7 3.5 0 0-7Zm5.5-.9a1.2 1.2 0 1 1 0 2.5 1.2 1.2 0 0 1 0-2.5Z"/></svg>
+{/* FLOTANTES ORIGINALES - GRANDES LADO A LADO */}
+<div className="fixed bottom-6 right-6 flex flex-row gap-4 items-center" style={{zIndex: 9999}}>
+  <a href={INSTAGRAM} target="_blank" className="w-[64px] h-[64px] bg-white rounded-full flex items-center justify-center border-[3px] border-black shadow-[5px_5px_0px_black] hover:scale-110 transition">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" className="w-8 h-8 object-contain" alt="IG" />
   </a>
-  <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="w- h- bg-[#25D366] border-2 border-black rounded-full flex items-center justify-center shadow-[4px_4px_0px_black] hover:scale-110 transition-all animate-bounce">
-    <svg viewBox="0 0 24 24" className="w-6 h-6 fill-white"><path d="M19.1 4.9A9.9 9.9 0 0 0 12.1 2C6.6 2 2.2 6.4 2.2 11.9c0 1.7.4 3.4 1.3 4.8L2 22l5.4-1.4a9.9 9.9 0 0 0 4.7 1.2h.1c5.5 0 9.9-4.4 9.9-9.9a9.8 9.8 0 0 0-3-7Zm-7 15.2h-.1a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3.2.8.9-3.1-.2-.3a8.2 8.2 0 0 1-1.3-4.4c0-4.5 3.7-8.2 8.3-8.2a8.2 8.2 0 0 1 5.9 2.4 8.2 0 0 1 2.4 5.8c0 4.6-3.7 8.3-8.4 8.3Zm4.6-6.2c-.2-.1-1.4-.7-1.6-.8-.2 0-.4-.1-.6.1-.2.2-.6.8-.7.9-.1.2-.3.2-.5.1-.2-.1-1-.4-1.8-1.1-.7-.6-1.1-1.3-1.3-1.5-.1-.2 0-.4.1-.5.1-.1.2-.2.3-.4l.3-.3c.1-.1.1-.2 0-.4 0-.1-.6-1.4-.8-1.9-.2-.5-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.4c.1.2 1.6 2.5 3.9 3.5.5.2 1.4 1.3.5.6.2 1.1.1 1.5.1.5-.1 1.4-.6 1.6-1.1.2-.5.2-1.1-1.1-.1-.1-.3-.2-.5-.2Z"/></svg>
+  <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="w-[64px] h-[64px] bg-[#25D366] rounded-full flex items-center justify-center border-[3px] border-black shadow-[5px_5px_0px_black] hover:scale-110 transition">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" className="w-9 h-9 object-contain" alt="WA" />
   </a>
 </div>
     </main>
