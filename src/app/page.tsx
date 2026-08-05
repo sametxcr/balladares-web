@@ -80,12 +80,11 @@ export default function Page(){
             <img src={s.img} alt={s.title.join(" ")} className="absolute inset-0 w-full h-full object-cover" style={{objectPosition: s.pos}} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent" />
             <div className="relative h-full flex flex-col justify-between px-4 md:px-24 py-10 md:py-20">
-              <div className="mt-12 md:mt-20 flex flex-col items-start gap-1">
-                {s.titleImgs.map((imgSrc, li) => (
-                  <div key={li} className="relative">
-                    <img src={imgSrc} alt={s.title[li]} className="w-auto object-contain" style={{height:98, maxWidth:"95vw", transform: li===1? "translateX(22px)" : "none", filter:"drop-shadow(10px 10px 15px rgba(0,0,0,1))"}} />
-                    {li === 0 && <div style={{height:10}} />}
-                  </div>
+               <div className="mt-12 md:mt-20 flex flex-col items-start gap-1">
+                {s.title.map((t, li) => (
+                  <h1 key={li} className="font-black italic text-5xl md:text-7xl leading-[0.9] tracking-tighter text-white" style={{transform: li===1? "translateX(22px)" : "none", textShadow:"10px 10px 15px rgba(0,0,0,1)"}}>
+                    {t.toUpperCase()}
+                  </h1>
                 ))}
               </div>
               <div className="flex flex-col gap-3 items-start mb-2">
@@ -100,7 +99,7 @@ export default function Page(){
 
       <section className="bg-black border-y border-white/10 grid grid-cols-2 lg:grid-cols-4" style={{backgroundColor:"#0f0f0f"}}>
         {[
-          { t: "+15 AÑOS EXPERIENCIA", icon: "🏆", desc: "Pura pista y calle" },
+          { t: "+15 AÑOS EXPERIENCIA", icon: "🏆", desc: "Pista y calle" },
           { t: "SCANNER ÚLTIMA GEN", icon: "🖥", desc: "Diagnóstico real" },
           { t: "TODAS LAS MARCAS", icon: "🚗", desc: "Japo, Euro, USA" },
           { t: "SERVICIO DE PISTA", icon: "🏁", desc: "Set-up competición" },
