@@ -10,43 +10,36 @@ body{background:#0A0A0A;color:white;font-family: Montserrat, sans-serif}
 @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } } 
 .marquee { animation: marquee 25s linear infinite; }
 
-/* TITULOS - GRIS AL CENTRO RODEADO DE ROJO */
+/* TITULOS - GRIS AL CENTRO CON LINEA DELGADA ROJA */
 .racer-wrap{
   position:relative;
   transform: skewX(-14deg);
   display:inline-block;
-  padding: 0 22px;
+  padding: 0 18px;
 }
 .racer-main{
   position:relative;
   font-weight: 900;
   font-style: italic;
   line-height: 0.9;
-  letter-spacing: -0.02em;
-  /* GRIS MATE AL CENTRO */
-  background: linear-gradient(180deg, #F5F5F5 0%, #D4D4D4 35%, #9CA3AF 65%, #52525B 100%);
+  background: linear-gradient(180deg, #F5F5F5 0%, #D4D4D4 40%, #9CA3AF 75%, #6B7280 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  /* ROJO ALREDEDOR */
-  -webkit-text-stroke: 8px #DC2626;
+  /* LINEA DELGADA ROJA COMO LA NEGRA */
+  -webkit-text-stroke: 2.5px #DC2626;
   paint-order: stroke fill;
   filter: 
-    drop-shadow(0 0 0 white)
-    drop-shadow(1px 0 0 white)
-    drop-shadow(-1px 0 0 white)
-    drop-shadow(0 1px 0 white)
-    drop-shadow(0 -1px 0 white)
-    drop-shadow(3px 0 0 black)
-    drop-shadow(-3px 0 0 black)
-    drop-shadow(0 3px 0 black)
-    drop-shadow(0 -3px 0 black);
+    drop-shadow(1.5px 0 0 black)
+    drop-shadow(-1.5px 0 0 black)
+    drop-shadow(0 1.5px 0 black)
+    drop-shadow(0 -1.5px 0 black);
 }
 .racer-main::after{
   content: attr(data-text);
   position:absolute;
   inset:0;
-  background: linear-gradient(180deg, #F5F5F5 0%, #D4D4D4 35%, #9CA3AF 65%, #52525B 100%);
+  background: linear-gradient(180deg, #F5F5F5 0%, #D4D4D4 40%, #9CA3AF 75%, #6B7280 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
