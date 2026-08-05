@@ -7,53 +7,47 @@ body{background:#0A0A0A;color:white;font-family: Montserrat, sans-serif}
 .skew-racing{transform:skew(-12deg)}
 .unskew{transform:skew(12deg)}
 
-@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } } 
-.marquee { animation: marquee 25s linear infinite; }
-
-/* TITULOS - ROJO CONTRASTE */
-.racer-wrap{
-  position:relative;
+.racer-wrap {
+  position: relative;
+  display: inline-block;
   transform: skewX(-14deg);
-  display:inline-block;
-  padding: 0 20px;
-}
-.racer-main{
-  position:relative;
-  font-weight: 900;
-  font-style: italic;
   line-height: 0.9;
-  letter-spacing: -0.02em;
-  /* ROJO DEGRADÉ EN VEZ DE GRIS */
-  background: linear-gradient(180deg, #FF6B6B 0%, #DC2626 45%, #7F1D1D 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  /* BORDE BLANCO GORDO + BORDE NEGRO PARA CONTRASTE */
-  -webkit-text-stroke: 7px white;
-  paint-order: stroke fill;
-  filter: 
-    drop-shadow(3px 0 0 black) 
-    drop-shadow(-3px 0 0 black) 
-    drop-shadow(0 3px 0 black) 
-    drop-shadow(0 -3px 0 black)
-    drop-shadow(0 0 20px rgba(0,0,0,0.9));
+  isolation: isolate;
 }
-.racer-main::after{
-  content: attr(data-text);
-  position:absolute;
-  inset:0;
-  background: linear-gradient(180deg, #FF6B6B 0%, #DC2626 45%, #7F1D1D 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  z-index:1;
-}
-.racer-lines{
-  position:absolute;
-  left:-15%; right:-15%; top:50%;
-  height:3px;
-  background: linear-gradient(90deg, transparent, white, transparent);
+.racer-lines {
+  position: absolute;
+  left: -12%; right: -12%;
+  top: 50%;
+  height: 100%;
   transform: translateY(-50%);
-  pointer-events:none;
-  opacity:0.6;
+  z-index: -1;
+  background: 
+    linear-gradient(90deg, transparent 0%, #dc2626 10%, #dc2626 12%, transparent 14%, #dc2626 14%, #dc2626 22%, transparent 22%),
+    linear-gradient(90deg, transparent 0%, #dc2626 10%, #dc2626 12%, transparent 14%, #dc2626 14%, #dc2626 22%, transparent 22%);
+  background-position: 0 38%, 0 62%;
+  background-size: 100% 3px;
+  background-repeat: no-repeat;
+  filter: drop-shadow(0 0 6px #dc2626);
+  opacity: 0.8;
+}
+.racer-main {
+  font-family: 'Holtwood One SC', Impact, sans-serif !important;
+  font-weight: 900 !important;
+  /* CROMADO GRIS CLARO A OSCURO QUE RESALTA */
+  background: linear-gradient(180deg, #ffffff 0%, #e5e7eb 22%, #f9fafb 38%, #9ca3af 58%, #6b7280 78%, #d1d5db 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  -webkit-text-stroke: 1.8px #ffffff !important;
+  filter: drop-shadow(2px 0 0 #000) drop-shadow(0 2px 0 #000) drop-shadow(4px 4px 0 #000) drop-shadow(0 0 14px rgba(220,38,38,0.9)) drop-shadow(0 0 32px rgba(220,38,38,0.5)) !important;
+  position: relative;
+  z-index: 2;
+}
+.racer-main::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0; top: 0;
+  z-index: -1;
+  -webkit-text-fill-color: #000 !important;
+  -webkit-text-stroke: 7px #000 !important;
 }
