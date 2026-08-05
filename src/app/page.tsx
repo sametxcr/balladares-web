@@ -113,12 +113,39 @@ export default function Page(){
         ].map(f=><div key={f.t} className="p-6 text-center border-r border-white/5"><div className="flex flex-col items-center gap-2"><div className="w-12 h-12 bg-gradient-to-br from-zinc-800 to-black border border-white/10 flex items-center justify-center text-xl" style={{boxShadow:"2px 2px 0px #dc2626", transform:"rotate(-3deg)"}}>{f.icon}</div><div className="font-black text-sm">{f.t}</div><div className="text-xs text-white/40 font-bold">{f.desc}</div></div></div>)}
       </section>
 
-      <section id="nosotros" className="px-6 md:px-24 py-20 grid md:grid-cols-2 gap-12 items-center bg-black border-b border-white/5">
-        <div>
-          <div className="flex items-center gap-4"><div className="w-14 h-14 bg-red-600 flex items-center justify-center text-2xl font-black" style={{boxShadow:"4px 4px 0px white", transform:"skewX(-10deg)"}}><span style={{transform:"skewX(10deg)"}}>🏁</span></div><h2 className="text-4xl font-black italic">NOSOTROS / <span className="text-red-600">HISTORIA</span></h2></div>
-          <p className="mt-6 text-white/60 leading-relaxed">Balladares Motors es un taller bien conocido en Concepción. Nacimos de la pasión por las carreras en pista y circuito.</p>
+     <section id="nosotros" className="bg-black border-b border-white/5 px-4 md:px-24 py-16 md:py-24">
+        {/* ESLOGAN EN GRANDE */}
+        <div className="mb-12">
+          <h2 className={`${holtwood.className} text-4xl md:text-7xl font-black italic leading-[0.9]`}>
+            EL PODER DE <span className="text-red-600">UN BUEN SERVICIO</span>
+          </h2>
         </div>
-        <div className="bg-zinc-900 p-2 border border-white/10" style={{transform:"skewX(-6deg)"}}><div style={{transform:"skewX(6deg)"}}><img src="/hero/entrada.jpg" alt="taller" className="w-full object-cover" style={{height:440}} /></div></div>
+
+        {/* 2 FOTOS JUNTAS - LAS QUE MARCASTE */}
+        <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+          <div className="relative bg-zinc-900 p-2 border border-white/10 overflow-hidden" style={{transform:"skewX(-4deg)"}}>
+            <div style={{transform:"skewX(4deg)"}}>
+              <img src="/entradafront.jpg" alt="Entrada front Balladares" className="w-full h- object-cover" />
+            </div>
+          </div>
+          <div className="relative bg-zinc-900 p-2 border border-white/10 overflow-hidden" style={{transform:"skewX(-4deg)"}}>
+            <div style={{transform:"skewX(4deg)"}}>
+              <img src="/entradasup.jpg" alt="Entrada superior Balladares" className="w-full h- object-cover" />
+            </div>
+          </div>
+        </div>
+
+        {/* 2 VIDEOS EN LOOP ABAJO - SIN SONIDO */}
+        <div className="grid md:grid-cols-2 gap-4 md:gap-6 mt-6">
+          <div className="relative bg-zinc-900 border border-white/10 overflow-hidden aspect-[9/16] md:aspect-[4/5]">
+            <video src="/repetirloop.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover" />
+            <div className="absolute bottom-0 left-0 bg-red-600 text-white text- font-black px-3 py-1 tracking-widest">REPEAT LOOP</div>
+          </div>
+          <div className="relative bg-zinc-900 border border-white/10 overflow-hidden aspect-[9/16] md:aspect-[4/5]">
+            <video src="/looplife.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover" />
+            <div className="absolute bottom-0 left-0 bg-white text-black text- font-black px-3 py-1 tracking-widest">LOOP LIFE</div>
+          </div>
+        </div>
       </section>
 
       <section id="servicios" className="bg-white text-black px-4 md:px-24 py-16 md:py-20">
