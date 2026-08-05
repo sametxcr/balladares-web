@@ -51,7 +51,7 @@ export default function Page(){
   const [activeService,setActiveService]=useState<string | null>(null);
   const [showIntro,setShowIntro]=useState(true);
   useEffect(()=>{ const t=setInterval(()=>setI(p=>(p+1)%slides.length),5000); return()=>clearInterval(t) },[]);
-  const waLink = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(`Hola Balladares Motors! Quiero cotizar:\nMarca: ${form.marca}\nModelo: ${form.modelo}\nAño: ${form.anio}\nServicio: ${form.servicio}\nMensaje: ${form.mensaje}`)}`;
+  const [form,setForm]=useState({marca:"", modelo:"", anio:"", servicio:"Repro Stage 1/2", mensaje:""});
 
   return (
     <main className="bg-black text-white overflow-x-hidden">
@@ -194,7 +194,7 @@ export default function Page(){
           <div className="grid grid-cols-2 gap-3 mt-6">
             <input value={form.marca} onChange={e=>setForm({...form, marca:e.target.value})} placeholder="Marca" className="bg-black border border-white/10 p-3 text-sm font-bold outline-none focus:border-red-600 text-white" />
             <input value={form.modelo} onChange={e=>setForm({...form, modelo:e.target.value})} placeholder="Modelo" className="bg-black border border-white/10 p-3 text-sm font-bold outline-none focus:border-red-600 text-white" />
-            <input value={form.ano} onChange={e=>setForm({...form, ano:e.target.value})} placeholder="Año" className="bg-black border border-white/10 p-3 text-sm font-bold outline-none focus:border-red-600 text-white" />
+            <input value={form.anio} onChange={e=>setForm({...form, anio:e.target.value})} placeholder="Año" className="bg-black border border-white/10 p-3 text-sm font-bold outline-none focus:border-red-600 text-white" /> placeholder="Año" className="bg-black border border-white/10 p-3 text-sm font-bold outline-none focus:border-red-600 text-white" />
             <select value={form.servicio} onChange={e=>setForm({...form, servicio:e.target.value})} className="bg-black border border-white/10 p-3 text-sm font-bold outline-none focus:border-red-600 text-white">
               {servicios.map(s=><option key={s.n}>{s.n}</option>)}
             </select>
