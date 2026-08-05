@@ -59,7 +59,7 @@ export default function Page(){
         <div className="fixed inset-0 bg-black flex items-center justify-center" style={{zIndex:200}}>
           <button onClick={()=>setShowIntro(false)} className="absolute top-4 right-4 w-12 h-12 bg-white/10 hover:bg-red-600 border border-white/20 rounded-full flex items-center justify-center text-white text-xl font-black transition" style={{zIndex:30}}>✕</button>
           <iframe className="w-full h-full" style={{maxWidth:420, aspectRatio:"9/16"}} src={`https://www.youtube.com/embed/${YOUTUBE_ID}?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1&playsinline=1`} title="Intro" allow="autoplay; encrypted-media" allowFullScreen />
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2" style={{zIndex:20}}>
+          <div className="absolute bottom-24 left-1/2 -translate-x-1/2" style={{zIndex:20}}>
             <button onClick={()=>setShowIntro(false)} className="bg-white/10 border border-white/20 text-white px-6 py-2.5 font-black text-sm hover:bg-white hover:text-black transition" style={{transform:"skewX(-12deg)"}}><span style={{transform:"skewX(12deg)", display:"block"}}>SALTAR INTRO →</span></button>
           </div>
         </div>
@@ -120,19 +120,17 @@ export default function Page(){
           </h2>
         </div>
 
-        {/* 2 FOTOS JUNTAS - LAS QUE MARCASTE */}
-        <div className="grid md:grid-cols-2 gap-4 md:gap-6">
-          <div className="relative bg-zinc-900 p-2 border border-white/10 overflow-hidden" style={{transform:"skewX(-4deg)"}}>
-           <div className="w-full h-[500px] overflow-hidden bg-black">
-  <img src="/entrada.jpg" alt="Entrada Balladares" className="w-full h-full object-cover" style={{objectPosition:"50% 42%", transform:"scale(1.35)"}} />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+  <div className="bg-black border border-white/10 aspect-[4/3] overflow-hidden">
+    <img src="/entrada.jpg" alt="Entrada 1" className="w-full h-full object-cover" style={{objectPosition:"center center", transform:"scale(0.82)"}} />
+  </div>
+  <div className="bg-black border border-white/10 aspect-[4/3] overflow-hidden">
+    <img src="/entrada2.jpg" alt="Entrada 2" className="w-full h-full object-cover" style={{objectPosition:"center center", transform:"scale(0.82)"}} />
+  </div>
+  <div className="bg-black border border-white/10 aspect-[4/3] overflow-hidden">
+    <img src="/entradanoche.jpg" alt="Entrada Noche" className="w-full h-full object-cover" style={{objectPosition:"center center", transform:"scale(0.82)"}} />
+  </div>
 </div>
-          </div>
-          <div className="relative bg-zinc-900 p-2 border border-white/10 overflow-hidden" style={{transform:"skewX(-4deg)"}}>
-            <div className="w-full h-[500px] overflow-hidden bg-black">
-  <img src="/entrada2.jpg" alt="Entrada 2 Balladares" className="w-full h-full object-cover" style={{objectPosition:"50% 40%", transform:"scale(1.65)"}} />
-</div>
-          </div>
-        </div>
 
         {/* 2 VIDEOS EN LOOP ABAJO - MAS CHICOS Y CENTRADOS */}
 <div className="grid md:grid-cols-2 gap-4 md:gap-6 mt-6">
