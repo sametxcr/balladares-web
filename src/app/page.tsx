@@ -67,8 +67,8 @@ export default function Page(){
 
       <style>{`@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } } .marquee { animation: marquee 60s linear infinite; }`}</style>
 
-      <nav className="fixed top-0 w-full bg-black border-b-2 border-red-600 flex justify-between items-center px-4 py-2.5" style={{zIndex:50}}>
-        <img src="/BB.png" alt="Balladares Motors" className="h-11 w-auto" style={{objectFit:"contain", transform:"scaleX(1.44) scaleY(1.06)", transformOrigin:"left center", height:52}} />
+      <nav className="fixed top-0 w-full bg-black border-b-2 border-red-600 flex justify-between items-center pl-1 pr-4 py-2.5" style={{zIndex:50}}>
+        <img src="/BB.png" alt="Balladares Motors" className="h-11 w-auto -ml-2" style={{objectFit:"contain", transform:"scaleX(1.44) scaleY(1.06)", transformOrigin:"left center", height:52}} />
         <div className="hidden lg:flex gap-3 text-sm font-black tracking-wider">
           {[{id:"inicio", label:"INICIO"},{id:"nosotros", label:"NOSOTROS"},{id:"servicios", label:"SERVICIOS"},{id:"galeria", label:"GALERÍA"},{id:"contacto", label:"CONTACTO"}].map(link=>(
             <a key={link.id} href={`#${link.id}`} className="relative px-4 py-2 border border-white/10 hover:border-red-600 hover:bg-red-600/10 group" style={{transform:"skewX(-12deg)"}}><span className="group-hover:text-red-500" style={{transform:"skewX(12deg)", display:"block"}}>{link.label}</span></a>
@@ -123,14 +123,14 @@ export default function Page(){
         {/* 2 FOTOS JUNTAS - LAS QUE MARCASTE */}
         <div className="grid md:grid-cols-2 gap-4 md:gap-6">
           <div className="relative bg-zinc-900 p-2 border border-white/10 overflow-hidden" style={{transform:"skewX(-4deg)"}}>
-            <div style={{transform:"skewX(4deg)"}}>
-          <img src="/entrada.jpg" alt="Entrada Balladares" className="w-full h-[500px] object-contain bg-zinc-900" style={{objectPosition:"center center"}} />
-            </div>
+           <div className="w-full h-[500px] overflow-hidden bg-black">
+  <img src="/entrada.jpg" alt="Entrada Balladares" className="w-full h-full object-cover" style={{objectPosition:"50% 42%", transform:"scale(1.35)"}} />
+</div>
           </div>
           <div className="relative bg-zinc-900 p-2 border border-white/10 overflow-hidden" style={{transform:"skewX(-4deg)"}}>
-            <div style={{transform:"skewX(4deg)"}}>
-            <img src="/entrada2.jpg" alt="Entrada 2 Balladares" className="w-full h-[500px] object-contain bg-zinc-900" style={{objectPosition:"center center"}} />
-            </div>
+            <div className="w-full h-[500px] overflow-hidden bg-black">
+  <img src="/entrada2.jpg" alt="Entrada 2 Balladares" className="w-full h-full object-cover" style={{objectPosition:"50% 40%", transform:"scale(1.65)"}} />
+</div>
           </div>
         </div>
 
