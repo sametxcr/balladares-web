@@ -1,5 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
+import { Montserrat, Holtwood_One_SC } from "next/font/google";
+
+const montserrat = Montserrat({ subsets: ["latin"], weight: ["400","700","900"] });
+const holtwood = Holtwood_One_SC({ weight: "400", subsets: ["latin"] });
 
 const WHATSAPP = "56932285399";
 const INSTAGRAM = "https://www.instagram.com/balladaresmotor/";
@@ -80,9 +84,9 @@ export default function Page(){
             <img src={s.img} alt={s.title.join(" ")} className="absolute inset-0 w-full h-full object-cover" style={{objectPosition: s.pos}} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent" />
             <div className="relative h-full flex flex-col justify-between px-4 md:px-24 py-10 md:py-20">
-               <div className="mt-12 md:mt-20 flex flex-col items-start gap-1">
+                             <div className={`${holtwood.className} mt-12 md:mt-20 flex flex-col items-start gap-1`}>
                 {s.title.map((t, li) => (
-                  <h1 key={li} className="font-black italic text-5xl md:text-7xl leading-[0.9] tracking-tighter text-white" style={{transform: li===1? "translateX(22px)" : "none", textShadow:"10px 10px 15px rgba(0,0,0,1)"}}>
+                  <h1 key={li} className="text-5xl md:text-7xl leading-[0.9] tracking-tighter text-white" style={{transform: li===1? "translateX(22px)" : "none", textShadow:"10px 10px 15px rgba(0,0,0,1)"}}>
                     {t.toUpperCase()}
                   </h1>
                 ))}

@@ -5,3 +5,29 @@
 body{background:#0A0A0A;color:white;font-family: Montserrat, sans-serif}
 .skew-racing{transform:skew(-12deg)}
 .unskew{transform:skew(12deg)}
+
+.racer-chrome {
+  font-family: 'Holtwood One SC', serif;
+  font-weight: 400;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: -2px;
+  line-height: 0.9;
+  background: linear-gradient(180deg, #ffffff 0%, #a8b4c0 20%, #ffffff 45%, #4a5a6a 50%, #d0d8e0 80%, #ffffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 1px #00e5ff) drop-shadow(2px 0 0 #00e5ff) drop-shadow(-2px 0 0 #001a1f) drop-shadow(0 4px 0 #000) drop-shadow(0 8px 15px rgba(0,229,255,0.5));
+  -webkit-text-stroke: 1px rgba(255,255,255,0.8);
+  position: relative;
+}
+.racer-chrome::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  top: 50%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00e5ff, transparent);
+  box-shadow: 0 0 10px #00e5ff, 0 20px 10px rgba(0,229,255,0.3);
+  pointer-events: none;
+}
