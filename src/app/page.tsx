@@ -120,18 +120,18 @@ export default function Page(){
           </h2>
         </div>
 
-        {/* 2 FOTOS JUNTAS - LAS QUE MARCASTE */}
-        <div className="grid md:grid-cols-2 gap-4 md:gap-6">
-          <div className="relative bg-zinc-900 p-2 border border-white/10 overflow-hidden" style={{transform:"skewX(-4deg)"}}>
-           <div className="w-full h-[500px] overflow-hidden bg-black">
-  <img src="/entrada.jpg" alt="Entrada Balladares" className="w-full h-full object-cover" style={{objectPosition:"50% 42%", transform:"scale(1.35)"}} />
+        {/* 3 FOTOS ENTRADA - COMPLETAS */}
+<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+  <div className="bg-zinc-900 border border-white/10 h- p-2">
+    <img src="/entrada.jpg" alt="Entrada 1" className="w-full h-full object-contain" />
+  </div>
+  <div className="bg-zinc-900 border border-white/10 h- p-2">
+    <img src="/entrada2.jpg" alt="Entrada 2" className="w-full h-full object-contain" />
+  </div>
+  <div className="bg-zinc-900 border border-white/10 h- p-2">
+    <img src="/entradanoche.jpg" alt="Entrada Noche" className="w-full h-full object-contain" />
+  </div>
 </div>
-          </div>
-          <div className="relative bg-zinc-900 p-2 border border-white/10 overflow-hidden" style={{transform:"skewX(-4deg)"}}>
-            <div className="w-full h-[500px] overflow-hidden bg-black">
-  <img src="/entrada2.jpg" alt="Entrada 2 Balladares" className="w-full h-full object-cover" style={{objectPosition:"50% 40%", transform:"scale(1.65)"}} />
-</div>
-          </div>
         </div>
 
         {/* 2 VIDEOS EN LOOP ABAJO - MAS CHICOS Y CENTRADOS */}
