@@ -68,14 +68,14 @@ export default function Page(){
       <style>{`@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } } .marquee { animation: marquee 25s linear infinite; }`}</style>
 
       <nav className="fixed top-0 w-full bg-black border-b-2 border-red-600 flex justify-between items-center pl-1 pr-4 py-2.5" style={{zIndex:50}}>
-        <img src="/BB.png" alt="Balladares Motors" className="h-11 w-auto -ml-2" style={{objectFit:"contain", transform:"scaleX(1.44) scaleY(1.06)", transformOrigin:"left center", height:52}} />
-        <div className="hidden lg:flex gap-3 text-sm font-black tracking-wider">
-          {[{id:"inicio", label:"INICIO"},{id:"nosotros", label:"NOSOTROS"},{id:"servicios", label:"SERVICIOS"},{id:"galeria", label:"GALERÍA"},{id:"contacto", label:"CONTACTO"}].map(link=>(
-            <a key={link.id} href={`#${link.id}`} className="relative px-4 py-2 border border-white/10 hover:border-red-600 hover:bg-red-600/10 group" style={{transform:"skewX(-12deg)"}}><span className="group-hover:text-red-500" style={{transform:"skewX(12deg)", display:"block"}}>{link.label}</span></a>
-          ))}
-        </div>
-        <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="bg-red-600 px-8 py-2.5 font-black text-sm hover:bg-white hover:text-black transition" style={{transform:"skewX(-12deg)", boxShadow:"3px 3px 0px white"}}><span style={{transform:"skewX(12deg)", display:"block"}}>COTIZAR →</span></a>
-      </nav>
+  <img src="/BB.png" alt="Balladares Motors" className="h-11 w-auto -ml-2" style={{objectFit:"contain", transform:"scaleX(1.44) scaleY(1.06)", transformOrigin:"left center", height:52}} />
+  <div className="hidden lg:flex gap-3 text-sm font-black tracking-wider">
+    {[{id:"inicio", label:"INICIO"},{id:"nosotros", label:"NOSOTROS"},{id:"servicios", label:"SERVICIOS"},{id:"galeria", label:"GALERÍA"},{id:"contacto", label:"CONTACTO"}].map(link=>(
+      <a key={link.id} href={`#${link.id}`} className="relative px-4 py-2 border border-white/10 hover:border-red-600 hover:bg-red-600/10 group" style={{transform:"skewX(-12deg)"}}><span className="group-hover:text-red-500" style={{transform:"skewX(12deg)", display:"block"}}>{link.label}</span></a>
+    ))}
+  </div>
+  <img src="/LB.png" alt="Lubricentro Balladares" className="h-11 w-auto" style={{objectFit:"contain", height:52}} />
+</nav>
 
       <section id="inicio" className="relative overflow-hidden bg-zinc-900" style={{height:"92vh", marginTop:58}}>
         {slides.map((s,idx)=>(
