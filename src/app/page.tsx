@@ -1,7 +1,5 @@
 "use client";
-import { useState, useEffect, useRef, useCallback } from "react";
-// Si quieres pasar a next/image 100% optimizado, descomenta la siguiente linea:
-// import Image from "next/image";
+import { useState, useEffect } from "react";
 
 const WHATSAPP = "56932285399";
 const INSTAGRAM = "https://www.instagram.com/balladaresmotor/";
@@ -43,9 +41,9 @@ const marcas = [
 ];
 
 const reviews = [
-  { name: "@matias_sr20det", text: "Llevaba 2 talleres y nadie le achuntaba al NEO VVL. Los cabros de Balladares lo dejaron joya en 1 día. 100% recomendados.", car: "Nissan Primera P11" },
-  { name: "@cata_m240i", text: "La repro Stage 1 quedó brutal. Se nota el torque al tiro, otro auto. Y la atención 10/10.", car: "BMW M240i" },
-  { name: "@jota_subaru", text: "Alineación y balanceo para pista. Quedó filete, 0 vibración a 200. Pega real.", car: "Subaru WRX" },
+  { name: "@matias_sr20det", text: "Llevaba 2 talleres y nadie le achuntaba al NEO VVL. Los de Balladares lo dejaron joya en 1 día.", car: "Nissan P11" },
+  { name: "@cata_m240i", text: "La repro Stage 1 quedó brutal. Otro auto. Atención 10/10.", car: "BMW M240i" },
+  { name: "@jota_subaru", text: "Alineación para pista, 0 vibración a 200. Pega real.", car: "Subaru WRX" },
 ];
 
 export default function Page(){
@@ -57,47 +55,25 @@ export default function Page(){
   const [showIntro,setShowIntro]=useState(false);
   const [mobileMenu,setMobileMenu]=useState(false);
 
-  // 1. INTRO FIX: solo 1 vez por sesion
   useEffect(()=>{
-    if(!sessionStorage.getItem("bm_intro")) setShowIntro(true);
+    if(typeof window!== "undefined" &&!sessionStorage.getItem("bm_intro")) setShowIntro(true);
   },[]);
-  const closeIntro = () => {
-    setShowIntro(false);
-    sessionStorage.setItem("bm_intro","1");
-  }
-
+  const closeIntro = () => { setShowIntro(false); sessionStorage.setItem("bm_intro","1"); };
   useEffect(()=>{ const t=setInterval(()=>setI(p=>(p+1)%slides.length),5000); return()=>clearInterval(t) },[]);
-
-  // Lightbox con teclado
   useEffect(()=>{
-    const onKey = (e:KeyboardEvent) => {
-      if(e.key==="Escape") { closeIntro(); setSelectedImg(null); }
-      if(selectedImg){
-        const idx = galeriaTaller.indexOf(selectedImg);
-        if(e.key==="ArrowRight") setSelectedImg(galeriaTaller[(idx+1)%galeriaTaller.length]);
-        if(e.key==="ArrowLeft") setSelectedImg(galeriaTaller[(idx-1+galeriaTaller.length)%galeriaTaller.length]);
-      }
-    }
-    window.addEventListener("keydown", onKey);
-    return ()=> window.removeEventListener("keydown", onKey);
-  },[selectedImg]);
+    const onKey = (e:KeyboardEvent) => { if(e.key==="Escape"){ setSelectedImg(null); closeIntro(); } };
+    window.addEventListener("keydown", onKey); return ()=> window.removeEventListener("keydown", onKey);
+  },[]);
 
   const waLink = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(`Hola Balladares Motors! Quiero cotizar:\nMarca: ${form.marca}\nModelo: ${form.modelo}\nAño: ${form.ano}\nServicio: ${form.servicio}`)}`;
   const canSend = form.marca.trim() && form.modelo.trim() && form.ano.trim();
 
   return (
     <main className="bg-black text-white overflow-x-hidden">
-      {/* 2. SEO SCHEMA - GOOGLE */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
-        "@context":"https://schema.org",
-        "@type":"AutoRepair",
-        "name":"Balladares Motors",
-        "image":"https://balladares-web.vercel.app/hero/entrada.jpg",
-        "address":{"@type":"PostalAddress","streetAddress":"Rodolfo Briceño 2718","addressLocality":"Concepción","addressRegion":"Bio Bio","addressCountry":"CL"},
-        "telephone":`+${WHATSAPP}`,
-        "url":"https://balladares-motors.cl",
-        "priceRange":"$$",
-        "description":"Taller especialista en Repro Stage 1/2, Scanner Multimarca, Alineación 3D y mecánica de pista y calle en Concepción. Especialistas SR20 NEO VVL."
+        "@context":"https://schema.org","@type":"AutoRepair","name":"Balladares Motors",
+        "address":{"@type":"PostalAddress","streetAddress":"Rodolfo Briceño 2718","addressLocality":"Concepción","addressCountry":"CL"},
+        "telephone":"+56932285399","url":"https://balladares-motors.cl"
       })}} />
 
       {showIntro && (
@@ -110,16 +86,16 @@ export default function Page(){
         </div>
       )}
 
-      <style>{`@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }.marquee { animation: marquee 40s linear infinite; }.marquee:hover{animation-play-state:paused}`}</style>
+      <style>{`@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }.marquee { animation: marquee 60s linear infinite; }`}</style>
 
-      <nav className="fixed top-0 w-full bg-black/90 backdrop-blur-md border-b-2 border-red-600 flex justify-between items-center px-4 py-2.5" style={{zIndex:50}}>
+      <nav className="fixed top-0 w-full bg-black border-b-2 border-red-600 flex justify-between items-center px-4 py-2.5" style={{zIndex:50}}>
         <img src="/BB.png" alt="Balladares Motors" className="h-11 w-auto" style={{objectFit:"contain", transform:"scaleX(1.44) scaleY(1.06)", transformOrigin:"left center", height:52}} />
         <div className="hidden lg:flex gap-3 text-sm font-black tracking-wider">
           {[{id:"inicio", label:"INICIO"},{id:"nosotros", label:"NOSOTROS"},{id:"servicios", label:"SERVICIOS"},{id:"galeria", label:"GALERÍA"},{id:"contacto", label:"CONTACTO"}].map(link=>(
             <a key={link.id} href={`#${link.id}`} className="relative px-4 py-2 border border-white/10 hover:border-red-600 hover:bg-red-600/10 group" style={{transform:"skewX(-12deg)"}}><span className="group-hover:text-red-500" style={{transform:"skewX(12deg)", display:"block"}}>{link.label}</span></a>
           ))}
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex gap-2 items-center">
           <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="bg-red-600 px-8 py-2.5 font-black text-sm hover:bg-white hover:text-black transition" style={{transform:"skewX(-12deg)", boxShadow:"3px 3px 0px white"}}><span style={{transform:"skewX(12deg)", display:"block"}}>COTIZAR →</span></a>
           <button onClick={()=>setMobileMenu(!mobileMenu)} className="lg:hidden w-10 h-10 bg-white/10 border border-white/20">☰</button>
         </div>
@@ -129,13 +105,13 @@ export default function Page(){
       <section id="inicio" className="relative overflow-hidden bg-zinc-900" style={{height:"92vh", marginTop:58}}>
         {slides.map((s,idx)=>(
           <div key={idx} className={`absolute inset-0 transition-opacity duration-1000 ${idx===i?"opacity-100":"opacity-0"}`}>
-            <img src={s.img} alt={s.title.join(" ")} loading={idx===0?"eager":"lazy"} decoding="async" className="absolute inset-0 w-full h-full object-cover" style={{objectPosition: s.pos}} />
+            <img src={s.img} alt={s.title.join(" ")} className="absolute inset-0 w-full h-full object-cover" style={{objectPosition: s.pos}} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent" />
             <div className="relative h-full flex flex-col justify-between px-4 md:px-24 py-10 md:py-20">
               <div className="mt-12 md:mt-20 flex flex-col items-start gap-1">
                 {s.titleImgs.map((imgSrc, li) => (
                   <div key={li} className="relative">
-                    <img src={imgSrc} alt={s.title[li]} loading="eager" className="w-auto object-contain" style={{height:98, maxWidth:"95vw", transform: li===1? "translateX(22px)" : "none", filter:"drop-shadow(10px 10px 15px rgba(0,0,0,1))"}} />
+                    <img src={imgSrc} alt={s.title[li]} className="w-auto object-contain" style={{height:98, maxWidth:"95vw", transform: li===1? "translateX(22px)" : "none", filter:"drop-shadow(10px 10px 15px rgba(0,0,0,1))"}} />
                     {li === 0 && <div style={{height:10}} />}
                   </div>
                 ))}
@@ -162,10 +138,9 @@ export default function Page(){
       <section id="nosotros" className="px-6 md:px-24 py-20 grid md:grid-cols-2 gap-12 items-center bg-black border-b border-white/5">
         <div>
           <div className="flex items-center gap-4"><div className="w-14 h-14 bg-red-600 flex items-center justify-center text-2xl font-black" style={{boxShadow:"4px 4px 0px white", transform:"skewX(-10deg)"}}><span style={{transform:"skewX(10deg)"}}>🏁</span></div><h2 className="text-4xl font-black italic">NOSOTROS / <span className="text-red-600">HISTORIA</span></h2></div>
-          <p className="mt-6 text-white/60 leading-relaxed">Balladares Motors es un taller bien conocido en Concepción. Nacimos de la pasión por las carreras en pista y circuito. 15+ años dejando autos en su punto.</p>
-          <div className="mt-6 flex gap-3"><a href={INSTAGRAM} target="_blank" className="bg-white/5 border border-white/10 px-4 py-2 font-black text-xs hover:bg-red-600">VER INSTAGRAM →</a><a href="#galeria" className="bg-red-600 px-4 py-2 font-black text-xs">VER PEGA REAL</a></div>
+          <p className="mt-6 text-white/60 leading-relaxed">Balladares Motors es un taller bien conocido en Concepción. Nacimos de la pasión por las carreras en pista y circuito.</p>
         </div>
-        <div className="bg-zinc-900 p-2 border border-white/10" style={{transform:"skewX(-6deg)"}}><div style={{transform:"skewX(6deg)"}}><img src="/hero/entrada.jpg" alt="taller" loading="lazy" className="w-full object-cover" style={{height:440}} /></div></div>
+        <div className="bg-zinc-900 p-2 border border-white/10" style={{transform:"skewX(-6deg)"}}><div style={{transform:"skewX(6deg)"}}><img src="/hero/entrada.jpg" alt="taller" className="w-full object-cover" style={{height:440}} /></div></div>
       </section>
 
       <section id="servicios" className="bg-white text-black px-4 md:px-24 py-16 md:py-20">
@@ -179,8 +154,8 @@ export default function Page(){
                 <div className="relative bg-white p-0.5" style={{transform:"skewX(-3deg)"}}>
                   <div className="bg-white" style={{transform:"skewX(3deg)"}}>
                     <div className="relative bg-gradient-to-br from-zinc-50 to-zinc-100 flex items-center justify-center overflow-hidden border-b border-black/5" style={{height:280}}>
-                      <img src={s.icon} alt={s.n} loading="lazy" decoding="async" className="w-11/12 h-11/12 object-contain drop-shadow-xl group-hover:scale-110 transition-transform duration-500" />
-                      <div className="absolute top-3 right-3 bg-black text-white text- font-black tracking-widest px-3 py-1.5">{s.badge}</div>
+                      <img src={s.icon} alt={s.n} className="w-11/12 h-11/12 object-contain drop-shadow-xl group-hover:scale-110 transition-transform duration-500" />
+                      <div className="absolute top-3 right-3 bg-black text-white text-xs font-black tracking-widest px-3 py-1.5">{s.badge}</div>
                       <div className={`absolute top-0 left-0 w-full bg-gradient-to-r ${s.accent}`} style={{height:6}} />
                       <div className={`absolute inset-0 bg-black/90 p-6 flex flex-col justify-center transition-all duration-300 ${isActive? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}>
                         <div className="text-white font-black italic text-lg mb-2">{s.n.toUpperCase()}</div>
@@ -195,33 +170,24 @@ export default function Page(){
         </div>
       </section>
 
-      {/* NUEVA SECCION REVIEWS */}
-      <section className="bg-zinc-950 border-y border-white/10 px-4 md:px-24 py-16">
-        <h2 className="text-3xl md:text-4xl font-black italic">CLIENTES / <span className="text-red-600">PEGA REAL</span></h2>
-        <div className="grid md:grid-cols-3 gap-4 mt-8">
-          {reviews.map(r=>(
-            <div key={r.name} className="bg-black border border-white/10 p-5 relative" style={{transform:"skewX(-2deg)"}}>
-              <div style={{transform:"skewX(2deg)"}}>
-                <div className="text-yellow-400 text-sm">★★★★★</div>
-                <p className="mt-3 text-sm text-white/80 leading-relaxed">"{r.text}"</p>
-                <div className="mt-4 font-black text-xs">{r.name} <span className="text-white/40 font-normal">— {r.car}</span></div>
-              </div>
-            </div>
-          ))}
+      <section className="bg-zinc-950 border-y border-white/10 px-4 md:px-24 py-12">
+        <h2 className="text-3xl font-black italic">CLIENTES / <span className="text-red-600">PEGA REAL</span></h2>
+        <div className="grid md:grid-cols-3 gap-4 mt-6">
+          {reviews.map(r=><div key={r.name} className="bg-black border border-white/10 p-5"><div className="text-yellow-400 text-xs">★★★★★</div><p className="mt-2 text-sm text-white/70">"{r.text}"</p><div className="mt-3 font-black text-xs">{r.name} <span className="text-white/40">{r.car}</span></div></div>)}
         </div>
       </section>
 
       <section id="galeria" className="bg-black px-4 md:px-24 py-16 border-y border-white/10" style={{backgroundColor:"#0a0a0a"}}>
         <div className="flex justify-between items-end flex-wrap gap-4"><h2 className="text-3xl md:text-4xl font-black italic">GALERÍA / <span className="text-red-600">PEGA REAL ({galeriaTaller.length})</span></h2><button onClick={()=>setShowAll(!showAll)} className="bg-white text-black px-6 py-2 font-black text-sm hover:bg-red-600 hover:text-white transition" style={{transform:"skewX(-10deg)"}}><span style={{transform:"skewX(10deg)", display:"block"}}>{showAll? "VER MENOS" : `VER ${galeriaTaller.length} →`}</span></button></div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-8">{(showAll? galeriaTaller : galeriaTaller.slice(0,12)).map((src, idx)=><div key={idx} onClick={()=>setSelectedImg(src)} className="group relative overflow-hidden border border-white/10 bg-zinc-900 cursor-pointer" style={{aspectRatio:"4/3"}}><img src={src} alt={`Taller ${idx+1}`} loading="lazy" decoding="async" className="h-full w-full object-cover group-hover:scale-110 transition duration-700" onError={(e)=>{(e.target as HTMLImageElement).parentElement!.style.display='none'}} /></div>)}</div>
-        {selectedImg && (<div onClick={()=>setSelectedImg(null)} className="fixed inset-0 bg-black/90 flex items-center justify-center p-4 cursor-pointer" style={{zIndex:100}}><img src={selectedImg} alt="full" className="max-w-full max-h- object-contain" /><button className="absolute top-5 right-5 w-10 h-10 bg-white/10 rounded-full">✕</button></div>)}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-8">{(showAll? galeriaTaller : galeriaTaller.slice(0,12)).map((src, idx)=><div key={idx} onClick={()=>setSelectedImg(src)} className="group relative overflow-hidden border border-white/10 bg-zinc-900 cursor-pointer" style={{aspectRatio:"4/3"}}><img src={src} alt={`Taller ${idx+1}`} className="h-full w-full object-cover group-hover:scale-110 transition duration-700" onError={(e)=>{(e.target as HTMLImageElement).parentElement!.style.display='none'}} /></div>)}</div>
+        {selectedImg && (<div onClick={()=>setSelectedImg(null)} className="fixed inset-0 bg-black/90 flex items-center justify-center p-4 cursor-pointer" style={{zIndex:100}}><img src={selectedImg} alt="full" className="max-w-full max-h-full object-contain" /></div>)}
       </section>
 
       <section className="bg-gradient-to-r from-black via-zinc-900 to-black border-y-2 border-red-600 py-5 overflow-hidden relative">
         <div className="marquee flex w-max items-center">
           {[...marcas,...marcas].map((m, i)=>(
             <div key={i} className="flex items-center gap-3 mx-6">
-              <div className="relative w-14 h-14 rounded-xl bg-white flex items-center justify-center p-2" style={{boxShadow:"3px 3px 0px #dc2626"}}><img src={m.logo} alt={m.name} loading="lazy" className="w-full h-full object-contain" /></div>
+              <div className="relative w-14 h-14 rounded-xl bg-white flex items-center justify-center p-2" style={{boxShadow:"3px 3px 0px #dc2626"}}><img src={m.logo} alt={m.name} className="w-full h-full object-contain" /></div>
               <span className="font-black italic text-base">{m.name}</span>
             </div>
           ))}
@@ -232,24 +198,20 @@ export default function Page(){
         <div className="bg-zinc-900 p-8 md:p-16">
           <h2 className="text-3xl md:text-4xl font-black italic">COTIZA EN <span className="text-red-600">30 SEG</span></h2>
           <div className="grid grid-cols-2 gap-3 mt-6">
-            <input value={form.marca} onChange={e=>setForm({...form, marca:e.target.value})} placeholder="Marca *" className="bg-black border border-white/10 p-3 text-sm font-bold outline-none focus:border-red-600 text-white" />
-            <input value={form.modelo} onChange={e=>setForm({...form, modelo:e.target.value})} placeholder="Modelo *" className="bg-black border border-white/10 p-3 text-sm font-bold outline-none focus:border-red-600 text-white" />
-            <input value={form.ano} onChange={e=>setForm({...form, ano:e.target.value})} placeholder="Año *" className="bg-black border border-white/10 p-3 text-sm font-bold outline-none focus:border-red-600 text-white" />
+            <input value={form.marca} onChange={e=>setForm({...form, marca:e.target.value})} placeholder="Marca" className="bg-black border border-white/10 p-3 text-sm font-bold outline-none focus:border-red-600 text-white" />
+            <input value={form.modelo} onChange={e=>setForm({...form, modelo:e.target.value})} placeholder="Modelo" className="bg-black border border-white/10 p-3 text-sm font-bold outline-none focus:border-red-600 text-white" />
+            <input value={form.ano} onChange={e=>setForm({...form, ano:e.target.value})} placeholder="Año" className="bg-black border border-white/10 p-3 text-sm font-bold outline-none focus:border-red-600 text-white" />
             <select value={form.servicio} onChange={e=>setForm({...form, servicio:e.target.value})} className="bg-black border border-white/10 p-3 text-sm font-bold outline-none focus:border-red-600 text-white">
               {servicios.map(s=><option key={s.n}>{s.n}</option>)}
             </select>
           </div>
-          <a href={canSend? waLink: "#"} target={canSend? "_blank": "_self"} onClick={e=>{ if(!canSend) e.preventDefault() }} className={`mt-5 inline-flex w-full justify-center font-black py-3.5 transition text-sm ${canSend? "bg-green-500 text-black hover:bg-white" : "bg-white/10 text-white/30 pointer-events-none"}`}>ENVIAR POR WHATSAPP →</a>
-          <p className="text- text-white/30 mt-3">Respuesta en &lt; 15 min en horario taller (9:00-19:00)</p>
+          <a href={canSend? waLink : undefined} target={canSend? "_blank" : undefined} onClick={e=>{ if(!canSend) e.preventDefault(); }} className={`mt-5 inline-flex w-full justify-center font-black py-3.5 transition text-sm ${canSend? "bg-green-500 text-black hover:bg-white" : "bg-white/10 text-white/30"}`}>ENVIAR POR WHATSAPP →</a>
         </div>
-        <div className="relative bg-black" style={{minHeight:400}}><iframe title="Mapa Balladares" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3202.5!2d-73.06!3d-36.825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9669b5e5d0f0f0f1%3A0x0!2sRodolfo%20Brice%C3%B1o%202718%2C%20Concepci%C3%B3n%2C%20Chile!5e0!3m2!1ses!2scl!4v1" className="absolute inset-0 w-full h-full border-0 grayscale" loading="lazy" /></div>
+        <div className="relative bg-black" style={{minHeight:400}}><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3202.5!2d-73.06!3d-36.825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9669b5e5d0f0f0f1%3A0x0!2sRodolfo%20Brice%C3%B1o%202718%2C%20Concepci%C3%B3n%2C%20Chile!5e0!3m2!1ses!2scl!4v1" className="absolute inset-0 w-full h-full border-0 grayscale" loading="lazy" /></div>
       </section>
 
-      {/* BOTONES FLOTANTES */}
-      <a href={`https://wa.me/${WHATSAPP}`} target="_blank" aria-label="WhatsApp" className="fixed bottom-5 right-5 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center font-black shadow-lg z-40 hover:scale-110 transition">WA</a>
-      <a href={INSTAGRAM} target="_blank" aria-label="Instagram" className="fixed bottom-24 right-5 w-12 h-12 bg-white text-black rounded-full flex items-center justify-center font-black z-40 hover:scale-110 transition">IG</a>
-
-      <footer className="bg-black border-t-2 border-red-600 py-8 text-center text-white/30 text-xs font-bold tracking-widest">BALLADARES-MOTORS.CL © 2026 — Rodolfo Briceño 2718, Concepción</footer>
+      <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="fixed bottom-5 right-5 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center font-black z-40">WA</a>
+      <footer className="bg-black border-t-2 border-red-600 py-8 text-center text-white/30 text-xs font-bold tracking-widest">BALLADARES-MOTORS.CL © 2026</footer>
     </main>
   );
 }
