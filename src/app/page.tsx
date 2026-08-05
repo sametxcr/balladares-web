@@ -125,12 +125,12 @@ export default function Page(){
         <div className="grid md:grid-cols-2 gap-4 md:gap-6">
           <div className="relative bg-zinc-900 p-2 border border-white/10 overflow-hidden" style={{transform:"skewX(-4deg)"}}>
             <div style={{transform:"skewX(4deg)"}}>
-              <img src="/entradafront.jpg" alt="Entrada front Balladares" className="w-full h- object-cover" />
+             <img src="/entrada.jpg" alt="Entrada front Balladares" className="w-full h-[420px] object-cover" />
             </div>
           </div>
           <div className="relative bg-zinc-900 p-2 border border-white/10 overflow-hidden" style={{transform:"skewX(-4deg)"}}>
             <div style={{transform:"skewX(4deg)"}}>
-              <img src="/entradasup.jpg" alt="Entrada superior Balladares" className="w-full h- object-cover" />
+             <img src="/entrada2.jpg" alt="Entrada superior Balladares" className="w-full h-[420px] object-cover" />
             </div>
           </div>
         </div>
