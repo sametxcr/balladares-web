@@ -16,29 +16,31 @@ body{background:#0A0A0A;color:white;font-family: Montserrat, sans-serif}
 }
 .racer-lines {
   position: absolute;
-  left: -15%; right: -15%;
+  left: -12%; right: -12%;
   top: 50%;
   height: 100%;
   transform: translateY(-50%);
   z-index: -1;
   background: 
-    linear-gradient(90deg, transparent 0%, #00e5ff 10%, #00e5ff 12%, transparent 12%, transparent 14%, #00e5ff 14%, #00e5ff 22%, transparent 22%),
-    linear-gradient(90deg, transparent 0%, #00e5ff 10%, #00e5ff 12%, transparent 12%, transparent 14%, #00e5ff 14%, #00e5ff 22%, transparent 22%);
+    linear-gradient(90deg, transparent 0%, #dc2626 10%, #dc2626 12%, transparent 14%, #dc2626 14%, #dc2626 22%, transparent 22%),
+    linear-gradient(90deg, transparent 0%, #dc2626 10%, #dc2626 12%, transparent 14%, #dc2626 14%, #dc2626 22%, transparent 22%);
   background-position: 0 38%, 0 62%;
   background-size: 100% 3px;
   background-repeat: no-repeat;
-  filter: blur(0.5px) drop-shadow(0 0 8px #00e5ff);
-  opacity: 0.9;
+  filter: drop-shadow(0 0 6px #dc2626);
+  opacity: 0.8;
 }
 .racer-main {
   font-family: 'Holtwood One SC', Impact, sans-serif !important;
   font-weight: 900 !important;
-  background: linear-gradient(180deg, #f8fbfd 0%, #ffffff 15%, #a8c0d0 30%, #ffffff 48%, #e6f0f6 50%, #5a7a8a 58%, #d0e4ee 100%) !important;
+  /* DEGRADÉ BLANCO A GRIS CLARO */
+  background: linear-gradient(180deg, #ffffff 0%, #ffffff 45%, #e5e7eb 55%, #d1d5db 100%) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
-  -webkit-text-stroke: 1.2px #eef6fb !important;
-  filter: drop-shadow(2px 0 0 #0a2a36) drop-shadow(0 2px 0 #0a2a36) drop-shadow(4px 4px 0 #061a24) drop-shadow(0 12px 20px rgba(0,229,255,0.4)) !important;
+  -webkit-text-stroke: 1.8px #ffffff !important;
+  /* SOMBRA ROJA BALLADARES */
+  filter: drop-shadow(2px 0 0 #000) drop-shadow(0 2px 0 #000) drop-shadow(4px 4px 0 #000) drop-shadow(0 0 12px rgba(220,38,38,0.9)) drop-shadow(0 0 28px rgba(220,38,38,0.5)) !important;
   position: relative;
   z-index: 2;
 }
@@ -47,6 +49,6 @@ body{background:#0A0A0A;color:white;font-family: Montserrat, sans-serif}
   position: absolute;
   left: 0; top: 0;
   z-index: -1;
-  -webkit-text-fill-color: #061a24 !important;
-  -webkit-text-stroke: 7px #061a24 !important;
+  -webkit-text-fill-color: #000 !important;
+  -webkit-text-stroke: 7px #000 !important;
 }
