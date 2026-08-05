@@ -124,9 +124,9 @@ export default function Page(){
   <div className="bg-black border border-white/10 aspect-[4/3] overflow-hidden">
     <img src="/entrada.jpg" alt="Entrada 1" className="w-full h-full object-cover" style={{objectPosition:"center center", transform:"scale(0.82)"}} />
   </div>
-  <div className="bg-black border border-white/10 aspect-[4/3] overflow-hidden">
-    <img src="/entrada2.jpg" alt="Entrada 2" className="w-full h-full object-cover" style={{objectPosition:"center center", transform:"scale(0.82)"}} />
-  </div>
+ <div className="bg-black border border-white/10 aspect-[4/3] overflow-hidden">
+  <img src="/entrada2.jpg" alt="Entrada 2" className="w-full h-full object-cover" style={{objectPosition:"50% 18%", transform:"scale(0.90)"}} />
+</div>
   <div className="bg-black border border-white/10 aspect-[4/3] overflow-hidden">
     <img src="/entradanoche.jpg" alt="Entrada Noche" className="w-full h-full object-cover" style={{objectPosition:"center center", transform:"scale(0.82)"}} />
   </div>
