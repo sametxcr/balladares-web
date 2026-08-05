@@ -41,9 +41,9 @@ const marcas = [
 ];
 
 const reviews = [
-  { name: "@matias_sr20det", text: "Llevaba 2 talleres y nadie le achuntaba al NEO VVL. Balladares lo dejo joya en 1 dia.", car: "Nissan P11" },
-  { name: "@cata_m240i", text: "La repro Stage 1 quedo brutal. Otro auto. Atencion 10/10.", car: "BMW M240i" },
-  { name: "@jota_subaru", text: "Alineacion para pista, 0 vibracion a 200. Pega real.", car: "Subaru WRX" },
+  { name: "@matias_sr20det", text: "Llevaba 2 talleres y nadie le achuntaba al NEO VVL. Los de Balladares lo dejaron joya en 1 día.", car: "Nissan P11" },
+  { name: "@cata_m240i", text: "La repro Stage 1 quedó brutal. Otro auto. Atención 10/10.", car: "BMW M240i" },
+  { name: "@jota_subaru", text: "Alineación para pista, 0 vibración a 200. Pega real.", car: "Subaru WRX" },
 ];
 
 export default function Page(){
@@ -56,54 +56,48 @@ export default function Page(){
   const [mobileMenu,setMobileMenu]=useState(false);
 
   useEffect(()=>{
-    const seen = typeof window !== "undefined" ? sessionStorage.getItem("bm_intro") : "1";
-    if(!seen) setShowIntro(true);
+    if(typeof window!== "undefined" &&!sessionStorage.getItem("bm_intro")) setShowIntro(true);
   },[]);
-
-  const closeIntro = () => {
-    setShowIntro(false);
-    if(typeof window !== "undefined") sessionStorage.setItem("bm_intro","1");
-  };
-
-  useEffect(()=>{ const t=setInterval(()=>setI(p=>(p+1)%slides.length),5000); return()=>clearInterval(t); },[]);
-  
+  const closeIntro = () => { setShowIntro(false); sessionStorage.setItem("bm_intro","1"); };
+  useEffect(()=>{ const t=setInterval(()=>setI(p=>(p+1)%slides.length),5000); return()=>clearInterval(t) },[]);
   useEffect(()=>{
     const onKey = (e:KeyboardEvent) => { if(e.key==="Escape"){ setSelectedImg(null); closeIntro(); } };
-    window.addEventListener("keydown", onKey);
-    return ()=> window.removeEventListener("keydown", onKey);
+    window.addEventListener("keydown", onKey); return ()=> window.removeEventListener("keydown", onKey);
   },[]);
 
-  const waLink = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(`Hola Balladares Motors! Quiero cotizar:
-Marca: ${form.marca}
-Modelo: ${form.modelo}
-Año: ${form.ano}
-Servicio: ${form.servicio}`)}`;
-  const canSend = form.marca.trim() !== "" && form.modelo.trim() !== "" && form.ano.trim() !== "";
+  const waLink = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(`Hola Balladares Motors! Quiero cotizar:\nMarca: ${form.marca}\nModelo: ${form.modelo}\nAño: ${form.ano}\nServicio: ${form.servicio}`)}`;
+  const canSend = form.marca.trim() && form.modelo.trim() && form.ano.trim();
 
   return (
     <main className="bg-black text-white overflow-x-hidden">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
+        "@context":"https://schema.org","@type":"AutoRepair","name":"Balladares Motors",
+        "address":{"@type":"PostalAddress","streetAddress":"Rodolfo Briceño 2718","addressLocality":"Concepción","addressCountry":"CL"},
+        "telephone":"+56932285399","url":"https://balladares-motors.cl"
+      })}} />
+
       {showIntro && (
         <div className="fixed inset-0 bg-black flex items-center justify-center" style={{zIndex:200}}>
-          <button onClick={closeIntro} className="absolute top-4 right-4 w-12 h-12 bg-white/10 hover:bg-red-600 border border-white/20 rounded-full flex items-center justify-center text-white text-xl font-black transition" style={{zIndex:30}}>X</button>
+          <button onClick={closeIntro} className="absolute top-4 right-4 w-12 h-12 bg-white/10 hover:bg-red-600 border border-white/20 rounded-full flex items-center justify-center text-white text-xl font-black transition" style={{zIndex:30}}>✕</button>
           <iframe className="w-full h-full" style={{maxWidth:420, aspectRatio:"9/16"}} src={`https://www.youtube.com/embed/${YOUTUBE_ID}?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1&playsinline=1`} title="Intro" allow="autoplay; encrypted-media" allowFullScreen />
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2" style={{zIndex:20}}>
-            <button onClick={closeIntro} className="bg-white/10 border border-white/20 text-white px-6 py-2.5 font-black text-sm hover:bg-white hover:text-black transition" style={{transform:"skewX(-12deg)"}}><span style={{transform:"skewX(12deg)", display:"block"}}>SALTAR INTRO -></span></button>
+            <button onClick={closeIntro} className="bg-white/10 border border-white/20 text-white px-6 py-2.5 font-black text-sm hover:bg-white hover:text-black transition" style={{transform:"skewX(-12deg)"}}><span style={{transform:"skewX(12deg)", display:"block"}}>SALTAR INTRO →</span></button>
           </div>
         </div>
       )}
 
-      <style>{`@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } } .marquee { animation: marquee 60s linear infinite; }`}</style>
+      <style>{`@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }.marquee { animation: marquee 60s linear infinite; }`}</style>
 
       <nav className="fixed top-0 w-full bg-black border-b-2 border-red-600 flex justify-between items-center px-4 py-2.5" style={{zIndex:50}}>
         <img src="/BB.png" alt="Balladares Motors" className="h-11 w-auto" style={{objectFit:"contain", transform:"scaleX(1.44) scaleY(1.06)", transformOrigin:"left center", height:52}} />
         <div className="hidden lg:flex gap-3 text-sm font-black tracking-wider">
-          {[{id:"inicio", label:"INICIO"},{id:"nosotros", label:"NOSOTROS"},{id:"servicios", label:"SERVICIOS"},{id:"galeria", label:"GALERIA"},{id:"contacto", label:"CONTACTO"}].map(link=>(
+          {[{id:"inicio", label:"INICIO"},{id:"nosotros", label:"NOSOTROS"},{id:"servicios", label:"SERVICIOS"},{id:"galeria", label:"GALERÍA"},{id:"contacto", label:"CONTACTO"}].map(link=>(
             <a key={link.id} href={`#${link.id}`} className="relative px-4 py-2 border border-white/10 hover:border-red-600 hover:bg-red-600/10 group" style={{transform:"skewX(-12deg)"}}><span className="group-hover:text-red-500" style={{transform:"skewX(12deg)", display:"block"}}>{link.label}</span></a>
           ))}
         </div>
         <div className="flex gap-2 items-center">
-          <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="bg-red-600 px-8 py-2.5 font-black text-sm hover:bg-white hover:text-black transition" style={{transform:"skewX(-12deg)", boxShadow:"3px 3px 0px white"}}><span style={{transform:"skewX(12deg)", display:"block"}}>COTIZAR -></span></a>
-          <button onClick={()=>setMobileMenu(!mobileMenu)} className="lg:hidden w-10 h-10 bg-white/10 border border-white/20">MENU</button>
+          <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="bg-red-600 px-8 py-2.5 font-black text-sm hover:bg-white hover:text-black transition" style={{transform:"skewX(-12deg)", boxShadow:"3px 3px 0px white"}}><span style={{transform:"skewX(12deg)", display:"block"}}>COTIZAR →</span></a>
+          <button onClick={()=>setMobileMenu(!mobileMenu)} className="lg:hidden w-10 h-10 bg-white/10 border border-white/20">☰</button>
         </div>
         {mobileMenu && <div className="absolute top-full left-0 w-full bg-black border-b-2 border-red-600 p-3 flex flex-col gap-2 lg:hidden">{["inicio","nosotros","servicios","galeria","contacto"].map(id=><a key={id} onClick={()=>setMobileMenu(false)} href={`#${id}`} className="bg-white/5 p-3 font-black border border-white/10">{id.toUpperCase()}</a>)}</div>}
       </nav>
@@ -123,7 +117,7 @@ Servicio: ${form.servicio}`)}`;
                 ))}
               </div>
               <div className="flex flex-col gap-3 items-start mb-2">
-                <a href="#servicios" className="w-fit bg-red-600 px-10 py-3.5 font-black text-sm hover:bg-white hover:text-black transition" style={{transform:"skewX(-12deg)", boxShadow:"4px 4px 0px rgba(0,0,0,0.8)"}}><span style={{transform:"skewX(12deg)", display:"block"}}>VER SERVICIOS -></span></a>
+                <a href="#servicios" className="w-fit bg-red-600 px-10 py-3.5 font-black text-sm hover:bg-white hover:text-black transition" style={{transform:"skewX(-12deg)", boxShadow:"4px 4px 0px rgba(0,0,0,0.8)"}}><span style={{transform:"skewX(12deg)", display:"block"}}>VER SERVICIOS →</span></a>
                 <div className="bg-white text-black inline-flex px-6 py-2.5 font-black text-xs w-fit" style={{transform:"skewX(-12deg)", boxShadow:"4px 4px 0px #dc2626"}}><span style={{transform:"skewX(12deg)", display:"block"}}>{s.sub}</span></div>
               </div>
             </div>
@@ -134,8 +128,8 @@ Servicio: ${form.servicio}`)}`;
 
       <section className="bg-black border-y border-white/10 grid grid-cols-2 lg:grid-cols-4" style={{backgroundColor:"#0f0f0f"}}>
         {[
-          { t: "+15 ANOS EXPERIENCIA", icon: "🏆", desc: "Pura pista y calle" },
-          { t: "SCANNER ULTIMA GEN", icon: "🖥", desc: "Diagnóstico real" },
+          { t: "+15 AÑOS EXPERIENCIA", icon: "🏆", desc: "Pura pista y calle" },
+          { t: "SCANNER ÚLTIMA GEN", icon: "🖥", desc: "Diagnóstico real" },
           { t: "TODAS LAS MARCAS", icon: "🚗", desc: "Japo, Euro, USA" },
           { t: "SERVICIO DE PISTA", icon: "🏁", desc: "Set-up competición" },
         ].map(f=><div key={f.t} className="p-6 text-center border-r border-white/5"><div className="flex flex-col items-center gap-2"><div className="w-12 h-12 bg-gradient-to-br from-zinc-800 to-black border border-white/10 flex items-center justify-center text-xl" style={{boxShadow:"2px 2px 0px #dc2626", transform:"rotate(-3deg)"}}>{f.icon}</div><div className="font-black text-sm">{f.t}</div><div className="text-xs text-white/40 font-bold">{f.desc}</div></div></div>)}
@@ -143,14 +137,14 @@ Servicio: ${form.servicio}`)}`;
 
       <section id="nosotros" className="px-6 md:px-24 py-20 grid md:grid-cols-2 gap-12 items-center bg-black border-b border-white/5">
         <div>
-          <div className="flex items-center gap-4"><div className="w-14 h-14 bg-red-600 flex items-center justify-center text-2xl font-black" style={{boxShadow:"4px 4px 0px white", transform:"skewX(-10deg)"}}><span style={{transform:"skewX(10deg)"}}>H</span></div><h2 className="text-4xl font-black italic">NOSOTROS / <span className="text-red-600">HISTORIA</span></h2></div>
+          <div className="flex items-center gap-4"><div className="w-14 h-14 bg-red-600 flex items-center justify-center text-2xl font-black" style={{boxShadow:"4px 4px 0px white", transform:"skewX(-10deg)"}}><span style={{transform:"skewX(10deg)"}}>🏁</span></div><h2 className="text-4xl font-black italic">NOSOTROS / <span className="text-red-600">HISTORIA</span></h2></div>
           <p className="mt-6 text-white/60 leading-relaxed">Balladares Motors es un taller bien conocido en Concepción. Nacimos de la pasión por las carreras en pista y circuito.</p>
         </div>
         <div className="bg-zinc-900 p-2 border border-white/10" style={{transform:"skewX(-6deg)"}}><div style={{transform:"skewX(6deg)"}}><img src="/hero/entrada.jpg" alt="taller" className="w-full object-cover" style={{height:440}} /></div></div>
       </section>
 
       <section id="servicios" className="bg-white text-black px-4 md:px-24 py-16 md:py-20">
-        <div className="flex items-center gap-4 mb-8"><div className="w-14 h-14 md:w-16 md:h-16 bg-black text-white flex items-center justify-center text-3xl" style={{boxShadow:"5px 5px 0px #dc2626", transform:"skewX(-8deg)"}}><span style={{transform:"skewX(8deg)"}}>T</span></div><h2 className="text-4xl md:text-5xl font-black italic leading-none">SERVICIOS <span className="text-red-600">RACING</span></h2></div>
+        <div className="flex items-center gap-4 mb-8"><div className="w-14 h-14 md:w-16 md:h-16 bg-black text-white flex items-center justify-center text-3xl" style={{boxShadow:"5px 5px 0px #dc2626", transform:"skewX(-8deg)"}}><span style={{transform:"skewX(8deg)"}}>🔧</span></div><h2 className="text-4xl md:text-5xl font-black italic leading-none">SERVICIOS <span className="text-red-600">RACING</span></h2></div>
         <div className="grid md:grid-cols-3 gap-6 md:gap-8">
           {servicios.map(s=>{
             const isActive = activeService === s.n;
@@ -167,12 +161,7 @@ Servicio: ${form.servicio}`)}`;
                         <div className="text-white font-black italic text-lg mb-2">{s.n.toUpperCase()}</div>
                         <div className="text-white/70 text-sm leading-relaxed">{s.d}</div>
                       </div>
-                    </div>
-                    <div className="p-5">
-                      <div className="font-black text-lg italic tracking-tight leading-tight">{s.n.toUpperCase()}</div>
-                      <div className="mt-2 text-red-600 font-black text-sm">{s.p}</div>
-                      <a href={`https://wa.me/${WHATSAPP}?text=Hola, quiero cotizar ${encodeURIComponent(s.n)}`} target="_blank" onClick={e=>e.stopPropagation()} className="mt-4 inline-flex w-full justify-center bg-black text-white py-3 text-sm font-black group-hover:bg-red-600 transition">COTIZAR -></a>
-                    </div>
+                    <div className="p-5"><div className="font-black text-lg italic tracking-tight leading-tight">{s.n.toUpperCase()}</div><div className="mt-2 text-red-600 font-black text-sm">{s.p}</div><a href={`https://wa.me/${WHATSAPP}?text=Hola, quiero cotizar ${encodeURIComponent(s.n)}`} target="_blank" onClick={e=>e.stopPropagation()} className="mt-4 inline-flex w-full justify-center bg-black text-white py-3 text-sm font-black group-hover:bg-red-600 transition">COTIZAR →</a></div>
                   </div>
                 </div>
               </div>
@@ -184,12 +173,12 @@ Servicio: ${form.servicio}`)}`;
       <section className="bg-zinc-950 border-y border-white/10 px-4 md:px-24 py-12">
         <h2 className="text-3xl font-black italic">CLIENTES / <span className="text-red-600">PEGA REAL</span></h2>
         <div className="grid md:grid-cols-3 gap-4 mt-6">
-          {reviews.map(r=><div key={r.name} className="bg-black border border-white/10 p-5"><div className="text-yellow-400 text-xs">★★★★★</div><p className="mt-2 text-sm text-white/70">{r.text}</p><div className="mt-3 font-black text-xs">{r.name} <span className="text-white/40">{r.car}</span></div></div>)}
+          {reviews.map(r=><div key={r.name} className="bg-black border border-white/10 p-5"><div className="text-yellow-400 text-xs">★★★★★</div><p className="mt-2 text-sm text-white/70">"{r.text}"</p><div className="mt-3 font-black text-xs">{r.name} <span className="text-white/40">{r.car}</span></div></div>)}
         </div>
       </section>
 
       <section id="galeria" className="bg-black px-4 md:px-24 py-16 border-y border-white/10" style={{backgroundColor:"#0a0a0a"}}>
-        <div className="flex justify-between items-end flex-wrap gap-4"><h2 className="text-3xl md:text-4xl font-black italic">GALERIA / <span className="text-red-600">PEGA REAL ({galeriaTaller.length})</span></h2><button onClick={()=>setShowAll(!showAll)} className="bg-white text-black px-6 py-2 font-black text-sm hover:bg-red-600 hover:text-white transition" style={{transform:"skewX(-10deg)"}}><span style={{transform:"skewX(10deg)", display:"block"}}>{showAll? "VER MENOS" : `VER ${galeriaTaller.length} ->`}</span></button></div>
+        <div className="flex justify-between items-end flex-wrap gap-4"><h2 className="text-3xl md:text-4xl font-black italic">GALERÍA / <span className="text-red-600">PEGA REAL ({galeriaTaller.length})</span></h2><button onClick={()=>setShowAll(!showAll)} className="bg-white text-black px-6 py-2 font-black text-sm hover:bg-red-600 hover:text-white transition" style={{transform:"skewX(-10deg)"}}><span style={{transform:"skewX(10deg)", display:"block"}}>{showAll? "VER MENOS" : `VER ${galeriaTaller.length} →`}</span></button></div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-8">{(showAll? galeriaTaller : galeriaTaller.slice(0,12)).map((src, idx)=><div key={idx} onClick={()=>setSelectedImg(src)} className="group relative overflow-hidden border border-white/10 bg-zinc-900 cursor-pointer" style={{aspectRatio:"4/3"}}><img src={src} alt={`Taller ${idx+1}`} className="h-full w-full object-cover group-hover:scale-110 transition duration-700" onError={(e)=>{(e.target as HTMLImageElement).parentElement!.style.display='none'}} /></div>)}</div>
         {selectedImg && (<div onClick={()=>setSelectedImg(null)} className="fixed inset-0 bg-black/90 flex items-center justify-center p-4 cursor-pointer" style={{zIndex:100}}><img src={selectedImg} alt="full" className="max-w-full max-h-full object-contain" /></div>)}
       </section>
@@ -216,7 +205,7 @@ Servicio: ${form.servicio}`)}`;
               {servicios.map(s=><option key={s.n}>{s.n}</option>)}
             </select>
           </div>
-          <a href={canSend? waLink : undefined} target={canSend? "_blank" : undefined} onClick={e=>{ if(!canSend) e.preventDefault(); }} className={`mt-5 inline-flex w-full justify-center font-black py-3.5 transition text-sm ${canSend? "bg-green-500 text-black hover:bg-white" : "bg-white/10 text-white/30"}`}>ENVIAR POR WHATSAPP -></a>
+          <a href={canSend? waLink : undefined} target={canSend? "_blank" : undefined} onClick={e=>{ if(!canSend) e.preventDefault(); }} className={`mt-5 inline-flex w-full justify-center font-black py-3.5 transition text-sm ${canSend? "bg-green-500 text-black hover:bg-white" : "bg-white/10 text-white/30"}`}>ENVIAR POR WHATSAPP →</a>
         </div>
         <div className="relative bg-black" style={{minHeight:400}}><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3202.5!2d-73.06!3d-36.825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9669b5e5d0f0f0f1%3A0x0!2sRodolfo%20Brice%C3%B1o%202718%2C%20Concepci%C3%B3n%2C%20Chile!5e0!3m2!1ses!2scl!4v1" className="absolute inset-0 w-full h-full border-0 grayscale" loading="lazy" /></div>
       </section>
@@ -226,4 +215,3 @@ Servicio: ${form.servicio}`)}`;
     </main>
   );
 }
-
