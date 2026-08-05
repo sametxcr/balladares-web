@@ -18,8 +18,7 @@ const slides = [
 const servicios = [
   { n: "Repro Stage 1/2", p: "Desde $180.000", d: "Libera el verdadero potencial oculto de tu ECU. +25% HP y +30% torque.", icon: "/icons/turbochip_isometric_icon.webp", accent: "from-red-600 to-orange-500", badge: "POPULAR" },
   { n: "Scanner Multimarca", p: "Desde $25.000", d: "Diagnóstico profundo con equipamiento de última generación.", icon: "/icons/obd2_scanner_icon.webp", accent: "from-blue-600 to-cyan-400", badge: "DIAGNOSIS" },
-  { n: "Alineación 3D", p: "Desde $18.000", d: "Precisión milimétrica con sistema láser 3D.", icon: "/icons/wheel_alignment_icon.webp", accent: "from-zinc-600 to-zinc-400", badge: "LASER" },
-  { n: "Balanceo", p: "Desde $12.000", d: "Adiós vibraciones. Balanceo dinámico computarizado.", icon: "/icons/racing_wheel_balancer_icon.webp", accent: "from-yellow-500 to-amber-500", badge: "0 VIBRACIÓN" },
+  { n: "Alineación 3D", p: "Desde $18.000", d: "Precisión milimétrica con sistema láser 3D.", icon: "/icons/wheel_alignment_icon.webp", accent: "from-zinc-600 to-zinc-400", badge: "LASER" },  
   { n: "Ajuste Motor", p: "Cotizar", d: "Armado y rectificación de motores de alto rendimiento.", icon: "/icons/balladares_motors_emblem_transparent.webp", accent: "from-red-600 to-red-800", badge: "AJUSTE" },
   { n: "Mecánica General", p: "Cotizar", d: "Frenos, suspensión, distribución. Especialistas en SR20 NEO VVL.", icon: "/icons/sr20_neo_vvl_balladares.webp", accent: "from-zinc-700 to-zinc-500", badge: "MECANICA GENERAL" },
   { n: "Venta Etanol / Metanol R117", p: "Cotizar", d: "Combustible de competición E85+ R117.", icon: "/icons/racing_fuel_canister_icon.webp", accent: "from-orange-600 to-red-600", badge: "RACING FUEL" },
@@ -125,12 +124,12 @@ export default function Page(){
         <div className="grid md:grid-cols-2 gap-4 md:gap-6">
           <div className="relative bg-zinc-900 p-2 border border-white/10 overflow-hidden" style={{transform:"skewX(-4deg)"}}>
             <div style={{transform:"skewX(4deg)"}}>
-             <img src="/entrada.jpg" alt="Entrada front Balladares" className="w-full h-[420px] object-cover" />
+            <img src="/entrada.jpg" alt="Entrada Balladares" className="w-full h-[420px] object-cover" style={{objectPosition:"50% 20%"}} />
             </div>
           </div>
           <div className="relative bg-zinc-900 p-2 border border-white/10 overflow-hidden" style={{transform:"skewX(-4deg)"}}>
             <div style={{transform:"skewX(4deg)"}}>
-             <img src="/entrada2.jpg" alt="Entrada superior Balladares" className="w-full h-[420px] object-cover" />
+             <img src="/entrada2.jpg" alt="Entrada 2 Balladares" className="w-full h-[420px] object-cover" style={{objectPosition:"50% 10%"}} />
             </div>
           </div>
         </div>
