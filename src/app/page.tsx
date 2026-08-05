@@ -5,9 +5,9 @@ const WHATSAPP = "56932285399";
 const INSTAGRAM = "https://www.instagram.com/balladaresmotor/";
 
 const slides = [
-  { title: "REPRO STAGE", title2: "1 & 2", sub: "Potencia real +25% torque +30%", img: "/hero/repro.jpg", pos: "50% 50%" },
-  { title: "SERVICIOS DE", title2: "PISTA Y CALLE", sub: "Alineación 3D, balanceo, elevadores pro", img: "/hero/pista.jpg", pos: "50% 82%" },
-  { title: "DIAGNÓSTICO DE", title2: "ÚLTIMA GENERACIÓN", sub: "Scanner multimarca - Todas las marcas", img: "/hero/scanner.jpg", pos: "50% 50%" },
+  { t1: "REPRO STAGE", t2: "1 & 2", sub: "Potencia real +25% torque +30%", img: "/hero/repro.jpg", pos: "50% 50%" },
+  { t1: "SERVICIOS DE", t2: "PISTA Y CALLE", sub: "Alineación 3D, balanceo, elevadores pro", img: "/hero/pista.jpg", pos: "50% 82%" },
+  { t1: "DIAGNOSTICO DE", t2: "ULTIMA GENERACION", sub: "Scanner multimarca - Todas las marcas", img: "/hero/scanner.jpg", pos: "50% 50%" },
 ];
 
 const servicios = [
@@ -51,11 +51,10 @@ export default function Page(){
   return (
     <main className="bg-black text-white overflow-x-hidden">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Russo+One&family=Anton&family=Orbitron:wght@900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Anton&family=Russo+One&family=Orbitron:wght@900&display=swap');
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-       .marquee { animation: marquee 60s linear infinite; }
-       .marquee:hover { animation-play-state: paused; }
-       .title-racing { font-family: 'Anton', 'Russo One', sans-serif; font-style: italic; text-transform: uppercase; line-height: 0.85; letter-spacing: -0.02em; }
+      .marquee { animation: marquee 60s linear infinite; }
+      .hero-title { font-family: 'Anton', 'Russo One', sans-serif; font-style: italic; line-height: 0.85; text-transform: uppercase; }
       `}</style>
 
       <nav className="fixed top-0 w-full z-50 bg-black border-b-2 border-red-600 flex justify-between items-center px-4 md:px-6 py-2.5">
@@ -71,13 +70,13 @@ export default function Page(){
       <section id="inicio" className="h- relative overflow-hidden mt- bg-zinc-900">
         {slides.map((s,idx)=>(
           <div key={idx} className={`absolute inset-0 transition-opacity duration-1000 ${idx===i?"opacity-100":"opacity-0"}`}>
-            <img src={s.img} alt={s.title} className="absolute inset-0 w-full h-full object-cover" style={{objectPosition: s.pos}} />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent" />
+            <img src={s.img} alt={s.t1} className="absolute inset-0 w-full h-full object-cover" style={{objectPosition: s.pos}} />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/10" />
             <div className="relative h-full flex flex-col justify-between px-4 md:px-24 py-10 md:py-20">
-              <div className="mt-12 md:mt-20 flex flex-col items-start">
-                <h1 className="title-racing text- md:text- text-white drop-shadow-[8px_8px_0px_rgba(0,0,0,1)]">
-                  <span className="block">{s.title}</span>
-                  <span className="block translate-x- md:translate-x- text-white">{s.title2}</span>
+              <div className="mt-12 md:mt-20">
+                <h1 className="hero-title text- md:text- text-white drop-shadow-[8px_8px_0px_rgba(0,0,0,1)]">
+                  <span className="block">{s.t1}</span>
+                  <span className="block ml- md:ml-">{s.t2}</span>
                 </h1>
               </div>
               <div className="flex flex-col gap-3 items-start mb-2">
@@ -142,17 +141,13 @@ export default function Page(){
       </section>
 
       <section className="bg-gradient-to-r from-black via-zinc-900 to-black border-y-2 border-red-600 py-4 md:py-5 overflow-hidden relative">
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,rgba(220,38,38,0.08)_50%,transparent_100%)]" />
-        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-black to-transparent z-10" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-black to-transparent z-10" />
         <div className="marquee flex w-max items-center">
           {[...marcas,...marcas].map((m, i)=>(
             <div key={i} className="flex items-center gap-3 mx-5 md:mx-6 group">
-              <div className="relative w-12 h-12 md:w-14 md:h-14 rounded- bg-white flex items-center justify-center p-2 shadow-[0_0_0_1px_rgba(255,255,255,0.15),3px_3px_0px_#dc2626,0_6px_15px_rgba(0,0,0,0.6)] group-hover:shadow-[0_0_0_1px_white,4px_4px_0px_#dc2626,0_8px_20px_rgba(220,38,38,0.4)] group-hover:-translate-y-0.5 transition-all duration-300">
-                <div className="absolute inset-0 rounded- bg-gradient-to-br from-white/40 via-transparent to-black/10 pointer-events-none" />
+              <div className="relative w-12 h-12 md:w-14 md:h-14 rounded- bg-white flex items-center justify-center p-2 shadow-[0_0_0_1px_rgba(255,255,255,0.15),3px_3px_0px_#dc2626,0_6px_15px_rgba(0,0,0,0.6)]">
                 <img src={m.logo} alt={m.name} className="w-full h-full object-contain relative z-10" />
               </div>
-              <span className="font-black italic text- md:text- text-white tracking-wider group-hover:text-red-500 transition drop-shadow-[1px_1px_0px_rgba(0,0,0,0.8)]">{m.name}</span>
+              <span className="font-black italic text- md:text- text-white tracking-wider">{m.name}</span>
             </div>
           ))}
         </div>
@@ -175,11 +170,6 @@ export default function Page(){
       </section>
 
       <footer className="bg-black border-t-2 border-red-600 py-8 text-center text-white/30 text-xs font-bold tracking-widest">BALLADARES-MOTORS.CL © 2026</footer>
-
-      <div className="fixed bottom-5 right-5 flex gap-3 z-50">
-        <a href={INSTAGRAM} target="_blank" className="w-14 h-14 rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition bg-gradient-to-br from-purple-600 via-pink-500 to-yellow-400"><svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 0 100 12.324 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
-        <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="w-14 h-14 rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition bg-[#25D366]"><svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.55 4.104 1.516 5.823L0 24l6.35-1.66A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.785 0-3.46-.487-4.9-1.334l-.35-.208-3.772.988.998-3.674-.23-.374A9.92 9.92 0 012 12c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10zm5.405-7.473c-.296-.149-1.75-.864-2.022-.963-.272-.099-.47-.149-.668.149-.198.297-.767.963-.94 1.161-.173.198-.347.223-.644.074-.296-.149-1.251-.461-2.383-1.47-.881-.785-1.476-1.75-1.65-2.047-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.149-.173.198-.297.297-.495.099-.198.05-.371-.025-.521-.074-.148-.668-1.609-.915-2.203-.241-.58-.486-.502-.668-.512l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.478 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.71.306 1.263.49 1.695.627.712.226 1.36.194 1.872.118.571-.085 1.75-.715 1.997-1.406.247-.691.247-1.283.173-1.406-.074-.124-.272-.198-.57-.347z"/></svg></a>
-      </div>
     </main>
   );
 }
