@@ -9,12 +9,16 @@ body{background:#0A0A0A;color:white;font-family: Montserrat, sans-serif}
 
 .racer-chrome {
   font-family: 'Holtwood One SC', sans-serif !important;
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
-  -webkit-text-stroke: 3px #dc2626 !important;
   text-transform: uppercase !important;
   line-height: 0.9 !important;
   letter-spacing: -1px !important;
-  text-shadow: 4px 4px 0 #000, 8px 8px 12px rgba(0,0,0,0.8) !important;
+  /* BI-TONO BLANCO -> GRIS */
+  background: linear-gradient(180deg, #ffffff 0%, #ffffff 48%, #a1a1aa 52%, #52525b 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  /* BORDE ROJO LINDO BALLADARES */
+  -webkit-text-stroke: 3px #dc2626 !important;
   paint-order: stroke fill !important;
+  filter: drop-shadow(4px 4px 0 #000) drop-shadow(0px 2px 8px rgba(0,0,0,0.6)) !important;
 }
