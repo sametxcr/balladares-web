@@ -112,40 +112,36 @@ export default function Page(){
         ].map(f=><div key={f.t} className="p-6 text-center border-r border-white/5"><div className="flex flex-col items-center gap-2"><div className="w-12 h-12 bg-gradient-to-br from-zinc-800 to-black border border-white/10 flex items-center justify-center text-xl" style={{boxShadow:"2px 2px 0px #dc2626", transform:"rotate(-3deg)"}}>{f.icon}</div><div className="font-black text-sm">{f.t}</div><div className="text-xs text-white/40 font-bold">{f.desc}</div></div></div>)}
       </section>
 
-     <section id="nosotros" className="bg-black border-b border-white/5 px-4 md:px-24 py-16 md:py-24">
-        {/* ESLOGAN EN GRANDE */}
-        <div className="mb-12">
-          <h2 className={`${holtwood.className} text-4xl md:text-7xl font-black italic leading-[0.9]`}>
-            EL PODER DE <span className="text-red-600">UN BUEN SERVICIO</span>
-          </h2>
-        </div>
+    <section id="nosotros" className="bg-black border-b border-white/5 px-4 md:px-24 py-16 md:py-24">
+  <div className="mb-12">
+    <h2 className={`${holtwood.className} text-4xl md:text-7xl font-black italic leading-[0.9]`}>
+      EL PODER DE <span className="text-red-600">UN BUEN SERVICIO</span>
+    </h2>
+  </div>
 
-        {/* 3 FOTOS ENTRADA - COMPLETAS */}
-<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-  <div className="bg-zinc-900 border border-white/10 h- p-2">
-    <img src="/entrada.jpg" alt="Entrada 1" className="w-full h-full object-contain" />
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+    <div className="bg-zinc-900 border border-white/10 h-[420px] p-2">
+      <img src="/entrada.jpg" alt="Entrada 1" className="w-full h-full object-contain" />
+    </div>
+    <div className="bg-zinc-900 border border-white/10 h-[420px] p-2">
+      <img src="/entrada2.jpg" alt="Entrada 2" className="w-full h-full object-contain" />
+    </div>
+    <div className="bg-zinc-900 border border-white/10 h-[420px] p-2">
+      <img src="/entradanoche.jpg" alt="Entrada Noche" className="w-full h-full object-contain" />
+    </div>
   </div>
-  <div className="bg-zinc-900 border border-white/10 h- p-2">
-    <img src="/entrada2.jpg" alt="Entrada 2" className="w-full h-full object-contain" />
-  </div>
-  <div className="bg-zinc-900 border border-white/10 h- p-2">
-    <img src="/entradanoche.jpg" alt="Entrada Noche" className="w-full h-full object-contain" />
-  </div>
-</div>
-        </div>
 
-        {/* 2 VIDEOS EN LOOP ABAJO - MAS CHICOS Y CENTRADOS */}
-<div className="grid md:grid-cols-2 gap-4 md:gap-6 mt-6">
-  <div className="relative bg-zinc-900 border border-white/10 overflow-hidden h-[420px]">
-    <video src="/repetirloop.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover" style={{objectPosition:"50% 35%"}} />
-    <div className="absolute bottom-0 left-0 bg-red-600 text-white text-[10px] font-black px-3 py-1 tracking-widest">REPEAT LOOP</div>
+  <div className="grid md:grid-cols-2 gap-4 md:gap-6 mt-6">
+    <div className="relative bg-zinc-900 border border-white/10 overflow-hidden h-[420px]">
+      <video src="/repetirloop.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover" style={{objectPosition:"50% 35%"}} />
+      <div className="absolute bottom-0 left-0 bg-red-600 text-white text-[10px] font-black px-3 py-1 tracking-widest">REPEAT LOOP</div>
+    </div>
+    <div className="relative bg-zinc-900 border border-white/10 overflow-hidden h-[420px]">
+      <video src="/looplife.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover" style={{objectPosition:"50% 50%"}} />
+      <div className="absolute bottom-0 left-0 bg-white text-black text-[10px] font-black px-3 py-1 tracking-widest">LOOP LIFE</div>
+    </div>
   </div>
-  <div className="relative bg-zinc-900 border border-white/10 overflow-hidden h-[420px]">
-    <video src="/looplife.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover" style={{objectPosition:"50% 50%"}} />
-    <div className="absolute bottom-0 left-0 bg-white text-black text-[10px] font-black px-3 py-1 tracking-widest">LOOP LIFE</div>
-  </div>
-</div>
-      </section>
+</section>
 
       <section id="servicios" className="bg-white text-black px-4 md:px-24 py-16 md:py-20">
         <div className="flex items-center gap-4 mb-8"><div className="w-14 h-14 md:w-16 md:h-16 bg-black text-white flex items-center justify-center text-3xl" style={{boxShadow:"5px 5px 0px #dc2626", transform:"skewX(-8deg)"}}><span style={{transform:"skewX(8deg)"}}>🔧</span></div><h2 className="text-4xl md:text-5xl font-black italic leading-none">SERVICIOS <span className="text-red-600">RACING</span></h2></div>
