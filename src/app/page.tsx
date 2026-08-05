@@ -17,9 +17,9 @@ const slides = [
 
 const servicios = [
   { n: "Repro Stage 1/2", p: "Desde $180.000", d: "Libera el verdadero potencial oculto de tu ECU. Potencia tu auto de forma segura +torque +potencia +economia.", icon: "/icons/turbochip_isometric_icon.webp", accent: "from-red-600 to-orange-500", badge: "POPULAR" },
-  { n: "Scanner Multimarca", p: "Desde $25.000", d: "Diagnóstico profundo con equipamiento de última generación. Soporte Tecnico en diferentes marcas", icon: "/icons/obd2_scanner_icon.webp", accent: "from-blue-600 to-cyan-400", badge: "DIAGNOSIS" },
-  { n: "Alineación con Laser + Balanceo", p: "Desde $18.000", d: "Precisión milimétrica con sistema láser 3D. Evita el desgaste excesivo de tus neumaticos y vibraciones al conducir", icon: "/icons/wheel_alignment_icon.webp", accent: "from-zinc-600 to-zinc-400", badge: "LASER" },  
-  { n: "Ajuste Motor", p: "Cotizar", d: "Armado y rectificación de motores de estandar y alto rendimiento. Resultados optimos con el soporte de diferentes maestranzas", icon: "/icons/balladares_motors_emblem_transparent.webp", accent: "from-red-600 to-red-800", badge: "AJUSTE" },
+  { n: "Scanner Multimarca", p: "Desde $25.000", d: "Diagnóstico profundo con equipamiento de última generación. Soporte Tecnico en diferentes marcas.", icon: "/icons/obd2_scanner_icon.webp", accent: "from-blue-600 to-cyan-400", badge: "DIAGNOSIS" },
+  { n: "Alineación con Laser + Balanceo", p: "Desde $18.000", d: "Precisión milimétrica con sistema láser 3D. Evita el desgaste excesivo de tus neumaticos y vibraciones al conducir.", icon: "/icons/wheel_alignment_icon.webp", accent: "from-zinc-600 to-zinc-400", badge: "LASER" },  
+  { n: "Ajuste Motor", p: "Cotizar", d: "Armado y rectificación de motores de estandar y alto rendimiento. Resultados optimos con el soporte de diferentes maestranzas.", icon: "/icons/balladares_motors_emblem_transparent.webp", accent: "from-red-600 to-red-800", badge: "AJUSTE" },
   { n: "Mecánica General", p: "Cotizar", d: "Encuentra todos los servicios basicos en un solo lugar - mantencion por kilometraje - servicio de diagnostico - reparacion tren delantero - reparacion y mantencion sistema de frenos - afinamiento - cambio aceite y muchos mas cotiza aca.", icon: "/icons/sr20_neo_vvl_balladares.webp", accent: "from-zinc-700 to-zinc-500", badge: "MECANICA GENERAL" },
   { n: "Venta Etanol / Metanol R117", p: "Cotizar", d: "Protege tu motor con combustible de carrera.", icon: "/icons/racing_fuel_canister_icon.webp", accent: "from-orange-600 to-red-600", badge: "RACING FUEL" },
 ];
@@ -65,7 +65,7 @@ export default function Page(){
         </div>
       )}
 
-      <style>{`@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } } .marquee { animation: marquee 60s linear infinite; }`}</style>
+      <style>{`@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } } .marquee { animation: marquee 25s linear infinite; }`}</style>
 
       <nav className="fixed top-0 w-full bg-black border-b-2 border-red-600 flex justify-between items-center pl-1 pr-4 py-2.5" style={{zIndex:50}}>
         <img src="/BB.png" alt="Balladares Motors" className="h-11 w-auto -ml-2" style={{objectFit:"contain", transform:"scaleX(1.44) scaleY(1.06)", transformOrigin:"left center", height:52}} />
@@ -179,11 +179,11 @@ export default function Page(){
         {selectedImg && (<div onClick={()=>setSelectedImg(null)} className="fixed inset-0 bg-black/90 flex items-center justify-center p-4 cursor-pointer" style={{zIndex:100}}><img src={selectedImg} alt="full" className="max-w-full max-h-full object-contain" /></div>)}
       </section>
 
-      <section className="bg-gradient-to-r from-black via-zinc-900 to-black border-y-2 border-red-600 py-5 overflow-hidden relative">
+      <section className="bg-gradient-to-r from-black via-zinc-900 to-black border-y-2 border-red-600 py-2 overflow-hidden relative">
         <div className="marquee flex w-max items-center">
           {[...marcas,...marcas].map((m, i)=>(
             <div key={i} className="flex items-center gap-3 mx-6">
-              <div className="relative w-14 h-14 rounded-xl bg-white flex items-center justify-center p-2" style={{boxShadow:"3px 3px 0px #dc2626"}}><img src={m.logo} alt={m.name} className="w-full h-full object-contain" /></div>
+              <div className="relative w-9 h-9 rounded-xl bg-white flex items-center justify-center p-1.5" style={{boxShadow:"3px 3px 0px #dc2626"}}><img src={m.logo} alt={m.name} className="w-full h-full object-contain" /></div>
               <span className="font-black italic text-base">{m.name}</span>
             </div>
           ))}
