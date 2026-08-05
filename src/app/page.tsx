@@ -83,11 +83,11 @@ export default function Page(){
             <img src={s.img} alt={s.title.join(" ")} className="absolute inset-0 w-full h-full object-cover" style={{objectPosition: s.pos}} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent" />
             <div className="relative h-full flex flex-col justify-between px-4 md:px-24 py-10 md:py-20">
-                           <div className={`${holtwood.className} mt-12 md:mt-20 flex flex-col items-start gap-4 md:gap-6`}>
+      <div className={`${holtwood.className} mt-12 md:mt-20 flex flex-col items-start gap-4 md:gap-6`}>
   {s.title.map((t, li) => (
     <div key={li} className="racer-wrap" style={{transform: li===1 ? "skewX(-14deg) translateX(18px)" : "skewX(-14deg)"}}>
       <div className="racer-lines"></div>
-      <h1 data-text={t.toUpperCase()} className="racer-main text-[2.1rem] md:text-[3.6rem] font-black">
+      <h1 data-text={t.toUpperCase()} className="racer-main text-[2.1rem] md:text-[3.6rem]">
         {t.toUpperCase()}
       </h1>
     </div>
