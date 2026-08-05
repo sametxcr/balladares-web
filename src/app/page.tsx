@@ -86,9 +86,9 @@ export default function Page(){
             <div className="relative h-full flex flex-col justify-between px-4 md:px-24 py-10 md:py-20">
                              <div className={`${holtwood.className} mt-12 md:mt-20 flex flex-col items-start gap-1`}>
                {s.title.map((t, li) => (
-  <h1 key={li} className="racer-chrome text-5xl md:text-7xl leading-[0.9] tracking-tighter" style={{transform: li===1? "translateX(22px)" : "none"}}>
-    {t.toUpperCase()}
-  </h1>
+  <h1 key={li} data-text={t.toUpperCase()} className="racer-chrome text-5xl md:text-7xl leading-[0.9]" style={{transform: li===1? "translateX(22px)" : "none"}}>
+  {t.toUpperCase()}
+</h1>
 ))}
               </div>
               <div className="flex flex-col gap-3 items-start mb-2">
