@@ -85,11 +85,11 @@ export default function Page(){
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent" />
             <div className="relative h-full flex flex-col justify-between px-4 md:px-24 py-10 md:py-20">
                              <div className={`${holtwood.className} mt-12 md:mt-20 flex flex-col items-start gap-1`}>
-                {s.title.map((t, li) => (
-                  <h1 key={li} className="text-5xl md:text-7xl leading-[0.9] tracking-tighter text-white" style={{transform: li===1? "translateX(22px)" : "none", textShadow:"10px 10px 15px rgba(0,0,0,1)"}}>
-                    {t.toUpperCase()}
-                  </h1>
-                ))}
+               {s.title.map((t, li) => (
+  <h1 key={li} className="racer-chrome text-5xl md:text-7xl leading-[0.9] tracking-tighter" style={{transform: li===1? "translateX(22px)" : "none"}}>
+    {t.toUpperCase()}
+  </h1>
+))}
               </div>
               <div className="flex flex-col gap-3 items-start mb-2">
                 <a href="#servicios" className="w-fit bg-red-600 px-10 py-3.5 font-black text-sm hover:bg-white hover:text-black transition" style={{transform:"skewX(-12deg)", boxShadow:"4px 4px 0px rgba(0,0,0,0.8)"}}><span style={{transform:"skewX(12deg)", display:"block"}}>VER SERVICIOS →</span></a>
