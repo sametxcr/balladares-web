@@ -168,24 +168,18 @@ export default function Page(){
 
     {/* IZQUIERDA - 2 VIDEOS CON MARCO RACING */}
     <div className="flex flex-col gap-6">
-      <div className="relative bg-black border- border-red-600 shadow-[6px_6px_0px_#000] overflow-hidden skew-racing">
-        <div className="unskew">
-          <span className="absolute bottom-0 left-0 bg-red-600 text-white text- font-black px-3 py-1 z-10 tracking-widest">REPEAT LOOP</span>
-          <video src="/repetirloop.mp4" autoPlay loop muted playsInline className="w-full aspect-[16/9] object-cover" />
-        </div>
+      <div className="relative bg-black border- border-red-600 shadow-[6px_6px_0px_#000] overflow-hidden">
+        <span className="absolute bottom-0 left-0 bg-red-600 text-white text- font-black px-3 py-1 z-10 tracking-widest">REPEAT LOOP</span>
+        <video src="/repetirloop.mp4" autoPlay loop muted playsInline className="w-full aspect-[16/9] object-cover" />
       </div>
-      <div className="relative bg-black border- border-red-600 shadow-[6px_6px_0px_#000] overflow-hidden skew-racing">
-        <div className="unskew">
-          <span className="absolute bottom-0 left-0 bg-white text-black text- font-black px-3 py-1 z-10 tracking-widest">LOOP LIFE</span>
-          <video src="/looplife.mp4" autoPlay loop muted playsInline className="w-full aspect-[16/9] object-cover" />
-        </div>
+      <div className="relative bg-black border- border-red-600 shadow-[6px_6px_0px_#000] overflow-hidden">
+        <span className="absolute bottom-0 left-0 bg-white text-black text- font-black px-3 py-1 z-10 tracking-widest">LOOP LIFE</span>
+        <video src="/looplife.mp4" autoPlay loop muted playsInline className="w-full aspect-[16/9] object-cover" />
       </div>
     </div>
 
     {/* DERECHA - 2 COTIZADORES RACING */}
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-      {/* NEUMATICO */}
       <div className="relative bg-[#0F0F0F] border- border-red-600 shadow-[6px_6px_0px_#000] p-6 flex flex-col">
         <div className="absolute top-0 right-0 w-3 h-3 bg-red-600"></div>
         <div className="flex flex-col items-center mb-6">
@@ -194,15 +188,12 @@ export default function Page(){
           </div>
           <h3 className="font-black italic text-xl text-white uppercase text-center leading-[0.9]">COTIZA TU<br/><span className="text-red-600">NEUMÁTICO</span></h3>
         </div>
-        <input placeholder="Marca" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm focus:border-red-600 skew-racing" />
+        <input placeholder="Marca" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm focus:border-red-600" />
         <input placeholder="Medida ej: 225/45R17" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm focus:border-red-600" />
-        <select className="bg-black border border-white/10 p-3 mb-4 text-white font-bold outline-none text-sm">
-          <option>Cantidad</option><option>1</option><option>2</option><option>4</option>
-        </select>
+        <select className="bg-black border border-white/10 p-3 mb-4 text-white font-bold outline-none text-sm"><option>Cantidad</option><option>1</option><option>2</option><option>4</option></select>
         <a href={waLink} target="_blank" className="mt-auto bg-green-500 text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>
       </div>
 
-      {/* REPUESTO */}
       <div className="relative bg-[#0F0F0F] border- border-white/20 shadow-[6px_6px_0px_#000] p-6 flex flex-col">
         <div className="absolute top-0 right-0 w-3 h-3 bg-white"></div>
         <div className="flex flex-col items-center mb-6">
@@ -216,10 +207,8 @@ export default function Page(){
         <input placeholder="Que repuesto necesitas?" className="bg-black border border-white/10 p-3 mb-4 text-white font-bold outline-none text-sm focus:border-white" />
         <a href={waLink} target="_blank" className="mt-auto bg-green-500 text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>
       </div>
-
     </div>
   </div>
-</section>
 
   {/* NUESTRAS MARCAS */}
   <div className="max-w- mx-auto mt-12">
@@ -229,6 +218,18 @@ export default function Page(){
       <div className="bg-white rounded-xl h-20 flex items-center justify-center p-3"><img src="/marcas/woxol.png" alt="Woxol" className="h-full object-contain" /></div>
       <div className="bg-white rounded-xl h-20 flex items-center justify-center p-3 border-2 border-dashed border-zinc-400"><span className="text-zinc-400 font-bold text-xs">+ MARCA</span></div>
       <div className="bg-white rounded-xl h-20 flex items-center justify-center p-3 border-2 border-dashed border-zinc-400"><span className="text-zinc-400 font-bold text-xs">+ MARCA</span></div>
+    </div>
+  </div>
+
+  {/* GALERIA DE 35 FOTOS - ESTABA ESCONDIDA PORQUE LA BORRASTE */}
+  <div className="max-w- mx-auto mt-12">
+    <h3 className="font-black italic text-2xl mb-4 tracking-wider">GALERÍA</h3>
+    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
+      {galeria.map((img, i) => (
+        <div key={i} className="relative aspect-square overflow-hidden border border-white/10 bg-zinc-900 group">
+          <img src={img} alt={`foto ${i}`} className="w-full h-full object-cover group-hover:scale-110 transition duration-300" />
+        </div>
+      ))}
     </div>
   </div>
 </section>
@@ -260,13 +261,12 @@ export default function Page(){
   BALLADARES-MOTORS.CL © 2026
 </footer>
 
-{/* FLOTANTES 30% MAS GRANDES */}
 <div className="fixed bottom-6 right-6 flex flex-row gap-4 items-center" style={{ zIndex: 9999 }}>
   <a href={INSTAGRAM} target="_blank" className="w- h- bg-white rounded-full flex items-center justify-center border- border-black shadow-[5px_5px_0px_black] hover:scale-110 transition">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" className="w-10 h-10 object-contain" alt="IG" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" className="w-19 h-19 object-contain" alt="IG" />
   </a>
   <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="w- h- bg-[#25D366] rounded-full flex items-center justify-center border- border-black shadow-[5px_5px_0px_black] hover:scale-110 transition">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" className="w-11 h-11 object-contain" alt="WA" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" className="w-20 h-20 object-contain" alt="WA" />
   </a>
 </div>
     </main>
