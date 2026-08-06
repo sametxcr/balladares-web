@@ -162,7 +162,7 @@ export default function Page(){
         </div>
       </section>
 
-{/* GALERIA RACING */}
+  {/* GALERIA RACING */}
 <section id="galeria" className="bg-black py-8 px-4">
   <div className="grid grid-cols-1 lg:grid-cols-[420px_1fr] gap-6 max-w- mx-auto items-stretch">
 
@@ -221,13 +221,13 @@ export default function Page(){
     </div>
   </div>
 
-  {/* GALERIA DE 35 FOTOS - ESTABA ESCONDIDA PORQUE LA BORRASTE */}
+  {/* GALERIA 35 FOTOS - AHORA SI DESDE /taller/ */}
   <div className="max-w- mx-auto mt-12">
-    <h3 className="font-black italic text-2xl mb-4 tracking-wider">GALERÍA</h3>
+    <h3 className="font-black italic text-2xl mb-4 tracking-wider">GALERÍA TALLER</h3>
     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
-      {galeria.map((img, i) => (
-        <div key={i} className="relative aspect-square overflow-hidden border border-white/10 bg-zinc-900 group">
-          <img src={img} alt={`foto ${i}`} className="w-full h-full object-cover group-hover:scale-110 transition duration-300" />
+      {Array.from({ length: 35 }, (_, i) => `/taller/${i + 1}.jpg`).map((img, i) => (
+        <div key={i} className="relative aspect-square overflow-hidden border- border-white/10 bg-zinc-900 group hover:border-red-600 transition">
+          <img src={img} alt={`taller ${i + 1}`} className="w-full h-full object-cover group-hover:scale-110 transition duration-300" loading="lazy" />
         </div>
       ))}
     </div>
@@ -263,10 +263,10 @@ export default function Page(){
 
 <div className="fixed bottom-6 right-6 flex flex-row gap-4 items-center" style={{ zIndex: 9999 }}>
   <a href={INSTAGRAM} target="_blank" className="w- h- bg-white rounded-full flex items-center justify-center border- border-black shadow-[5px_5px_0px_black] hover:scale-110 transition">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" className="w-19 h-19 object-contain" alt="IG" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" className="w-10 h-10 object-contain" alt="IG" />
   </a>
   <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="w- h- bg-[#25D366] rounded-full flex items-center justify-center border- border-black shadow-[5px_5px_0px_black] hover:scale-110 transition">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" className="w-20 h-20 object-contain" alt="WA" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" className="w-11 h-11 object-contain" alt="WA" />
   </a>
 </div>
     </main>
