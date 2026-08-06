@@ -162,53 +162,64 @@ export default function Page(){
         </div>
       </section>
 
+{/* GALERIA RACING */}
 <section id="galeria" className="bg-black py-8 px-4">
   <div className="grid grid-cols-1 lg:grid-cols-[420px_1fr] gap-6 max-w- mx-auto items-stretch">
 
-    {/* IZQUIERDA - 2 VIDEOS */}
-    <div className="flex flex-col gap-4">
-      <div className="relative border-2 border-red-600 aspect-[16/9] overflow-hidden bg-zinc-900">
-        <span className="absolute bottom-0 left-0 bg-red-600 text-white text- font-black px-3 py-1 z-10">REPEAT LOOP</span>
-        <video src="/repetirloop.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
+    {/* IZQUIERDA - 2 VIDEOS CON MARCO RACING */}
+    <div className="flex flex-col gap-6">
+      <div className="relative bg-black border- border-red-600 shadow-[6px_6px_0px_#000] overflow-hidden skew-racing">
+        <div className="unskew">
+          <span className="absolute bottom-0 left-0 bg-red-600 text-white text- font-black px-3 py-1 z-10 tracking-widest">REPEAT LOOP</span>
+          <video src="/repetirloop.mp4" autoPlay loop muted playsInline className="w-full aspect-[16/9] object-cover" />
+        </div>
       </div>
-      <div className="relative border-2 border-red-600 aspect-[16/9] overflow-hidden bg-zinc-900">
-        <span className="absolute bottom-0 left-0 bg-white text-black text- font-black px-3 py-1 z-10">LOOP LIFE</span>
-        <video src="/looplife.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
+      <div className="relative bg-black border- border-red-600 shadow-[6px_6px_0px_#000] overflow-hidden skew-racing">
+        <div className="unskew">
+          <span className="absolute bottom-0 left-0 bg-white text-black text- font-black px-3 py-1 z-10 tracking-widest">LOOP LIFE</span>
+          <video src="/looplife.mp4" autoPlay loop muted playsInline className="w-full aspect-[16/9] object-cover" />
+        </div>
       </div>
     </div>
 
-    {/* DERECHA - DIVIDIDO EN 2 VERTICAL */}
-    <div className="border-2 border-red-600 bg-[#111111] grid grid-cols-1 md:grid-cols-2 gap-0 min-h-">
-      {/* COTIZA NEUMATICO */}
-      <div className="p-6 border-b-2 md:border-b-0 md:border-r-2 border-red-600 flex flex-col">
+    {/* DERECHA - 2 COTIZADORES RACING */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+      {/* NEUMATICO */}
+      <div className="relative bg-[#0F0F0F] border- border-red-600 shadow-[6px_6px_0px_#000] p-6 flex flex-col">
+        <div className="absolute top-0 right-0 w-3 h-3 bg-red-600"></div>
         <div className="flex flex-col items-center mb-6">
-          <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-3">
-            <span className="text-3xl">🛞</span>
+          <div className="w-20 h-20 bg-white rounded-xl flex items-center justify-center p-2 mb-3 shadow-[3px_3px_0px_#dc2626]">
+            <img src="/icons/isometric_tire_stack_r888r.webp" alt="Neumatico" className="w-full h-full object-contain" />
           </div>
-          <h3 className="font-black italic text-xl text-white uppercase text-center leading-none">COTIZA TU<br/>NEUMÁTICO</h3>
+          <h3 className="font-black italic text-xl text-white uppercase text-center leading-[0.9]">COTIZA TU<br/><span className="text-red-600">NEUMÁTICO</span></h3>
         </div>
-        <input placeholder="Marca" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
-        <input placeholder="Medida ej: 225/45R17" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
+        <input placeholder="Marca" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm focus:border-red-600 skew-racing" />
+        <input placeholder="Medida ej: 225/45R17" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm focus:border-red-600" />
         <select className="bg-black border border-white/10 p-3 mb-4 text-white font-bold outline-none text-sm">
           <option>Cantidad</option><option>1</option><option>2</option><option>4</option>
         </select>
-        <a href={waLink} target="_blank" className="mt-auto bg-green-500 text-black font-black py-3 text-center text-sm hover:bg-white transition">ENVIAR POR WHATSAPP →</a>
+        <a href={waLink} target="_blank" className="mt-auto bg-green-500 text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>
       </div>
-      {/* COTIZA REPUESTO */}
-      <div className="p-6 flex flex-col">
+
+      {/* REPUESTO */}
+      <div className="relative bg-[#0F0F0F] border- border-white/20 shadow-[6px_6px_0px_#000] p-6 flex flex-col">
+        <div className="absolute top-0 right-0 w-3 h-3 bg-white"></div>
         <div className="flex flex-col items-center mb-6">
-          <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-3">
-            <span className="text-3xl">⚙️</span>
+          <div className="w-20 h-20 bg-white rounded-xl flex items-center justify-center p-2 mb-3 shadow-[3px_3px_0px_#fff]">
+            <img src="/icons/red_carbon_sedan_service_icon.webp" alt="Repuesto" className="w-full h-full object-contain" />
           </div>
-          <h3 className="font-black italic text-xl text-white uppercase text-center leading-none">COTIZA TU<br/>REPUESTO</h3>
+          <h3 className="font-black italic text-xl text-white uppercase text-center leading-[0.9]">COTIZA TU<br/><span className="text-white">REPUESTO</span></h3>
         </div>
-        <input placeholder="Marca" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
-        <input placeholder="Modelo / Año" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
-        <input placeholder="Que repuesto necesitas?" className="bg-black border border-white/10 p-3 mb-4 text-white font-bold outline-none text-sm" />
-        <a href={waLink} target="_blank" className="mt-auto bg-green-500 text-black font-black py-3 text-center text-sm hover:bg-white transition">ENVIAR POR WHATSAPP →</a>
+        <input placeholder="Marca" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm focus:border-white" />
+        <input placeholder="Modelo / Año" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm focus:border-white" />
+        <input placeholder="Que repuesto necesitas?" className="bg-black border border-white/10 p-3 mb-4 text-white font-bold outline-none text-sm focus:border-white" />
+        <a href={waLink} target="_blank" className="mt-auto bg-green-500 text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>
       </div>
+
     </div>
   </div>
+</section>
 
   {/* NUESTRAS MARCAS */}
   <div className="max-w- mx-auto mt-12">
