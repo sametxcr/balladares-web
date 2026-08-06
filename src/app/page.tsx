@@ -167,14 +167,15 @@ export default function Page(){
 
     {/* IZQUIERDA - 2 VIDEOS COMO MARCASTE */}
     <div className="flex flex-col gap-4">
-      <div className="relative border-2 border-red-600 aspect-[16/9] overflow-hidden bg-zinc-900">
-        <span className="absolute bottom-0 left-0 bg-red-600 text-white text- font-black px-3 py-1 z-10">REPEAT LOOP</span>
-        <video src="/video-taller-arriba.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
-      </div>
-      <div className="relative border-2 border-red-600 aspect-[16/9] overflow-hidden bg-zinc-900">
-        <span className="absolute bottom-0 left-0 bg-white text-black text- font-black px-3 py-1 z-10">LOOP LIFE</span>
-        <video src="/video-taller-abajo.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
-      </div>
+     <div className="relative border-2 border-red-600 aspect-[16/9] overflow-hidden bg-zinc-900">
+  <span className="absolute bottom-0 left-0 bg-red-600 text-white text- font-black px-3 py-1 z-10">REPEAT LOOP</span>
+  <video src="/repetirloop.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
+</div>
+
+<div className="relative border-2 border-red-600 aspect-[16/9] overflow-hidden bg-zinc-900">
+  <span className="absolute bottom-0 left-0 bg-white text-black text- font-black px-3 py-1 z-10">LOOP LIFE</span>
+  <video src="/looplife.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
+</div>
     </div>
 
     {/* DERECHA - VACIO / ESPACIO DE COTIZA EN 30 SEGUNDOS SUBIDO */}
