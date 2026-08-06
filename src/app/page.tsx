@@ -55,8 +55,8 @@ export default function Page(){
   const [cotizaNeumatico, setCotizaNeumatico] = useState("");
   const [cotizaRepuesto, setCotizaRepuesto] = useState("");
   // Reemplaza tu waLink viejo por estos 2, justo antes del return:
-const waLinkNeumatico = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(`Hola Balladares Motors! Quiero cotizar NEUMÁTICO:\n${cotizaNeumatico}`)}`;
-const waLinkRepuesto = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(`Hola Balladares Motors! Quiero cotizar REPUESTO:\n${cotizaRepuesto}`)}`;
+const waLinkNeumatico = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent("Hola Balladares Motors! Quiero cotizar NEUMÁTICO:\n" + cotizaNeumatico);
+const waLinkRepuesto = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent("Hola Balladares Motors! Quiero cotizar REPUESTO:\n" + cotizaRepuesto);
   
   return (
     <main className="bg-black text-white overflow-x-hidden">
