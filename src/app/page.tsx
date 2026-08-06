@@ -162,11 +162,11 @@ export default function Page(){
         </div>
       </section>
 
-  {/* GALERIA RACING */}
+ {/* GALERIA RACING */}
 <section id="galeria" className="bg-black py-8 px-4">
   <div className="grid grid-cols-1 lg:grid-cols-[420px_1fr] gap-6 max-w- mx-auto items-stretch">
 
-    {/* IZQUIERDA - 2 VIDEOS CON MARCO RACING */}
+    {/* IZQUIERDA - 2 VIDEOS */}
     <div className="flex flex-col gap-6">
       <div className="relative bg-black border- border-red-600 shadow-[6px_6px_0px_#000] overflow-hidden">
         <span className="absolute bottom-0 left-0 bg-red-600 text-white text- font-black px-3 py-1 z-10 tracking-widest">REPEAT LOOP</span>
@@ -178,52 +178,43 @@ export default function Page(){
       </div>
     </div>
 
-  {/* DERECHA - 2 COTIZADORES RACING */}
-<div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w- mx-auto">
+    {/* DERECHA - 2 COTIZADORES */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w- mx-auto w-full">
 
-  {/* NEUMATICO */}
-  <div className="relative bg-[#0F0F0F] border- border-red-600 shadow-[6px_6px_0px_#000] p-6 flex flex-col">
-    <div className="absolute top-0 right-0 w-3 h-3 bg-red-600"></div>
+      {/* NEUMATICO */}
+      <div className="relative bg-[#0F0F0F] border- border-red-600 shadow-[6px_6px_0px_#000] p-6 flex flex-col">
+        <div className="absolute top-0 right-0 w-3 h-3 bg-red-600"></div>
+        <div className="flex flex-col items-center mb-6">
+          <img src="/icons/isometric_tire_stack_r888r.webp" alt="Neumatico" className="w-36 h-36 object-contain mb-3" />
+          <h3 className="font-black italic text-2xl text-white uppercase text-center leading-none">COTIZA TU<br/><span className="text-red-600">NEUMÁTICO</span></h3>
+        </div>
+        <input placeholder="Marca" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
+        <input placeholder="Medida ej: 225/45R17" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
+        <select className="bg-black border border-white/10 p-3 mb-4 text-white font-bold outline-none text-sm">
+          <option>Cantidad</option><option>1</option><option>2</option><option>4</option>
+        </select>
+        <a href={waLink} target="_blank" className="mt-auto bg-[#25D366] text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>
+      </div>
 
-    <div className="flex flex-col items-center mb-6">
-      <img src="/icons/isometric_tire_stack_r888r.webp" alt="Neumatico" className="w-36 h-36 object-contain mb-3" />
-      <h3 className="font-black italic text-2xl text-white uppercase text-center leading-none">COTIZA TU<br/><span className="text-red-600">NEUMÁTICO</span></h3>
+      {/* REPUESTO */}
+      <div className="relative bg-[#0F0F0F] border- border-white/20 shadow-[6px_6px_0px_#000] p-6 flex flex-col">
+        <div className="absolute top-0 right-0 w-3 h-3 bg-white"></div>
+        <div className="flex flex-col items-center mb-6">
+          <img src="/icons/red_carbon_sedan_service_icon.webp" alt="Repuesto" className="w-36 h-36 object-contain mb-3" />
+          <h3 className="font-black italic text-2xl text-white uppercase text-center leading-none">COTIZA TU<br/><span className="text-white">REPUESTO</span></h3>
+        </div>
+        <input placeholder="Marca" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
+        <input placeholder="Modelo / Año" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
+        <input placeholder="Que repuesto necesitas?" className="bg-black border border-white/10 p-3 mb-4 text-white font-bold outline-none text-sm" />
+        <a href={waLink} target="_blank" className="mt-auto bg-[#25D366] text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>
+      </div>
+
     </div>
-
-    <input placeholder="Marca" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
-    <input placeholder="Medida ej: 225/45R17" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
-    <select className="bg-black border border-white/10 p-3 mb-4 text-white font-bold outline-none text-sm">
-      <option>Cantidad</option><option>1</option><option>2</option><option>4</option>
-    </select>
-
-    <a href={waLink} target="_blank" className="mt-auto bg-[#25D366] text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">
-      ENVIAR POR WHATSAPP →
-    </a>
   </div>
-
-  {/* REPUESTO */}
-  <div className="relative bg-[#0F0F0F] border- border-white/20 shadow-[6px_6px_0px_#000] p-6 flex flex-col">
-    <div className="absolute top-0 right-0 w-3 h-3 bg-white"></div>
-
-    <div className="flex flex-col items-center mb-6">
-      <img src="/icons/red_carbon_sedan_service_icon.webp" alt="Repuesto" className="w-36 h-36 object-contain mb-3" />
-      <h3 className="font-black italic text-2xl text-white uppercase text-center leading-none">COTIZA TU<br/><span className="text-white">REPUESTO</span></h3>
-    </div>
-
-    <input placeholder="Marca" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
-    <input placeholder="Modelo / Año" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
-    <input placeholder="Que repuesto necesitas?" className="bg-black border border-white/10 p-3 mb-4 text-white font-bold outline-none text-sm" />
-
-    <a href={waLink} target="_blank" className="mt-auto bg-[#25D366] text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">
-      ENVIAR POR WHATSAPP →
-    </a>
-  </div>
-
-</div>
 
   {/* NUESTRAS MARCAS */}
   <div className="max-w- mx-auto mt-12">
-    <h3 className="font-black italic text-2xl mb-4 tracking-wider">NUESTRAS MARCAS</h3>
+    <h3 className="font-black italic text-2xl mb-4 tracking-wider text-white">NUESTRAS MARCAS</h3>
     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 border border-white/10 p-6 bg-zinc-900/50">
       <div className="bg-white rounded-xl h-20 flex items-center justify-center p-3"><img src="/marcas/mannol.png" alt="Mannol" className="h-full object-contain" /></div>
       <div className="bg-white rounded-xl h-20 flex items-center justify-center p-3"><img src="/marcas/woxol.png" alt="Woxol" className="h-full object-contain" /></div>
@@ -232,9 +223,9 @@ export default function Page(){
     </div>
   </div>
 
-  {/* GALERIA 35 FOTOS - AHORA SI DESDE /taller/ */}
+  {/* GALERIA 35 FOTOS */}
   <div className="max-w- mx-auto mt-12">
-    <h3 className="font-black italic text-2xl mb-4 tracking-wider">GALERÍA TALLER</h3>
+    <h3 className="font-black italic text-2xl mb-4 tracking-wider text-white">GALERÍA TALLER</h3>
     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
       {Array.from({ length: 35 }, (_, i) => `/taller/${i + 1}.jpg`).map((img, i) => (
         <div key={i} className="relative aspect-square overflow-hidden border- border-white/10 bg-zinc-900 group hover:border-red-600 transition">
@@ -252,7 +243,7 @@ export default function Page(){
         <div className="relative w-9 h-9 rounded-xl bg-white flex items-center justify-center p-1.5" style={{ boxShadow: "3px 3px 0px #dc2626" }}>
           <img src={m.logo} alt={m.name} className="w-full h-full object-contain" />
         </div>
-        <span className="font-black italic text-base">{m.name}</span>
+        <span className="font-black italic text-base text-white">{m.name}</span>
       </div>
     ))}
   </div>
@@ -260,7 +251,7 @@ export default function Page(){
 
 <section id="contacto" className="grid md:grid-cols-2">
   <div className="bg-zinc-900 p-8 md:p-16 flex flex-col justify-center">
-    <h3 className="font-black italic text-3xl mb-2">ENCUÉNTRANOS</h3>
+    <h3 className="font-black italic text-3xl mb-2 text-white">ENCUÉNTRANOS</h3>
     <p className="text-white/60 font-bold">Rodolfo Briceño 2718, Concepción</p>
   </div>
   <div className="relative bg-black" style={{ minHeight: 400 }}>
