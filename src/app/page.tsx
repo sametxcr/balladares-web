@@ -226,16 +226,16 @@ export default function Page(){
     </div>
   </div>
 
-  {/* GALERIA 35 FOTOS - 6 VISIBLES + DESPLEGABLE */}
+  {/* GALERIA 35 FOTOS - 8 VISIBLES + DESPLEGABLE */}
 <div className="max-w-[1600px] mx-auto mt-12">
   <div className="flex items-center justify-between mb-4">
     <h3 className="font-black italic text-2xl tracking-wider text-white">GALERÍA TALLER</h3>
     <button onClick={() => setShowGaleria(!showGaleria)} className="bg-white text-black font-black px-6 py-2 text-sm hover:bg-red-600 hover:text-white transition border-[2px] border-black shadow-[4px_4px_0px_#000]">
-      {showGaleria? 'VER MENOS ↑' : `VER ${35-6} FOTOS MÁS ↓`}
+      {showGaleria? 'VER MENOS ↑' : `VER ${35-8} FOTOS MÁS ↓`}
     </button>
   </div>
   <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
-    {Array.from({ length: showGaleria? 35 : 6 }, (_, i) => `/taller/${i + 1}.jpg`).map((img, i) => (
+    {Array.from({ length: showGaleria? 35 : 8 }, (_, i) => `/taller/${i + 1}.jpg`).map((img, i) => (
       <div key={i} className="relative aspect-square overflow-hidden border-[2px] border-white/10 bg-zinc-900 group hover:border-red-600 transition">
         <img src={img} alt={`taller ${i + 1}`} className="w-full h-full object-cover group-hover:scale-110 transition duration-300" loading="lazy" />
       </div>
@@ -273,10 +273,10 @@ export default function Page(){
 
 <div className="fixed bottom-6 right-6 flex flex-row gap-4 items-center" style={{ zIndex: 9999 }}>
   <a href={INSTAGRAM} target="_blank" className="w- h- bg-white rounded-full flex items-center justify-center border- border-black shadow-[5px_5px_0px_black] hover:scale-110 transition">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" className="w-10 h-10 object-contain" alt="IG" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" className="w-11 h-11 object-contain" alt="IG" />
   </a>
   <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="w- h- bg-[#25D366] rounded-full flex items-center justify-center border- border-black shadow-[5px_5px_0px_black] hover:scale-110 transition">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" className="w-11 h-11 object-contain" alt="WA" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" className="w-12 h-12 object-contain" alt="WA" />
   </a>
 </div>
     </main>
