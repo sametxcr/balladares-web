@@ -199,7 +199,7 @@ export default function Page(){
     <h3 className="font-black italic text-2xl text-white uppercase text-center leading-none mt-4 mb-6">COTIZA TU<br/><span className="text-white">REPUESTO</span></h3>
     <a href={waLinkRepuesto} target="_blank" className="mt-auto w-full bg-[#25D366] text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>
   </div>
-
+</div>
 </div>
 
   {/* NUESTRAS MARCAS */}
