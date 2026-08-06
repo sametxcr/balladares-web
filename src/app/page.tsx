@@ -179,44 +179,41 @@ export default function Page(){
       </div>
     </div>
 
-    {/* DERECHA - 2 COTIZADORES - ICONOS ACHICADOS SIMETRICOS */}
-<div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w- mx-auto w-full items-stretch">
+    {/* DERECHA - 2 COTIZADORES - FONDO NEGRO FLOTANDO */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w- mx-auto w-full">
 
-  {/* NEUMATICO */}
-  <div className="relative bg-black border- border-red-600 shadow-[6px_6px_0px_#000] p-5 flex flex-col justify-between">
-    <div className="flex flex-col items-center">
-      <div className="w-full bg-black flex items-center justify-center h-">
-        <img src="/icons/isometric_tire_stack_r888r.webp" alt="Neumatico" className="w- h- object-contain" />
+      {/* NEUMATICO */}
+      <div className="relative bg-black border- border-red-600 shadow-[6px_6px_0px_#000] p-6 flex flex-col">
+        <div className="flex flex-col items-center mb-6">
+          <div className="w-full bg-black flex items-center justify-center">
+            <img src="/icons/isometric_tire_stack_r888r.webp" alt="Neumatico" className="w- h- object-contain" />
+          </div>
+          <h3 className="font-black italic text-2xl text-white uppercase text-center leading-none mt-4">COTIZA TU<br/><span className="text-red-600">NEUMÁTICO</span></h3>
+        </div>
+        <input placeholder="Marca" className="bg-[#0F0F0F] border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
+        <input placeholder="Medida ej: 225/45R17" className="bg-[#0F0F0F] border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
+        <select className="bg-[#0F0F0F] border border-white/10 p-3 mb-4 text-white font-bold outline-none text-sm">
+          <option>Cantidad</option><option>1</option><option>2</option><option>4</option>
+        </select>
+        <a href={waLink} target="_blank" className="mt-auto bg-[#25D366] text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>
       </div>
-      <h3 className="font-black italic text- text-white uppercase text-center leading-none mt-3">COTIZA TU<br/><span className="text-red-600">NEUMÁTICO</span></h3>
-    </div>
-    <div className="mt-4 flex flex-col">
-      <input placeholder="Marca" className="bg-[#0F0F0F] border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
-      <input placeholder="Medida ej: 225/45R17" className="bg-[#0F0F0F] border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
-      <select className="bg-[#0F0F0F] border border-white/10 p-3 mb-4 text-white font-bold outline-none text-sm">
-        <option>Cantidad</option><option>1</option><option>2</option><option>4</option>
-      </select>
-      <a href={waLink} target="_blank" className="mt-auto bg-[#25D366] text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>
+
+      {/* REPUESTO */}
+      <div className="relative bg-black border- border-white/20 shadow-[6px_6px_0px_#000] p-6 flex flex-col">
+        <div className="flex flex-col items-center mb-6">
+          <div className="w-full bg-black flex items-center justify-center">
+            <img src="/icons/red_carbon_sedan_service_icon.webp" alt="Repuesto" className="w- h- object-contain" />
+          </div>
+          <h3 className="font-black italic text-2xl text-white uppercase text-center leading-none mt-4">COTIZA TU<br/><span className="text-white">REPUESTO</span></h3>
+        </div>
+        <input placeholder="Marca" className="bg-[#0F0F0F] border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
+        <input placeholder="Modelo / Año" className="bg-[#0F0F0F] border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
+        <input placeholder="Que repuesto necesitas?" className="bg-[#0F0F0F] border border-white/10 p-3 mb-4 text-white font-bold outline-none text-sm" />
+        <a href={waLink} target="_blank" className="mt-auto bg-[#25D366] text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>
+      </div>
+
     </div>
   </div>
-
-  {/* REPUESTO */}
-  <div className="relative bg-black border- border-white/20 shadow-[6px_6px_0px_#000] p-5 flex flex-col justify-between">
-    <div className="flex flex-col items-center">
-      <div className="w-full bg-black flex items-center justify-center h-">
-        <img src="/icons/red_carbon_sedan_service_icon.webp" alt="Repuesto" className="w- h- object-contain" />
-      </div>
-      <h3 className="font-black italic text- text-white uppercase text-center leading-none mt-3">COTIZA TU<br/><span className="text-white">REPUESTO</span></h3>
-    </div>
-    <div className="mt-4 flex flex-col">
-      <input placeholder="Marca" className="bg-[#0F0F0F] border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
-      <input placeholder="Modelo / Año" className="bg-[#0F0F0F] border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
-      <input placeholder="Que repuesto necesitas?" className="bg-[#0F0F0F] border border-white/10 p-3 mb-4 text-white font-bold outline-none text-sm" />
-      <a href={waLink} target="_blank" className="mt-auto bg-[#25D366] text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>
-    </div>
-  </div>
-
-</div>
 
   {/* NUESTRAS MARCAS */}
   <div className="max-w- mx-auto mt-12">
@@ -276,10 +273,10 @@ export default function Page(){
 
 <div className="fixed bottom-6 right-6 flex flex-row gap-4 items-center" style={{ zIndex: 9999 }}>
   <a href={INSTAGRAM} target="_blank" className="w- h- bg-white rounded-full flex items-center justify-center border- border-black shadow-[5px_5px_0px_black] hover:scale-110 transition">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" className="w-12 h-12 object-contain" alt="IG" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" className="w-11 h-11 object-contain" alt="IG" />
   </a>
   <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="w- h- bg-[#25D366] rounded-full flex items-center justify-center border- border-black shadow-[5px_5px_0px_black] hover:scale-110 transition">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" className="w-13 h-13 object-contain" alt="WA" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" className="w-12 h-12 object-contain" alt="WA" />
   </a>
 </div>
     </main>
