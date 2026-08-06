@@ -52,8 +52,8 @@ export default function Page(){
   const [showIntro,setShowIntro]=useState(true);
   const [showGaleria, setShowGaleria] = useState(false);
   useEffect(()=>{ const t=setInterval(()=>setI(p=>(p+1)%slides.length),5000); return()=>clearInterval(t) },[]);
-  const waLink = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(`Hola Balladares Motors! Quiero cotizar:\nMarca: ${form.marca}\nModelo: ${form.modelo}\nAño: ${form.ano}\nServicio: ${form.servicio}`)}`;
-
+  const waLinkNeumatico = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent("Hola Balladares! Quiero cotizar NEUMATICO. Marca y medida: 195/50/R15");
+  const waLinkRepuesto = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent("Hola Balladares! Quiero cotizar REPUESTO. Mi patente y foto del repuesto:");
   return (
     <main className="bg-black text-white overflow-x-hidden">
       {showIntro && (
