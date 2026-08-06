@@ -16,7 +16,7 @@ const slides = [
 ];
 
 const servicios = [
-  { n: "Repro Stage 1/2", p: "Desde $150.000", d: "Libera el verdadero potencial oculto de tu ECU. Potencia tu auto de forma segura +torque +potencia +economia.", icon: "/icons/turbochip_isometric_icon.webp", accent: "from-red-600 to-orange-500", badge: "POPULAR" },
+  { n: "Repro DPF - EGR - ADBLUE OFF", p: "Desde $150.000", d: "Libera el verdadero potencial oculto de tu ECU. Potencia tu auto de forma segura +torque +potencia +economia. Stage 1 - Stage 2 - DPF - EGR - ADBLUE y más...", icon: "/icons/turbochip_isometric_icon.webp", accent: "from-red-600 to-orange-500", badge: "POPULAR" },
   { n: "Scanner Multimarca", p: "Desde $15.000", d: "Diagnóstico profundo con equipamiento de última generación. Soporte Tecnico en diferentes marcas.", icon: "/icons/obd2_scanner_icon.webp", accent: "from-blue-600 to-cyan-400", badge: "DIAGNOSIS" },
   { n: "Alineación con Laser + Balanceo", p: "Desde $35.000", d: "Precisión milimétrica con sistema láser 3D. Evita el desgaste excesivo de tus neumaticos y vibraciones al conducir.", icon: "/icons/wheel_alignment_icon.webp", accent: "from-zinc-600 to-zinc-400", badge: "LASER" },  
   { n: "Ajuste Motor", p: "Cotizar", d: "Armado y rectificación de motores de estandar y alto rendimiento. Resultados optimos con el soporte de diferentes maestranzas.", icon: "/icons/balladares_motors_emblem_transparent.webp", accent: "from-red-600 to-red-800", badge: "AJUSTE" },
@@ -179,35 +179,28 @@ export default function Page(){
       </div>
     </div>
 
-    {/* DERECHA - 2 COTIZADORES - FONDO NEGRO FLOTANDO */}
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w- mx-auto w-full">
+    {/* DERECHA - 2 COTIZADORES - SIN INPUTS */}
+<div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w- mx-auto w-full">
 
-      {/* NEUMATICO */}
-      <div className="relative bg-black border- border-red-600 shadow-[6px_6px_0px_#000] p-6 flex flex-col">
-        <div className="flex flex-col items-center mb-6">
-          <div className="w-full bg-black flex items-center justify-center">
-            <img src="/icons/isometric_tire_stack_r888r.webp" alt="Neumatico" className="w-[250px] h-[250px] object-contain" />
-          </div>
-          <h3 className="font-black italic text-2xl text-white uppercase text-center leading-none mt-4">COTIZA TU<br/><span className="text-red-600">NEUMÁTICO</span></h3>
-        </div>
-        <input placeholder="Dejamos tu marca a buscar y medida + aro ej:195/50/R15" className="bg-[#0F0F0F] border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
-        <a href={waLink} target="_blank" className="mt-auto bg-[#25D366] text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>
-      </div>
-
-      {/* REPUESTO */}
-      <div className="relative bg-black border- border-white/20 shadow-[6px_6px_0px_#000] p-6 flex flex-col">
-        <div className="flex flex-col items-center mb-6">
-          <div className="w-full bg-black flex items-center justify-center">
-            <img src="/icons/red_carbon_sedan_service_icon.webp" alt="Repuesto" className="w-[250px] h-[250px] object-contain" />
-          </div>
-          <h3 className="font-black italic text-2xl text-white uppercase text-center leading-none mt-4">COTIZA TU<br/><span className="text-white">REPUESTO</span></h3>
-        </div>
-        <input placeholder="Envianos tu patente y fotos del repuesto a Cotizar" className="bg-[#0F0F0F] border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
-        <a href={waLink} target="_blank" className="mt-auto bg-[#25D366] text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>
-      </div>
-
+  {/* NEUMATICO */}
+  <div className="relative bg-black border- border-red-600 shadow-[6px_6px_0px_#000] p-6 flex flex-col items-center">
+    <div className="w-full bg-black flex items-center justify-center h-">
+      <img src="/icons/isometric_tire_stack_r888r.webp" alt="Neumatico" className="w- h- object-contain" />
     </div>
+    <h3 className="font-black italic text-2xl text-white uppercase text-center leading-none mt-4 mb-6">COTIZA TU<br/><span className="text-red-600">NEUMÁTICO</span></h3>
+    <a href={waLinkNeumatico} target="_blank" className="mt-auto w-full bg-[#25D366] text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>
   </div>
+
+  {/* REPUESTO */}
+  <div className="relative bg-black border- border-white/20 shadow-[6px_6px_0px_#000] p-6 flex flex-col items-center">
+    <div className="w-full bg-black flex items-center justify-center h-">
+      <img src="/icons/red_carbon_sedan_service_icon.webp" alt="Repuesto" className="w- h- object-contain" />
+    </div>
+    <h3 className="font-black italic text-2xl text-white uppercase text-center leading-none mt-4 mb-6">COTIZA TU<br/><span className="text-white">REPUESTO</span></h3>
+    <a href={waLinkRepuesto} target="_blank" className="mt-auto w-full bg-[#25D366] text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>
+  </div>
+
+</div>
 
   {/* NUESTRAS MARCAS */}
   <div className="max-w- mx-auto mt-12">
