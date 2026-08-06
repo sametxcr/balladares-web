@@ -4,6 +4,7 @@ import { Montserrat, Holtwood_One_SC } from "next/font/google";
 
 const montserrat = Montserrat({ subsets: ["latin"], weight: ["400","700","900"] });
 const holtwood = Holtwood_One_SC({ weight: "400", subsets: ["latin"] });
+const [showGaleria, setShowGaleria] = useState(false);
 
 const WHATSAPP = "56932285399";
 const INSTAGRAM = "https://www.instagram.com/balladaresmotor/";
@@ -162,7 +163,7 @@ export default function Page(){
         </div>
       </section>
 
- {/* GALERIA RACING */}
+{/* GALERIA RACING */}
 <section id="galeria" className="bg-black py-8 px-4">
   <div className="grid grid-cols-1 lg:grid-cols-[420px_1fr] gap-6 max-w- mx-auto items-stretch">
 
@@ -178,44 +179,36 @@ export default function Page(){
       </div>
     </div>
 
-   {/* DERECHA - 2 COTIZADORES RACING - ICONOS GIGANTES */}
-<div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w- mx-auto w-full">
+    {/* DERECHA - 2 COTIZADORES SIN CUADRADO ROJO/BLANCO */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
 
-  {/* NEUMATICO */}
-  <div className="relative bg-[#0F0F0F] border- border-red-600 shadow-[6px_6px_0px_#000] p-6 flex flex-col">
-    <div className="absolute top-0 right-0 w-3 h-3 bg-red-600"></div>
-    <div className="flex flex-col items-center mb-6 pt-2">
-      <img
-        src="/icons/isometric_tire_stack_r888r.webp"
-        alt="Neumatico"
-        className="w- h- object-contain mb-4 drop-shadow-[0_8px_20px_rgba(220,38,38,0.5)]"
-      />
-      <h3 className="font-black italic text- text-white uppercase text-center leading-none">COTIZA TU<br/><span className="text-red-600">NEUMÁTICO</span></h3>
-    </div>
-    <input placeholder="Marca" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
-    <input placeholder="Medida ej: 225/45R17" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
-    <select className="bg-black border border-white/10 p-3 mb-4 text-white font-bold outline-none text-sm"><option>Cantidad</option><option>1</option><option>2</option><option>4</option></select>
-    <a href={waLink} target="_blank" className="mt-auto bg-[#25D366] text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>
-  </div>
+      {/* NEUMATICO */}
+      <div className="relative bg-[#0F0F0F] border- border-red-600 shadow-[6px_6px_0px_#000] p-6 flex flex-col">
+        <div className="flex flex-col items-center mb-6 pt-2">
+          <div className="w-full bg-black rounded-xl flex items-center justify-center p-4 mb-4">
+            <img src="/icons/isometric_tire_stack_r888r.webp" alt="Neumatico" className="w- h- object-contain" />
+          </div>
+          <h3 className="font-black italic text- text-white uppercase text-center leading-none">COTIZA TU<br/><span className="text-red-600">NEUMÁTICO</span></h3>
+        </div>
+        <input placeholder="Marca" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm focus:border-red-600" />
+        <input placeholder="Medida ej: 225/45R17" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm focus:border-red-600" />
+        <select className="bg-black border border-white/10 p-3 mb-4 text-white font-bold outline-none text-sm"><option>Cantidad</option><option>1</option><option>2</option><option>4</option></select>
+        <a href={waLink} target="_blank" className="mt-auto bg-[#25D366] text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>
+      </div>
 
-  {/* REPUESTO */}
-  <div className="relative bg-[#0F0F0F] border- border-white/20 shadow-[6px_6px_0px_#000] p-6 flex flex-col">
-    <div className="absolute top-0 right-0 w-3 h-3 bg-white"></div>
-    <div className="flex flex-col items-center mb-6 pt-2">
-      <img
-        src="/icons/red_carbon_sedan_service_icon.webp"
-        alt="Repuesto"
-        className="w- h- object-contain mb-4 drop-shadow-[0_8px_20px_rgba(255,255,255,0.25)]"
-      />
-      <h3 className="font-black italic text- text-white uppercase text-center leading-none">COTIZA TU<br/><span className="text-white">REPUESTO</span></h3>
-    </div>
-    <input placeholder="Marca" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
-    <input placeholder="Modelo / Año" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
-    <input placeholder="Que repuesto necesitas?" className="bg-black border border-white/10 p-3 mb-4 text-white font-bold outline-none text-sm" />
-    <a href={waLink} target="_blank" className="mt-auto bg-[#25D366] text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>
-  </div>
-
-
+      {/* REPUESTO */}
+      <div className="relative bg-[#0F0F0F] border- border-white/20 shadow-[6px_6px_0px_#000] p-6 flex flex-col">
+        <div className="flex flex-col items-center mb-6 pt-2">
+          <div className="w-full bg-black rounded-xl flex items-center justify-center p-4 mb-4">
+            <img src="/icons/red_carbon_sedan_service_icon.webp" alt="Repuesto" className="w- h- object-contain" />
+          </div>
+          <h3 className="font-black italic text- text-white uppercase text-center leading-none">COTIZA TU<br/><span className="text-white">REPUESTO</span></h3>
+        </div>
+        <input placeholder="Marca" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm focus:border-white" />
+        <input placeholder="Modelo / Año" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm focus:border-white" />
+        <input placeholder="Que repuesto necesitas?" className="bg-black border border-white/10 p-3 mb-4 text-white font-bold outline-none text-sm focus:border-white" />
+        <a href={waLink} target="_blank" className="mt-auto bg-[#25D366] text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>
+      </div>
 
     </div>
   </div>
@@ -231,11 +224,16 @@ export default function Page(){
     </div>
   </div>
 
-  {/* GALERIA 35 FOTOS */}
+  {/* GALERIA 35 FOTOS - 10 VISIBLES + DESPLEGABLE */}
   <div className="max-w- mx-auto mt-12">
-    <h3 className="font-black italic text-2xl mb-4 tracking-wider text-white">GALERÍA TALLER</h3>
+    <div className="flex items-center justify-between mb-4">
+      <h3 className="font-black italic text-2xl tracking-wider text-white">GALERÍA TALLER</h3>
+      <button onClick={() => setShowGaleria(!showGaleria)} className="bg-white text-black font-black px-6 py-2 text-sm hover:bg-red-600 hover:text-white transition border- border-black shadow-[4px_4px_0px_#000]">
+        {showGaleria? 'VER MENOS ↑' : `VER ${35-10} FOTOS MÁS ↓`}
+      </button>
+    </div>
     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
-      {Array.from({ length: 35 }, (_, i) => `/taller/${i + 1}.jpg`).map((img, i) => (
+      {Array.from({ length: showGaleria? 35 : 10 }, (_, i) => `/taller/${i + 1}.jpg`).map((img, i) => (
         <div key={i} className="relative aspect-square overflow-hidden border- border-white/10 bg-zinc-900 group hover:border-red-600 transition">
           <img src={img} alt={`taller ${i + 1}`} className="w-full h-full object-cover group-hover:scale-110 transition duration-300" loading="lazy" />
         </div>
@@ -263,20 +261,19 @@ export default function Page(){
     <p className="text-white/60 font-bold">Rodolfo Briceño 2718, Concepción</p>
   </div>
   <div className="relative bg-black" style={{ minHeight: 400 }}>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3202.5!2d-73.06!3d-36.825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9669b5e5d0f0f0f1%3A0x0!2sRodolfo%20Brice%C3%B1o%202718%2C%20Concepci%C3%B3n%2C%20Chile!5e0!3m2!1ses!2scl!4v1" className="absolute inset-0 w-full h-full border-0 grayscale" loading="lazy" />
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3202.5!2d-73.06!3d-36.825!2m3!1f0!2f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9669b5e5d0f0f0f1%3A0x0!2sRodolfo%20Brice%C3%B1o%202718%2C%20Concepci%C3%B3n%2C%20Chile!5e0!3m2!1ses!2scl!4v1" className="absolute inset-0 w-full h-full border-0 grayscale" loading="lazy" />
   </div>
 </section>
 
-<footer className="bg-black border-t-2 border-red-600 py-8 text-center text-white/30 text-xs font-bold tracking-widest">
-  BALLADARES-MOTORS.CL © 2026
-</footer>
+<footer className="bg-black border-t-2 border-red-600 py-8 text-center text-white/30 text-xs font-bold tracking-widest">BALLADARES-MOTORS.CL © 2026</footer>
 
+{/* FLOTANTES 20% MAS GRANDES - 83px -> 100px */}
 <div className="fixed bottom-6 right-6 flex flex-row gap-4 items-center" style={{ zIndex: 9999 }}>
   <a href={INSTAGRAM} target="_blank" className="w- h- bg-white rounded-full flex items-center justify-center border- border-black shadow-[5px_5px_0px_black] hover:scale-110 transition">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" className="w-10 h-10 object-contain" alt="IG" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" className="w-12 h-12 object-contain" alt="IG" />
   </a>
   <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="w- h- bg-[#25D366] rounded-full flex items-center justify-center border- border-black shadow-[5px_5px_0px_black] hover:scale-110 transition">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" className="w-11 h-11 object-contain" alt="WA" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" className="w-14 h-14 object-contain" alt="WA" />
   </a>
 </div>
     </main>
