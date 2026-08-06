@@ -179,46 +179,37 @@ export default function Page(){
       </div>
     </div>
 
-    {/* DERECHA - 2 COTIZADORES - 1 TEXTAREA GRANDE */}
-<div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[1600px] mx-auto w-full items-stretch">
+    {/* DERECHA - 2 COTIZADORES - FONDO NEGRO FLOTANDO */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w- mx-auto w-full">
 
-  {/* NEUMATICO */}
-  <div className="relative bg-black border-[2px] border-red-600 shadow-[6px_6px_0px_#000] p-6 flex flex-col">
-    <div className="flex flex-col items-center mb-4">
-      <div className="w-full bg-black flex items-center justify-center h-[140px]">
-        <img src="/icons/isometric_tire_stack_r888r.webp" alt="Neumatico" className="w-[110px] h-[110px] object-contain" />
+      {/* NEUMATICO */}
+      <div className="relative bg-black border- border-red-600 shadow-[6px_6px_0px_#000] p-6 flex flex-col">
+        <div className="flex flex-col items-center mb-6">
+          <div className="w-full bg-black flex items-center justify-center">
+            <img src="/icons/isometric_tire_stack_r888r.webp" alt="Neumatico" className="w-[200px] h-[200px] object-contain" />
+          </div>
+          <h3 className="font-black italic text-2xl text-white uppercase text-center leading-none mt-4">COTIZA TU<br/><span className="text-red-600">NEUMÁTICO</span></h3>
+        </div>
+        <input placeholder="Marca" className="bg-[#0F0F0F] border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
+        
+        <a href={waLink} target="_blank" className="mt-auto bg-[#25D366] text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>
       </div>
-      <h3 className="font-black italic text-[22px] text-white uppercase text-center leading-none mt-3">COTIZA TU<br/><span className="text-red-600">NEUMÁTICO</span></h3>
-    </div>
 
-    {/* UN SOLO TEXTBOX GRANDE */}
-    <textarea
-      placeholder={`- Envíanos tu marca a buscar\n- Tu medida ej: 195/50/R15`}
-      className="bg-[#0F0F0F] border border-white/10 p-4 text-white font-bold outline-none text-sm w-full flex-1 min-h-[140px] resize-none focus:border-red-600 placeholder:text-white/50"
-    />
-
-    <a href={waLink} target="_blank" className="mt-4 bg-[#25D366] text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>
-  </div>
-
-  {/* REPUESTO */}
-  <div className="relative bg-black border-[2px] border-white/20 shadow-[6px_6px_0px_#000] p-6 flex flex-col">
-    <div className="flex flex-col items-center mb-4">
-      <div className="w-full bg-black flex items-center justify-center h-[140px]">
-        <img src="/icons/red_carbon_sedan_service_icon.webp" alt="Repuesto" className="w-[120px] h-[120px] object-contain" />
+      {/* REPUESTO */}
+      <div className="relative bg-black border- border-white/20 shadow-[6px_6px_0px_#000] p-6 flex flex-col">
+        <div className="flex flex-col items-center mb-6">
+          <div className="w-full bg-black flex items-center justify-center">
+            <img src="/icons/red_carbon_sedan_service_icon.webp" alt="Repuesto" className="w-[200px] h-[200px] object-contain" />
+          </div>
+          <h3 className="font-black italic text-2xl text-white uppercase text-center leading-none mt-4">COTIZA TU<br/><span className="text-white">REPUESTO</span></h3>
+        </div>
+        <input placeholder="Marca" className="bg-[#0F0F0F] border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
+        
+        <a href={waLink} target="_blank" className="mt-auto bg-[#25D366] text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>
       </div>
-      <h3 className="font-black italic text-[22px] text-white uppercase text-center leading-none mt-3">COTIZA TU<br/><span className="text-white">REPUESTO</span></h3>
+
     </div>
-
-    {/* UN SOLO TEXTBOX GRANDE */}
-    <textarea
-      placeholder={`- Envíanos una foto de tu padrón\n- Envíanos una foto del repuesto a buscar`}
-      className="bg-[#0F0F0F] border border-white/10 p-4 text-white font-bold outline-none text-sm w-full flex-1 min-h-[140px] resize-none focus:border-white placeholder:text-white/50"
-    />
-
-    <a href={waLink} target="_blank" className="mt-4 bg-[#25D366] text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>
   </div>
-
-</div>
 
   {/* NUESTRAS MARCAS */}
   <div className="max-w- mx-auto mt-12">
