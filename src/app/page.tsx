@@ -196,7 +196,9 @@ export default function Page(){
     <div className="w-full bg-black flex items-center justify-center h-">
       <img src="/icons/red_carbon_sedan_service_icon.webp" alt="Repuesto" className="w- h- object-contain" />
     </div>
-    <h3 className="font-black italic text-2xl text-white uppercase text-center leading-none mt-4 mb-6">COTIZA TU<br/><span className="text-white">REPUESTO</span></h3>
+    <h3 className="font-black italic text-2xl text-white uppercase text-center leading-none mt-4 mb-6">COTIZA TU<br/><span className="text-red-600">REPUESTO</span></h3>
+	<h3 className="font-black italic text-1xl text-white uppercase text-center leading-none mt-4 mb-6">completa el formulario en wasap y hablanos</h3>
+
     <a href={waLinkRepuesto} target="_blank" className="mt-auto w-full bg-[#25D366] text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>
   </div>
 </div>
