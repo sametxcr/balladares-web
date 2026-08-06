@@ -162,7 +162,7 @@ export default function Page(){
         </div>
       </section>
 
- <section id="galeria" className="bg-black py-8 px-4">
+<section id="galeria" className="bg-black py-8 px-4">
   <div className="grid grid-cols-1 lg:grid-cols-[420px_1fr] gap-6 max-w- mx-auto items-stretch">
 
     {/* IZQUIERDA - 2 VIDEOS */}
@@ -177,62 +177,47 @@ export default function Page(){
       </div>
     </div>
 
-   {/* DERECHA - DIVIDIDO EN 2 VERTICAL */}
-<div className="border-2 border-red-600 bg-[#111111] grid grid-cols-1 md:grid-cols-2 gap-0 min-h-">
-
-  {/* IZQUIERDA - COTIZA TU NEUMATICO */}
-  <div className="p-6 border-b-2 md:border-b-0 md:border-r-2 border-red-600 flex flex-col">
-    <div className="flex flex-col items-center mb-6">
-      <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-3">
-        <span className="text-3xl">🛞</span>
+    {/* DERECHA - DIVIDIDO EN 2 VERTICAL */}
+    <div className="border-2 border-red-600 bg-[#111111] grid grid-cols-1 md:grid-cols-2 gap-0 min-h-">
+      {/* COTIZA NEUMATICO */}
+      <div className="p-6 border-b-2 md:border-b-0 md:border-r-2 border-red-600 flex flex-col">
+        <div className="flex flex-col items-center mb-6">
+          <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-3">
+            <span className="text-3xl">🛞</span>
+          </div>
+          <h3 className="font-black italic text-xl text-white uppercase text-center leading-none">COTIZA TU<br/>NEUMÁTICO</h3>
+        </div>
+        <input placeholder="Marca" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
+        <input placeholder="Medida ej: 225/45R17" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
+        <select className="bg-black border border-white/10 p-3 mb-4 text-white font-bold outline-none text-sm">
+          <option>Cantidad</option><option>1</option><option>2</option><option>4</option>
+        </select>
+        <a href={waLink} target="_blank" className="mt-auto bg-green-500 text-black font-black py-3 text-center text-sm hover:bg-white transition">ENVIAR POR WHATSAPP →</a>
       </div>
-      <h3 className="font-black italic text-xl text-white uppercase text-center">COTIZA TU<br/>NEUMÁTICO</h3>
+      {/* COTIZA REPUESTO */}
+      <div className="p-6 flex flex-col">
+        <div className="flex flex-col items-center mb-6">
+          <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-3">
+            <span className="text-3xl">⚙️</span>
+          </div>
+          <h3 className="font-black italic text-xl text-white uppercase text-center leading-none">COTIZA TU<br/>REPUESTO</h3>
+        </div>
+        <input placeholder="Marca" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
+        <input placeholder="Modelo / Año" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
+        <input placeholder="Que repuesto necesitas?" className="bg-black border border-white/10 p-3 mb-4 text-white font-bold outline-none text-sm" />
+        <a href={waLink} target="_blank" className="mt-auto bg-green-500 text-black font-black py-3 text-center text-sm hover:bg-white transition">ENVIAR POR WHATSAPP →</a>
+      </div>
     </div>
-    <input placeholder="Marca" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
-    <input placeholder="Medida ej: 225/45R17" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
-    <select className="bg-black border border-white/10 p-3 mb-4 text-white font-bold outline-none text-sm">
-      <option>Cantidad</option>
-      <option>1</option><option>2</option><option>4</option>
-    </select>
-    <a href={waLink} target="_blank" className="mt-auto bg-green-500 text-black font-black py-3 text-center text-sm hover:bg-white transition">
-      ENVIAR POR WHATSAPP →
-    </a>
   </div>
 
-  {/* DERECHA - COTIZA TU REPUESTO */}
-  <div className="p-6 flex flex-col">
-    <div className="flex flex-col items-center mb-6">
-      <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-3">
-        <span className="text-3xl">⚙️</span>
-      </div>
-      <h3 className="font-black italic text-xl text-white uppercase text-center">COTIZA TU<br/>REPUESTO</h3>
-    </div>
-    <input placeholder="Marca" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
-    <input placeholder="Modelo / Año" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
-    <input placeholder="Que repuesto necesitas?" className="bg-black border border-white/10 p-3 mb-4 text-white font-bold outline-none text-sm" />
-    <a href={waLink} target="_blank" className="mt-auto bg-green-500 text-black font-black py-3 text-center text-sm hover:bg-white transition">
-      ENVIAR POR WHATSAPP →
-    </a>
-  </div>
-
-</div>
-
-  {/* NUESTRAS MARCAS - ESPACIO LIBRE */}
+  {/* NUESTRAS MARCAS */}
   <div className="max-w- mx-auto mt-12">
     <h3 className="font-black italic text-2xl mb-4 tracking-wider">NUESTRAS MARCAS</h3>
     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 border border-white/10 p-6 bg-zinc-900/50">
-      <div className="bg-white rounded-xl h-20 flex items-center justify-center p-3">
-        <img src="/marcas/mannol.png" alt="Mannol" className="h-full object-contain" />
-      </div>
-      <div className="bg-white rounded-xl h-20 flex items-center justify-center p-3">
-        <img src="/marcas/woxol.png" alt="Woxol" className="h-full object-contain" />
-      </div>
-      <div className="bg-white rounded-xl h-20 flex items-center justify-center p-3 border-2 border-dashed border-zinc-400">
-        <span className="text-zinc-400 font-bold text-xs">+ MARCA</span>
-      </div>
-      <div className="bg-white rounded-xl h-20 flex items-center justify-center p-3 border-2 border-dashed border-zinc-400">
-        <span className="text-zinc-400 font-bold text-xs">+ MARCA</span>
-      </div>
+      <div className="bg-white rounded-xl h-20 flex items-center justify-center p-3"><img src="/marcas/mannol.png" alt="Mannol" className="h-full object-contain" /></div>
+      <div className="bg-white rounded-xl h-20 flex items-center justify-center p-3"><img src="/marcas/woxol.png" alt="Woxol" className="h-full object-contain" /></div>
+      <div className="bg-white rounded-xl h-20 flex items-center justify-center p-3 border-2 border-dashed border-zinc-400"><span className="text-zinc-400 font-bold text-xs">+ MARCA</span></div>
+      <div className="bg-white rounded-xl h-20 flex items-center justify-center p-3 border-2 border-dashed border-zinc-400"><span className="text-zinc-400 font-bold text-xs">+ MARCA</span></div>
     </div>
   </div>
 </section>
@@ -264,6 +249,7 @@ export default function Page(){
   BALLADARES-MOTORS.CL © 2026
 </footer>
 
+{/* FLOTANTES 30% MAS GRANDES */}
 <div className="fixed bottom-6 right-6 flex flex-row gap-4 items-center" style={{ zIndex: 9999 }}>
   <a href={INSTAGRAM} target="_blank" className="w- h- bg-white rounded-full flex items-center justify-center border- border-black shadow-[5px_5px_0px_black] hover:scale-110 transition">
     <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" className="w-10 h-10 object-contain" alt="IG" />
