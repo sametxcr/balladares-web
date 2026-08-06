@@ -11,8 +11,6 @@ const WHATSAPP = "56932285399";
 const INSTAGRAM = "https://www.instagram.com/balladaresmotor/";
 const YOUTUBE_ID = "0q6KurtImDI";
 
-export default function Page() {
-  const [showGaleria, setShowGaleria] = useState(false);
 
 const slides = [
   { title: ["repro stage", "1 & 2"], titleImgs: ["/hero/titles/repro_stage_transparent.png", "/hero/titles/1and2_transparent.png"], sub: "Potencia real +25% torque +30%", img: "/hero/repro.jpg", pos: "50% 50%" },
