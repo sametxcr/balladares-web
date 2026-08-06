@@ -16,12 +16,12 @@ const slides = [
 ];
 
 const servicios = [
-  { n: "Repro Stage 1/2", p: "Desde $180.000", d: "Libera el verdadero potencial oculto de tu ECU. Potencia tu auto de forma segura +torque +potencia +economia.", icon: "/icons/turbochip_isometric_icon.webp", accent: "from-red-600 to-orange-500", badge: "POPULAR" },
-  { n: "Scanner Multimarca", p: "Desde $25.000", d: "Diagnóstico profundo con equipamiento de última generación. Soporte Tecnico en diferentes marcas.", icon: "/icons/obd2_scanner_icon.webp", accent: "from-blue-600 to-cyan-400", badge: "DIAGNOSIS" },
-  { n: "Alineación con Laser + Balanceo", p: "Desde $18.000", d: "Precisión milimétrica con sistema láser 3D. Evita el desgaste excesivo de tus neumaticos y vibraciones al conducir.", icon: "/icons/wheel_alignment_icon.webp", accent: "from-zinc-600 to-zinc-400", badge: "LASER" },  
+  { n: "Repro Stage 1/2", p: "Desde $150.000", d: "Libera el verdadero potencial oculto de tu ECU. Potencia tu auto de forma segura +torque +potencia +economia.", icon: "/icons/turbochip_isometric_icon.webp", accent: "from-red-600 to-orange-500", badge: "POPULAR" },
+  { n: "Scanner Multimarca", p: "Desde $15.000", d: "Diagnóstico profundo con equipamiento de última generación. Soporte Tecnico en diferentes marcas.", icon: "/icons/obd2_scanner_icon.webp", accent: "from-blue-600 to-cyan-400", badge: "DIAGNOSIS" },
+  { n: "Alineación con Laser + Balanceo", p: "Desde $35.000", d: "Precisión milimétrica con sistema láser 3D. Evita el desgaste excesivo de tus neumaticos y vibraciones al conducir.", icon: "/icons/wheel_alignment_icon.webp", accent: "from-zinc-600 to-zinc-400", badge: "LASER" },  
   { n: "Ajuste Motor", p: "Cotizar", d: "Armado y rectificación de motores de estandar y alto rendimiento. Resultados optimos con el soporte de diferentes maestranzas.", icon: "/icons/balladares_motors_emblem_transparent.webp", accent: "from-red-600 to-red-800", badge: "AJUSTE" },
   { n: "Mecánica General", p: "Cotizar", d: "Encuentra todos los servicios basicos en un solo lugar - mantencion por kilometraje - servicio de diagnostico - reparacion tren delantero - reparacion y mantencion sistema de frenos - afinamiento - cambio aceite y muchos mas cotiza aca.", icon: "/icons/sr20_neo_vvl_balladares.webp", accent: "from-zinc-700 to-zinc-500", badge: "MECANICA GENERAL" },
-  { n: "Venta Etanol / Metanol R117", p: "Cotizar", d: "Protege tu motor con combustible de carrera.", icon: "/icons/racing_fuel_canister_icon.webp", accent: "from-orange-600 to-red-600", badge: "RACING FUEL" },
+  { n: "Venta Etanol / Metanol ", p: "Cotizar", d: "Protege tu motor con combustible de carrera.", icon: "/icons/racing_fuel_canister_icon.webp", accent: "from-orange-600 to-red-600", badge: "RACING FUEL" },
 ];
 
 const galeriaTaller = Array.from({ length: 35 }, (_, i) => `/taller/${i + 1}.jpg`);
@@ -186,7 +186,7 @@ export default function Page(){
       <div className="relative bg-black border- border-red-600 shadow-[6px_6px_0px_#000] p-6 flex flex-col">
         <div className="flex flex-col items-center mb-6">
           <div className="w-full bg-black flex items-center justify-center">
-            <img src="/icons/isometric_tire_stack_r888r.webp" alt="Neumatico" className="w-[200px] h-[200px] object-contain" />
+            <img src="/icons/isometric_tire_stack_r888r.webp" alt="Neumatico" className="w-[250px] h-[250px] object-contain" />
           </div>
           <h3 className="font-black italic text-2xl text-white uppercase text-center leading-none mt-4">COTIZA TU<br/><span className="text-red-600">NEUMÁTICO</span></h3>
         </div>
@@ -198,11 +198,11 @@ export default function Page(){
       <div className="relative bg-black border- border-white/20 shadow-[6px_6px_0px_#000] p-6 flex flex-col">
         <div className="flex flex-col items-center mb-6">
           <div className="w-full bg-black flex items-center justify-center">
-            <img src="/icons/red_carbon_sedan_service_icon.webp" alt="Repuesto" className="w-[200px] h-[200px] object-contain" />
+            <img src="/icons/red_carbon_sedan_service_icon.webp" alt="Repuesto" className="w-[250px] h-[250px] object-contain" />
           </div>
           <h3 className="font-black italic text-2xl text-white uppercase text-center leading-none mt-4">COTIZA TU<br/><span className="text-white">REPUESTO</span></h3>
         </div>
-        <input placeholder="Marca" className="bg-[#0F0F0F] border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
+        <input placeholder="Envianos tu patente y fotos del repuesto a Cotizar" className="bg-[#0F0F0F] border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
         <a href={waLink} target="_blank" className="mt-auto bg-[#25D366] text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>
       </div>
 
