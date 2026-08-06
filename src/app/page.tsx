@@ -162,39 +162,45 @@ export default function Page(){
         </div>
       </section>
 
-      <section id="galeria" className="bg-black py-8 px-4">
-  <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1.9fr] gap-4 max-w- mx-auto">
+ <section id="galeria" className="bg-black py-8 px-4">
+  <div className="grid grid-cols-1 lg:grid-cols-[420px_1fr] gap-6 max-w- mx-auto items-stretch">
 
-    {/* IZQUIERDA - 2 VIDEOS COMO MARCASTE */}
+    {/* IZQUIERDA - 2 VIDEOS */}
     <div className="flex flex-col gap-4">
-     <div className="relative border-2 border-red-600 aspect-[16/9] overflow-hidden bg-zinc-900">
-  <span className="absolute bottom-0 left-0 bg-red-600 text-white text- font-black px-3 py-1 z-10">REPEAT LOOP</span>
-  <video src="/repetirloop.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
-</div>
-
-<div className="relative border-2 border-red-600 aspect-[16/9] overflow-hidden bg-zinc-900">
-  <span className="absolute bottom-0 left-0 bg-white text-black text- font-black px-3 py-1 z-10">LOOP LIFE</span>
-  <video src="/looplife.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
-</div>
+      <div className="relative border-2 border-red-600 aspect-[16/9] overflow-hidden bg-zinc-900">
+        <span className="absolute bottom-0 left-0 bg-red-600 text-white text- font-black px-3 py-1 z-10">REPEAT LOOP</span>
+        <video src="/repetirloop.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
+      </div>
+      <div className="relative border-2 border-red-600 aspect-[16/9] overflow-hidden bg-zinc-900">
+        <span className="absolute bottom-0 left-0 bg-white text-black text- font-black px-3 py-1 z-10">LOOP LIFE</span>
+        <video src="/looplife.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
+      </div>
     </div>
 
-    {/* DERECHA - VACIO / ESPACIO DE COTIZA EN 30 SEGUNDOS SUBIDO */}
-    <div className="border-2 border-red-600 min-h- lg:min-h-full bg-zinc-950/50 flex flex-col">
-      {/* Acá va tu bloque de COTIZA EN 30 SEGUNDOS que ya tienes, solo lo subes */}
-      <div className="p-6">
-        <h3 className="bg-red-600 text-white font-black italic px-4 py-2 text-sm skew-racing inline-block">
-          <span className="unskew block">COTIZA EN 30 SEGUNDOS</span>
-        </h3>
-        {/* Tu formulario de cotiza aquí */}
+    {/* DERECHA - COTIZA EN 30 SEG SUBIDO */}
+    <div className="border-2 border-red-600 bg-[#111111] p-8 flex flex-col justify-center min-h-">
+      <h2 className="font-black italic text-4xl mb-8">
+        <span className="text-white">COTIZA EN </span><span className="text-red-600">30 SEG</span>
+      </h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input placeholder="Marca" className="bg-black border border-white/10 p-4 text-white font-bold outline-none focus:border-red-600" />
+        <input placeholder="Modelo" className="bg-black border border-white/10 p-4 text-white font-bold outline-none focus:border-red-600" />
+        <input placeholder="Año" className="bg-black border border-white/10 p-4 text-white font-bold outline-none focus:border-red-600" />
+        <select className="bg-black border border-white/10 p-4 text-white font-bold outline-none">
+          <option>Repro Stage 1/2</option>
+          <option>Stage 1</option>
+          <option>Stage 2</option>
+          <option>Scanner</option>
+        </select>
       </div>
-
-      {/* ESTE ESPACIO DE ABAJO QUEDA LIBRE AHORA PARA LAS MARCAS */}
-      <div className="mt-auto"></div>
+      <a href={waLink} target="_blank" className="mt-8 inline-flex w-full justify-center bg-green-500 text-black font-black py-4 hover:bg-white transition">
+        ENVIAR POR WHATSAPP →
+      </a>
     </div>
   </div>
 
-  {/* ABAJO - NUESTRAS MARCAS EN EL ESPACIO QUE QUEDÓ LIBRE */}
-  <div className="max-w- mx-auto mt-8">
+  {/* NUESTRAS MARCAS - ESPACIO LIBRE */}
+  <div className="max-w- mx-auto mt-12">
     <h3 className="font-black italic text-2xl mb-4 tracking-wider">NUESTRAS MARCAS</h3>
     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 border border-white/10 p-6 bg-zinc-900/50">
       <div className="bg-white rounded-xl h-20 flex items-center justify-center p-3">
@@ -206,44 +212,45 @@ export default function Page(){
       <div className="bg-white rounded-xl h-20 flex items-center justify-center p-3 border-2 border-dashed border-zinc-400">
         <span className="text-zinc-400 font-bold text-xs">+ MARCA</span>
       </div>
+      <div className="bg-white rounded-xl h-20 flex items-center justify-center p-3 border-2 border-dashed border-zinc-400">
+        <span className="text-zinc-400 font-bold text-xs">+ MARCA</span>
+      </div>
     </div>
   </div>
 </section>
 
-      <section className="bg-gradient-to-r from-black via-zinc-900 to-black border-y-2 border-red-600 py-2 overflow-hidden relative">
-        <div className="marquee flex w-max items-center">
-          {[...marcas,...marcas].map((m, i)=>(
-            <div key={i} className="flex items-center gap-3 mx-6">
-              <div className="relative w-9 h-9 rounded-xl bg-white flex items-center justify-center p-1.5" style={{boxShadow:"3px 3px 0px #dc2626"}}><img src={m.logo} alt={m.name} className="w-full h-full object-contain" /></div>
-              <span className="font-black italic text-base">{m.name}</span>
-            </div>
-          ))}
+<section className="bg-gradient-to-r from-black via-zinc-900 to-black border-y-2 border-red-600 py-2 overflow-hidden relative">
+  <div className="marquee flex w-max items-center">
+    {[...marcas,...marcas].map((m, i) => (
+      <div key={i} className="flex items-center gap-3 mx-6">
+        <div className="relative w-9 h-9 rounded-xl bg-white flex items-center justify-center p-1.5" style={{ boxShadow: "3px 3px 0px #dc2626" }}>
+          <img src={m.logo} alt={m.name} className="w-full h-full object-contain" />
         </div>
-      </section>
+        <span className="font-black italic text-base">{m.name}</span>
+      </div>
+    ))}
+  </div>
+</section>
 
-      <section id="contacto" className="grid md:grid-cols-2">
-        <div className="bg-zinc-900 p-8 md:p-16">
-          <h2 className="text-3xl md:text-4xl font-black italic">COTIZA EN <span className="text-red-600">30 SEG</span></h2>
-          <div className="grid grid-cols-2 gap-3 mt-6">
-            <input value={form.marca} onChange={e=>setForm({...form, marca:e.target.value})} placeholder="Marca" className="bg-black border border-white/10 p-3 text-sm font-bold outline-none focus:border-red-600 text-white" />
-            <input value={form.modelo} onChange={e=>setForm({...form, modelo:e.target.value})} placeholder="Modelo" className="bg-black border border-white/10 p-3 text-sm font-bold outline-none focus:border-red-600 text-white" />
-            <input value={form.ano} onChange={e=>setForm({...form, ano:e.target.value})} placeholder="Año" className="bg-black border border-white/10 p-3 text-sm font-bold outline-none focus:border-red-600 text-white" />
-            <select value={form.servicio} onChange={e=>setForm({...form, servicio:e.target.value})} className="bg-black border border-white/10 p-3 text-sm font-bold outline-none focus:border-red-600 text-white">
-              {servicios.map(s=><option key={s.n}>{s.n}</option>)}
-            </select>
-          </div>
-          <a href={waLink} target="_blank" className="mt-5 inline-flex w-full justify-center bg-green-500 text-black font-black py-3.5 hover:bg-white transition text-sm">ENVIAR POR WHATSAPP →</a>
-        </div>
-        <div className="relative bg-black" style={{minHeight:400}}><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3202.5!2d-73.06!3d-36.825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9669b5e5d0f0f0f1%3A0x0!2sRodolfo%20Brice%C3%B1o%202718%2C%20Concepci%C3%B3n%2C%20Chile!5e0!3m2!1ses!2scl!4v1" className="absolute inset-0 w-full h-full border-0 grayscale" loading="lazy" /></div>
-      </section>
+<section id="contacto" className="grid md:grid-cols-2">
+  <div className="bg-zinc-900 p-8 md:p-16 flex flex-col justify-center">
+    <h3 className="font-black italic text-3xl mb-2">ENCUÉNTRANOS</h3>
+    <p className="text-white/60 font-bold">Rodolfo Briceño 2718, Concepción</p>
+  </div>
+  <div className="relative bg-black" style={{ minHeight: 400 }}>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3202.5!2d-73.06!3d-36.825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9669b5e5d0f0f0f1%3A0x0!2sRodolfo%20Brice%C3%B1o%202718%2C%20Concepci%C3%B3n%2C%20Chile!5e0!3m2!1ses!2scl!4v1" className="absolute inset-0 w-full h-full border-0 grayscale" loading="lazy" />
+  </div>
+</section>
 
-      <footer className="bg-black border-t-2 border-red-600 py-8 text-center text-white/30 text-xs font-bold tracking-widest">BALLADARES-MOTORS.CL © 2026</footer>
-{/* FLOTANTES ORIGINALES - GRANDES LADO A LADO */}
-<div className="fixed bottom-6 right-6 flex flex-row gap-4 items-center" style={{zIndex: 9999}}>
-  <a href={INSTAGRAM} target="_blank" className="w-[64px] h-[64px] bg-white rounded-full flex items-center justify-center border-[3px] border-black shadow-[5px_5px_0px_black] hover:scale-110 transition">
+<footer className="bg-black border-t-2 border-red-600 py-8 text-center text-white/30 text-xs font-bold tracking-widest">
+  BALLADARES-MOTORS.CL © 2026
+</footer>
+
+<div className="fixed bottom-6 right-6 flex flex-row gap-4 items-center" style={{ zIndex: 9999 }}>
+  <a href={INSTAGRAM} target="_blank" className="w- h- bg-white rounded-full flex items-center justify-center border- border-black shadow-[5px_5px_0px_black] hover:scale-110 transition">
     <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" className="w-8 h-8 object-contain" alt="IG" />
   </a>
-  <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="w-[64px] h-[64px] bg-[#25D366] rounded-full flex items-center justify-center border-[3px] border-black shadow-[5px_5px_0px_black] hover:scale-110 transition">
+  <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="w- h- bg-[#25D366] rounded-full flex items-center justify-center border- border-black shadow-[5px_5px_0px_black] hover:scale-110 transition">
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" className="w-9 h-9 object-contain" alt="WA" />
   </a>
 </div>
