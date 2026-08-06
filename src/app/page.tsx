@@ -53,16 +53,16 @@ export default function Page(){
   const [showGaleria, setShowGaleria] = useState(false);
   useEffect(()=>{ const t=setInterval(()=>setI(p=>(p+1)%slides.length),5000); return()=>clearInterval(t) },[]);
   const waLinkNeumatico = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(
-  "Hola Balladares Motors! 🔧 Quiero cotizar NEUMATICO:\n\n" +
-  "▪️ Marca neumatico: \n" +
-  "▪️ Medida: ej 195/50R15\n\n" +
+  "Hola Balladares Motors! - Quiero cotizar NEUMATICO:\n\n" +
+  "- Marca neumatico: \n" +
+  "- Medida: ej 195/50R15\n\n" +
   "Quedo atento!"
 );
 
 const waLinkRepuesto = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(
-  "Hola Balladares Motors! 🔧 Quiero cotizar REPUESTO:\n\n" +
-  "▪️ Envianos una foto de tu patente o padrón 📄\n" +
-  "▪️ Envianos 2 o 3 fotos de referencia de tu repuesto 📸\n\n" +
+  "Hola Balladares Motors! - Quiero cotizar REPUESTO:\n\n" +
+  "- Envianos una foto de tu patente o padrón 📄\n" +
+  "- Envianos 2 o 3 fotos de referencia de tu repuesto 📸\n\n" +
   "Mi vehiculo es:\n" +
   "Modelo:\n" +
   "Año:\n\n" +
