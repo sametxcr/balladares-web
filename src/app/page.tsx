@@ -195,7 +195,7 @@ const waLinkRepuesto = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(`Hol
           <h3 className="font-black italic text-2xl text-white uppercase text-center leading-none mt-4">COTIZA TU<br/><span className="text-red-600">NEUMÁTICO</span></h3>
         </div>
         <input placeholder="Dejamos tu marca a buscar y medida + aro ej:195/50/R15" className="bg-[#0F0F0F] border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
-        <a href={waLink} target="_blank" className="mt-auto bg-[#25D366] text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>
+        <a href={waLinkNeumatico} target="_blank" className="mt-auto bg-[#25D366] text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>ENVIAR POR WHATSAPP →</a>
       </div>
 
       {/* REPUESTO */}
@@ -207,7 +207,7 @@ const waLinkRepuesto = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(`Hol
           <h3 className="font-black italic text-2xl text-white uppercase text-center leading-none mt-4">COTIZA TU<br/><span className="text-white">REPUESTO</span></h3>
         </div>
         <input placeholder="Envianos tu patente y fotos del repuesto a Cotizar" className="bg-[#0F0F0F] border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
-        <a href={waLink} target="_blank" className="mt-auto bg-[#25D366] text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>
+        <a href={waLinkRepuesto} target="_blank" className="mt-auto bg-[#25D366] text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>ENVIAR POR WHATSAPP →</a>
       </div>
 
     </div>
