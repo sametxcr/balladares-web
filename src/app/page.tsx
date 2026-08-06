@@ -52,8 +52,22 @@ export default function Page(){
   const [showIntro,setShowIntro]=useState(true);
   const [showGaleria, setShowGaleria] = useState(false);
   useEffect(()=>{ const t=setInterval(()=>setI(p=>(p+1)%slides.length),5000); return()=>clearInterval(t) },[]);
-  const waLinkNeumatico = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent("Hola Balladares! Quiero cotizar NEUMATICO. Marca y medida: 195/50/R15");
-  const waLinkRepuesto = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent("Hola Balladares! Quiero cotizar REPUESTO. Mi patente y foto del repuesto:");
+  const waLinkNeumatico = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(
+  "Hola Balladares Motors! 🔧 Quiero cotizar NEUMATICO:\n\n" +
+  "▪️ Marca neumatico: \n" +
+  "▪️ Medida: ej 195/50R15\n\n" +
+  "Quedo atento!"
+);
+
+const waLinkRepuesto = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(
+  "Hola Balladares Motors! 🔧 Quiero cotizar REPUESTO:\n\n" +
+  "▪️ Envianos una foto de tu patente o padrón 📄\n" +
+  "▪️ Envianos 2 o 3 fotos de referencia de tu repuesto 📸\n\n" +
+  "Mi vehiculo es:\n" +
+  "Modelo:\n" +
+  "Año:\n\n" +
+  "Quedo atento!"
+);
   return (
     <main className="bg-black text-white overflow-x-hidden">
       {showIntro && (
@@ -188,6 +202,7 @@ export default function Page(){
       <img src="/icons/isometric_tire_stack_r888r.webp" alt="Neumatico" className="w- h- object-contain" />
     </div>
     <h3 className="font-black italic text-2xl text-white uppercase text-center leading-none mt-4 mb-6">COTIZA TU<br/><span className="text-red-600">NEUMÁTICO</span></h3>
+	<h3 className="font-black italic text-1xl text-white uppercase text-center leading-none mt-4 mb-6">hablanos por whatsapp y completa el formulario</h3>
     <a href={waLinkNeumatico} target="_blank" className="mt-auto w-full bg-[#25D366] text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>
   </div>
 
@@ -197,7 +212,7 @@ export default function Page(){
       <img src="/icons/red_carbon_sedan_service_icon.webp" alt="Repuesto" className="w- h- object-contain" />
     </div>
     <h3 className="font-black italic text-2xl text-white uppercase text-center leading-none mt-4 mb-6">COTIZA TU<br/><span className="text-red-600">REPUESTO</span></h3>
-	<h3 className="font-black italic text-1xl text-white uppercase text-center leading-none mt-4 mb-6">completa el formulario en wasap y hablanos</h3>
+	<h3 className="font-black italic text-1xl text-white uppercase text-center leading-none mt-4 mb-6">hablanos por whatsapp y completa el formulario</h3>
 
     <a href={waLinkRepuesto} target="_blank" className="mt-auto w-full bg-[#25D366] text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>
   </div>
