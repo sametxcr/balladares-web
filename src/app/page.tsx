@@ -186,7 +186,7 @@ export default function Page(){
       <div className="relative bg-black border- border-red-600 shadow-[6px_6px_0px_#000] p-6 flex flex-col">
         <div className="flex flex-col items-center mb-6">
           <div className="w-full bg-black flex items-center justify-center">
-            <img src="/icons/isometric_tire_stack_r888r.webp" alt="Neumatico" className="w- h- object-contain" />
+            <img src="/icons/isometric_tire_stack_r888r.webp" alt="Neumatico" className="w-[110px] h-[110px] object-contain" />
           </div>
           <h3 className="font-black italic text-2xl text-white uppercase text-center leading-none mt-4">COTIZA TU<br/><span className="text-red-600">NEUMÁTICO</span></h3>
         </div>
@@ -202,7 +202,7 @@ export default function Page(){
       <div className="relative bg-black border- border-white/20 shadow-[6px_6px_0px_#000] p-6 flex flex-col">
         <div className="flex flex-col items-center mb-6">
           <div className="w-full bg-black flex items-center justify-center">
-            <img src="/icons/red_carbon_sedan_service_icon.webp" alt="Repuesto" className="w- h- object-contain" />
+            <img src="/icons/red_carbon_sedan_service_icon.webp" alt="Repuesto" className="w-[120px] h-[120px] object-contain" />
           </div>
           <h3 className="font-black italic text-2xl text-white uppercase text-center leading-none mt-4">COTIZA TU<br/><span className="text-white">REPUESTO</span></h3>
         </div>
@@ -273,10 +273,10 @@ export default function Page(){
 
 <div className="fixed bottom-6 right-6 flex flex-row gap-4 items-center" style={{ zIndex: 9999 }}>
   <a href={INSTAGRAM} target="_blank" className="w- h- bg-white rounded-full flex items-center justify-center border- border-black shadow-[5px_5px_0px_black] hover:scale-110 transition">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" className="w-11 h-11 object-contain" alt="IG" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" className="w-12 h-12 object-contain" alt="IG" />
   </a>
   <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="w- h- bg-[#25D366] rounded-full flex items-center justify-center border- border-black shadow-[5px_5px_0px_black] hover:scale-110 transition">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" className="w-12 h-12 object-contain" alt="WA" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" className="w-13 h-13 object-contain" alt="WA" />
   </a>
 </div>
     </main>
