@@ -52,8 +52,12 @@ export default function Page(){
   const [showIntro,setShowIntro]=useState(true);
   const [showGaleria, setShowGaleria] = useState(false);
   useEffect(()=>{ const t=setInterval(()=>setI(p=>(p+1)%slides.length),5000); return()=>clearInterval(t) },[]);
-  const waLink = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(`Hola Balladares Motors! Quiero cotizar:\nMarca: ${form.marca}\nModelo: ${form.modelo}\nAño: ${form.ano}\nServicio: ${form.servicio}`)}`;
-
+  const [cotizaNeumatico, setCotizaNeumatico] = useState("");
+  const [cotizaRepuesto, setCotizaRepuesto] = useState("");
+  // Reemplaza tu waLink viejo por estos 2, justo antes del return:
+const waLinkNeumatico = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(`Hola Balladares Motors! Quiero cotizar NEUMÁTICO:\n${cotizaNeumatico}`)}`;
+const waLinkRepuesto = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(`Hola Balladares Motors! Quiero cotizar REPUESTO:\n${cotizaRepuesto}`)}`;
+  
   return (
     <main className="bg-black text-white overflow-x-hidden">
       {showIntro && (
