@@ -179,34 +179,44 @@ export default function Page(){
     </div>
 
   {/* DERECHA - 2 COTIZADORES RACING */}
-<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w- mx-auto">
 
+  {/* NEUMATICO */}
   <div className="relative bg-[#0F0F0F] border- border-red-600 shadow-[6px_6px_0px_#000] p-6 flex flex-col">
     <div className="absolute top-0 right-0 w-3 h-3 bg-red-600"></div>
+
     <div className="flex flex-col items-center mb-6">
-      <div className="w-32 h-32 flex items-center justify-center mb-3">
-        <img src="/icons/isometric_tire_stack_r888r.webp" alt="Neumatico" className="w-full h-full object-contain drop-shadow-[0_0_10px_rgba(220,38,38,0.5)]" />
-      </div>
-      <h3 className="font-black italic text-xl text-white uppercase text-center leading-[0.9]">COTIZA TU<br/><span className="text-red-600">NEUMÁTICO</span></h3>
+      <img src="/icons/isometric_tire_stack_r888r.webp" alt="Neumatico" className="w-36 h-36 object-contain mb-3" />
+      <h3 className="font-black italic text-2xl text-white uppercase text-center leading-none">COTIZA TU<br/><span className="text-red-600">NEUMÁTICO</span></h3>
     </div>
-    <input placeholder="Marca" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm focus:border-red-600" />
-    <input placeholder="Medida ej: 225/45R17" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm focus:border-red-600" />
-    <select className="bg-black border border-white/10 p-3 mb-4 text-white font-bold outline-none text-sm"><option>Cantidad</option><option>1</option><option>2</option><option>4</option></select>
-    <a href={waLink} target="_blank" className="mt-auto bg-green-500 text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>
+
+    <input placeholder="Marca" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
+    <input placeholder="Medida ej: 225/45R17" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
+    <select className="bg-black border border-white/10 p-3 mb-4 text-white font-bold outline-none text-sm">
+      <option>Cantidad</option><option>1</option><option>2</option><option>4</option>
+    </select>
+
+    <a href={waLink} target="_blank" className="mt-auto bg-[#25D366] text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">
+      ENVIAR POR WHATSAPP →
+    </a>
   </div>
 
+  {/* REPUESTO */}
   <div className="relative bg-[#0F0F0F] border- border-white/20 shadow-[6px_6px_0px_#000] p-6 flex flex-col">
     <div className="absolute top-0 right-0 w-3 h-3 bg-white"></div>
+
     <div className="flex flex-col items-center mb-6">
-      <div className="w-32 h-32 flex items-center justify-center mb-3">
-        <img src="/icons/red_carbon_sedan_service_icon.webp" alt="Repuesto" className="w-full h-full object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]" />
-      </div>
-      <h3 className="font-black italic text-xl text-white uppercase text-center leading-[0.9]">COTIZA TU<br/><span className="text-white">REPUESTO</span></h3>
+      <img src="/icons/red_carbon_sedan_service_icon.webp" alt="Repuesto" className="w-36 h-36 object-contain mb-3" />
+      <h3 className="font-black italic text-2xl text-white uppercase text-center leading-none">COTIZA TU<br/><span className="text-white">REPUESTO</span></h3>
     </div>
-    <input placeholder="Marca" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm focus:border-white" />
-    <input placeholder="Modelo / Año" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm focus:border-white" />
-    <input placeholder="Que repuesto necesitas?" className="bg-black border border-white/10 p-3 mb-4 text-white font-bold outline-none text-sm focus:border-white" />
-    <a href={waLink} target="_blank" className="mt-auto bg-green-500 text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">ENVIAR POR WHATSAPP →</a>
+
+    <input placeholder="Marca" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
+    <input placeholder="Modelo / Año" className="bg-black border border-white/10 p-3 mb-3 text-white font-bold outline-none text-sm" />
+    <input placeholder="Que repuesto necesitas?" className="bg-black border border-white/10 p-3 mb-4 text-white font-bold outline-none text-sm" />
+
+    <a href={waLink} target="_blank" className="mt-auto bg-[#25D366] text-black font-black py-3 text-center text-sm hover:bg-white transition shadow-[4px_4px_0px_black]">
+      ENVIAR POR WHATSAPP →
+    </a>
   </div>
 
 </div>
