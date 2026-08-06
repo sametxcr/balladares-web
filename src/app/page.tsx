@@ -173,11 +173,52 @@ export default function Page(){
         </div>
       </section>
 
-      <section id="galeria" className="bg-black px-4 md:px-24 py-16 border-y border-white/10" style={{backgroundColor:"#0a0a0a"}}>
-        <div className="flex justify-between items-end flex-wrap gap-4"><h2 className="text-3xl md:text-4xl font-black italic">GALERÍA / <span className="text-red-600">PEGA REAL ({galeriaTaller.length})</span></h2><button onClick={()=>setShowAll(!showAll)} className="bg-white text-black px-6 py-2 font-black text-sm hover:bg-red-600 hover:text-white transition" style={{transform:"skewX(-10deg)"}}><span style={{transform:"skewX(10deg)", display:"block"}}>{showAll? "VER MENOS" : `VER ${galeriaTaller.length} →`}</span></button></div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-8">{(showAll? galeriaTaller : galeriaTaller.slice(0,12)).map((src, idx)=><div key={idx} onClick={()=>setSelectedImg(src)} className="group relative overflow-hidden border border-white/10 bg-zinc-900 cursor-pointer" style={{aspectRatio:"4/3"}}><img src={src} alt={`Taller ${idx+1}`} className="h-full w-full object-cover group-hover:scale-110 transition duration-700" onError={(e)=>{(e.target as HTMLImageElement).parentElement!.style.display='none'}} /></div>)}</div>
-        {selectedImg && (<div onClick={()=>setSelectedImg(null)} className="fixed inset-0 bg-black/90 flex items-center justify-center p-4 cursor-pointer" style={{zIndex:100}}><img src={selectedImg} alt="full" className="max-w-full max-h-full object-contain" /></div>)}
-      </section>
+      <section id="galeria" className="bg-black py-8 px-4">
+  <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1.9fr] gap-4 max-w- mx-auto">
+
+    {/* IZQUIERDA - 2 VIDEOS COMO MARCASTE */}
+    <div className="flex flex-col gap-4">
+      <div className="relative border-2 border-red-600 aspect-[16/9] overflow-hidden bg-zinc-900">
+        <span className="absolute bottom-0 left-0 bg-red-600 text-white text- font-black px-3 py-1 z-10">REPEAT LOOP</span>
+        <video src="/video-taller-arriba.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
+      </div>
+      <div className="relative border-2 border-red-600 aspect-[16/9] overflow-hidden bg-zinc-900">
+        <span className="absolute bottom-0 left-0 bg-white text-black text- font-black px-3 py-1 z-10">LOOP LIFE</span>
+        <video src="/video-taller-abajo.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
+      </div>
+    </div>
+
+    {/* DERECHA - VACIO / ESPACIO DE COTIZA EN 30 SEGUNDOS SUBIDO */}
+    <div className="border-2 border-red-600 min-h- lg:min-h-full bg-zinc-950/50 flex flex-col">
+      {/* Acá va tu bloque de COTIZA EN 30 SEGUNDOS que ya tienes, solo lo subes */}
+      <div className="p-6">
+        <h3 className="bg-red-600 text-white font-black italic px-4 py-2 text-sm skew-racing inline-block">
+          <span className="unskew block">COTIZA EN 30 SEGUNDOS</span>
+        </h3>
+        {/* Tu formulario de cotiza aquí */}
+      </div>
+
+      {/* ESTE ESPACIO DE ABAJO QUEDA LIBRE AHORA PARA LAS MARCAS */}
+      <div className="mt-auto"></div>
+    </div>
+  </div>
+
+  {/* ABAJO - NUESTRAS MARCAS EN EL ESPACIO QUE QUEDÓ LIBRE */}
+  <div className="max-w- mx-auto mt-8">
+    <h3 className="font-black italic text-2xl mb-4 tracking-wider">NUESTRAS MARCAS</h3>
+    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 border border-white/10 p-6 bg-zinc-900/50">
+      <div className="bg-white rounded-xl h-20 flex items-center justify-center p-3">
+        <img src="/marcas/mannol.png" alt="Mannol" className="h-full object-contain" />
+      </div>
+      <div className="bg-white rounded-xl h-20 flex items-center justify-center p-3">
+        <img src="/marcas/woxol.png" alt="Woxol" className="h-full object-contain" />
+      </div>
+      <div className="bg-white rounded-xl h-20 flex items-center justify-center p-3 border-2 border-dashed border-zinc-400">
+        <span className="text-zinc-400 font-bold text-xs">+ MARCA</span>
+      </div>
+    </div>
+  </div>
+</section>
 
       <section className="bg-gradient-to-r from-black via-zinc-900 to-black border-y-2 border-red-600 py-2 overflow-hidden relative">
         <div className="marquee flex w-max items-center">
