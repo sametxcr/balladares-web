@@ -50,6 +50,7 @@ export default function Page(){
   const [showAll,setShowAll]=useState(false);
   const [activeService,setActiveService]=useState<string | null>(null);
   const [showIntro,setShowIntro]=useState(true);
+  const [showGaleria, setShowGaleria] = useState(false);
   useEffect(()=>{ const t=setInterval(()=>setI(p=>(p+1)%slides.length),5000); return()=>clearInterval(t) },[]);
   const waLink = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(`Hola Balladares Motors! Quiero cotizar:\nMarca: ${form.marca}\nModelo: ${form.modelo}\nAño: ${form.ano}\nServicio: ${form.servicio}`)}`;
 
@@ -225,17 +226,22 @@ export default function Page(){
     </div>
   </div>
 
-  {/* GALERIA 35 FOTOS */}
-  <div className="max-w- mx-auto mt-12">
-    <h3 className="font-black italic text-2xl mb-4 tracking-wider text-white">GALERÍA TALLER</h3>
-    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
-      {Array.from({ length: 35 }, (_, i) => `/taller/${i + 1}.jpg`).map((img, i) => (
-        <div key={i} className="relative aspect-square overflow-hidden border- border-white/10 bg-zinc-900 group hover:border-red-600 transition">
-          <img src={img} alt={`taller ${i + 1}`} className="w-full h-full object-cover group-hover:scale-110 transition duration-300" loading="lazy" />
-        </div>
-      ))}
-    </div>
+  {/* GALERIA 35 FOTOS - 6 VISIBLES + DESPLEGABLE */}
+<div className="max-w-[1600px] mx-auto mt-12">
+  <div className="flex items-center justify-between mb-4">
+    <h3 className="font-black italic text-2xl tracking-wider text-white">GALERÍA TALLER</h3>
+    <button onClick={() => setShowGaleria(!showGaleria)} className="bg-white text-black font-black px-6 py-2 text-sm hover:bg-red-600 hover:text-white transition border-[2px] border-black shadow-[4px_4px_0px_#000]">
+      {showGaleria? 'VER MENOS ↑' : `VER ${35-6} FOTOS MÁS ↓`}
+    </button>
   </div>
+  <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
+    {Array.from({ length: showGaleria? 35 : 6 }, (_, i) => `/taller/${i + 1}.jpg`).map((img, i) => (
+      <div key={i} className="relative aspect-square overflow-hidden border-[2px] border-white/10 bg-zinc-900 group hover:border-red-600 transition">
+        <img src={img} alt={`taller ${i + 1}`} className="w-full h-full object-cover group-hover:scale-110 transition duration-300" loading="lazy" />
+      </div>
+    ))}
+  </div>
+</div>
 </section>
 
 <section className="bg-gradient-to-r from-black via-zinc-900 to-black border-y-2 border-red-600 py-2 overflow-hidden relative">
