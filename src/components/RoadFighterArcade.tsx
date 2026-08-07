@@ -14,7 +14,7 @@ export default function RoadFighterArcade({ height = "500px", pcHeight = "650px"
     (window as any).EJS_core = "nes";
     (window as any).EJS_gameUrl = "/roms/RoadFighterJapan.nes";
     (window as any).EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
-    (window as any).EJS_startOnLoaded = false;
+    (window as any).EJS_startOnLoaded = true;
     (window as any).EJS_fullscreenOnLoaded = false;
     (window as any).EJS_virtualGamepad = true;
 
