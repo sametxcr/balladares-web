@@ -3,76 +3,76 @@ import { useEffect, useRef, useState } from "react";
 
 declare global { interface Window { jsnes: any } }
 
-export default function RoadFighterArcade({ height = "900px", pcHeight = "500px" }: { height?: string; pcHeight?: string }) {
+export default function RoadFighterArcade() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const nesRef = useRef<any>(null);
-  const [ready, setReady] = useState(false);
+  const [status, setStatus] = useState("CARGANDO ROAD FIGHTER...");
 
   useEffect(() => {
-    const start = async () => {
-      if (!window.jsnes) {
-        const s = document.createElement("script");
-        s.src = "https://unpkg.com/jsnes@1.0.4/dist/jsnes.min.js";
-        document.body.appendChild(s);
-        await new Promise(r => s.onload = r);
+    const init = async () => {
+      try {
+        if (!window.jsnes) {
+          const s = document.createElement("script");
+          s.src = "https://cdn.jsdelivr.net/npm/jsnes@1.0.4/dist/jsnes.min.js";
+          document.body.appendChild(s);
+          await new Promise(r => s.onload = r);
+        }
+
+        const canvas = canvasRef.current!;
+        const ctx = canvas.getContext("2d", { alpha: false })!;
+        const img = ctx.createImageData(256, 240);
+
+        const nes = new window.jsnes.NES({
+          onFrame: (buf: number[]) => {
+            for (let i = 0; i < 256 * 240; i++) {
+              const c = buf[i];
+              img.data[i*4] = (c>>16)&255;
+              img.data[i*4+1] = (c>>8)&255;
+              img.data[i*4+2] = c&255;
+              img.data[i*4+3] = 255;
+            }
+            ctx.putImageData(img, 0, 0);
+          },
+          onAudioSample: () => {},
+        });
+        nesRef.current = nes;
+
+        // prueba minúsculas primero
+        let res = await fetch("/roms/roadfighter.nes");
+        if (!res.ok) res = await fetch("/roms/RoadFighterJapan.nes");
+        if (!res.ok) throw new Error(`No encuentra el rom: ${res.status} - Revisa que esté en public/roms/roadfighter.nes`);
+
+        const ab = await res.arrayBuffer();
+        let rom = "";
+        const bytes = new Uint8Array(ab);
+        for (let i=0;i<bytes.length;i++) rom += String.fromCharCode(bytes[i]);
+        nes.loadROM(rom);
+        setStatus("");
+
+        const loop = () => { nes.frame(); requestAnimationFrame(loop); };
+        requestAnimationFrame(loop);
+      } catch (e:any) {
+        setStatus("ERROR: " + e.message);
+        console.error(e);
       }
-
-      const canvas = canvasRef.current!;
-      const ctx = canvas.getContext("2d", { alpha: false })!;
-      const img = ctx.createImageData(256, 240);
-
-      const nes = new window.jsnes.NES({
-        onFrame: (buf: number[]) => {
-          for (let i = 0; i < 256 * 240; i++) {
-            const c = buf[i];
-            img.data[i*4] = (c>>16)&255;
-            img.data[i*4+1] = (c>>8)&255;
-            img.data[i*4+2] = c&255;
-            img.data[i*4+3] = 255;
-          }
-          ctx.putImageData(img, 0, 0);
-        },
-        onAudioSample: () => {},
-      });
-      nesRef.current = nes;
-
-      const res = await fetch("/roms/RoadFighterJapan.nes");
-      const ab = await res.arrayBuffer();
-      let rom = "";
-      const bytes = new Uint8Array(ab);
-      for (let i=0;i<bytes.length;i++) rom += String.fromCharCode(bytes[i]);
-      nes.loadROM(rom);
-      setReady(true);
-
-      const loop = () => { nes.frame(); requestAnimationFrame(loop); };
-      requestAnimationFrame(loop);
     };
-    start();
+    init();
   }, []);
 
   const d = (b:number) => nesRef.current?.buttonDown(1,b);
   const u = (b:number) => nesRef.current?.buttonUp(1,b);
-
   const Btn = ({l,onDown,onUp,c}:{l:string,onDown:()=>void,onUp:()=>void,c:string}) => (
-    <button
-      onPointerDown={e=>{e.preventDefault(); (e.target as any).setPointerCapture(e.pointerId); onDown()}}
-      onPointerUp={e=>{e.preventDefault(); onUp()}}
-      onPointerCancel={onUp}
-      onPointerLeave={onUp}
-      className={`touch-none select-none active:scale-90 ${c}`}
-    >{l}</button>
+    <button onPointerDown={e=>{e.preventDefault(); (e.target as any).setPointerCapture(e.pointerId); onDown()}} onPointerUp={e=>{e.preventDefault(); onUp()}} onPointerCancel={onUp} onPointerLeave={onUp} className={`touch-none select-none active:scale-90 ${c}`}>{l}</button>
   );
 
   return (
-    <section id="juego" className="bg-black py-4 w-screen relative left-1/2 -translate-x-1/2 flex flex-col items-center">
-      <h2 className="text-white font-black italic text-xl mb-2">BALLADARES <span className="text-red-600">MOTORS</span></h2>
-
-      <div className="w-full border-y-2 border-white bg-black flex justify-center">
-        <canvas ref={canvasRef} width={256} height={240} className="w-full max-w- aspect-[256/240]" style={{height: `clamp(${pcHeight}, 60vw, ${height})`}} />
+    <section id="juego" className="bg-black w-screen relative left-1/2 -translate-x-1/2 flex flex-col items-center">
+      <div className="w-full bg-black flex justify-center">
+        <canvas ref={canvasRef} width={256} height={240} className="w-full max-w- aspect-[256/240] h- md:h-" />
       </div>
 
       <div className="w-full bg-[#0f0f0f] p-2.5 flex flex-col gap-2">
-        {!ready && <p className="text-white/50 text- text-center animate-pulse">CARGANDO ROAD FIGHTER...</p>}
+        {status && <p className="text-white/70 text- text-center">{status}</p>}
         <div className="grid grid-cols-2 gap-2">
           <Btn l="V = FICHA" c="py-3 bg-yellow-400 text-black font-black rounded text-sm" onDown={()=>d(2)} onUp={()=>u(2)} />
           <Btn l="ENTER = START" c="py-3 bg-white text-black font-black rounded text-sm" onDown={()=>d(3)} onUp={()=>u(3)} />
@@ -87,7 +87,6 @@ export default function RoadFighterArcade({ height = "900px", pcHeight = "500px"
             <Btn l="X" c="w-16 h-11 bg-red-600 text-white rounded font-black border" onDown={()=>d(0)} onUp={()=>u(0)} />
           </div>
         </div>
-        <p className="text-center text-white/30 text-">X=ACELERA | Z=TURBO | V=FICHA | ENTER=START - ESTE SI PESCA EN CELU</p>
       </div>
     </section>
   );
