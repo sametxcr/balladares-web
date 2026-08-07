@@ -37,10 +37,9 @@ export default function RoadFighterArcade() {
         });
         nesRef.current = nes;
 
-        // prueba minúsculas primero
-        let res = await fetch("/roms/roadfighter.nes");
-        if (!res.ok) res = await fetch("/roms/RoadFighterJapan.nes");
-        if (!res.ok) throw new Error(`No encuentra el rom: ${res.status} - Revisa que esté en public/roms/roadfighter.nes`);
+        // NOMBRE EXACTO COMO EN TU FOTO
+        const res = await fetch("/roms/RoadFighterJapan.nes");
+        if (!res.ok) throw new Error(`No encuentra /roms/RoadFighterJapan.nes - Status ${res.status}`);
 
         const ab = await res.arrayBuffer();
         let rom = "";
@@ -53,7 +52,6 @@ export default function RoadFighterArcade() {
         requestAnimationFrame(loop);
       } catch (e:any) {
         setStatus("ERROR: " + e.message);
-        console.error(e);
       }
     };
     init();
@@ -62,15 +60,14 @@ export default function RoadFighterArcade() {
   const d = (b:number) => nesRef.current?.buttonDown(1,b);
   const u = (b:number) => nesRef.current?.buttonUp(1,b);
   const Btn = ({l,onDown,onUp,c}:{l:string,onDown:()=>void,onUp:()=>void,c:string}) => (
-    <button onPointerDown={e=>{e.preventDefault(); (e.target as any).setPointerCapture(e.pointerId); onDown()}} onPointerUp={e=>{e.preventDefault(); onUp()}} onPointerCancel={onUp} onPointerLeave={onUp} className={`touch-none select-none active:scale-90 ${c}`}>{l}</button>
+    <button onPointerDown={e=>{e.preventDefault(); onDown()}} onPointerUp={e=>{e.preventDefault(); onUp()}} onPointerCancel={onUp} onPointerLeave={onUp} className={`touch-none select-none active:scale-90 ${c}`}>{l}</button>
   );
 
   return (
     <section id="juego" className="bg-black w-screen relative left-1/2 -translate-x-1/2 flex flex-col items-center">
       <div className="w-full bg-black flex justify-center">
-        <canvas ref={canvasRef} width={256} height={240} className="w-full max-w- aspect-[256/240] h- md:h-" />
+        <canvas ref={canvasRef} width={256} height={240} className="w-full max-w- aspect-[256/240] h-" />
       </div>
-
       <div className="w-full bg-[#0f0f0f] p-2.5 flex flex-col gap-2">
         {status && <p className="text-white/70 text- text-center">{status}</p>}
         <div className="grid grid-cols-2 gap-2">
