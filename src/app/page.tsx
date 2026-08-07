@@ -182,32 +182,29 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
         </div>
 		
 		
-{/* 2 NUEVOS - CON OVERLAY AL CLICKEAR */}
-<div className="grid md:grid-cols-2 gap-6 md:gap-8 mt-6 md:mt-8 max-w-4xl mx-auto">
-  {/* REVISION PRE-COMPRA */}
+<div className="grid md:grid-cols-2 gap-6 md:gap-8 mt-6 md:mt-8 max-w-4xl mx-auto items-stretch">
+  {/* PRE-COMPRA */}
   {(() => {
     const n = "REVISIÓN PRE-COMPRA";
     const isActive = activeService === n;
     return (
-      <div onMouseEnter={()=>setActiveService(n)} onMouseLeave={()=>setActiveService(null)} onClick={()=>setActiveService(isActive? null : n)} className="group relative cursor-pointer">
-        <div className="absolute bg-black group-hover:bg-red-600 transition-all" style={{inset:-1, transform:"skewX(-3deg)"}} />
-        <div className="relative bg-white p-0.5" style={{transform:"skewX(-3deg)"}}>
-          <div className="bg-white overflow-hidden" style={{transform:"skewX(3deg)"}}>
-            <div className="relative bg-white flex items-center justify-center overflow-hidden" style={{height:280}}>
-              <img src="/icons/racing_inspection_white_background.webp" alt="Revision Pre-Compra" className="max-h- w-auto object-contain group-hover:scale-110 transition-transform duration-500" />
-              <div className="absolute top-0 left-0 w-full bg-black" style={{height:6}} />
-              <div className="absolute top-3 right-3 bg-black text-white text-xs font-black tracking-widest px-3 py-1.5">PRE-COMPRA</div>
-
-              {/* INFO QUE APARECE AL CLICKEAR */}
-              <div className={`absolute inset-0 bg-black/90 p-6 flex flex-col justify-center transition-all duration-300 ${isActive? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}>
-                <div className="text-white font-black italic text-lg mb-2">REVISIÓN PRE-COMPRA</div>
-                <div className="text-white/70 text-sm leading-relaxed">Revisión completa antes de comprar: motor, chasis, scanner, prueba de ruta. Evita cachos.</div>
+      <div onMouseEnter={()=>setActiveService(n)} onMouseLeave={()=>setActiveService(null)} onClick={()=>setActiveService(isActive? null : n)} className="group relative cursor-pointer h-full">
+        <div className="absolute inset-0 bg-black group-hover:bg-red-600 transition-all" style={{transform:"skewX(-3deg)"}} />
+        <div className="relative bg-white p- h-full" style={{transform:"skewX(-3deg)"}}>
+          <div className="bg-white h-full flex flex-col" style={{transform:"skewX(3deg)"}}>
+            <div className="relative bg-white flex items-center justify-center overflow-hidden shrink-0" style={{height:280}}>
+              <img src="/icons/racing_inspection_white_background.webp" alt="Pre-Compra" className="max-h- w-auto object-contain group-hover:scale-105 transition-transform duration-500" />
+              <div className="absolute top-0 left-0 w-full bg-black h-" />
+              <div className="absolute top-3 right-3 bg-black text-white text- font-black tracking-widest px-3 py-1.5">PRE-COMPRA</div>
+              <div className={`absolute inset-0 bg-black/90 p-6 flex flex-col justify-center transition-all duration-300 ${isActive? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+                <div className="text-white font-black italic">REVISIÓN PRE-COMPRA</div>
+                <div className="text-white/70 text-sm mt-2">Motor, amortiguadores, tren delantero, scanner y prueba de ruta.</div>
               </div>
             </div>
-            <div className="p-5 bg-white relative z-10">
-              <div className="font-black text- italic leading-tight">REVISIÓN PRE-COMPRA</div>
-              <div className="mt-2 text-black/60 text- leading-tight">Háblanos, deja agendado y reservada tu hr para revisión pre-compra</div>
-              <a href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Hola, quiero agendar mi hora para Revisión Pre-Compra")}`} target="_blank" onClick={e=>e.stopPropagation()} className="mt-4 inline-flex w-full justify-center bg-black text-white py-3 text-sm font-black group-hover:bg-red-600 transition">AGENDAR HORA →</a>
+            <div className="p-5 flex flex-col flex-1 bg-white">
+              <div className="font-black italic">REVISIÓN PRE-COMPRA</div>
+              <div className="mt-2 text-black/60 text- leading-tight flex-1">Háblanos, deja agendada y reservada tu hr para revisión pre-compra</div>
+              <a href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Hola, quiero agendar Revisión Pre-Compra")}`} target="_blank" onClick={e=>e.stopPropagation()} className="mt-4 inline-flex w-full justify-center bg-black text-white py-3 text-sm font-black group-hover:bg-red-600 transition">AGENDAR HORA →</a>
             </div>
           </div>
         </div>
@@ -220,25 +217,22 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
     const n = "VITRINA TALLERES";
     const isActive = activeService === n;
     return (
-      <div onMouseEnter={()=>setActiveService(n)} onMouseLeave={()=>setActiveService(null)} onClick={()=>setActiveService(isActive? null : n)} className="group relative cursor-pointer">
-        <div className="absolute bg-black group-hover:bg-red-600 transition-all" style={{inset:-1, transform:"skewX(-3deg)"}} />
-        <div className="relative bg-white p-0.5" style={{transform:"skewX(-3deg)"}}>
-          <div className="bg-white overflow-hidden" style={{transform:"skewX(3deg)"}}>
-            <div className="relative bg-white flex items-center justify-center overflow-hidden" style={{height:280}}>
-              <img src="/icons/isometric_racing_podium.webp" alt="Vitrina Talleres" className="max-h- w-auto object-contain group-hover:scale-110 transition-transform duration-500" />
-              <div className="absolute top-0 left-0 w-full bg-red-600" style={{height:6}} />
-              <div className="absolute top-3 right-3 bg-red-600 text-white text-xs font-black tracking-widest px-3 py-1.5">VITRINA</div>
-
-              {/* INFO QUE APARECE AL CLICKEAR */}
-              <div className={`absolute inset-0 bg-black/90 p-6 flex flex-col justify-center transition-all duration-300 ${isActive? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}>
-                <div className="text-white font-black italic text-lg mb-2">VITRINA TALLERES</div>
-                <div className="text-white/70 text-sm leading-relaxed">¿Tu taller es de los buenos? Mándanos tu historia, fotos y por qué deberías estar en nuestra vitrina de los mejores talleres de Chile.</div>
+      <div onMouseEnter={()=>setActiveService(n)} onMouseLeave={()=>setActiveService(null)} onClick={()=>setActiveService(isActive? null : n)} className="group relative cursor-pointer h-full">
+        <div className="absolute inset-0 bg-black group-hover:bg-red-600 transition-all" style={{transform:"skewX(-3deg)"}} />
+        <div className="relative bg-white p- h-full" style={{transform:"skewX(-3deg)"}}>
+          <div className="bg-white h-full flex flex-col" style={{transform:"skewX(3deg)"}}>
+            <div className="relative bg-white flex items-center justify-center overflow-hidden shrink-0" style={{height:280}}>
+              <img src="/icons/isometric_racing_podium.webp" alt="Vitrina" className="max-h- w-auto object-contain group-hover:scale-105 transition-transform duration-500" />
+              <div className="absolute top-0 left-0 w-full bg-red-600 h-" />
+              <div className="absolute top-3 right-3 bg-red-600 text-white text- font-black tracking-widest px-3 py-1.5">VITRINA</div>
+              <div className={`absolute inset-0 bg-black/90 p-6 flex flex-col justify-center transition-all duration-300 ${isActive? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+                <div className="text-white font-black italic">VITRINA TALLERES</div>
+                <div className="text-white/70 text-sm mt-2">¿Tu taller es de los buenos? Postula para estar en nuestra vitrina.</div>
               </div>
-            </div>
-            <div className="p-5 bg-white relative z-10">
-              <div className="font-black text- italic leading-tight">¿QUIERES APARECER EN NUESTRA PÁGINA?</div>
-              <div className="mt-2 text-black/60 text- leading-tight">Envíanos por qué debería estar tu nombre o marca de taller en nuestra vitrina de los mejores talleres</div>
-              <a href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Hola, quiero que mi taller aparezca en la vitrina")}`} target="_blank" onClick={e=>e.stopPropagation()} className="mt-4 inline-flex w-full justify-center bg-black text-white py-3 text-sm font-black group-hover:bg-red-600 transition">POSTULAR TALLER →</a>
+            <div className="p-5 flex flex-col flex-1 bg-white">
+              <div className="font-black italic text- leading-tight">¿QUIERES APARECER EN NUESTRA PÁGINA?</div>
+              <div className="mt-2 text-black/60 text- leading-tight flex-1">Envíanos por qué debería estar tu nombre o marca de taller en nuestra vitrina de los mejores talleres</div>
+              <a href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Hola, quiero postular mi taller a la vitrina")}`} target="_blank" onClick={e=>e.stopPropagation()} className="mt-4 inline-flex w-full justify-center bg-black text-white py-3 text-sm font-black group-hover:bg-red-600 transition">POSTULAR TALLER →</a>
             </div>
           </div>
         </div>
