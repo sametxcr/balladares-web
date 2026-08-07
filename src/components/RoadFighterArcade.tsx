@@ -1,60 +1,94 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
+
+declare global { interface Window { jsnes: any } }
 
 export default function RoadFighterArcade({ height = "900px", pcHeight = "500px" }: { height?: string; pcHeight?: string }) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const nesRef = useRef<any>(null);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    (window as any).EJS_player = "#game";
-    (window as any).EJS_core = "fbneo";
-    (window as any).EJS_gameName = "roadf";
-    (window as any).EJS_gameUrl = "/roms/roadf.zip";
-    (window as any).EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
-    (window as any).EJS_startOnLoaded = true;
+    const start = async () => {
+      if (!window.jsnes) {
+        const s = document.createElement("script");
+        s.src = "https://unpkg.com/jsnes@1.0.4/dist/jsnes.min.js";
+        document.body.appendChild(s);
+        await new Promise(r => s.onload = r);
+      }
 
-    (window as any).EJS_settings = {
-      volume: 0.5,
-    };
-    (window as any).EJS_virtualGamepad = true;
-    (window as any).EJS_virtualGamepadSettings = {
-      type: "arcade"
-    };
-    (window as any).EJS_mobileControls = true;
+      const canvas = canvasRef.current!;
+      const ctx = canvas.getContext("2d", { alpha: false })!;
+      const img = ctx.createImageData(256, 240);
 
-    const s = document.createElement("script");
-    s.src = "https://cdn.emulatorjs.org/stable/data/loader.js";
-    document.body.appendChild(s);
-    return () => { if (document.body.contains(s)) document.body.removeChild(s); };
+      const nes = new window.jsnes.NES({
+        onFrame: (buf: number[]) => {
+          for (let i = 0; i < 256 * 240; i++) {
+            const c = buf[i];
+            img.data[i*4] = (c>>16)&255;
+            img.data[i*4+1] = (c>>8)&255;
+            img.data[i*4+2] = c&255;
+            img.data[i*4+3] = 255;
+          }
+          ctx.putImageData(img, 0, 0);
+        },
+        onAudioSample: () => {},
+      });
+      nesRef.current = nes;
+
+      const res = await fetch("/roms/RoadFighterJapan.nes");
+      const ab = await res.arrayBuffer();
+      let rom = "";
+      const bytes = new Uint8Array(ab);
+      for (let i=0;i<bytes.length;i++) rom += String.fromCharCode(bytes[i]);
+      nes.loadROM(rom);
+      setReady(true);
+
+      const loop = () => { nes.frame(); requestAnimationFrame(loop); };
+      requestAnimationFrame(loop);
+    };
+    start();
   }, []);
 
+  const d = (b:number) => nesRef.current?.buttonDown(1,b);
+  const u = (b:number) => nesRef.current?.buttonUp(1,b);
+
+  const Btn = ({l,onDown,onUp,c}:{l:string,onDown:()=>void,onUp:()=>void,c:string}) => (
+    <button
+      onPointerDown={e=>{e.preventDefault(); (e.target as any).setPointerCapture(e.pointerId); onDown()}}
+      onPointerUp={e=>{e.preventDefault(); onUp()}}
+      onPointerCancel={onUp}
+      onPointerLeave={onUp}
+      className={`touch-none select-none active:scale-90 ${c}`}
+    >{l}</button>
+  );
+
   return (
-    <>
-      <style>{`
-        #game { width: 100%!important; }
-        #game canvas { width: 100%!important; height: 100%!important; object-fit: fill!important; }
-       .ejs-virtual-gamepad-button { opacity: 0.9!important; }
-        @media (max-width: 768px) { #game { height: ${height}!important; } }
-        @media (min-width: 769px) { #game { height: ${pcHeight}!important; } }
-      `}</style>
+    <section id="juego" className="bg-black py-4 w-screen relative left-1/2 -translate-x-1/2 flex flex-col items-center">
+      <h2 className="text-white font-black italic text-xl mb-2">BALLADARES <span className="text-red-600">MOTORS</span></h2>
 
-      <section id="juego" className="bg-black py-6 w-screen relative left-1/2 -translate-x-1/2 flex flex-col items-center">
-        <h2 className="text-white font-black italic text-2xl mb-2">ROAD FIGHTER <span className="text-red-600">ARCADE</span></h2>
+      <div className="w-full border-y-2 border-white bg-black flex justify-center">
+        <canvas ref={canvasRef} width={256} height={240} className="w-full max-w- aspect-[256/240]" style={{height: `clamp(${pcHeight}, 60vw, ${height})`}} />
+      </div>
 
-        <div className="w-full border-y-2 md:border-2 border-white bg-black relative">
-          <div id="game" className="w-full" />
-
-          <div className="md:hidden absolute bottom-1 left-0 right-0 z-10 pointer-events-none flex flex-col gap-1 px-1">
-            <div className="grid grid-cols-2 gap-1">
-              <div className="py-1 bg-yellow-400 text-black font-black text- text-center rounded">V = FICHA = SELECT</div>
-              <div className="py-1 bg-white text-black font-black text- text-center rounded">ENTER = START</div>
-            </div>
-            <p className="text-center text-white/60 text-">USA LOS BOTONES NATIVOS DEL EMULADOR - ESOS SI PESCAN EN CELU</p>
+      <div className="w-full bg-[#0f0f0f] p-2.5 flex flex-col gap-2">
+        {!ready && <p className="text-white/50 text- text-center animate-pulse">CARGANDO ROAD FIGHTER...</p>}
+        <div className="grid grid-cols-2 gap-2">
+          <Btn l="V = FICHA" c="py-3 bg-yellow-400 text-black font-black rounded text-sm" onDown={()=>d(2)} onUp={()=>u(2)} />
+          <Btn l="ENTER = START" c="py-3 bg-white text-black font-black rounded text-sm" onDown={()=>d(3)} onUp={()=>u(3)} />
+        </div>
+        <div className="flex justify-between bg-[#1a1a1a] rounded-lg p-2">
+          <div className="flex gap-2">
+            <Btn l="◀" c="w-12 h-12 bg-black border border-white/20 text-white rounded-full" onDown={()=>d(6)} onUp={()=>u(6)} />
+            <Btn l="▶" c="w-12 h-12 bg-black border border-white/20 text-white rounded-full" onDown={()=>d(7)} onUp={()=>u(7)} />
+          </div>
+          <div className="flex gap-2">
+            <Btn l="Z" c="w-12 h-11 bg-zinc-800 text-white rounded font-bold" onDown={()=>d(1)} onUp={()=>u(1)} />
+            <Btn l="X" c="w-16 h-11 bg-red-600 text-white rounded font-black border" onDown={()=>d(0)} onUp={()=>u(0)} />
           </div>
         </div>
-
-        <p className="text-white/40 text- mt-2 text-center px-2">
-          En celular usa el pad que aparece: <b className="text-yellow-400">SELECT = Ficha</b>, <b className="text-white">START = Start</b>, X = Acelera, Z = Turbo
-        </p>
-      </section>
-    </>
+        <p className="text-center text-white/30 text-">X=ACELERA | Z=TURBO | V=FICHA | ENTER=START - ESTE SI PESCA EN CELU</p>
+      </div>
+    </section>
   );
 }
