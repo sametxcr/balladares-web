@@ -1,14 +1,12 @@
 "use client";
 import { useEffect } from "react";
 
-export default function RoadFighterArcade({ height = "500px", pcHeight = "650px" }: { height?: string; pcHeight?: string; }) {
+export default function RoadFighterArcade({ 
+  height = "420px", 
+  pcHeight = "600px" 
+}: { height?: string; pcHeight?: string; }) {
   useEffect(() => {
-    // 1. Bloquea que cualquier wea te haga scroll al juego
-    const originalScroll = HTMLElement.prototype.scrollIntoView;
-    // @ts-ignore
-    HTMLElement.prototype.scrollIntoView = function() {};
-
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
 
     (window as any).EJS_player = "#game";
     (window as any).EJS_core = "nes";
@@ -20,32 +18,51 @@ export default function RoadFighterArcade({ height = "500px", pcHeight = "650px"
 
     const s = document.createElement("script");
     s.src = "https://cdn.emulatorjs.org/stable/data/loader.js";
-    s.onload = () => {
-      // Devuelve el scroll normal después de 2 seg y te deja arriba
-      setTimeout(() => {
-        HTMLElement.prototype.scrollIntoView = originalScroll;
-        window.scrollTo({ top: 0, left: 0, behavior: 'instant' as any });
-      }, 1500);
-    };
     document.body.appendChild(s);
-
-    return () => {
-      HTMLElement.prototype.scrollIntoView = originalScroll;
-      if (document.body.contains(s)) document.body.removeChild(s);
-    };
+    return () => { if (document.body.contains(s)) document.body.removeChild(s); };
   }, []);
 
   return (
     <>
       <style>{`
-        #game { width:100%!important; background:#000; overflow:hidden; position:relative; z-index:1; }
-        #game canvas { width:100%!important; height:100%!important; object-fit:fill!important; }
-        /* mata la barra flotante */
-        body > div[style*="position: fixed"][style*="bottom: 0"] { display:none!important; }
-        @media (max-width: 768px) { #game { height: ${height}!important; } }
-        @media (min-width: 769px) { #game { height: ${pcHeight}!important; } }
+        .game-wrapper {
+          position: relative;
+          width: 100%;
+          background: #000;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          overflow: hidden;
+        }
+        #game {
+          position: relative!important;
+          width: 100%!important;
+          height: 100%!important;
+        }
+        #game canvas {
+          width: auto!important;
+          height: 100%!important;
+          max-width: 100%!important;
+          object-fit: contain!important;
+        }
+        /* ESTO MATA LA BARRA QUE TE TAPA LA PAGINA */
+        #game > div[style*="position: fixed"],
+        #game div[style*="position: fixed; bottom"] {
+          position: absolute!important;
+          bottom: 0!important;
+          left: 0!important;
+          width: 100%!important;
+          z-index: 5!important;
+        }
+        /* Si quieres ocultarla completa, descomenta esto: */
+        /* .ejs_menu_bar, .ejs_control_bar { display: none!important; } */
+
+        @media (max-width: 768px) { .game-wrapper { height: ${height}!important; } }
+        @media (min-width: 769px) { .game-wrapper { height: ${pcHeight}!important; } }
       `}</style>
-      <div id="game" />
+      <div className="game-wrapper">
+        <div id="game" />
+      </div>
     </>
   );
 }
