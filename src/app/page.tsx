@@ -219,7 +219,7 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
       </div>
     </div>
   </div>
-</div>
+
     
       </section>
 
