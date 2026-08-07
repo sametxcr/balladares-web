@@ -27,10 +27,7 @@ export default function RoadFighterArcade() {
         #game { width: 100%!important; max-width: 480px; aspect-ratio: 256/240; margin: 0 auto; }
         #game canvas { width: 100%!important; height: 100%!important; object-fit: contain!important; image-rendering: pixelated; }
       `}</style>
-      <section className="bg-black w-full flex flex-col items-center py-4">
-        <div id="game" className="w-full bg-black border-y-2 border-white" />
-        <p className="text-white/40 text- mt-2">Si ves el juego, ya está. Si da Network Error es porque no subiste el.nes con git add -f</p>
-      </section>
+      
     </>
   );
 }
