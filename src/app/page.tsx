@@ -307,7 +307,7 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
   </div>
 </div>
 
-<RoadFighterArcade height="h-[900px] md:h-[500px]" />
+<RoadFighterArcade height="900px" pcHeight="500px" />
 
   
   
