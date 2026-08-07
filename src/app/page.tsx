@@ -227,12 +227,12 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
               <div className="absolute top-3 right-3 bg-red-600 text-white text- font-black tracking-widest px-3 py-1.5">VITRINA</div>
               <div className={`absolute inset-0 bg-black/90 p-6 flex flex-col justify-center transition-all duration-300 ${isActive? "opacity-100" : "opacity-0 pointer-events-none"}`}>
                 <div className="text-white font-black italic">VITRINA TALLERES</div>
-                <div className="text-white/70 text-sm mt-2">¿Tu taller es de los buenos? Postula para estar en nuestra vitrina.</div>
+                <div className="text-white/70 text-sm mt-2">¿Tu taller es de los buenos? Postula para estar en nuestra vitrina \n+visitas a tu pagina \n+visitas a tu instagram \n+llamadas \n+de todo para tu marca .</div>
               </div>
 			  </div>
             <div className="p-5 flex flex-col flex-1 bg-white">
               <div className="font-black italic text- leading-tight">¿QUIERES QUE TU MARCA APAREZCA EN NUESTRA PAGINA?</div>
-              <div className="mt-2 text-black/60 text- leading-tight flex-1">Envianos un mensaje para contactarnos \n + mas visitas a tu pagina \n + visitas a tu insta</div>
+              <div className="mt-2 text-black/60 text- leading-tight flex-1">Envianos un mensaje para contactarnos</div>
               <a href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Hola, quiero postular mi taller a la vitrina")}`} target="_blank" onClick={e=>e.stopPropagation()} className="mt-4 inline-flex w-full justify-center bg-black text-white py-3 text-sm font-black group-hover:bg-red-600 transition">POSTULAR TALLER →</a>
             </div>
           </div>
