@@ -222,22 +222,22 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
 </div>
 </div>
 
-{/* NUESTRAS MARCAS - UNA SOLO FOTO GRANDE CENTRADA */}
-<div className="max-w-[1200px] mx-auto mt-16 px-4">
-  <h3 className="font-black italic text-3xl mb-8 tracking-wider text-white text-center">NUESTRAS MARCAS</h3>
+{/* NUESTRAS MARCAS - FOTO UNICA MURAL */}
+<div className="max-w- mx-auto mt-20 px-4">
+  <h3 className="font-black italic text-3xl mb-8 tracking-wider text-white text-center">
+    NUESTRAS MARCAS
+  </h3>
 
-  {/* CAJA UNICA GRANDE CENTRADA */}
-  <div className="bg-white rounded-2xl p-10 md:p-14 flex flex-col md:flex-row items-center justify-center gap-10 md:gap-20 max-w-[900px] mx-auto border-[3px] border-black shadow-[8px_8px_0px_#dc2626]">
-    <img src="/marcas/mannol.png" alt="Mannol" className="h-[80px] md:h-[110px] w-auto object-contain" />
-    <div className="w-[80%] md:w-[2px] h-[2px] md:h-[80px] bg-black/10"></div>
-    <img src="/marcas/woxol.png" alt="Woxol" className="h-[80px] md:h-[110px] w-auto object-contain" />
-  </div>
+  <div className="relative bg-[#0A0A0A] border border-white/10 p-2 md:p-3 shadow-[8px_8px_0px_#dc2626]">
+    {/* Efecto luz arriba */}
+    <div className="absolute top-0 left-0 w-full h- bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
 
-  {/* SI TIENES UN BANNER UNICO, USA ESTE EN VEZ DEL DE ARRIBA:
-  <div className="border border-white/10 p-6 bg-zinc-900/50 flex items-center justify-center max-w-[900px] mx-auto">
-    <img src="/marcas/banner-marcas.png" alt="Mannol + Woxol" className="w-full max-w-[800px] h-auto object-contain" />
+    <img
+      src="/balladares_motors_workshop.webp"
+      alt="Nuestras Marcas - Balladares Motors"
+      className="w-full h-auto object-contain"
+    />
   </div>
-  */}
 </div>
 
   
