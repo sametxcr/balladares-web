@@ -91,8 +91,9 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
       <a key={link.id} href={`#${link.id}`} className="relative px-4 py-2 border border-white/10 hover:border-red-600 hover:bg-red-600/10 group" style={{transform:"skewX(-12deg)"}}><span className="group-hover:text-red-500" style={{transform:"skewX(12deg)", display:"block"}}>{link.label}</span></a>
     ))}
 </div>
-  <h2 className={`${holtwood.className} absolute bottom-[6px] right-[8px] md:bottom-[8px] md:right-[12px] text-[9px] md:text-[11px] font-black italic leading-none tracking-wider text-white text-right`}>
-  EL PODER DE <span className="text-red-600">UN BUEN SERVICIO</span>
+  <h2 className={`${holtwood.className} absolute bottom-[4px] right-[10px] md:bottom-[8px] md:right-[14px] text-[10px] md:text-[13px] font-black italic leading-[0.9] tracking-wider text-white text-right`}>
+  <span className="block md:inline">EL PODER DE UN</span>
+  <span className="block text-red-600 md:inline md:ml-1.5">BUEN SERVICIO</span>
 </h2>
 </nav>
 
