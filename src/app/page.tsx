@@ -182,7 +182,7 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
         </div>
 		
 		
-    {/* 2 SERVICIOS NUEVOS - CENTRADOS */}
+     {/* 2 SERVICIOS NUEVOS - CENTRADOS */}
   <div className="grid md:grid-cols-2 gap-6 md:gap-8 mt-6 md:mt-8 max-w-4xl mx-auto">
     {/* Servicio 1 - REVISION PRE-COMPRA */}
     <div className="group relative cursor-pointer">
@@ -220,8 +220,7 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    
       </section>
 
  {/* GALERIA RACING */}
