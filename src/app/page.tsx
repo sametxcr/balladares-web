@@ -225,7 +225,7 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
  {/* NUESTRAS MARCAS - UNA SOLO FOTO GRANDE CENTRADA */}
 <div className="max-w-[1200px] mx-auto mt-16 px-4">
   <h3 className="font-black italic text-3xl mb-8 tracking-wider text-white text-center">NUESTRAS MARCAS</h3>
-
+</div>
  
 
 
