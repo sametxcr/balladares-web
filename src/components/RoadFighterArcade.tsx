@@ -21,15 +21,6 @@ export default function RoadFighterArcade({ height = "500px", pcHeight = "650px"
     const s = document.createElement("script");
     s.src = "https://cdn.emulatorjs.org/stable/data/loader.js";
     s.onload = () => {
-      // Saca Fast y Slow
-      setInterval(() => {
-        document.querySelectorAll('button').forEach((b: any) => {
-          if (b.innerText === 'Fast' || b.innerText === 'Slow') {
-            b.style.display = 'none';
-          }
-        });
-      }, 300);
-
       // Devuelve el scroll normal después de 2 seg y te deja arriba
       setTimeout(() => {
         HTMLElement.prototype.scrollIntoView = originalScroll;
