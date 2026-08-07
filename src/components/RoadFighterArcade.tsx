@@ -13,7 +13,6 @@ export default function RoadFighterArcade({ height = "900px", pcHeight = "500px"
   });
 
   useEffect(() => {
-    // 1. Creamos el control falso
     const fakePad = padRef.current;
     // @ts-ignore
     const originalGetGamepads = navigator.getGamepads?.bind(navigator);
@@ -25,7 +24,6 @@ export default function RoadFighterArcade({ height = "900px", pcHeight = "500px"
     };
     window.dispatchEvent(new Event("gamepadconnected"));
 
-    // 2. Cargamos el emulador
     (window as any).EJS_player = "#game";
     (window as any).EJS_core = "fbneo";
     (window as any).EJS_gameName = "roadf";
@@ -76,10 +74,8 @@ export default function RoadFighterArcade({ height = "900px", pcHeight = "500px"
           <div id="game" className="w-full" />
         </div>
 
-        {/* BOTONERA QUE AHORA SI LLEGA */}
         <div className="md:hidden w-full bg-[#111] p-2 flex flex-col gap-2">
           <div className="grid grid-cols-2 gap-2">
-            {/* En FBNeo: Btn 8 = COIN, Btn 9 = START */}
             <Btn label="V = FICHA" className="py-2.5 bg-yellow-400 text-black font-black text-sm rounded"
               onDown={()=>setBtn(8, true)} onUp={()=>setBtn(8, false)} />
             <Btn label="ENTER = START" className="py-2.5 bg-white text-black font-black text-sm rounded"
@@ -94,12 +90,12 @@ export default function RoadFighterArcade({ height = "900px", pcHeight = "500px"
                 onDown={()=>setAxis(1)} onUp={()=>setAxis(0)} />
             </div>
             <div className="flex gap-2 items-center">
-              {/* Btn 1 = TURBO (Z), Btn 0 = ACELERA (X) */}
               <Btn label="Z" className="w-12 h-10 bg-zinc-800 border border-white/30 text-white font-bold text- rounded"
                 onDown={()=>setBtn(1, true)} onUp={()=>setBtn(1, false)} />
               <Btn label="X" className="w-16 h-12 bg-red-600 border border-white text-white font-black rounded"
                 onDown={()=>setBtn(0, true)} onUp={()=>setBtn(0, false)} />
             </div>
+          </div>
           <p className="text-center text-white/20 text-">MODO CONTROL FAKE - ESTE SI FUNCIONA EN CELU</p>
         </div>
       </section>
