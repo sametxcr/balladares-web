@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { Montserrat, Holtwood_One_SC } from "next/font/google";
+import RoadFighterArcade from "@/components/RoadFighterArcade"
 
 const montserrat = Montserrat({ subsets: ["latin"], weight: ["400","700","900"] });
 const holtwood = Holtwood_One_SC({ weight: "400", subsets: ["latin"] });
@@ -229,10 +230,10 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
                 <div className="text-white font-black italic">VITRINA TALLERES</div>
                 <div className="text-white/70 text-sm mt-2 leading-relaxed">
   Tu taller es de los buenos? Postula para estar en nuestra vitrina<br/>
-  +visitas a tu página<br/>
-  +visitas a tu instagram<br/>
-  +llamadas<br/>
-  +de todo para tu marca.
+  +Visitas a tu página<br/>
+  +Visitas a tu instagram<br/>
+  +Llamadas<br/>
+  +De todo para tu marca.
 </div>
               </div>
 			  </div>
@@ -306,6 +307,8 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
   </div>
 </div>
 
+
+<RoadFighterArcade />
   
   
   {/* GALERIA 35 FOTOS - 10 VISIBLES + DESPLEGABLE */}
