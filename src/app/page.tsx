@@ -229,6 +229,7 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
                 <div className="text-white font-black italic">VITRINA TALLERES</div>
                 <div className="text-white/70 text-sm mt-2">¿Tu taller es de los buenos? Postula para estar en nuestra vitrina.</div>
               </div>
+			  </div>
             <div className="p-5 flex flex-col flex-1 bg-white">
               <div className="font-black italic text- leading-tight">¿QUIERES APARECER EN NUESTRA PÁGINA?</div>
               <div className="mt-2 text-black/60 text- leading-tight flex-1">Envíanos por qué debería estar tu nombre o marca de taller en nuestra vitrina de los mejores talleres</div>
