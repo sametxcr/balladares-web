@@ -75,7 +75,7 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
       {showIntro && (
         <div className="fixed inset-0 bg-black flex items-center justify-center" style={{zIndex:200}}>
           <button onClick={()=>setShowIntro(false)} className="absolute top-4 right-4 w-12 h-12 bg-white/10 hover:bg-red-600 border border-white/20 rounded-full flex items-center justify-center text-white text-xl font-black transition" style={{zIndex:30}}>✕</button>
-          <iframe className="w-full h-full" style={{maxWidth:420, aspectRatio:"9/16"}} src={`https://www.youtube.com/embed/${YOUTUBE_ID}?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1&playsinline=1`} title="Intro" allow="autoplay; encrypted-media" allowFullScreen />
+          <iframe className="w-full h-full" style={{maxWidth:420, aspectRatio:"9/16"}} src={`https://www.youtube.com/embed/${YOUTUBE_ID}?autoplay=1&mute=0&controls=1&rel=0&modestbranding=1&playsinline=1`} title="Intro" allow="autoplay; encrypted-media" allowFullScreen />
           <div className="absolute bottom-24 left-1/2 -translate-x-1/2" style={{zIndex:20}}>
             <button onClick={()=>setShowIntro(false)} className="bg-white/10 border border-white/20 text-white px-6 py-2.5 font-black text-sm hover:bg-white hover:text-black transition" style={{transform:"skewX(-12deg)"}}><span style={{transform:"skewX(12deg)", display:"block"}}>SALTAR INTRO →</span></button>
           </div>
@@ -91,7 +91,7 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
       <a key={link.id} href={`#${link.id}`} className="relative px-4 py-2 border border-white/10 hover:border-red-600 hover:bg-red-600/10 group" style={{transform:"skewX(-12deg)"}}><span className="group-hover:text-red-500" style={{transform:"skewX(12deg)", display:"block"}}>{link.label}</span></a>
     ))}
 </div>
-  <h2 className={`${holtwood.className} text-[12px] md:text-[13px] font-black italic leading-none tracking-wider text-white text-right ml-auto pr-0 translate-x-[12px] md:translate-x-[20px]`}>
+  <h2 className={`${holtwood.className} text-[20px] md:text-[12px] font-black italic leading-none tracking-wider text-white text-right ml-auto pr-0 translate-x-[8px] md:translate-x-[20px]`}>
   EL PODER DE <span className="text-red-600">UN BUEN SERVICIO</span>
 </h2>
 </nav>
