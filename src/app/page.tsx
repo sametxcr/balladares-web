@@ -231,8 +231,8 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
               </div>
 			  </div>
             <div className="p-5 flex flex-col flex-1 bg-white">
-              <div className="font-black italic text- leading-tight">¿QUIERES APARECER EN NUESTRA PÁGINA?</div>
-              <div className="mt-2 text-black/60 text- leading-tight flex-1">Envíanos por qué debería estar tu nombre o marca de taller en nuestra vitrina de los mejores talleres</div>
+              <div className="font-black italic text- leading-tight">¿QUIERES QUE TU MARCA APAREZCA EN NUESTRA PAGINA?</div>
+              <div className="mt-2 text-black/60 text- leading-tight flex-1">Envianos un mensaje para contactarnos \n + mas visitas a tu pagina \n + visitas a tu insta</div>
               <a href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Hola, quiero postular mi taller a la vitrina")}`} target="_blank" onClick={e=>e.stopPropagation()} className="mt-4 inline-flex w-full justify-center bg-black text-white py-3 text-sm font-black group-hover:bg-red-600 transition">POSTULAR TALLER →</a>
             </div>
           </div>
