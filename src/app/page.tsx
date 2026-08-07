@@ -180,6 +180,36 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
             );
           })}
         </div>
+		
+		  {/* 2 ESPACIOS NUEVOS VACÍOS - LISTOS PARA LLENAR */}
+  <div className="grid md:grid-cols-3 gap-6 md:gap-8 mt-6 md:mt-8">
+    {/* Espacio 1 */}
+    <div className="group relative cursor-pointer md:col-start-1">
+      <div className="absolute bg-black/20" style={{inset:-1, transform:"skewX(-3deg)"}} />
+      <div className="relative bg-white p-0.5" style={{transform:"skewX(-3deg)"}}>
+        <div className="bg-white" style={{transform:"skewX(3deg)"}}>
+          <div className="relative bg-white border-2 border-dashed border-black/20 flex flex-col items-center justify-center gap-3" style={{height:280}}>
+            <div className="w-14 h-14 border-2 border-black/20 flex items-center justify-center text-3xl font-black">+</div>
+            <div className="font-black italic">PRÓXIMAMENTE</div>
+          </div>
+          <div className="p-5"><div className="font-black text-lg italic tracking-tight leading-tight text-black/30">NUEVO SERVICIO</div><div className="mt-2 text-black/30 font-black text-sm">Próximamente</div><div className="mt-4 inline-flex w-full justify-center bg-zinc-200 text-zinc-400 py-3 text-sm font-black">PRÓXIMAMENTE</div></div>
+        </div>
+      </div>
+    </div>
+    {/* Espacio 2 */}
+    <div className="group relative cursor-pointer">
+      <div className="absolute bg-black/20" style={{inset:-1, transform:"skewX(-3deg)"}} />
+      <div className="relative bg-white p-0.5" style={{transform:"skewX(-3deg)"}}>
+        <div className="bg-white" style={{transform:"skewX(3deg)"}}>
+          <div className="relative bg-white border-2 border-dashed border-black/20 flex flex-col items-center justify-center gap-3" style={{height:280}}>
+            <div className="w-14 h-14 border-2 border-black/20 flex items-center justify-center text-3xl font-black">+</div>
+            <div className="font-black italic">PRÓXIMAMENTE</div>
+          </div>
+          <div className="p-5"><div className="font-black text-lg italic tracking-tight leading-tight text-black/30">NUEVO SERVICIO</div><div className="mt-2 text-black/30 font-black text-sm">Próximamente</div><div className="mt-4 inline-flex w-full justify-center bg-zinc-200 text-zinc-400 py-3 text-sm font-black">PRÓXIMAMENTE</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
       </section>
 
  {/* GALERIA RACING */}
