@@ -27,7 +27,10 @@ export default function RoadFighterArcade() {
         #game { width: 100%!important; max-width: 480px; aspect-ratio: 256/240; margin: 0 auto; }
         #game canvas { width: 100%!important; height: 100%!important; object-fit: contain!important; image-rendering: pixelated; }
       `}</style>
-      
+      <section className="bg-black w-full flex flex-col items-center py-4">
+        <div id="game" className="w-full bg-black border-y-2 border-white" />
+        
+      </section>
     </>
   );
 }
