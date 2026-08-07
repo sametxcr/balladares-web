@@ -5,7 +5,9 @@ import { Montserrat, Holtwood_One_SC } from "next/font/google";
 const montserrat = Montserrat({ subsets: ["latin"], weight: ["400","700","900"] });
 const holtwood = Holtwood_One_SC({ weight: "400", subsets: ["latin"] });
 
-const WHATSAPP = "56932285399";
+const WHATSAPP = "56982637808"; // numero principal general
+const WHATSAPP_NEUMATICO = "56991770158"; // pon aquí el numero de neumáticos
+const WHATSAPP_REPUESTO = "56991770158"; // pon aquí el numero de repuestos
 const INSTAGRAM = "https://www.instagram.com/balladaresmotor/";
 const YOUTUBE_ID = "0q6KurtImDI";
 
@@ -52,17 +54,17 @@ export default function Page(){
   const [showIntro,setShowIntro]=useState(true);
   const [showGaleria, setShowGaleria] = useState(false);
   useEffect(()=>{ const t=setInterval(()=>setI(p=>(p+1)%slides.length),5000); return()=>clearInterval(t) },[]);
-  const waLinkNeumatico = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(
+  const waLinkNeumatico = "https://wa.me/" + WHATSAPP_NEUMATICO + "?text=" + encodeURIComponent(
   "Hola Balladares Motors! - Quiero cotizar NEUMATICO:\n\n" +
   "- Marca neumatico: \n" +
   "- Medida: ej 195/50R15\n\n" +
   "Quedo atento!"
 );
 
-const waLinkRepuesto = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(
+const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeURIComponent(
   "Hola Balladares Motors! - Quiero cotizar REPUESTO:\n\n" +
-  "- Envianos una foto de tu patente o padrón 📄\n" +
-  "- Envianos 2 o 3 fotos de referencia de tu repuesto 📸\n\n" +
+  "- Envianos una foto de tu patente o padrón \n" +
+  "- Envianos 2 o 3 fotos de referencia de tu repuesto \n\n" +
   "Mi vehiculo es:\n" +
   "Modelo:\n" +
   "Año:\n\n" +
