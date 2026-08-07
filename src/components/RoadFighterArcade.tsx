@@ -3,13 +3,27 @@ import { useEffect } from "react";
 
 export default function RoadFighterArcade({ height = "900px", pcHeight = "500px" }: { height?: string; pcHeight?: string }) {
 
-  const down = (key: string, code: string, keyCode: number) => {
-    try { (window as any).EJS_emulator?.gameManager?.keyboard?.toggleKey(keyCode, 1); } catch {}
-    window.dispatchEvent(new KeyboardEvent("keydown", { key, code, keyCode, bubbles: true } as any));
-  };
-  const up = (key: string, code: string, keyCode: number) => {
-    try { (window as any).EJS_emulator?.gameManager?.keyboard?.toggleKey(keyCode, 0); } catch {}
-    window.dispatchEvent(new KeyboardEvent("keyup", { key, code, keyCode, bubbles: true } as any));
+  const send = (key: string, code: string, keyCode: number, type: "down"|"up") => {
+    const canvas = document.querySelector("#game canvas") as any;
+    if (canvas) canvas.focus();
+
+    const event = new KeyboardEvent(type === "down"? "keydown" : "keyup", {
+      key, code, keyCode, which: keyCode, bubbles: true, cancelable: true,
+    } as any);
+
+    // Lo tiramos por todos lados hasta que lo pesque
+    window.dispatchEvent(event);
+    document.dispatchEvent(event);
+    canvas?.dispatchEvent(event);
+
+    // Y directo al FBNeo
+    try {
+      const emu = (window as any).EJS_emulator;
+      emu?.gameManager?.keyboard?.onKeyDown?.({ keyCode, code, key });
+      emu?.gameManager?.keyboard?.toggleKey?.(keyCode, type === "down"? 1 : 0);
+      if (type === "down") emu?.keyDown?.(keyCode);
+      else emu?.keyUp?.(keyCode);
+    } catch {}
   };
 
   useEffect(() => {
@@ -35,39 +49,50 @@ export default function RoadFighterArcade({ height = "900px", pcHeight = "500px"
       `}</style>
 
       <section id="juego" className="bg-black py-6 w-screen relative left-1/2 -translate-x-1/2 flex flex-col items-center">
-        <h2 className="text-white font-black italic text-3xl mb-2">ROAD FIGHTER <span className="text-red-600">ARCADE</span></h2>
+        <h2 className="text-white font-black italic text-2xl mb-2">ROAD FIGHTER <span className="text-red-600">ARCADE</span></h2>
 
         <div className="w-full border-y-2 md:border-2 border-white bg-black">
           <div id="game" className="w-full" />
         </div>
 
-        {/* BOTONERA ABAJO - AHORA SI SE PUEDE PRESIONAR */}
-        <div className="md:hidden w-full bg-zinc-900 border-b-2 border-white p-3 flex flex-col gap-3">
+        {/* BOTONERA CHICA - AHORA SI RESPONDE */}
+        <div className="md:hidden w-full bg-[#111] border-b border-white/20 p-2 flex flex-col gap-2">
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-2">
             <button type="button"
-              onTouchStart={()=>down("v","KeyV",86)} onTouchEnd={()=>up("v","KeyV",86)}
-              onMouseDown={()=>down("v","KeyV",86)} onMouseUp={()=>up("v","KeyV",86)}
-              className="w-full py-4 bg-yellow-400 text-black font-black text-lg rounded active:scale-95">V = FICHA</button>
+              onTouchStart={()=>send("v","KeyV",86,"down")} onTouchEnd={()=>send("v","KeyV",86,"up")}
+              onMouseDown={()=>send("v","KeyV",86,"down")} onMouseUp={()=>send("v","KeyV",86,"up")}
+              className="py-2.5 bg-yellow-400 text-black font-black text-sm rounded active:scale-95">V = FICHA</button>
 
             <button type="button"
-              onTouchStart={()=>down("Enter","Enter",13)} onTouchEnd={()=>up("Enter","Enter",13)}
-              onMouseDown={()=>down("Enter","Enter",13)} onMouseUp={()=>up("Enter","Enter",13)}
-              className="w-full py-4 bg-white text-black font-black text-lg rounded active:scale-95">ENTER = START</button>
+              onTouchStart={()=>send("Enter","Enter",13,"down")} onTouchEnd={()=>send("Enter","Enter",13,"up")}
+              onMouseDown={()=>send("Enter","Enter",13,"down")} onMouseUp={()=>send("Enter","Enter",13,"up")}
+              className="py-2.5 bg-white text-black font-black text-sm rounded active:scale-95">ENTER = START</button>
           </div>
 
-          <div className="flex justify-between items-center gap-3">
-            <div className="flex gap-3">
-              <button type="button" onTouchStart={()=>down("ArrowLeft","ArrowLeft",37)} onTouchEnd={()=>up("ArrowLeft","ArrowLeft",37)} className="w-20 h-20 bg-black border-2 border-white text-white text-3xl font-black rounded-full active:bg-red-600">◀</button>
-              <button type="button" onTouchStart={()=>down("ArrowRight","ArrowRight",39)} onTouchEnd={()=>up("ArrowRight","ArrowRight",39)} className="w-20 h-20 bg-black border-2 border-white text-white text-3xl font-black rounded-full active:bg-red-600">▶</button>
+          <div className="flex justify-between items-center">
+            <div className="flex gap-2">
+              <button type="button"
+                onTouchStart={()=>send("ArrowLeft","ArrowLeft",37,"down")} onTouchEnd={()=>send("ArrowLeft","ArrowLeft",37,"up")}
+                onMouseDown={()=>send("ArrowLeft","ArrowLeft",37,"down")} onMouseUp={()=>send("ArrowLeft","ArrowLeft",37,"up")}
+                className="w-12 h-12 bg-black border border-white/50 text-white rounded-full active:bg-red-600">◀</button>
+              <button type="button"
+                onTouchStart={()=>send("ArrowRight","ArrowRight",39,"down")} onTouchEnd={()=>send("ArrowRight","ArrowRight",39,"up")}
+                onMouseDown={()=>send("ArrowRight","ArrowRight",39,"down")} onMouseUp={()=>send("ArrowRight","ArrowRight",39,"up")}
+                className="w-12 h-12 bg-black border border-white/50 text-white rounded-full active:bg-red-600">▶</button>
             </div>
 
-            <div className="flex gap-3 items-end">
-              <button type="button" onTouchStart={()=>down("z","KeyZ",90)} onTouchEnd={()=>up("z","KeyZ",90)} className="w-16 h-16 bg-zinc-700 border border-white text-white font-black text-xs rounded active:bg-white active:text-black">Z<br/>TURBO</button>
-              <button type="button" onTouchStart={()=>down("x","KeyX",88)} onTouchEnd={()=>up("x","KeyX",88)} className="w-24 h-20 bg-red-600 border-2 border-white text-white font-black text-lg rounded shadow-[4px_4px_0px_black] active:scale-95">X</button>
+            <div className="flex gap-2 items-center">
+              <button type="button"
+                onTouchStart={()=>send("z","KeyZ",90,"down")} onTouchEnd={()=>send("z","KeyZ",90,"up")}
+                onMouseDown={()=>send("z","KeyZ",90,"down")} onMouseUp={()=>send("z","KeyZ",90,"up")}
+                className="w-12 h-10 bg-zinc-800 border border-white/30 text-white font-bold text- rounded">Z</button>
+              <button type="button"
+                onTouchStart={()=>send("x","KeyX",88,"down")} onTouchEnd={()=>send("x","KeyX",88,"up")}
+                onMouseDown={()=>send("x","KeyX",88,"down")} onMouseUp={()=>send("x","KeyX",88,"up")}
+                className="w-16 h-12 bg-red-600 border border-white text-white font-black rounded active:bg-white active:text-black">X</button>
             </div>
           </div>
-          <p className="text-center text-white/30 text-">MANTEN PRESIONADO X PARA ACELERAR</p>
         </div>
       </section>
     </>
