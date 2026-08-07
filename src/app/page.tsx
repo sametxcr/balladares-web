@@ -190,7 +190,7 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
     <div className="relative bg-white p-0.5" style={{transform:"skewX(-3deg)"}}>
       <div className="bg-white overflow-hidden" style={{transform:"skewX(3deg)"}}>
         <div className="relative bg-white flex items-center justify-center p-4" style={{height:280}}>
-          <img src="/racing_inspection_white_background.webp" alt="Revision Pre-Compra" className="w-11/12 h-11/12 object-contain drop-shadow-xl group-hover:scale-110 transition-transform duration-500" />
+          <img src="/icons/racing_inspection_white_background.webp" alt="Revision Pre-Compra" className="w-11/12 h-11/12 object-contain drop-shadow-xl group-hover:scale-110 transition-transform duration-500" />
           <div className="absolute top-0 left-0 w-full bg-black" style={{height:6}} />
           <div className="absolute top-3 right-3 bg-black text-white text-xs font-black tracking-widest px-3 py-1.5">PRE-COMPRA</div>
         </div>
@@ -209,7 +209,7 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
     <div className="relative bg-white p-0.5" style={{transform:"skewX(-3deg)"}}>
       <div className="bg-white overflow-hidden" style={{transform:"skewX(3deg)"}}>
         <div className="relative bg-white flex items-center justify-center p-4" style={{height:280}}>
-          <img src="/isometric_racing_podium.webp" alt="Vitrina Talleres" className="w-11/12 h-11/12 object-contain drop-shadow-xl group-hover:scale-110 transition-transform duration-500" />
+          <img src="/icons/isometric_racing_podium.webp" alt="Vitrina Talleres" className="w-11/12 h-11/12 object-contain drop-shadow-xl group-hover:scale-110 transition-transform duration-500" />
           <div className="absolute top-0 left-0 w-full bg-red-600" style={{height:6}} />
           <div className="absolute top-3 right-3 bg-red-600 text-white text-xs font-black tracking-widest px-3 py-1.5">VITRINA</div>
         </div>
