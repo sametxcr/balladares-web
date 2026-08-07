@@ -3,27 +3,29 @@ import { useEffect } from "react";
 
 export default function RoadFighterArcade({ height = "900px", pcHeight = "500px" }: { height?: string; pcHeight?: string }) {
 
-  const send = (key: string, code: string, keyCode: number, type: "down"|"up") => {
-    const canvas = document.querySelector("#game canvas") as any;
-    if (canvas) canvas.focus();
-
-    const event = new KeyboardEvent(type === "down"? "keydown" : "keyup", {
-      key, code, keyCode, which: keyCode, bubbles: true, cancelable: true,
-    } as any);
-
-    // Lo tiramos por todos lados hasta que lo pesque
-    window.dispatchEvent(event);
-    document.dispatchEvent(event);
-    canvas?.dispatchEvent(event);
-
-    // Y directo al FBNeo
+  const holdKey = (keyCode: number, isDown: boolean) => {
     try {
       const emu = (window as any).EJS_emulator;
-      emu?.gameManager?.keyboard?.onKeyDown?.({ keyCode, code, key });
-      emu?.gameManager?.keyboard?.toggleKey?.(keyCode, type === "down"? 1 : 0);
-      if (type === "down") emu?.keyDown?.(keyCode);
-      else emu?.keyUp?.(keyCode);
+      // 3 formas de pegarle al fbneo, una tiene que pescar
+      if (emu) {
+        if (emu.gameManager?.keyboard) {
+          emu.gameManager.keyboard.toggleKey?.(keyCode, isDown? 1 : 0);
+          emu.gameManager.keyboard.keys && (emu.gameManager.keyboard.keys[keyCode] = isDown? 1 : 0);
+        }
+        if (isDown) emu.keyDown?.(keyCode);
+        else emu.keyUp?.(keyCode);
+        // Para cores viejos
+        emu.onKeyDown?.(keyCode);
+        emu.onKeyUp?.(keyCode);
+      }
     } catch {}
+
+    // Por si acaso también mandamos el evento normal
+    const canvas = document.querySelector("#game canvas") as any;
+    const type = isDown? "keydown" : "keyup";
+    const ev = new KeyboardEvent(type, { keyCode, which: keyCode, bubbles: true } as any);
+    window.dispatchEvent(ev);
+    canvas?.dispatchEvent(ev);
   };
 
   useEffect(() => {
@@ -33,11 +35,26 @@ export default function RoadFighterArcade({ height = "900px", pcHeight = "500px"
     (window as any).EJS_gameUrl = "/roms/roadf.zip";
     (window as any).EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
     (window as any).EJS_startOnLoaded = true;
+    // Desactivamos el gamepad nativo que tapa todo
+    (window as any).EJS_gamepad = false;
     const s = document.createElement("script");
     s.src = "https://cdn.emulatorjs.org/stable/data/loader.js";
     document.body.appendChild(s);
     return () => { if (document.body.contains(s)) document.body.removeChild(s); };
   }, []);
+
+  const Btn = ({ label, keyCode, className }: { label: string, keyCode: number, className: string }) => (
+    <button
+      type="button"
+      onPointerDown={(e)=>{ e.preventDefault(); (e.target as any).setPointerCapture(e.pointerId); holdKey(keyCode, true); }}
+      onPointerUp={(e)=>{ e.preventDefault(); holdKey(keyCode, false); }}
+      onPointerCancel={(e)=>{ holdKey(keyCode, false); }}
+      onPointerLeave={(e)=>{ holdKey(keyCode, false); }}
+      className={`select-none touch-none active:scale-90 ${className}`}
+    >
+      {label}
+    </button>
+  );
 
   return (
     <>
@@ -55,44 +72,22 @@ export default function RoadFighterArcade({ height = "900px", pcHeight = "500px"
           <div id="game" className="w-full" />
         </div>
 
-        {/* BOTONERA CHICA - AHORA SI RESPONDE */}
         <div className="md:hidden w-full bg-[#111] border-b border-white/20 p-2 flex flex-col gap-2">
-
           <div className="grid grid-cols-2 gap-2">
-            <button type="button"
-              onTouchStart={()=>send("v","KeyV",86,"down")} onTouchEnd={()=>send("v","KeyV",86,"up")}
-              onMouseDown={()=>send("v","KeyV",86,"down")} onMouseUp={()=>send("v","KeyV",86,"up")}
-              className="py-2.5 bg-yellow-400 text-black font-black text-sm rounded active:scale-95">V = FICHA</button>
-
-            <button type="button"
-              onTouchStart={()=>send("Enter","Enter",13,"down")} onTouchEnd={()=>send("Enter","Enter",13,"up")}
-              onMouseDown={()=>send("Enter","Enter",13,"down")} onMouseUp={()=>send("Enter","Enter",13,"up")}
-              className="py-2.5 bg-white text-black font-black text-sm rounded active:scale-95">ENTER = START</button>
+            <Btn label="V = FICHA" keyCode={86} className="py-2.5 bg-yellow-400 text-black font-black text-sm rounded" />
+            <Btn label="ENTER = START" keyCode={13} className="py-2.5 bg-white text-black font-black text-sm rounded" />
           </div>
-
           <div className="flex justify-between items-center">
             <div className="flex gap-2">
-              <button type="button"
-                onTouchStart={()=>send("ArrowLeft","ArrowLeft",37,"down")} onTouchEnd={()=>send("ArrowLeft","ArrowLeft",37,"up")}
-                onMouseDown={()=>send("ArrowLeft","ArrowLeft",37,"down")} onMouseUp={()=>send("ArrowLeft","ArrowLeft",37,"up")}
-                className="w-12 h-12 bg-black border border-white/50 text-white rounded-full active:bg-red-600">◀</button>
-              <button type="button"
-                onTouchStart={()=>send("ArrowRight","ArrowRight",39,"down")} onTouchEnd={()=>send("ArrowRight","ArrowRight",39,"up")}
-                onMouseDown={()=>send("ArrowRight","ArrowRight",39,"down")} onMouseUp={()=>send("ArrowRight","ArrowRight",39,"up")}
-                className="w-12 h-12 bg-black border border-white/50 text-white rounded-full active:bg-red-600">▶</button>
+              <Btn label="◀" keyCode={37} className="w-12 h-12 bg-black border border-white/50 text-white rounded-full" />
+              <Btn label="▶" keyCode={39} className="w-12 h-12 bg-black border border-white/50 text-white rounded-full" />
             </div>
-
             <div className="flex gap-2 items-center">
-              <button type="button"
-                onTouchStart={()=>send("z","KeyZ",90,"down")} onTouchEnd={()=>send("z","KeyZ",90,"up")}
-                onMouseDown={()=>send("z","KeyZ",90,"down")} onMouseUp={()=>send("z","KeyZ",90,"up")}
-                className="w-12 h-10 bg-zinc-800 border border-white/30 text-white font-bold text- rounded">Z</button>
-              <button type="button"
-                onTouchStart={()=>send("x","KeyX",88,"down")} onTouchEnd={()=>send("x","KeyX",88,"up")}
-                onMouseDown={()=>send("x","KeyX",88,"down")} onMouseUp={()=>send("x","KeyX",88,"up")}
-                className="w-16 h-12 bg-red-600 border border-white text-white font-black rounded active:bg-white active:text-black">X</button>
+              <Btn label="Z" keyCode={90} className="w-12 h-10 bg-zinc-800 border border-white/30 text-white font-bold text- rounded" />
+              <Btn label="X" keyCode={88} className="w-16 h-12 bg-red-600 border border-white text-white font-black rounded" />
             </div>
           </div>
+          <p className="text-center text-white/20 text-">MANTEN X PRESIONADO - PRUEBA EN HTTPS</p>
         </div>
       </section>
     </>
