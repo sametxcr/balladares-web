@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 
 export default function RoadFighterArcade({ 
-  height = "420px", 
+  height = "500px", 
   pcHeight = "600px" 
 }: { height?: string; pcHeight?: string; }) {
   useEffect(() => {
