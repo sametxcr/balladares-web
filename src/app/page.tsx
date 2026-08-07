@@ -203,12 +203,10 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
     </div>
   </div>
 
-  {/* VITRINA TALLERES */}
   <div className="group relative cursor-pointer">
     <div className="absolute bg-black group-hover:bg-red-600 transition-all" style={{inset:-1, transform:"skewX(-3deg)"}} />
     <div className="relative bg-white p-0.5" style={{transform:"skewX(-3deg)"}}>
       <div className="bg-white overflow-hidden" style={{transform:"skewX(3deg)"}}>
-        {/* VITRINA - FIX - Este es el que se te tapa */}
 <div className="relative bg-white flex items-center justify-center overflow-hidden" style={{height:280}}>
   <img src="/icons/isometric_racing_podium.webp" alt="Vitrina Talleres" className="max-h-[220px] w-auto object-contain" />
   <div className="absolute top-0 left-0 w-full bg-red-600" style={{height:6}} />
