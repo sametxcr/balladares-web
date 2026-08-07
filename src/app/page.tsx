@@ -92,7 +92,7 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
     ))}
   </div>
   <div className="mb-12 flex justify-end">
-  <h2 className={`${holtwood.className} text-2xl md:text-7xl font-black italic leading-[0.9] text-right ml-auto max-w-[70%] md:max-w-none translate-x-2 md:translate-x-0 pr-2 md:pr-0`}>
+  <h2 className={`${holtwood.className} text-1xl md:text-1xl font-black italic leading-[0.9] text-right ml-auto max-w-[50%] md:max-w-none translate-x-2 md:translate-x-0 pr-2 md:pr-0`}>
     EL PODER DE <span className="text-red-600">UN BUEN SERVICIO</span>
   </h2>
 </div>
