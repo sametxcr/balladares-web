@@ -2,18 +2,19 @@
 import { useEffect } from "react";
 
 export default function RoadFighterArcade({ 
-  height = "450px", 
+  height = "420px", 
   pcHeight = "600px" 
-}: { 
-  height?: string; 
-  pcHeight?: string; 
-}) {
+}: { height?: string; pcHeight?: string; }) {
   useEffect(() => {
+    // Que siempre parta arriba
+    window.scrollTo(0, 0);
+
     (window as any).EJS_player = "#game";
     (window as any).EJS_core = "nes";
     (window as any).EJS_gameUrl = "/roms/RoadFighterJapan.nes";
     (window as any).EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
-    (window as any).EJS_startOnLoaded = true;
+    (window as any).EJS_startOnLoaded = false; // <-- ESTE ERA EL QUE TE BAJABA SOLO
+    (window as any).EJS_fullscreenOnLoaded = false;
     (window as any).EJS_virtualGamepad = true;
 
     const s = document.createElement("script");
@@ -25,35 +26,15 @@ export default function RoadFighterArcade({
   return (
     <>
       <style>{`
-        #game {
-          width: 100%!important;
-          background: #000;
-          display: flex!important;
-          justify-content: center!important;
-          align-items: center!important;
-          overflow: hidden;
-          margin: 0 auto;
-        }
-        /* El juego siempre centrado y sin estirar */
-        #game canvas {
-          width: auto!important;
-          height: 100%!important;
-          max-width: 100%!important;
-          object-fit: contain!important;
-        }
-        /* Achicar la cruceta gigante que te sale en la foto */
-        .ejs_virtualGamepad {
-          transform: scale(0.75);
-          transform-origin: bottom center;
-        }
-        @media (max-width: 768px) {
-          #game { height: ${height}!important; }
-        }
-        @media (min-width: 769px) {
-          #game { height: ${pcHeight}!important; max-width: 800px; }
-        }
+        .game-wrapper { position: relative; width: 100%; background: #000; display: flex; justify-content: center; overflow: hidden; }
+        #game { width: 100%!important; height: 100%!important; }
+        #game canvas { width: auto!important; height: 100%!important; max-width: 100%!important; object-fit: contain!important; }
+        @media (max-width: 768px) { .game-wrapper { height: ${height}!important; } }
+        @media (min-width: 769px) { .game-wrapper { height: ${pcHeight}!important; } }
       `}</style>
-      <div id="game" className="border-y border-red-600" />
+      <div className="game-wrapper">
+        <div id="game" />
+      </div>
     </>
   );
 }
