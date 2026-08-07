@@ -222,15 +222,15 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
 </div>
 </div>
 
-  {/* NUESTRAS MARCAS */}
-  <div className="max-w- mx-auto mt-12">
-    <h3 className="font-black italic text-2xl mb-4 tracking-wider text-white">NUESTRAS MARCAS</h3>
-    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 border border-white/10 p-6 bg-zinc-900/50">
-      <div className="bg-white rounded-xl h-20 flex items-center justify-center p-3"><img src="/marcas/mannol.png" alt="Mannol" className="h-full object-contain" /></div>
-      <div className="bg-white rounded-xl h-20 flex items-center justify-center p-3"><img src="/marcas/woxol.png" alt="Woxol" className="h-full object-contain" /></div>
-      <div className="bg-white rounded-xl h-20 flex items-center justify-center p-3 border-2 border-dashed border-zinc-400"><span className="text-zinc-400 font-bold text-xs">+ MARCA</span></div>
-      <div className="bg-white rounded-xl h-20 flex items-center justify-center p-3 border-2 border-dashed border-zinc-400"><span className="text-zinc-400 font-bold text-xs">+ MARCA</span></div>
-    </div>
+ {/* NUESTRAS MARCAS - UNA SOLO FOTO GRANDE CENTRADA */}
+<div className="max-w-[1200px] mx-auto mt-16 px-4">
+  <h3 className="font-black italic text-3xl mb-8 tracking-wider text-white text-center">NUESTRAS MARCAS</h3>
+
+  {/* CAJA UNICA GRANDE CENTRADA */}
+  <div className="bg-white rounded-2xl p-10 md:p-14 flex flex-col md:flex-row items-center justify-center gap-10 md:gap-20 max-w-[900px] mx-auto border-[3px] border-black shadow-[8px_8px_0px_#dc2626]">
+    <img src="/marcas/mannol.png" alt="Mannol" className="h-[80px] md:h-[110px] w-auto object-contain" />
+    <div className="w-[80%] md:w-[2px] h-[2px] md:h-[80px] bg-black/10"></div>
+    <img src="/marcas/woxol.png" alt="Woxol" className="h-[80px] md:h-[110px] w-auto object-contain" />
   </div>
 
   {/* GALERIA 35 FOTOS - 10 VISIBLES + DESPLEGABLE */}
