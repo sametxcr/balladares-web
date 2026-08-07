@@ -19,7 +19,7 @@ const slides = [
 
 const servicios = [
   { n: "Repro DPF - EGR - ADBLUE OFF", p: "Desde $150.000", d: "Libera el verdadero potencial oculto de tu ECU. Potencia tu auto de forma segura +torque +potencia +economia. Stage 1 - Stage 2 - DPF - EGR - ADBLUE y más...", icon: "/icons/turbochip_isometric_icon.webp", accent: "from-red-600 to-orange-500", badge: "POPULAR" },
-  { n: "Scanner Multimarca", p: "Desde $15.000", d: "Diagnóstico profundo con equipamiento de última generación. Soporte Tecnico en diferentes marcas.", icon: "/icons/obd2_scanner_icon.webp", accent: "from-blue-600 to-cyan-400", badge: "DIAGNOSIS" },
+  { n: "Scanner Multimarca", p: "Desde $15.000", d: "Diagnóstico profundo con equipamiento de última generación. Soporte Tecnico en diferentes marcas.", icon: "/icons/obd2_scanner_icon.webp", accent: "from-blue-600 to-cyan-400", badge: "DIAGNOSTICO" },
   { n: "Alineación con Laser + Balanceo", p: "Desde $35.000", d: "Precisión milimétrica con sistema láser 3D. Evita el desgaste excesivo de tus neumaticos y vibraciones al conducir.", icon: "/icons/wheel_alignment_icon.webp", accent: "from-zinc-600 to-zinc-400", badge: "LASER" },  
   { n: "Ajuste Motor", p: "Cotizar", d: "Armado y rectificación de motores de estandar y alto rendimiento. Resultados optimos con el soporte de diferentes maestranzas.", icon: "/icons/balladares_motors_emblem_transparent.webp", accent: "from-red-600 to-red-800", badge: "AJUSTE" },
   { n: "Mecánica General", p: "Cotizar", d: "Encuentra todos los servicios basicos en un solo lugar - mantencion por kilometraje - servicio de diagnostico - reparacion tren delantero - reparacion y mantencion sistema de frenos - afinamiento - cambio aceite y muchos mas cotiza aca.", icon: "/icons/sr20_neo_vvl_balladares.webp", accent: "from-zinc-700 to-zinc-500", badge: "MECANICA GENERAL" },
@@ -272,23 +272,25 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
 
 <section id="contacto" className="grid grid-cols-1 md:grid-cols-2 border-t border-white/10">
   <div className="bg-zinc-900 p-6 md:p-8 flex flex-col gap-8">
+
+    {/* TITULO MAS GRANDE */}
     <div>
       <h3 className="font-black italic text-4xl md:text-5xl text-white leading-none tracking-tighter">ENCUÉNTRANOS</h3>
       <p className="text-white/60 font-bold text-sm mt-3">Rodolfo Briceño 2718, Concepción</p>
     </div>
 
-    <div className="flex flex-col gap-6 mt-2">
+     <div className="flex flex-col gap-6 mt-2">
       {/* FORZADO CHICO */}
       <img
         src="/BB.png"
         alt="Balladares Motors"
-        style={{ width: "120px", maxWidth: "120px", height: "auto" }}
+        style={{ width: "300px", maxWidth: "300px", height: "auto" }}
         className="object-contain block"
       />
       <img
         src="/LB.png"
         alt="Lubricentro"
-        style={{ width: "140px", maxWidth: "140px", height: "auto" }}
+        style={{ width: "300px", maxWidth: "300px", height: "auto" }}
         className="object-contain block"
       />
     </div>
@@ -296,7 +298,7 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
 
   <div className="relative bg-black w-full h- md:h-auto md:min-h-">
     <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3202.5!2d-73.06!3d-36.825!2m3!1f0!2f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9669b5e5d0f0f0f1%3A0x0!2sRodolfo%20Brice%C3%B1o%202718%2C%20Concepci%C3%B3n%2C%20Chile!5e0!3m2!1ses!2scl!4v1"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3202.5!2d-73.06!3d-36.825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9669b5e5d0f0f0f1%3A0x0!2sRodolfo%20Brice%C3%B1o%202718%2C%20Concepci%C3%B3n%2C%20Chile!5e0!3m2!1ses!2scl!4v1"
       className="absolute inset-0 w-full h-full border-0 grayscale"
       loading="lazy"
     />
