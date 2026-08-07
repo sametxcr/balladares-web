@@ -11,13 +11,12 @@ export default function RoadFighterArcade({ height = "900px", pcHeight = "500px"
     (window as any).EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
     (window as any).EJS_startOnLoaded = true;
 
-    // ESTO PRENDE EL CONTROL QUE SI FUNCIONA EN CELU
     (window as any).EJS_settings = {
       volume: 0.5,
     };
     (window as any).EJS_virtualGamepad = true;
     (window as any).EJS_virtualGamepadSettings = {
-      type: "arcade" // deja los botones de arcade nativos
+      type: "arcade"
     };
     (window as any).EJS_mobileControls = true;
 
@@ -32,7 +31,6 @@ export default function RoadFighterArcade({ height = "900px", pcHeight = "500px"
       <style>{`
         #game { width: 100%!important; }
         #game canvas { width: 100%!important; height: 100%!important; object-fit: fill!important; }
-        /* Hacemos los botones nativos chicos y con tus colores */
        .ejs-virtual-gamepad-button { opacity: 0.9!important; }
         @media (max-width: 768px) { #game { height: ${height}!important; } }
         @media (min-width: 769px) { #game { height: ${pcHeight}!important; } }
@@ -44,9 +42,8 @@ export default function RoadFighterArcade({ height = "900px", pcHeight = "500px"
         <div className="w-full border-y-2 md:border-2 border-white bg-black relative">
           <div id="game" className="w-full" />
 
-          {/* TU BOTONERA VISUAL - SOLO ES REFERENCIA */}
           <div className="md:hidden absolute bottom-1 left-0 right-0 z-10 pointer-events-none flex flex-col gap-1 px-1">
-            <div className="grid grid-cols-2 gap-1 pointer-events-none">
+            <div className="grid grid-cols-2 gap-1">
               <div className="py-1 bg-yellow-400 text-black font-black text- text-center rounded">V = FICHA = SELECT</div>
               <div className="py-1 bg-white text-black font-black text- text-center rounded">ENTER = START</div>
             </div>
