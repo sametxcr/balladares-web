@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { Montserrat, Holtwood_One_SC } from "next/font/google";
-import RoadFighterArcade from "@/components/RoadFighterArcade"
+import RoadFighterArcade from "../components/RoadFighterArcade"
 
 const montserrat = Montserrat({ subsets: ["latin"], weight: ["400","700","900"] });
 const holtwood = Holtwood_One_SC({ weight: "400", subsets: ["latin"] });
