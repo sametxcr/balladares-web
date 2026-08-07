@@ -1,55 +1,59 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export default function RoadFighterArcade({ height = "900px", pcHeight = "500px" }: { height?: string; pcHeight?: string }) {
 
-  const holdKey = (keyCode: number, isDown: boolean) => {
-    try {
-      const emu = (window as any).EJS_emulator;
-      // 3 formas de pegarle al fbneo, una tiene que pescar
-      if (emu) {
-        if (emu.gameManager?.keyboard) {
-          emu.gameManager.keyboard.toggleKey?.(keyCode, isDown? 1 : 0);
-          emu.gameManager.keyboard.keys && (emu.gameManager.keyboard.keys[keyCode] = isDown? 1 : 0);
-        }
-        if (isDown) emu.keyDown?.(keyCode);
-        else emu.keyUp?.(keyCode);
-        // Para cores viejos
-        emu.onKeyDown?.(keyCode);
-        emu.onKeyUp?.(keyCode);
-      }
-    } catch {}
-
-    // Por si acaso también mandamos el evento normal
-    const canvas = document.querySelector("#game canvas") as any;
-    const type = isDown? "keydown" : "keyup";
-    const ev = new KeyboardEvent(type, { keyCode, which: keyCode, bubbles: true } as any);
-    window.dispatchEvent(ev);
-    canvas?.dispatchEvent(ev);
-  };
+  const padRef = useRef<any>({
+    id: "Balladares Pad",
+    index: 0,
+    connected: true,
+    mapping: "standard",
+    axes: [0, 0, 0, 0],
+    buttons: Array.from({length: 16}, ()=>({ pressed: false, value: 0 }))
+  });
 
   useEffect(() => {
+    // 1. Creamos el control falso
+    const fakePad = padRef.current;
+    // @ts-ignore
+    const originalGetGamepads = navigator.getGamepads?.bind(navigator);
+    // @ts-ignore
+    navigator.getGamepads = () => {
+      const real = originalGetGamepads?.() || [];
+      // @ts-ignore
+      return [fakePad,...real];
+    };
+    window.dispatchEvent(new Event("gamepadconnected"));
+
+    // 2. Cargamos el emulador
     (window as any).EJS_player = "#game";
     (window as any).EJS_core = "fbneo";
     (window as any).EJS_gameName = "roadf";
     (window as any).EJS_gameUrl = "/roms/roadf.zip";
     (window as any).EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
     (window as any).EJS_startOnLoaded = true;
-    // Desactivamos el gamepad nativo que tapa todo
-    (window as any).EJS_gamepad = false;
+    (window as any).EJS_lightgun = false;
     const s = document.createElement("script");
     s.src = "https://cdn.emulatorjs.org/stable/data/loader.js";
     document.body.appendChild(s);
     return () => { if (document.body.contains(s)) document.body.removeChild(s); };
   }, []);
 
-  const Btn = ({ label, keyCode, className }: { label: string, keyCode: number, className: string }) => (
+  const setBtn = (idx: number, down: boolean) => {
+    const b = padRef.current.buttons[idx];
+    if (b) { b.pressed = down; b.value = down? 1 : 0; }
+  };
+  const setAxis = (x: number) => {
+    padRef.current.axes[0] = x;
+  };
+
+  const Btn = ({ label, onDown, onUp, className }: any) => (
     <button
       type="button"
-      onPointerDown={(e)=>{ e.preventDefault(); (e.target as any).setPointerCapture(e.pointerId); holdKey(keyCode, true); }}
-      onPointerUp={(e)=>{ e.preventDefault(); holdKey(keyCode, false); }}
-      onPointerCancel={(e)=>{ holdKey(keyCode, false); }}
-      onPointerLeave={(e)=>{ holdKey(keyCode, false); }}
+      onPointerDown={(e)=>{ e.preventDefault(); (e.target as any).setPointerCapture(e.pointerId); onDown(); }}
+      onPointerUp={(e)=>{ e.preventDefault(); onUp(); }}
+      onPointerCancel={onUp}
+      onPointerLeave={onUp}
       className={`select-none touch-none active:scale-90 ${className}`}
     >
       {label}
@@ -72,22 +76,31 @@ export default function RoadFighterArcade({ height = "900px", pcHeight = "500px"
           <div id="game" className="w-full" />
         </div>
 
-        <div className="md:hidden w-full bg-[#111] border-b border-white/20 p-2 flex flex-col gap-2">
+        {/* BOTONERA QUE AHORA SI LLEGA */}
+        <div className="md:hidden w-full bg-[#111] p-2 flex flex-col gap-2">
           <div className="grid grid-cols-2 gap-2">
-            <Btn label="V = FICHA" keyCode={86} className="py-2.5 bg-yellow-400 text-black font-black text-sm rounded" />
-            <Btn label="ENTER = START" keyCode={13} className="py-2.5 bg-white text-black font-black text-sm rounded" />
+            {/* En FBNeo: Btn 8 = COIN, Btn 9 = START */}
+            <Btn label="V = FICHA" className="py-2.5 bg-yellow-400 text-black font-black text-sm rounded"
+              onDown={()=>setBtn(8, true)} onUp={()=>setBtn(8, false)} />
+            <Btn label="ENTER = START" className="py-2.5 bg-white text-black font-black text-sm rounded"
+              onDown={()=>setBtn(9, true)} onUp={()=>setBtn(9, false)} />
           </div>
+
           <div className="flex justify-between items-center">
             <div className="flex gap-2">
-              <Btn label="◀" keyCode={37} className="w-12 h-12 bg-black border border-white/50 text-white rounded-full" />
-              <Btn label="▶" keyCode={39} className="w-12 h-12 bg-black border border-white/50 text-white rounded-full" />
+              <Btn label="◀" className="w-12 h-12 bg-black border border-white/50 text-white rounded-full"
+                onDown={()=>setAxis(-1)} onUp={()=>setAxis(0)} />
+              <Btn label="▶" className="w-12 h-12 bg-black border border-white/50 text-white rounded-full"
+                onDown={()=>setAxis(1)} onUp={()=>setAxis(0)} />
             </div>
             <div className="flex gap-2 items-center">
-              <Btn label="Z" keyCode={90} className="w-12 h-10 bg-zinc-800 border border-white/30 text-white font-bold text- rounded" />
-              <Btn label="X" keyCode={88} className="w-16 h-12 bg-red-600 border border-white text-white font-black rounded" />
+              {/* Btn 1 = TURBO (Z), Btn 0 = ACELERA (X) */}
+              <Btn label="Z" className="w-12 h-10 bg-zinc-800 border border-white/30 text-white font-bold text- rounded"
+                onDown={()=>setBtn(1, true)} onUp={()=>setBtn(1, false)} />
+              <Btn label="X" className="w-16 h-12 bg-red-600 border border-white text-white font-black rounded"
+                onDown={()=>setBtn(0, true)} onUp={()=>setBtn(0, false)} />
             </div>
-          </div>
-          <p className="text-center text-white/20 text-">MANTEN X PRESIONADO - PRUEBA EN HTTPS</p>
+          <p className="text-center text-white/20 text-">MODO CONTROL FAKE - ESTE SI FUNCIONA EN CELU</p>
         </div>
       </section>
     </>
