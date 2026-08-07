@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 
 export default function RoadFighterArcade({ 
-  height = "550px",  // más alto en celu
+  height = "550px", 
   pcHeight = "750px" 
 }: { height?: string; pcHeight?: string; }) {
   useEffect(() => {
@@ -17,17 +17,27 @@ export default function RoadFighterArcade({
     const s = document.createElement("script");
     s.src = "https://cdn.emulatorjs.org/stable/data/loader.js";
     s.onload = () => {
-      // Saca los botones Fast y Slow después que carga
-      const interval = setInterval(() => {
-        document.querySelectorAll("button, div").forEach(el => {
-          const t = el.textContent?.trim();
-          if (t === "Fast" || t === "Slow") (el as HTMLElement).style.display = "none";
+      // Mata la barra de abajo que te tapa todo
+      const killBar = setInterval(() => {
+        document.querySelectorAll('div').forEach((el: any) => {
+          if (el.style?.position === 'fixed' && el.style?.bottom === '0px') {
+            if (el.innerHTML.includes('0:02') || el.innerHTML.includes('Save') || el.querySelector('input[type="range"]')) {
+              el.style.display = 'none';
+            }
+          }
         });
-      }, 500);
-      setTimeout(() => clearInterval(interval), 5000);
+        // Mata Fast y Slow
+        document.querySelectorAll('button').forEach((b: any) => {
+          if (b.textContent === 'Fast' || b.textContent === 'Slow') b.style.display = 'none';
+        });
+      }, 300);
+      setTimeout(() => clearInterval(killBar), 8000);
+
+      // Anti-scroll
+      setTimeout(() => window.scrollTo(0, 0), 100);
+      setTimeout(() => window.scrollTo(0, 0), 600);
     };
     document.body.appendChild(s);
-    setTimeout(() => window.scrollTo(0,0), 500);
 
     return () => { if (document.body.contains(s)) document.body.removeChild(s); };
   }, []);
@@ -37,16 +47,11 @@ export default function RoadFighterArcade({
       <style>{`
         .game-wrapper { position: relative; width: 100%; background: #000; display:flex; justify-content:center; align-items:center; overflow:hidden; }
         #game { position: relative!important; width: 100%!important; height: 100%!important; }
-        
-        /* ESTIRA EL JUEGO DENTRO DEL EMULADOR */
         #game canvas {
           width: 100%!important;
           height: 100%!important;
-          max-width: 100%!important;
-          object-fit: fill!important; /* lo estira a todo el cuadro rojo */
-          transform: scale(1.15); /* si lo quieres mas grande aún, sube a 1.25 */
+          object-fit: fill!important; /* estirado como querías */
         }
-
         @media (max-width: 768px) { .game-wrapper { height: ${height}!important; } }
         @media (min-width: 769px) { .game-wrapper { height: ${pcHeight}!important; } }
       `}</style>
