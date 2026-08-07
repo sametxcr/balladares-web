@@ -208,16 +208,17 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
     <div className="absolute bg-black group-hover:bg-red-600 transition-all" style={{inset:-1, transform:"skewX(-3deg)"}} />
     <div className="relative bg-white p-0.5" style={{transform:"skewX(-3deg)"}}>
       <div className="bg-white overflow-hidden" style={{transform:"skewX(3deg)"}}>
-        <div className="relative bg-white flex items-center justify-center p-4" style={{height:280}}>
-          <img src="/icons/isometric_racing_podium.webp" alt="Vitrina Talleres" className="w-11/12 h-11/12 object-contain drop-shadow-xl group-hover:scale-110 transition-transform duration-500" />
-          <div className="absolute top-0 left-0 w-full bg-red-600" style={{height:6}} />
-          <div className="absolute top-3 right-3 bg-red-600 text-white text-xs font-black tracking-widest px-3 py-1.5">VITRINA</div>
-        </div>
-        <div className="p-5">
-          <div className="font-black text-[15px] italic leading-tight">¿QUIERES APARECER EN NUESTRA PÁGINA?</div>
-          <div className="mt-2 text-black/60 text-[13px] leading-tight">Envíanos por qué debería estar tu nombre o marca de taller en nuestra vitrina de los mejores talleres</div>
-          <a href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Hola, quiero que mi taller aparezca en la vitrina de Balladares Motors")}`} target="_blank" className="mt-4 inline-flex w-full justify-center bg-black text-white py-3 text-sm font-black group-hover:bg-red-600 transition">POSTULAR TALLER →</a>
-        </div>
+        {/* VITRINA - FIX - Este es el que se te tapa */}
+<div className="relative bg-white flex items-center justify-center overflow-hidden" style={{height:280}}>
+  <img src="/icons/isometric_racing_podium.webp" alt="Vitrina Talleres" className="max-h-[220px] w-auto object-contain" />
+  <div className="absolute top-0 left-0 w-full bg-red-600" style={{height:6}} />
+  <div className="absolute top-3 right-3 bg-red-600 text-white text-xs font-black tracking-widest px-3 py-1.5 z-10">VITRINA</div>
+</div>
+<div className="p-5 bg-white relative z-10">
+  <div className="font-black text-[15px] italic leading-tight">¿QUIERES APARECER EN NUESTRA PÁGINA?</div>
+  <div className="mt-2 text-black/60 text-[13px] leading-tight">Envíanos por qué debería estar tu nombre o marca de taller en nuestra vitrina de los mejores talleres</div>
+  <a href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Hola, quiero que mi taller aparezca en la vitrina de Balladares Motors")}`} target="_blank" className="mt-4 inline-flex w-full justify-center bg-black text-white py-3 text-sm font-black group-hover:bg-red-600 transition">POSTULAR TALLER →</a>
+</div>
       </div>
     </div>
   </div>
