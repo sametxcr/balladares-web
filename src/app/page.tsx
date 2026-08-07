@@ -227,7 +227,13 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
               <div className="absolute top-3 right-3 bg-red-600 text-white text- font-black tracking-widest px-3 py-1.5">VITRINA</div>
               <div className={`absolute inset-0 bg-black/90 p-6 flex flex-col justify-center transition-all duration-300 ${isActive? "opacity-100" : "opacity-0 pointer-events-none"}`}>
                 <div className="text-white font-black italic">VITRINA TALLERES</div>
-                <div className="text-white/70 text-sm mt-2">¿Tu taller es de los buenos? Postula para estar en nuestra vitrina \n+visitas a tu pagina \n+visitas a tu instagram \n+llamadas \n+de todo para tu marca .</div>
+                <div className="text-white/70 text-sm mt-2 leading-relaxed">
+  Tu taller es de los buenos? Postula para estar en nuestra vitrina<br/>
+  +visitas a tu página<br/>
+  +visitas a tu instagram<br/>
+  +llamadas<br/>
+  +de todo para tu marca.
+</div>
               </div>
 			  </div>
             <div className="p-5 flex flex-col flex-1 bg-white">
