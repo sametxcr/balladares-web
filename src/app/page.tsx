@@ -307,7 +307,7 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
   </div>
 </div>
 
-
+<RoadFighterArcade height="h-[500px] md:h-[850px]" />
 
   
   
@@ -342,7 +342,7 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
   </div>
 </section>
 
-<RoadFighterArcade height="h-[850px] md:h-[500px]" />
+
 
 <section id="contacto" className="grid grid-cols-1 md:grid-cols-2 border-t border-white/10">
   <div className="bg-zinc-900 p-6 md:p-8 flex flex-col gap-8">
