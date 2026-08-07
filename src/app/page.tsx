@@ -222,20 +222,17 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
 </div>
 </div>
 
-{/* NUESTRAS MARCAS - FOTO UNICA MURAL */}
+{/* NUESTRAS MARCAS - FOTO UNICA MURAL - TAMAÑO CONTROLADO */}
 <div className="max-w- mx-auto mt-20 px-4">
   <h3 className="font-black italic text-3xl mb-8 tracking-wider text-white text-center">
     NUESTRAS MARCAS
   </h3>
 
-  <div className="relative bg-[#0A0A0A] border border-white/10 p-2 md:p-3 shadow-[8px_8px_0px_#dc2626]">
-    {/* Efecto luz arriba */}
-    <div className="absolute top-0 left-0 w-full h- bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-
+  <div className="relative bg-[#0A0A0A] border border-white/10 p-2 shadow-[6px_6px_0px_#dc2626] mx-auto">
     <img
       src="/balladares_motors_workshop.webp"
       alt="Nuestras Marcas - Balladares Motors"
-      className="w-full h-auto object-contain"
+      className="w-full h- md:h- object-cover object-center mx-auto"
     />
   </div>
 </div>
