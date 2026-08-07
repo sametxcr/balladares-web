@@ -277,18 +277,19 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
       <p className="text-white/60 font-bold text-sm mt-3">Rodolfo Briceño 2718, Concepción</p>
     </div>
     <div className="flex flex-col gap-6">
-      <img src="/BB.png" alt="Balladares Motors" style={{ width: "320px", height: "auto" }} />
+      <img src="/BB.png" alt="Balladares Motors" style={{ width: "300px", height: "auto" }} />
       <img src="/LB.png" alt="Lubricentro" style={{ width: "330px", height: "auto" }} />
     </div>
   </div>
 
-  <div className="w-full h- md:h- bg-black">
+  <div className="w-full h- md:h- bg-black overflow-hidden">
     <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3202.5!2d-73.06!3d-36.825!2m3!1f0!2f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9669b5e5d0f0f0f1%3A0x0!2sRodolfo%20Brice%C3%B1o%202718%2C%20Concepci%C3%B3n%2C%20Chile!5e0!3m2!1ses!2scl!4v1"
+      src="https://maps.google.com/maps?q=Rodolfo%20Brice%C3%B1o%202718%2C%20Concepci%C3%B3n%2C%20Chile&t=&z=16&ie=UTF8&iwloc=&output=embed"
       width="100%"
       height="100%"
       style={{ border: 0 }}
       loading="lazy"
+      referrerPolicy="no-referrer-when-downgrade"
     />
   </div>
 </section>
