@@ -182,7 +182,9 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
         </div>
 		
 		
-     {/* REVISION PRE-COMPRA */}
+ {/* 2 NUEVOS - CON IMAGENES CORRESPONDIENTES */}
+<div className="grid md:grid-cols-2 gap-6 md:gap-8 mt-6 md:mt-8 max-w-4xl mx-auto">
+  {/* REVISION PRE-COMPRA */}
   <div className="group relative cursor-pointer">
     <div className="absolute bg-black group-hover:bg-red-600 transition-all" style={{inset:-1, transform:"skewX(-3deg)"}} />
     <div className="relative bg-white p-0.5" style={{transform:"skewX(-3deg)"}}>
@@ -219,6 +221,7 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
       </div>
     </div>
   </div>
+</div>
 
     
       </section>
