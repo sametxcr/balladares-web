@@ -272,34 +272,21 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
 
 <section id="contacto" className="grid grid-cols-1 md:grid-cols-2 border-t border-white/10">
   <div className="bg-zinc-900 p-6 md:p-8 flex flex-col gap-8">
-
-    {/* TITULO MAS GRANDE */}
     <div>
       <h3 className="font-black italic text-4xl md:text-5xl text-white leading-none tracking-tighter">ENCUÉNTRANOS</h3>
       <p className="text-white/60 font-bold text-sm mt-3">Rodolfo Briceño 2718, Concepción</p>
     </div>
 
-     <div className="flex flex-col gap-6 mt-2">
-      {/* FORZADO CHICO */}
-      <img
-        src="/BB.png"
-        alt="Balladares Motors"
-        style={{ width: "300px", maxWidth: "300px", height: "auto" }}
-        className="object-contain block"
-      />
-      <img
-        src="/LB.png"
-        alt="Lubricentro"
-        style={{ width: "300px", maxWidth: "300px", height: "auto" }}
-        className="object-contain block"
-      />
+    <div className="flex flex-col gap-6 mt-2">
+      <img src="/BB.png" alt="Balladares Motors" style={{ width: "300px", height: "auto" }} className="object-contain block" />
+      <img src="/LB.png" alt="Lubricentro" style={{ width: "300px", height: "auto" }} className="object-contain block" />
     </div>
   </div>
 
-  <div className="relative bg-black w-full h- md:h-auto md:min-h-">
+  <div className="relative bg-black w-full h- md:h-auto md:min-h- overflow-hidden">
     <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3202.5!2d-73.06!3d-36.825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9669b5e5d0f0f0f1%3A0x0!2sRodolfo%20Brice%C3%B1o%202718%2C%20Concepci%C3%B3n%2C%20Chile!5e0!3m2!1ses!2scl!4v1"
-      className="absolute inset-0 w-full h-full border-0 grayscale"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3202.5!2d-73.06!3d-36.825!2m3!1f0!2f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9669b5e5d0f0f0f1%3A0x0!2sRodolfo%20Brice%C3%B1o%202718%2C%20Concepci%C3%B3n%2C%20Chile!5e0!3m2!1ses!2scl!4v1"
+      style={{ border: 0, width: "100%", height: "100%", position: "absolute", top: 0, left: 0 }}
       loading="lazy"
     />
   </div>
