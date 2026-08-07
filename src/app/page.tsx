@@ -270,29 +270,37 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
   </div>
 </section>
 
-<section id="contacto" className="grid md:grid-cols-2">
-  <div className="bg-zinc-900 p-8 md:p-10 flex flex-col justify-between gap-8 md:min-h-">
-
-    {/* LOGO 1 - BALLADARES - ARRIBA */}
-    <div className="flex justify-start">
-      <img src="/BB.png" alt="Balladares Motors" className="h- md:h- w-auto object-contain" style={{transform:"scaleX(1.2)", transformOrigin:"left center"}} />
+<section id="contacto" className="grid grid-cols-1 md:grid-cols-2 border-t border-white/10">
+  <div className="bg-zinc-900 p-6 md:p-8 flex flex-col justify-start gap-6">
+    {/* TITULO ARRIBA */}
+    <div>
+      <h3 className="font-black italic text-2xl md:text-3xl text-white leading-none">ENCUÉNTRANOS</h3>
+      <p className="text-white/60 font-bold text- mt-2">Rodolfo Briceño 2718, Concepción</p>
     </div>
 
-    {/* ENCUENTRANOS - AHORA SUBIDO AL CENTRO-ARRIBA */}
-    <div className="flex-1 flex flex-col justify-start pt-4">
-      <h3 className="font-black italic text-3xl md:text-4xl mb-2 text-white leading-none">ENCUÉNTRANOS</h3>
-      <p className="text-white/60 font-bold">Rodolfo Briceño 2718, Concepción</p>
+    {/* LOGOS A LA MITAD */}
+    <div className="flex flex-col gap-5 mt-2">
+      <img
+        src="/BB.png"
+        alt="Balladares Motors"
+        className="w- md:w- h-auto object-contain"
+      />
+      <img
+        src="/LB.png"
+        alt="Lubricentro"
+        className="w- md:w- h-auto object-contain"
+      />
     </div>
-
-    {/* LOGO 2 - LUBRICENTRO - ABAJO */}
-    <div className="flex justify-start">
-      <img src="/LB.png" alt="Lubricentro Balladares" className="h- md:h- w-auto object-contain" />
-    </div>
-
   </div>
 
-  <div className="relative bg-black" style={{ minHeight: 400 }}>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3202.5!2d-73.06!3d-36.825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9669b5e5d0f0f0f1%3A0x0!2sRodolfo%20Brice%C3%B1o%202718%2C%20Concepci%C3%B3n%2C%20Chile!5e0!3m2!1ses!2scl!4v1" className="absolute inset-0 w-full h-full border-0 grayscale" loading="lazy" />
+  {/* MAPA ARREGLADO */}
+  <div className="relative bg-black w-full h- md:h-auto md:min-h-">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3202.5!2d-73.06!3d-36.825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9669b5e5d0f0f0f1%3A0x0!2sRodolfo%20Brice%C3%B1o%202718%2C%20Concepci%C3%B3n%2C%20Chile!5e0!3m2!1ses!2scl!4v1"
+      className="absolute inset-0 w-full h-full border-0 grayscale"
+      loading="lazy"
+      referrerPolicy="no-referrer-when-downgrade"
+    />
   </div>
 </section>
 
