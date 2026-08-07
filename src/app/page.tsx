@@ -308,7 +308,7 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
 </div>
 
 
-<RoadFighterArcade />
+<RoadFighterArcade height="h-[850px] md:h-[500px]" />
   
   
   {/* GALERIA 35 FOTOS - 10 VISIBLES + DESPLEGABLE */}
