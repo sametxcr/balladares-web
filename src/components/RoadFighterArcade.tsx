@@ -1,22 +1,22 @@
 "use client";
 import { useEffect } from "react";
 
-export default function RoadFighterArcade({ height = "900px", pcHeight = "500px" }: { height?: string, pcHeight?: string }){
+export default function RoadFighterArcade({ height = "900px", pcHeight = "500px" }: { height?: string; pcHeight?: string }) {
 
-  const pressKey = (key: string, code: string, keyCode: number, type: "down"|"up") => {
+  const pressKey = (key: string, code: string, keyCode: number, type: "down" | "up") => {
     const ev = new KeyboardEvent(type === "down"? "keydown" : "keyup", {
       key: key,
       code: code,
       keyCode: keyCode,
       which: keyCode,
       bubbles: true,
-      cancelable: true
+      cancelable: true,
     } as any);
     window.dispatchEvent(ev);
     document.dispatchEvent(ev);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     (window as any).EJS_player = "#game";
     (window as any).EJS_core = "fbneo";
     (window as any).EJS_gameName = "roadf";
@@ -26,8 +26,10 @@ export default function RoadFighterArcade({ height = "900px", pcHeight = "500px"
     const s = document.createElement("script");
     s.src = "https://cdn.emulatorjs.org/stable/data/loader.js";
     document.body.appendChild(s);
-    return ()=>{ if(document.body.contains(s)) document.body.removeChild(s); };
-  },[]);
+    return () => {
+      if (document.body.contains(s)) document.body.removeChild(s);
+    };
+  }, []);
 
   return (
     <>
@@ -46,23 +48,24 @@ export default function RoadFighterArcade({ height = "900px", pcHeight = "500px"
 
           <div className="md:hidden absolute bottom-3 left-0 right-0 px-3 flex justify-between items-end">
             <div className="flex gap-3">
-              <button onTouchStart={()=>pressKey("ArrowLeft","ArrowLeft",37,"down")} onTouchEnd={()=>pressKey("ArrowLeft","ArrowLeft",37,"up")} className="w-16 h-16 bg-black/70 border-2 border-white text-white font-black rounded-full active:bg-red-600 text-xl">◀</button>
-              <button onTouchStart={()=>pressKey("ArrowRight","ArrowRight",39,"down")} onTouchEnd={()=>pressKey("ArrowRight","ArrowRight",39,"up")} className="w-16 h-16 bg-black/70 border-2 border-white text-white font-black rounded-full active:bg-red-600 text-xl">▶</button>
+              <button onTouchStart={() => pressKey("ArrowLeft", "ArrowLeft", 37, "down")} onTouchEnd={() => pressKey("ArrowLeft", "ArrowLeft", 37, "up")} className="w-16 h-16 bg-black/70 border-2 border-white text-white font-black rounded-full active:bg-red-600 text-xl">◀</button>
+              <button onTouchStart={() => pressKey("ArrowRight", "ArrowRight", 39, "down")} onTouchEnd={() => pressKey("ArrowRight", "ArrowRight", 39, "up")} className="w-16 h-16 bg-black/70 border-2 border-white text-white font-black rounded-full active:bg-red-600 text-xl">▶</button>
             </div>
-
             <div className="flex flex-col gap-2 items-end">
               <div className="flex gap-2">
-                <button onTouchStart={()=>pressKey("5","Digit5",53,"down")} onTouchEnd={()=>pressKey("5","Digit5",53,"up")} className="px-4 py-2 bg-yellow-400 text-black font-black text-xs rounded">5 = FICHA</button>
-                <button onTouchStart={()=>pressKey("1","Digit1",49,"down")} onTouchEnd={()=>pressKey("1","Digit1",49,"up")} className="px-4 py-2 bg-white text-black font-black text-xs rounded">1 = START</button>
+                <button onTouchStart={() => pressKey("5", "Digit5", 53, "down")} onTouchEnd={() => pressKey("5", "Digit5", 53, "up")} className="px-4 py-2 bg-yellow-400 text-black font-black text-xs rounded">5=FICHA</button>
+                <button onTouchStart={() => pressKey("1", "Digit1", 49, "down")} onTouchEnd={() => pressKey("1", "Digit1", 49, "up")} className="px-4 py-2 bg-white text-black font-black text-xs rounded">1=START</button>
               </div>
               <div className="flex gap-2">
-                <button onTouchStart={()=>pressKey("ArrowDown","ArrowDown",40,"down")} onTouchEnd={()=>pressKey("ArrowDown","ArrowDown",40,"up")} className="w-16 h-12 bg-black/70 border border-white text-white font-black text-xs rounded">FRENO</button>
-                <button onTouchStart={()=>pressKey("ArrowUp","ArrowUp",38,"down")} onTouchEnd={()=>pressKey("ArrowUp","ArrowUp",38,"up")} className="w-24 h-14 bg-red-600 border-2 border-white text-white font-black rounded">ACELERA</button>
+                <button onTouchStart={() => pressKey("ArrowDown", "ArrowDown", 40, "down")} onTouchEnd={() => pressKey("ArrowDown", "ArrowDown", 40, "up")} className="w-16 h-12 bg-black/70 border border-white text-white font-black text-xs rounded">FRENO</button>
+                <button onTouchStart={() => pressKey("ArrowUp", "ArrowUp", 38, "down")} onTouchEnd={() => pressKey("ArrowUp", "ArrowUp", 38, "up")} className="w-24 h-14 bg-red-600 border-2 border-white text-white font-black rounded">ACELERA</button>
               </div>
             </div>
           </div>
+        </div>
+
         <p className="text-white/40 text- mt-2">PC: 5 = ficha, 1 = start</p>
       </section>
     </>
-  )
+  );
 }
