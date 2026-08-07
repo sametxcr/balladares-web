@@ -223,7 +223,7 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
 </div>
 
 {/* NUESTRAS MARCAS - FOTO UNICA MURAL - TAMAÑO CONTROLADO */}
-<div className="max-w- mx-auto mt-20 px-4">
+<div className="max-w-[600px] mx-auto mt-20 px-4">
   <h3 className="font-black italic text-3xl mb-8 tracking-wider text-white text-center">
     NUESTRAS MARCAS
   </h3>
