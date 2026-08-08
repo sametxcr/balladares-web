@@ -308,8 +308,8 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
 </div>
 
 <RoadFighterArcade/>
-<h3 className="font-black italic text-1xl text-white uppercase text-center leading-none mt-4 mb-6">juego se cierra de las 3 lineas en la esquina o pc Exit Emulation. <br/><span className="text-red-600">MARCAS</span></h3>
-<h3 className="font-black italic text-1xl text-white uppercase text-center leading-none mt-4 mb-6">V=coin Enter=Start X=Acel Z=Turbo  <br/><span className="text-red-600">MARCAS</span></h3>
+<h2 className="font-black italic text-1xl text-white uppercase text-center leading-none mt-4 mb-6">juego se cierra de las 3 lineas en la esquina o pc Exit Emulation. <br/></h2>
+<h2 className="font-black italic text-1xl text-white uppercase text-center leading-none mt-4 mb-6">V=coin Enter=Start X=Acel Z=Turbo  <br/></h2>
 
   
   
