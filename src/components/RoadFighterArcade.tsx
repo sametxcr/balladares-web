@@ -14,22 +14,13 @@ export default function RoadFighterArcade({ height = "500px", pcHeight = "650px"
     (window as any).EJS_core = "nes";
     (window as any).EJS_gameUrl = "/roms/RoadFighterJapan.nes";
     (window as any).EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
-    (window as any).EJS_startOnLoaded = false;
+    (window as any).EJS_startOnLoaded = true;
     (window as any).EJS_fullscreenOnLoaded = false;
     (window as any).EJS_virtualGamepad = true;
 
     const s = document.createElement("script");
     s.src = "https://cdn.emulatorjs.org/stable/data/loader.js";
     s.onload = () => {
-      // Saca Fast y Slow
-      setInterval(() => {
-        document.querySelectorAll('button').forEach((b: any) => {
-          if (b.innerText === 'Fast' || b.innerText === 'Slow') {
-            b.style.display = 'none';
-          }
-        });
-      }, 300);
-
       // Devuelve el scroll normal después de 2 seg y te deja arriba
       setTimeout(() => {
         HTMLElement.prototype.scrollIntoView = originalScroll;
