@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { Montserrat, Holtwood_One_SC } from "next/font/google";
 import RoadFighterArcade from "../components/RoadFighterArcade"
+import { Analytics } from "@vercel/analytics/react"
 
 const montserrat = Montserrat({ subsets: ["latin"], weight: ["400","700","900"] });
 const holtwood = Holtwood_One_SC({ weight: "400", subsets: ["latin"] });
@@ -427,6 +428,7 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" className="w-12 h-12 object-contain" alt="WA" />
   </a>
 </div>
+<Analytics />
     </main>
   );
 }
