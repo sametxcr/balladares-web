@@ -145,6 +145,9 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
           <h2 className={`${holtwood.className} text-4xl md:text-7xl font-black italic leading-[0.9]`}>
             EL PODER DE <span className="text-red-600">UN BUEN SERVICIO</span>
           </h2>
+		  <p className="sr-only">
+Taller mecánico en Concepción y Chiguayante. Balladares Motors especialistas en Repro Stage 1/2, DPF EGR ADBLUE OFF, scanner multimarca, alineación láser 3D y mecánica general. Atendemos Concepción, Chiguayante, Hualpén y San Pedro.
+</p>
         </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
