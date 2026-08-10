@@ -54,6 +54,11 @@ export default function Page(){
   const [activeService,setActiveService]=useState<string | null>(null);
   const [showIntro,setShowIntro]=useState(true);
   const [showGaleria, setShowGaleria] = useState(false);
+  const [fotoZoom, setFotoZoom] = useState<string | null>(null);
+  const [zoom, setZoom] = useState(1);
+  
+  
+  
   useEffect(()=>{ const t=setInterval(()=>setI(p=>(p+1)%slides.length),5000); return()=>clearInterval(t) },[]);
   const waLinkNeumatico = "https://wa.me/" + WHATSAPP_NEUMATICO + "?text=" + encodeURIComponent(
   "Hola Balladares Motors! - Quiero cotizar NEUMATICO:\n\n" +
@@ -313,22 +318,55 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
 
   
   
-  {/* GALERIA 35 FOTOS - 10 VISIBLES + DESPLEGABLE */}
-<div className="max-w-[1600px] mx-auto mt-12">
+{/* GALERIA 35 FOTOS - 10 VISIBLES + DESPLEGABLE + ZOOM */}
+<div className="max-w- mx-auto mt-12">
   <div className="flex items-center justify-between mb-4">
     <h3 className="font-black italic text-2xl tracking-wider text-white">GALERÍA TALLER</h3>
-    <button onClick={() => setShowGaleria(!showGaleria)} className="bg-white text-black font-black px-6 py-2 text-sm hover:bg-red-600 hover:text-white transition border-[2px] border-black shadow-[4px_4px_0px_#000]">
+    <button onClick={() => setShowGaleria(!showGaleria)} className="bg-white text-black font-black px-6 py-2 text-sm hover:bg-red-600 hover:text-white transition border- border-black shadow-[4px_4px_0px_#000]">
       {showGaleria? 'VER MENOS ↑' : `VER ${35-10} FOTOS MÁS ↓`}
     </button>
   </div>
   <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
     {Array.from({ length: showGaleria? 35 : 10 }, (_, i) => `/taller/${i + 1}.jpg`).map((img, i) => (
-      <div key={i} className="relative aspect-square overflow-hidden border-[2px] border-white/10 bg-zinc-900 group hover:border-red-600 transition">
+      <div
+        key={i}
+        onClick={() => { setFotoZoom(img); setZoom(1); }}
+        className="relative aspect-square overflow-hidden border- border-white/10 bg-zinc-900 group hover:border-red-600 transition cursor-zoom-in"
+      >
         <img src={img} alt={`taller ${i + 1}`} className="w-full h-full object-cover group-hover:scale-110 transition duration-300" loading="lazy" />
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition flex items-center justify-center">
+          <span className="opacity-0 group-hover:opacity-100 bg-black/80 text-white text-xs font-black px-3 py-1 rounded-full">ZOOM +</span>
+        </div>
       </div>
     ))}
   </div>
 </div>
+
+{/* MODAL ZOOM */}
+{fotoZoom && (
+  <div className="fixed inset-0 bg-black/95 z-[99999] flex items-center justify-center p-4" onClick={() => setFotoZoom(null)}>
+    <button className="absolute top-4 right-4 text-white text-3xl w-12 h-12 bg-white/10 hover:bg-red-600 rounded-full transition">✕</button>
+
+    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-10" onClick={e => e.stopPropagation()}>
+      <button onClick={() => setZoom(z => Math.max(1, z - 0.25))} className="bg-white text-black w-12 h-12 rounded-full font-black text-xl hover:bg-red-600 hover:text-white transition">-</button>
+      <span className="bg-white/10 text-white px-5 py-3 rounded-full text-sm font-black border border-white/20">{Math.round(zoom*100)}%</span>
+      <button onClick={() => setZoom(z => Math.min(4, z + 0.25))} className="bg-white text-black w-12 h-12 rounded-full font-black text-xl hover:bg-red-600 hover:text-white transition">+</button>
+    </div>
+
+    <img
+      src={fotoZoom}
+      style={{ transform: `scale(${zoom})` }}
+      className="max-w-full max-h- object-contain transition-transform duration-200 select-none"
+      onClick={e => { e.stopPropagation(); setZoom(1); }}
+      onWheel={(e) => {
+        e.preventDefault();
+        if (e.deltaY < 0) setZoom(z => Math.min(4, z + 0.2));
+        else setZoom(z => Math.max(1, z - 0.2));
+      }}
+      draggable={false}
+    />
+  </div>
+)}
 </section>
 
 <section className="bg-gradient-to-r from-black via-zinc-900 to-black border-y-2 border-red-600 py-2 overflow-hidden relative">
