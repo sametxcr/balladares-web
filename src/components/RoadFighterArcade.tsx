@@ -5,9 +5,18 @@ export default function RoadFighterArcade({ height = "500px", pcHeight = "650px"
   const [started, setStarted] = useState(false);
 
   useEffect(() => {
-    if (!started) return;
+    // Este CSS culiao que te rompe todo lo inyectamos solo en el cliente, no en el servidor
+    const style = document.createElement("style");
+    style.innerHTML = `body > div[style*="position: fixed"][style*="bottom: 0"] { display:none!important; }`;
+    document.head.appendChild(style);
 
-    // Bloquea scroll del emulador
+    return () => {
+      if (document.head.contains(style)) document.head.removeChild(style);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!started) return;
     const orig = HTMLElement.prototype.scrollIntoView;
     // @ts-ignore
     HTMLElement.prototype.scrollIntoView = function() {};
@@ -36,7 +45,6 @@ export default function RoadFighterArcade({ height = "500px", pcHeight = "650px"
         #game-wrapper { position:relative; width:100%; background:#000; overflow:hidden; z-index:1; display:flex; align-items:center; justify-content:center; }
         #game { width:100%!important; height:100%!important; background:#000; overflow:hidden; }
         #game canvas { width:100%!important; height:100%!important; object-fit:fill!important; }
-        body > div[style*="position: fixed"][style*="bottom: 0"] { display:none!important; }
         @media (max-width: 768px) { #game-wrapper { height: ${height}!important; } }
         @media (min-width: 769px) { #game-wrapper { height: ${pcHeight}!important; } }
       `}</style>

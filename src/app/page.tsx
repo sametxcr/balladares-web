@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 import { Montserrat, Holtwood_One_SC } from "next/font/google";
-import RoadFighterArcade from "../components/RoadFighterArcade"
+import dynamic from "next/dynamic";
+const RoadFighterArcade = dynamic(() => import("../components/RoadFighterArcade"), { ssr: false });
 import { Analytics } from "@vercel/analytics/react"
 
 const montserrat = Montserrat({ subsets: ["latin"], weight: ["400","700","900"] });
@@ -17,6 +18,7 @@ const slides = [
   { title: ["repro stage", "DPF-EGR-ADBLUE"], titleImgs: ["/hero/titles/repro_stage_transparent.png", "/hero/titles/1and2_transparent.png"], sub: "Potencia real +25% torque +30%", img: "/hero/repro.jpg", pos: "50% 50%" },
   { title: ["servicios de", "pista y calle"], titleImgs: ["/hero/titles/servicios_de_transparent.png", "/hero/titles/pista_y_calle_transparent.png"], sub: "Alineación 3D, balanceo, elevadores pro", img: "/hero/pista.jpg", pos: "50% 82%" },
   { title: ["diagnostico de", "ultima generacion"], titleImgs: ["/hero/titles/diagnostico_de_transparent.png", "/hero/titles/ultima_generacion_transparent.png"], sub: "Scanner multimarca - Todas las marcas", img: "/hero/scanner.jpg", pos: "50% 50%" },
+  { title: ["Corre y  ", " cuida tu motor"], titleImgs: ["/hero/titles/diagnostico_de_transparent.png", "/hero/titles/ultima_generacion_transparent.png"], sub: "Nueva linea ETANOL y METANOL corre con seguridad.", img: "/hero/metanol.jpg", pos: "50% 50%" },
 ];
 
 const servicios = [
