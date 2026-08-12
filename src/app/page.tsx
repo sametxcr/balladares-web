@@ -446,13 +446,18 @@ Taller mecánico en Concepción. Balladares Motors especialistas en Repro Stage 
         <img src="/LB.png" alt="Lubricentro" style={{ width: "250px", height: "auto" }} />
       </div>
 
-      {/* COLUMNA QR - AL LADO */}
-      <div className="bg-white p-3 rounded-xl border-2 border-red-600 shadow-[6px_6px_0px_#000] w- shrink-0">
-        <p className="font-black italic text-black text-center text- leading-[0.9] mb-2">
-          DEJANOS TU <br/><span className="text-red-600">VALORACIÓN!!</span>
-        </p>
-        <img src="/qr.png" alt="QR Google" className="w-full h-auto object-contain" />
-      </div>
+      {/* COLUMNA QR - AL LADO - CLICKEABLE A GOOGLE */}
+<a
+  href="https://g.page/r/CTQOEBYWW2GWEBM/review"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="bg-white p-3 rounded-xl border-2 border-red-600 shadow-[6px_6px_0px_#000] w-[150px] shrink-0 hover:scale-105 transition cursor-pointer block"
+>
+  <p className="font-black italic text-black text-center text-[12px] leading-[0.9] mb-2">
+    DEJANOS TU <br/><span className="text-red-600">VALORACIÓN!!</span>
+  </p>
+  <img src="/qr.png" alt="QR Google" className="w-full h-auto object-contain" />
+</a>
     </div>
   </div>
 
