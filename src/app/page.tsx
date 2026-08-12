@@ -261,6 +261,40 @@ Taller mecánico en Concepción. Balladares Motors especialistas en Repro Stage 
 </div>
     
       </section>
+	{/* VIDEO DESTACADO - CON TITULO LADO - YOUTUBE */}
+<section className="bg-black py-10 px-4 md:px-24 border-t border-white/5">
+  <div className="grid grid-cols-1 lg:grid-cols-[420px_1fr] gap-8 items-center max-w-7xl mx-auto">
+
+    {/* TEXTO IZQUIERDA */}
+    <div className="flex flex-col gap-1">
+      <h2 className="font-black italic text-4xl md:text-5xl leading-[0.9] tracking-tighter">
+        <span className="text-white block">SIGUE</span>
+        <span className="text-white block">NUESTRO</span>
+        <span className="text-red-600 block">VIDEO,</span>
+        <span className="text-white block mt-3">SITUATE</span>
+        <span className="text-white block">Y</span>
+        <span className="text-red-600 block">BUSCANOS!</span>
+      </h2>
+      <p className="text-white/50 text-sm font-bold mt-4">
+        Rodolfo Briceño 2718, Chiguayante
+      </p>
+    </div>
+
+    {/* VIDEO DERECHA - YOUTUBE 1280x720 */}
+    <div className="w-full">
+      <div className="relative w-full max-w- ml-auto border-2 border-red-600 shadow-[6px_6px_0px_#000] rounded-lg overflow-hidden aspect-[16/9]">
+      <iframe
+  className="w-full h-full"
+  src="https://www.youtube.com/embed/JVRO2HLgV8o?autoplay=1&mute=1&loop=1&playlist=JVRO2HLgV8o&rel=0&controls=1"
+  title="Video Balladares Motors"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+/>
+      </div>
+    </div>
+
+  </div>
+</section>
 
  {/* GALERIA RACING */}
 <section id="galeria" className="bg-black py-8 px-4">
@@ -403,13 +437,26 @@ Taller mecánico en Concepción. Balladares Motors especialistas en Repro Stage 
       <h3 className="font-black italic text-4xl md:text-5xl text-white leading-none tracking-tighter">ENCUÉNTRANOS</h3>
       <p className="text-white/60 font-bold text-sm mt-3">Rodolfo Briceño 2718, Concepción</p>
     </div>
-    <div className="flex flex-col gap-6">
-      <img src="/BB.png" alt="Balladares Motors" style={{ width: "300px", height: "330" }} />
-      <img src="/LB.png" alt="Lubricentro" style={{ width: "315px", height: "auto" }} />
+
+    {/* LOGOS A LA IZQUIERDA + QR A LA DERECHA */}
+    <div className="flex flex-row gap-6 items-start">
+      {/* COLUMNA LOGOS */}
+      <div className="flex flex-col gap-6">
+        <img src="/BB.png" alt="Balladares Motors" style={{ width: "240px", height: "auto" }} />
+        <img src="/LB.png" alt="Lubricentro" style={{ width: "250px", height: "auto" }} />
+      </div>
+
+      {/* COLUMNA QR - AL LADO */}
+      <div className="bg-white p-3 rounded-xl border-2 border-red-600 shadow-[6px_6px_0px_#000] w- shrink-0">
+        <p className="font-black italic text-black text-center text- leading-[0.9] mb-2">
+          DEJANOS TU <br/><span className="text-red-600">VALORACIÓN!!</span>
+        </p>
+        <img src="/qr.png" alt="QR Google" className="w-full h-auto object-contain" />
+      </div>
     </div>
   </div>
 
-  <div className="w-full h- md:h- bg-black overflow-hidden">
+  <div className="w-full h- md:h-auto bg-black overflow-hidden">
     <iframe
       src="https://maps.google.com/maps?q=Rodolfo%20Brice%C3%B1o%202718%2C%20Concepci%C3%B3n%2C%20Chile&t=&z=16&ie=UTF8&iwloc=&output=embed"
       width="100%"
