@@ -70,7 +70,18 @@ function CheckoutContent() {
     setErrorRut(""); setLoading(true)
     const res = await fetch('/api/webpay/create',{
       method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ email: form.email, nombre: form.nombre, rut: form.rut, direccion: form.direccion, ciudad: form.ciudad, region: form.region, pack_id: pack, pack_qty: qtyParam, qty: totalStickers })
+      body: JSON.stringify({
+        email: form.email,
+        nombre: form.nombre,
+        rut: form.rut,
+        celular: form.telefono,
+        direccion: form.direccion,
+        comuna: form.ciudad,
+        ciudad: form.ciudad,
+        region: form.region,
+        pack_id: pack,
+        pack_qty: qtyParam
+      })
     })
     const data = await res.json()
     if(data.url && data.token){
@@ -89,7 +100,7 @@ function CheckoutContent() {
       <div className="max-w-6xl mx-auto grid md:grid-cols-[1.4fr_0.6fr]">
         <form onSubmit={pagar} className="p-5 md:p-10">
           <div className="flex items-center gap-2.5 mb-6 md:mb-8">
-            <div className="w-14 h-14 md:w-[80px] md:h-[80px] bg-white border border-black/10 rounded-xl flex items-center justify-center p-2 shadow-sm shrink-0">
+            <div className="w-14 h-14 md:w- md:h- bg-white border border-black/10 rounded-xl flex items-center justify-center p-2 shadow-sm shrink-0">
   <img src="/escudo.png" alt="Checkout seguro" className="w-full h-full object-contain" />
 </div>
             <span className="text- md:text-xs font-black tracking-widest text-zinc-500">CHECKOUT SEGURO · CONCEPCIÓN</span>
@@ -119,7 +130,7 @@ function CheckoutContent() {
               </select>
               <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-zinc-400">▼</div>
             </div>
-            <input value={form.telefono} onChange={e=>setForm({...form,telefono:e.target.value.replace(/[^0-9+ ]/g,"")})} placeholder="Teléfono +56 9..." className="md:col-span-2 w-full bg-zinc-100 border border-zinc-200 focus:bg-white focus:border-black p-4 rounded-xl font-bold outline-none text-" />
+            <input required value={form.telefono} onChange={e=>setForm({...form,telefono:e.target.value.replace(/[^0-9+ ]/g,"")})} placeholder="Teléfono +56 9..." className="md:col-span-2 w-full bg-zinc-100 border border-zinc-200 focus:bg-white focus:border-black p-4 rounded-xl font-bold outline-none text-" />
           </div>
 
           <button disabled={loading} className="w-full mt-6 md:mt-8 bg-red-600 hover:bg-black text-white font-black text- md:text-base py-4 rounded-full tracking-wide transition-colors disabled:opacity-50">
@@ -138,7 +149,7 @@ function CheckoutContent() {
 
         <div className="bg-[#f5f5f5] p-5 md:p-10 flex flex-col order-first md:order-last">
           <div className="flex gap-3 items-start">
-            <div className="w-14 h-14 md:w-[120px] md:h-[120px] bg-white border border-black/10 rounded-xl flex items-center justify-center p-2 shadow-sm shrink-0">
+            <div className="w-14 h-14 md:w- md:h- bg-white border border-black/10 rounded-xl flex items-center justify-center p-2 shadow-sm shrink-0">
   <img src="/logo_abanico_4stickers.png" alt="Pack stickers" className="w-full h-full object-contain scale-[1.15]" />
 </div>
             <div className="flex-1 min-w-0">

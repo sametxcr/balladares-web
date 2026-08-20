@@ -4,15 +4,15 @@ import { NextRequest, NextResponse } from 'next/server';
 import { pool } from '@/lib/db';
 
 export async function POST(req: NextRequest) {
-  const { email, nombre, rut, pack_id, pack_qty } = await req.json();
+  const { email, nombre, rut, celular, direccion, comuna, ciudad, pack_id, pack_qty } = await req.json();
   const packs = Number(pack_qty) || 1;
   const order_code = `BM${Date.now()}`.slice(0, 26);
   const total = pack_id === 'x1' ? 3000 * packs : 10000 * packs;
   const qty = pack_id === 'x1' ? packs : packs * 4;
 
   await pool.query(
-    `INSERT INTO orders(order_code,email,nombre,rut,pack_id,qty,total,status) VALUES($1,$2,$3,$4,$5,$6,$7,'PENDING')`,
-    [order_code, email, nombre, rut, pack_id, qty, total]
+    `INSERT INTO orders(order_code,email,nombre,rut,celular,direccion,comuna,ciudad,pack_id,qty,total,status) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,'PENDING')`,
+    [order_code, email, nombre, rut, celular, direccion, comuna, ciudad, pack_id, qty, total]
   );
 
   const tbkRes = await fetch('https://webpay3gint.transbank.cl/rswebpaytransaction/api/webpay/v1.2/transactions', {
