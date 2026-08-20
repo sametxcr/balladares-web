@@ -1,8 +1,9 @@
 "use client"
 import { useState } from "react"
 import { useSearchParams } from "next/navigation"
+import { Suspense } from "react"
 
-export default function CheckoutPage() {
+function CheckoutContent() {
   const sp = useSearchParams()
   const pack = sp.get('pack') || 'x1'
   const qtyParam = parseInt(sp.get('qty') || '1')
@@ -83,5 +84,13 @@ export default function CheckoutPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function CheckoutPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-white text-black flex items-center justify-center font-black">CARGANDO CHECKOUT...</div>}>
+      <CheckoutContent />
+    </Suspense>
   )
 }
