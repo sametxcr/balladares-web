@@ -31,7 +31,7 @@ export default function SorteosPage() {
 	const WHATSAPP = "56982637808";
     const WHATSAPP_NEUMATICO = "56982637808";
     const WHATSAPP_REPUESTO = "56982637808";
-    const INSTAGRAM = "https://www.instagram.com/balladaresmotor/";
+    const INSTAGRAM = "https://www.instagram.com/balladaresmotor/"; 
 	
   function goCheckout(pack: Pack) {
     window.location.href = `/checkout?pack=${pack.id}&qty=1`
