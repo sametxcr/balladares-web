@@ -59,20 +59,21 @@ export default function SorteosPage() {
 
 <section className="relative bg-zinc-900 py-24 md:py-32 px-6 border-b-2 border-red-900 overflow-hidden flex flex-col items-center justify-center min-h-" style={{marginTop:58}}>
 
-  <video
-    src="/circle.mp4"
-    autoPlay
-    loop
-    muted
-    playsInline
-    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none mix-blend-screen object-cover"
-    style={{
-      width: "auto",
-      height: "300%",
-      transform: "translate(-50%, -50%) scale(1.0)",
-      opacity: 0.80
-    }}
-  />
+ <video
+  src="/circle.mp4"
+  autoPlay
+  loop
+  muted
+  playsInline
+  preload="auto"
+  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none mix-blend-screen object-cover
+  h-[150%] w-auto
+  md:h-[300%] md:w-auto"
+  style={{
+    transform: "translate(-50%, -50%) scale(1.0)",
+    opacity: 0.80
+  }}
+/>
 
   <div className="absolute inset-0 bg-gradient-to-b from-zinc-900/30 via-zinc-900/60 to-zinc-900 pointer-events-none" />
 
@@ -130,7 +131,7 @@ export default function SorteosPage() {
   <div className="max-w-7xl mx-auto relative z-10">
     <div className="text-center mb-12">
       <span className="bg-yellow-400 text-black font-black text- tracking-[0.3em] px-5 py-2 rounded-full">BALLADARES VAULT • AÑO 2026</span>
-      <h2 className="font-black italic text-5xl md:text-7xl mt-6 tracking-tighter leading-[0.85]">
+      <h2 className="font-black italic text-5xl md:text-6xl mt-6 tracking-tighter leading-[0.85]">
         PREMIOS QUE SE <span className="text-yellow-400">DESBLOQUEAN</span>
       </h2>
       <p className="text-zinc-400 text-xs md:text-sm mt-4 font-bold tracking-wide max-w-3xl mx-auto">
@@ -167,30 +168,33 @@ export default function SorteosPage() {
       </div>
 
       {/* 3 PRÓXIMOS SORTEOS */}
-      <div className="lg:col-span-6 grid grid-cols-1 gap-5">
-        {[
-          { id: 2, cat: "DRIFT /JDM /RACING/4X4", name: "VAULT #02 • AUTO SORPRESA" },
-          { id: 3, cat: "DRIFT /JDM /RACING/4X4", name: "VAULT #03 • AUTO SORPRESA" },
-          { id: 4, cat: "DRIFT /JDM /RACING/4X4", name: "VAULT #04 • AUTO SORPRESA" },
-        ].map((sorteo) => (
-          <div key={sorteo.id} className="bg-[#141414] border border-white/5 rounded- p-6 flex items-center gap-6 hover:border-white/10 transition-colors">
-            <div className="w-28 h-28 rounded-2xl bg-black border border-dashed border-white/10 flex items-center justify-center flex-shrink-0">
-              <div className="text-center">
-                <div className="w-10 h-10 mx-auto rounded-full bg-yellow-400/10 border border-yellow-400/20 flex items-center justify-center text-yellow-400">🔒</div>
-                <p className="font-black text- mt-2 tracking-widest text-zinc-500">VAULT 0{sorteo.id}</p>
-              </div>
-            </div>
-            <div className="flex-1">
-              <div className="flex items-center gap-2 flex-wrap">
-                <span className="bg-white/10 text-white/70 text- font-black px-3 py-1 rounded-full">PRÓXIMAMENTE</span>
-                <span className="text- font-black tracking-widest text-yellow-400">{sorteo.cat}</span>
-              </div>
-              <h4 className="font-black italic text-xl mt-2 leading-none">{sorteo.name}</h4>
-              <p className="text-zinc-400 text-sm mt-2 leading-snug">Próximos sorteos, autos distintos y diferentes disciplinas.</p>
-            </div>
-          </div>
-        ))}
+<div className="lg:col-span-6 grid grid-cols-1 gap-5">
+  {[
+    { id: 2, cat: "DRIFT /JDM /RACING/4X4", name: "VAULT #02 • AUTO SORPRESA" },
+    { id: 3, cat: "DRIFT /JDM /RACING/4X4", name: "VAULT #03 • AUTO SORPRESA" },
+    { id: 4, cat: "DRIFT /JDM /RACING/4X4", name: "VAULT #04 • AUTO SORPRESA" },
+  ].map((sorteo) => (
+    <div key={sorteo.id} className="relative bg-[#141414] border border-white/5 rounded-xl p-6 pt-10 flex items-center gap-6 hover:border-white/10 transition-colors">
+
+      {/* BADGE ARRIBA DERECHA DONDE MARCASTE */}
+      <span className="absolute top-3 left-1/2 -translate-x-1/2 bg-white/10 text-white/70 text-[15px] font-black px-6 py-1 rounded-full tracking-widest whitespace-nowrap">
+  PRÓXIMAMENTE
+</span>
+
+      <div className="w-28 h-28 rounded-2xl bg-black border border-dashed border-white/10 flex items-center justify-center flex-shrink-0">
+        <div className="text-center">
+          <div className="w-10 h-10 mx-auto rounded-full bg-yellow-400/10 border border-yellow-400/20 flex items-center justify-center text-yellow-400">🔒</div>
+          <p className="font-black text- mt-2 tracking-widest text-zinc-500">VAULT 0{sorteo.id}</p>
+        </div>
       </div>
+      <div className="flex-1">
+        <span className="text- font-black tracking-widest text-yellow-400">{sorteo.cat}</span>
+        <h4 className="font-black italic text-xl mt-1 leading-none">{sorteo.name}</h4>
+        <p className="text-zinc-400 text-sm mt-2 leading-snug">Próximos sorteos, autos distintos y diferentes disciplinas.</p>
+      </div>
+    </div>
+  ))}
+</div>
     </div>
   </div>
 </section>
