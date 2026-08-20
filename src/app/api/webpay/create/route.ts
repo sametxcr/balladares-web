@@ -1,11 +1,11 @@
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 
 import { NextRequest, NextResponse } from 'next/server';
-import https from 'https';
 import { Pool } from 'pg';
 import { TBK } from '@/lib/tbk';
+
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 const pool = new Pool({ 
   connectionString: process.env.DATABASE_URL, 
@@ -25,12 +25,10 @@ export async function POST(req: NextRequest) {
       [order_code, email, nombre, rut, pack_id, totalStickers, amount]
     );
 
-    const agent = new https.Agent({ rejectUnauthorized: false });
+    console.log('TBK USING', TBK.ID, 'SECRET LEN', TBK.SECRET.length, 'END', TBK.SECRET.slice(-6));
 
     const tbkRes = await fetch(TBK.URL, {
       method: 'POST',
-      // @ts-ignore
-      agent,
       headers: {
         'Tbk-Api-Key-Id': TBK.ID,
         'Tbk-Api-Key-Secret': TBK.SECRET,
@@ -42,16 +40,16 @@ export async function POST(req: NextRequest) {
         amount,
         return_url: `${process.env.NEXT_PUBLIC_SITE_URL}/api/webpay/commit`
       })
-    } as any);
+    });
 
     const data = await tbkRes.json();
-    console.log('TBK RESP', tbkRes.status, data, 'USING', TBK.ID);
+    console.log('TBK RESP', tbkRes.status, data);
 
     if (!tbkRes.ok) return NextResponse.json({ error: 'TBK Error', detail: data }, { status: 500 });
 
     return NextResponse.json({ url: data.url, token: data.token, order_code });
   } catch(e:any){
-    console.error(e);
+    console.error('CREATE ERROR', e);
     return NextResponse.json({ error: e.message }, { status: 500 });
   }
 }
