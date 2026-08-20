@@ -218,12 +218,12 @@ export default function SorteosPage() {
             {/* BADGE COSTADO - MAS AFUERA Y TRANSPARENTE */}
             {isPopular && (
               <div className="absolute top-8 -right-4 md:-right-20 z-20 flex flex-col gap-1.5 md:gap-2 items-start scale-[0.85] md:scale-100 origin-left">
-                <div className="bg-yellow-400/90 backdrop-blur-md text-black px-3 md:px-4 py-1.5 md:py-2 rounded-full text- md:text- font-black tracking-widest shadow-[0_0_20px_rgba(250,204,21,0.5)] flex items-center gap-1.5 border border-yellow-300/50">
-                  ⭐ PACK MÁS VENDIDO
-                </div>
-                <div className="bg-black/40 backdrop-blur-md border border-white/20 text-white/90 px-3 md:px-4 py-1.5 md:py-2 rounded-full text- md:text- font-black tracking-widest">
-                  AHORRA $2.000
-                </div>
+               <div className="bg-yellow-400/10 backdrop-blur-xl text-yellow-400 border border-yellow-400/20 px-2.5 md:px-4 py-1 md:py-2 rounded-full text-[8px] md:text-[11px] font-black tracking-widest shadow-[0_0_15px_rgba(250,204,21,0.15)] flex items-center gap-1">
+  ⭐ PACK MÁS VENDIDO
+</div>
+<div className="bg-white/[0.06] backdrop-blur-xl border border-white/10 text-white/70 px-2.5 md:px-4 py-1 md:py-2 rounded-full text-[8px] md:text-[11px] font-black tracking-widest">
+  AHORRA $2.000
+</div>
               </div>
             )}
 
