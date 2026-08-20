@@ -199,42 +199,42 @@ export default function SorteosPage() {
   </div>
 </section>
 
-     <section id="packs" className="py-24 px-6 bg-black relative overflow-hidden">
+     <section id="packs" className="py-20 md:py-24 px-4 md:px-6 bg-black relative overflow-hidden">
   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w- h- bg-red-600/10 blur- pointer-events-none" />
 
   <div className="relative z-10 max-w-5xl mx-auto">
-    <h2 className="font-black italic text-4xl md:text-6xl text-center tracking-tighter leading-[0.85]">
+    <h2 className="font-black italic text-3xl md:text-6xl text-center tracking-tighter leading-[0.85]">
       COMPRA TUS <span className="text-red-600">STICKERS</span> HOY
     </h2>
     <p className="text-center text-white/50 font-bold text- md:text-sm mt-4 tracking-wide uppercase">
       El link de descarga te llegará al correo • Participas al instante
     </p>
 
-    <div className="grid md:grid-cols-2 gap-10 md:gap-12 max-w-4xl mx-auto mt-14">
+    <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-4xl mx-auto mt-10 md:mt-14 place-items-center">
       {PACKS.map((p) => {
         const isPopular = p.qty === 4;
         return (
-          <div key={p.id} className="relative flex">
-            {/* COSTADO LATERAL MAS A LA DERECHA Y TRANSPARENTE */}
+          <div key={p.id} className="relative flex w-full max-w- md:max-w-none mx-auto">
+            {/* BADGE COSTADO - MAS AFUERA Y TRANSPARENTE */}
             {isPopular && (
-              <div className="absolute top-10 -right-6 md:-right-20 z-20 flex flex-col gap-2 items-start">
-                <div className="bg-yellow-400/90 backdrop-blur-md text-black px-4 py-2 rounded-full text- font-black tracking-widest shadow-[0_0_20px_rgba(250,204,21,0.5)] flex items-center gap-1.5 border border-yellow-300/50">
+              <div className="absolute top-8 -right-4 md:-right-20 z-20 flex flex-col gap-1.5 md:gap-2 items-start scale-[0.85] md:scale-100 origin-left">
+                <div className="bg-yellow-400/90 backdrop-blur-md text-black px-3 md:px-4 py-1.5 md:py-2 rounded-full text- md:text- font-black tracking-widest shadow-[0_0_20px_rgba(250,204,21,0.5)] flex items-center gap-1.5 border border-yellow-300/50">
                   ⭐ PACK MÁS VENDIDO
                 </div>
-                <div className="bg-black/40 backdrop-blur-md border border-white/20 text-white/90 px-4 py-2 rounded-full text- font-black tracking-widest">
+                <div className="bg-black/40 backdrop-blur-md border border-white/20 text-white/90 px-3 md:px-4 py-1.5 md:py-2 rounded-full text- md:text- font-black tracking-widest">
                   AHORRA $2.000
                 </div>
               </div>
             )}
 
             <div
-              className={`group relative rounded- p- overflow-hidden transition-all duration-300 w-full h-full
-              ${isPopular? "shadow-[0_0_50px_rgba(250,204,21,0.3)] md:scale-[1.05]" : "hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]"}`}
+              className={`group relative rounded- md:rounded- p- overflow-hidden transition-all duration-300 w-full h-full
+              ${isPopular? "shadow-[0_0_40px_rgba(250,204,21,0.25)] md:shadow-[0_0_50px_rgba(250,204,21,0.3)] md:scale-[1.05]" : "hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]"}`}
             >
-              <div className={`absolute inset-0 rounded- ${isPopular? "bg-gradient-to-b from-yellow-400 to-yellow-600/20" : "bg-gradient-to-b from-white/20 to-white/5"}`} />
+              <div className={`absolute inset-0 rounded- md:rounded- ${isPopular? "bg-gradient-to-b from-yellow-400 to-yellow-600/20" : "bg-gradient-to-b from-white/20 to-white/5"}`} />
 
               <div
-                className="relative rounded- overflow-hidden p-8 flex flex-col justify-between h-full min-h- bg-black"
+                className="relative rounded- md:rounded- overflow-hidden p-6 md:p-8 flex flex-col justify-between h-full min-h- md:min-h- bg-black"
                 style={{
                   backgroundImage: `url('/fondotarjeta.jpg')`,
                   backgroundSize: 'contain',
@@ -245,26 +245,26 @@ export default function SorteosPage() {
                 <div className="absolute inset-0 bg-black/65 group-hover:bg-black/55 transition-colors" />
 
                 <div className="relative z-10">
-                  <h3 className="font-black italic text-white/80 text- tracking-[0.2em]">
+                  <h3 className="font-black italic text-white/80 text- md:text- tracking-[0.2em]">
                     {p.qty === 1? "UNIDAD" : "PACK X4"}
                   </h3>
-                  <p className={`font-black italic text-6xl mt-1 tracking-tighter leading-none ${isPopular? "text-yellow-400" : "text-red-600"}`}>
+                  <p className={`font-black italic text- leading-none md:text-6xl mt-1 tracking-tighter ${isPopular? "text-yellow-400" : "text-red-600"}`}>
                     {p.qty}X <span className="text-white block">STICKERS</span>
                   </p>
 
-                  <div className="mt-8">
-                    <p className="text- font-black tracking-[0.2em] text-white/30">PRECIO</p>
-                    <div className="font-black italic text-5xl text-white mt-1">
+                  <div className="mt-6 md:mt-8">
+                    <p className="text- md:text- font-black tracking-[0.2em] text-white/30">PRECIO</p>
+                    <div className="font-black italic text- md:text-5xl text-white mt-1">
                       ${p.precio.toLocaleString("es-CL")}
                     </div>
-                    {isPopular && <p className="text-white/40 text-xs font-bold mt-3">4 oportunidades de ganar la Copa 350Z</p>}
-                    {!isPopular && <div className="h-4" />}
+                    {isPopular && <p className="text-white/40 text- md:text-xs font-bold mt-2 md:mt-3">4 oportunidades de ganar la Copa 350Z</p>}
+                    {!isPopular && <div className="h-3 md:h-4" />}
                   </div>
                 </div>
 
                 <button
                   onClick={() => goCheckout(p)}
-                  className={`relative z-10 w-full mt-8 py-4 rounded-full font-black italic text- tracking-wide transition-all active:scale-[0.98]
+                  className={`relative z-10 w-full mt-6 md:mt-8 py-3 md:py-4 rounded-full font-black italic text- md:text- tracking-wide transition-all active:scale-[0.98]
                   ${isPopular? "bg-yellow-400 text-black hover:bg-yellow-300 shadow-[0_0_20px_rgba(250,204,21,0.4)]" : "bg-white text-black hover:bg-zinc-200"}`}
                 >
                   {p.qty === 1? "COMPRAR STICKER" : "COMPRAR PACK X4 →"}
