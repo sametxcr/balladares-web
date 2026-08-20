@@ -1,11 +1,13 @@
+export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
+
+if (process.env.TRANSBANK_ENV === 'INTEGRATION' || process.env.TBK_ENV === 'INTEGRATION') {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
+}
+
 import { NextRequest, NextResponse } from 'next/server';
 import { Pool } from 'pg';
 import https from 'https';
-
-// PARCHE SOLO PARA INTEGRACIÓN - arregla el self-signed certificate
-if (process.env.TRANSBANK_ENV === 'INTEGRATION') {
-  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-}
 
 const pool = new Pool({ 
   connectionString: process.env.DATABASE_URL, 
@@ -27,22 +29,20 @@ export async function POST(req: NextRequest) {
       [order_code, email, nombre, rut, pack_id, totalStickers, amount]
     );
 
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_URL || 'http://localhost:3000';
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_URL || 'https://www.balladares-motors.cl';
 
-    const commerceCode = process.env.TRANSBANK_COMMERCE_CODE || '597055555532';
-    const apiKeySecret = process.env.TRANSBANK_API_KEY || '579B532A7440BB0C9079DED94D31EA1615BACEB36B38C77FB7D7179E317BD139F1';
+    const commerceCode = process.env.TBK_API_KEY_ID || process.env.TRANSBANK_COMMERCE_CODE || '597055555532';
+    const secret = process.env.TBK_API_KEY_SECRET || process.env.TRANSBANK_API_KEY || '579B532A7440BB0C9079DED94D31EA1615BACEB36B38C77FB7D7179E317BD139F1';
 
-    const agent = new https.Agent({
-      rejectUnauthorized: false
-    });
+    const agent = new https.Agent({ rejectUnauthorized: false });
 
     const tbkRes = await fetch('https://webpay3gint.transbank.cl/rswebpaytransaction/api/webpay/v1.2/transactions', {
       method: 'POST',
-      // @ts-ignore - agent para fix del cert en Vercel
+      // @ts-ignore
       agent,
       headers: {
         'Tbk-Api-Key-Id': commerceCode,
-        'Tbk-Api-Key-Secret': apiKeySecret,
+        'Tbk-Api-Key-Secret': secret,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({

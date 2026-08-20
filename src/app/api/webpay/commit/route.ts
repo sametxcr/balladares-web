@@ -1,7 +1,15 @@
+export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
+
+if (process.env.TRANSBANK_ENV === 'INTEGRATION' || process.env.TBK_ENV === 'INTEGRATION') {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
+}
+
 import { NextRequest, NextResponse } from 'next/server';
 import { pool } from '@/lib/db';
 import { TBK } from '@/lib/tbk';
 import { Resend } from 'resend';
+import https from 'https';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const genCode = () => `BM${Math.floor(1000000 + Math.random() * 9000000)}`;
@@ -9,14 +17,19 @@ const genCode = () => `BM${Math.floor(1000000 + Math.random() * 9000000)}`;
 async function processPayment(token: string, req: NextRequest) {
   const client = await pool.connect();
   try {
+    const agent = new https.Agent({ rejectUnauthorized: false });
+    
     const tbkRes = await fetch(`${TBK.URL}/${token}`, {
       method: 'PUT',
+      // @ts-ignore
+      agent,
       headers: {
         'Tbk-Api-Key-Id': TBK.ID,
         'Tbk-Api-Key-Secret': TBK.SECRET,
         'Content-Type': 'application/json'
       }
-    });
+    } as any);
+    
     const tbk = await tbkRes.json();
     console.log('TBK COMMIT', tbk);
 
@@ -61,7 +74,6 @@ async function processPayment(token: string, req: NextRequest) {
 
     await client.query(`UPDATE orders SET status='PAID' WHERE id=$1`, [order.id]);
     
-    // YA NO ENCOLAMOS SIEMPRE, INTENTAMOS MANDAR AL TIRO
     let emailSent = false;
     try {
       await resend.emails.send({
@@ -83,7 +95,6 @@ async function processPayment(token: string, req: NextRequest) {
       console.error('RESEND FAIL, va a cron', e);
     }
 
-    // Si falló el envío inmediato, lo dejamos en cola pa que el cron lo rescate
     if (!emailSent) {
       await client.query(
         `INSERT INTO email_jobs (order_id, email, order_code, tickets) VALUES ($1,$2,$3,$4)`,
