@@ -5,3 +5,5 @@ node_modules/
 *.mp4 
 ".env.local" 
 ".env" 
+".env.local" 
+".env" 
