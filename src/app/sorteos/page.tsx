@@ -134,7 +134,7 @@ export default function SorteosPage() {
         PREMIOS QUE SE <span className="text-yellow-400">DESBLOQUEAN</span>
       </h2>
       <p className="text-zinc-400 text-xs md:text-sm mt-4 font-bold tracking-wide max-w-3xl mx-auto">
-        TODOS LOS PREMIOS PARA USTEDES!!! - TODOS NUESTROS CODIGOS EMPIEZAN --> <span className="text-white font-mono">BMxxxxxxx</span>
+        TODOS LOS PREMIOS PARA USTEDES!!! - TODOS NUESTROS CODIGOS EMPIEZAN CON <span className="text-white font-mono">BMxxxxxxx</span>
       </p>
     </div>
 
