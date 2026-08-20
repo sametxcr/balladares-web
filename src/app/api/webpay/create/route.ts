@@ -1,15 +1,26 @@
-export const runtime = 'nodejs'; export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
 import { NextRequest, NextResponse } from 'next/server';
 import { pool } from '@/lib/db';
-const ID='597055555532'; const SECRET='579B532A7440BB0C9079DED94D31EA1615BACEB36B38C77FB7D7179E317BD139F';
-const URL='https://webpay3gint.transbank.cl/rswebpaytransaction/api/webpay/v1.2/transactions';
-export async function POST(req: NextRequest){
-  const {email,nombre,rut,pack_id,pack_qty}=await req.json();
-  const packs=Number(pack_qty)||1; const order_code=`BM${Date.now()}`.slice(0,26);
-  const amount=pack_id==='x1'?3000*packs:10000*packs; const qty=pack_id==='x1'?packs:packs*4;
+
+export async function POST(req: NextRequest) {
+  const { email, nombre, rut, pack_id, pack_qty } = await req.json();
+  const order_code = `BM${Date.now()}`.slice(0,26);
+  const amount = pack_id === 'x1' ? 3000*(pack_qty||1) : 10000*(pack_qty||1);
+  const qty = pack_id === 'x1' ? (pack_qty||1) : (pack_qty||1)*4;
+
   await pool.query(`INSERT INTO orders(order_code,email,nombre,rut,pack_id,qty,total,status) VALUES($1,$2,$3,$4,$5,$6,$7,'PENDING')`,[order_code,email,nombre,rut,pack_id,qty,amount]);
-  const tbk=await fetch(URL,{method:'POST',headers:{'Tbk-Api-Key-Id':ID,'Tbk-Api-Key-Secret':SECRET,'Content-Type':'application/json'},body:JSON.stringify({buy_order:order_code,session_id:`S${Date.now()}`,amount,return_url:'https://www.balladares-motors.cl/api/webpay/commit'})});
-  const data=await tbk.json(); console.log('TBK',tbk.status,data);
-  if(!tbk.ok) return NextResponse.json({error:'TBK Error',detail:data},{status:500});
-  return NextResponse.json({url:data.url,token:data.token,order_code});
+
+  const tbkRes = await fetch('https://webpay3gint.transbank.cl/rswebpaytransaction/api/webpay/v1.2/transactions',{
+    method:'POST',
+    headers:{
+      'Tbk-Api-Key-Id':'597055555532',
+      'Tbk-Api-Key-Secret':'579B532A7440BB0C9079DED94D31EA1615BACEB36B38C77FB7D7179E317BD139F',
+      'Content-Type':'application/json'
+    },
+    body: JSON.stringify({ buy_order: order_code, session_id: `S${Date.now()}`, amount, return_url: 'https://www.balladares-motors.cl/api/webpay/commit' })
+  });
+  const data = await tbkRes.json();
+  if(!tbkRes.ok) return NextResponse.json({ error:'TBK Error', detail:data },{status:500});
+  return NextResponse.json({ url:data.url, token:data.token, order_code });
 }
