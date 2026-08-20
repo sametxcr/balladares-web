@@ -1,13 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { pool } from '@/lib/db';
 import { TBK } from '@/lib/tbk';
+import { Resend } from 'resend';
 
+const resend = new Resend(process.env.RESEND_API_KEY);
 const genCode = () => `BM${Math.floor(1000000 + Math.random() * 9000000)}`;
 
 async function processPayment(token: string, req: NextRequest) {
   const client = await pool.connect();
   try {
-    // 1. Confirmar con Transbank
     const tbkRes = await fetch(`${TBK.URL}/${token}`, {
       method: 'PUT',
       headers: {
@@ -23,7 +24,6 @@ async function processPayment(token: string, req: NextRequest) {
       return NextResponse.redirect(new URL(`/?error=pago&status=${tbk.status}`, req.url));
     }
 
-    // 2. TRANSACCIÓN BLINDADA
     await client.query('BEGIN');
     const { rows } = await client.query(
       `SELECT * FROM orders WHERE order_code=$1 FOR UPDATE`,
@@ -36,7 +36,6 @@ async function processPayment(token: string, req: NextRequest) {
     }
     const order = rows[0];
 
-    // IDEMPOTENCIA: si ya está pagada, no crear tickets de nuevo
     if (order.status === 'PAID') {
       const tks = await client.query(`SELECT ticket_code FROM tickets WHERE order_id=$1`, [order.id]);
       await client.query('COMMIT');
@@ -45,7 +44,6 @@ async function processPayment(token: string, req: NextRequest) {
       );
     }
 
-    // 3. Generar tickets sin duplicar
     const tickets: string[] = [];
     for (let i = 0; i < order.qty; i++) {
       let ok = false;
@@ -56,22 +54,45 @@ async function processPayment(token: string, req: NextRequest) {
           ok = true;
           tickets.push(code);
         } catch (e: any) {
-          if (e.code !== '23505') throw e; // si no es duplicado, explotar
+          if (e.code !== '23505') throw e;
         }
       }
     }
 
     await client.query(`UPDATE orders SET status='PAID' WHERE id=$1`, [order.id]);
     
-    // 4. ENCOLAR EMAIL (no enviarlo aquí, no bloquea la compra)
-    await client.query(
-      `INSERT INTO email_jobs (order_id, email, order_code, tickets) VALUES ($1,$2,$3,$4)`,
-      [order.id, order.email, order.order_code, tickets]
-    );
+    // YA NO ENCOLAMOS SIEMPRE, INTENTAMOS MANDAR AL TIRO
+    let emailSent = false;
+    try {
+      await resend.emails.send({
+        from: 'Balladares Motors <sorteos@balladares-motors.cl>',
+        to: order.email,
+        subject: `¡Tus tickets Balladares! ${order.order_code}`,
+        html: `
+          <div style="background:#000;color:#fff;padding:30px;font-family:Arial">
+            <h1 style="font-style:italic;font-weight:900;">¡PAGO CONFIRMADO!</h1>
+            <p>Orden: <b>${order.order_code}</b></p>
+            <p>Tus tickets:</p>
+            <h2 style="letter-spacing:2px">${tickets.join(', ')}</h2>
+            <p>Guarda este correo, tus códigos empiezan con BM</p>
+          </div>
+        `
+      });
+      emailSent = true;
+    } catch (e) {
+      console.error('RESEND FAIL, va a cron', e);
+    }
+
+    // Si falló el envío inmediato, lo dejamos en cola pa que el cron lo rescate
+    if (!emailSent) {
+      await client.query(
+        `INSERT INTO email_jobs (order_id, email, order_code, tickets) VALUES ($1,$2,$3,$4)`,
+        [order.id, order.email, order.order_code, tickets]
+      );
+    }
 
     await client.query('COMMIT');
 
-    // 5. Redirect rápido, el mail sale por cron
     return NextResponse.redirect(new URL(`/sorteos/exito?orden=${order.order_code}&tickets=${tickets.join(',')}`, req.url));
 
   } catch (e: any) {
