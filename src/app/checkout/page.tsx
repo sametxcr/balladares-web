@@ -3,7 +3,6 @@ import { useState, useMemo } from "react"
 import { useSearchParams } from "next/navigation"
 import { Suspense } from "react"
 
-// DATA REGIONES Y COMUNAS CHILE
 const REGIONES: Record<string, string[]> = {
   "Arica y Parinacota": ["Arica", "Camarones", "Putre", "General Lagos"],
   "Tarapacá": ["Iquique", "Alto Hospicio", "Pozo Almonte", "Camiña", "Colchane", "Huara", "Pica"],
@@ -29,17 +28,13 @@ function validarRUT(rut: string) {
   if (clean.length < 2) return false
   const cuerpo = clean.slice(0, -1)
   const dv = clean.slice(-1)
-  let suma = 0
-  let multiplo = 2
+  let suma = 0, multiplo = 2
   for (let i = cuerpo.length - 1; i >= 0; i--) {
     suma += parseInt(cuerpo[i]) * multiplo
     multiplo = multiplo < 7? multiplo + 1 : 2
   }
   const resto = 11 - (suma % 11)
-  let dvEsperado = ""
-  if (resto === 11) dvEsperado = "0"
-  else if (resto === 10) dvEsperado = "K"
-  else dvEsperado = resto.toString()
+  let dvEsperado = resto === 11? "0" : resto === 10? "K" : resto.toString()
   return dv === dvEsperado
 }
 
@@ -48,8 +43,7 @@ function formatearRUT(rut: string) {
   if (clean.length <= 1) return clean
   const cuerpo = clean.slice(0, -1)
   const dv = clean.slice(-1)
-  let formateado = ""
-  let j = 0
+  let formateado = "", j = 0
   for (let i = cuerpo.length - 1; i >= 0; i--) {
     formateado = cuerpo[i] + formateado
     j++
@@ -68,33 +62,15 @@ function CheckoutContent() {
 
   const total = pack === 'x1'? 3000 * qtyParam : 10000 * qtyParam
   const totalStickers = pack === 'x1'? qtyParam : qtyParam * 4
-
-  const comunas = useMemo(() => {
-    return REGIONES[form.region] || []
-  }, [form.region])
+  const comunas = useMemo(() => REGIONES[form.region] || [], [form.region])
 
   async function pagar(e:any){
     e.preventDefault()
-
-    if (form.rut &&!validarRUT(form.rut)) {
-      setErrorRut("RUT no válido")
-      return
-    }
-    setErrorRut("")
-    setLoading(true)
+    if (form.rut &&!validarRUT(form.rut)) { setErrorRut("RUT no válido"); return }
+    setErrorRut(""); setLoading(true)
     const res = await fetch('/api/webpay/create',{
       method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        email: form.email,
-        nombre: form.nombre,
-        rut: form.rut,
-        direccion: form.direccion,
-        ciudad: form.ciudad,
-        region: form.region,
-        pack_id: pack,
-        pack_qty: qtyParam,
-        qty: totalStickers
-      })
+      body: JSON.stringify({ email: form.email, nombre: form.nombre, rut: form.rut, direccion: form.direccion, ciudad: form.ciudad, region: form.region, pack_id: pack, pack_qty: qtyParam, qty: totalStickers })
     })
     const data = await res.json()
     if(data.url && data.token){
@@ -112,8 +88,10 @@ function CheckoutContent() {
 
       <div className="max-w-6xl mx-auto grid md:grid-cols-[1.4fr_0.6fr]">
         <form onSubmit={pagar} className="p-5 md:p-10">
-          <div className="flex items-center gap-2 mb-6 md:mb-8">
-            <div className="bg-black p-2 rounded-lg"><img src="/BB.png" className="h-5" alt="" /></div>
+          <div className="flex items-center gap-2.5 mb-6 md:mb-8">
+            <div className="w-14 h-14 md:w-[80px] md:h-[80px] bg-white border border-black/10 rounded-xl flex items-center justify-center p-2 shadow-sm shrink-0">
+  <img src="/escudo.png" alt="Checkout seguro" className="w-full h-full object-contain" />
+</div>
             <span className="text- md:text-xs font-black tracking-widest text-zinc-500">CHECKOUT SEGURO · CONCEPCIÓN</span>
           </div>
 
@@ -123,32 +101,17 @@ function CheckoutContent() {
           <h2 className="font-black text-sm tracking-widest mb-3">DATOS DE FACTURACIÓN</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <input required value={form.nombre} onChange={e=>setForm({...form,nombre:e.target.value})} placeholder="Nombre completo" className="w-full bg-zinc-100 border border-zinc-200 focus:bg-white focus:border-black p-4 rounded-xl font-bold outline-none text-" />
-
             <div className="w-full">
-              <input
-                value={form.rut}
-                onChange={e=>{
-                  const f = formatearRUT(e.target.value)
-                  setForm({...form,rut:f})
-                  if(errorRut) setErrorRut("")
-                }}
-                placeholder="RUT 12.345.678-9"
-                className={`w-full bg-zinc-100 border p-4 rounded-xl font-bold outline-none text- ${errorRut? 'border-red-500 bg-red-50 focus:border-red-500' : 'border-zinc-200 focus:bg-white focus:border-black'}`}
-              />
+              <input value={form.rut} onChange={e=>{ const f = formatearRUT(e.target.value); setForm({...form,rut:f}); if(errorRut) setErrorRut("") }} placeholder="RUT 12.345.678-9" className={`w-full bg-zinc-100 border p-4 rounded-xl font-bold outline-none text- ${errorRut? 'border-red-500 bg-red-50 focus:border-red-500' : 'border-zinc-200 focus:bg-white focus:border-black'}`} />
               {errorRut && <p className="text- font-bold text-red-600 mt-1 ml-1">{errorRut}</p>}
             </div>
-
             <input required value={form.direccion} onChange={e=>setForm({...form,direccion:e.target.value})} placeholder="Dirección - Paicavi 1234" className="md:col-span-2 w-full bg-zinc-100 border border-zinc-200 focus:bg-white focus:border-black p-4 rounded-xl font-bold outline-none text-" />
-
-            {/* REGION SELECT */}
             <div className="relative">
               <select value={form.region} onChange={e=>setForm({...form, region: e.target.value, ciudad: ""})} className="w-full bg-zinc-100 border border-zinc-200 focus:bg-white focus:border-black p-4 rounded-xl font-bold outline-none text- appearance-none">
                 {Object.keys(REGIONES).map(r => <option key={r} value={r}>{r}</option>)}
               </select>
               <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-zinc-400">▼</div>
             </div>
-
-            {/* COMUNA SELECT */}
             <div className="relative">
               <select required value={form.ciudad} onChange={e=>setForm({...form,ciudad:e.target.value})} className="w-full bg-zinc-100 border border-zinc-200 focus:bg-white focus:border-black p-4 rounded-xl font-bold outline-none text- appearance-none">
                 <option value="">Ciudad / Comuna</option>
@@ -156,7 +119,6 @@ function CheckoutContent() {
               </select>
               <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-zinc-400">▼</div>
             </div>
-
             <input value={form.telefono} onChange={e=>setForm({...form,telefono:e.target.value.replace(/[^0-9+ ]/g,"")})} placeholder="Teléfono +56 9..." className="md:col-span-2 w-full bg-zinc-100 border border-zinc-200 focus:bg-white focus:border-black p-4 rounded-xl font-bold outline-none text-" />
           </div>
 
@@ -176,17 +138,21 @@ function CheckoutContent() {
 
         <div className="bg-[#f5f5f5] p-5 md:p-10 flex flex-col order-first md:order-last">
           <div className="flex gap-3 items-start">
-            <div className="w-14 h-14 md:w-16 md:h-16 bg-black rounded-xl flex items-center justify-center p-2 shrink-0"><img src="/LB.png" className="w-full h-full object-contain" alt="" /></div>
+            <div className="w-14 h-14 md:w-[120px] md:h-[120px] bg-white border border-black/10 rounded-xl flex items-center justify-center p-2 shadow-sm shrink-0">
+  <img src="/logo_abanico_4stickers.png" alt="Pack stickers" className="w-full h-full object-contain scale-[1.15]" />
+</div>
             <div className="flex-1 min-w-0">
               <div className="font-black text- md:text-sm leading-tight">PACK {pack.toUpperCase()}<br/>BALLADARES MOTORS</div>
               <div className="text-xs text-zinc-500 mt-1">{totalStickers} stickers + {totalStickers} tickets</div>
             </div>
             <div className="font-black text-sm md:text-base shrink-0">${total.toLocaleString("es-CL")}</div>
           </div>
+
           <div className="mt-6 md:mt-8 pt-6 border-t border-black/10 space-y-2 text-sm">
             <div className="flex justify-between text-zinc-500"><span>Subtotal</span><span className="text-black font-bold">${total.toLocaleString("es-CL")}</span></div>
             <div className="flex justify-between font-black text-base md:text-lg pt-2"><span>Total</span><span>CLP ${total.toLocaleString("es-CL")}</span></div>
           </div>
+
           <div className="hidden md:flex mt-auto pt-12 flex-col items-center">
             <img src="/logo-principal.png" alt="" className="w-56 object-contain opacity-90" />
             <div className="flex items-center gap-2 mt-4">
