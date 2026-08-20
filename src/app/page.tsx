@@ -119,18 +119,20 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
   <img src="/BB.png" alt="Balladares Motors" className="h-11 w-auto -ml-2 shrink-0" style={{objectFit:"contain", transform:"scaleX(1.44) scaleY(1.06)", transformOrigin:"left center", height:52}} />
   
   <div className="hidden lg:flex gap-3 text-sm font-black tracking-wider" style={{position:'absolute', left:'50%', top:'50%', transform:'translate(-50%, -50%)'}}>
-    {[
+    {
+		//[
       {id:"inicio", label:"INICIO", href:"/#inicio"},
 {id:"nosotros", label:"NOSOTROS", href:"/#nosotros"},
 {id:"servicios", label:"SERVICIOS", href:"/#servicios"},
 {id:"galeria", label:"GALERÍA", href:"/#galeria"},
 {id:"contacto", label:"CONTACTO", href:"/#contacto"},
-/*{id:"sorteos", label:"SORTEOS 🎟", href:"/sorteos", destacado:true},
-    ].map(link=>(
-      <a key={link.id} href={link.href} className={`relative px-4 py-2 border group ${link.destacado ? "bg-red-600 border-red-600 text-white" : "border-white/10 hover:border-red-600 hover:bg-red-600/10"}`} style={{transform:"skewX(-12deg)"}}>
-        <span className={`${link.destacado ? "" : "group-hover:text-red-500"}`} style={{transform:"skewX(12deg)", display:"block"}}>{link.label}</span>
-      </a>
-    ))}*/
+//{id:"sorteos", label:"SORTEOS 🎟", href:"/sorteos", destacado:true},
+   // ].map(link=>(
+     // <a key={link.id} href={link.href} className={`relative px-4 py-2 border group ${link.destacado ? "bg-red-600 border-red-600 text-white" : "border-white/10 hover:border-red-600 hover:bg-red-600/10"}`} style={{transform:"skewX(-12deg)"}}>
+      //  <span className={`${link.destacado ? "" : "group-hover:text-red-500"}`} style={{transform:"skewX(12deg)", display:"block"}}>{link.label}</span>
+     // </a>
+   // ))
+   }
   </div>
 
  <h2 className={`${holtwood.className} absolute bottom-[4px] right-[10px] md:bottom-[8px] md:right-[14px] text-[13px] md:text-[16px] font-black italic leading-[0.9] tracking-wider text-white text-right`}>
