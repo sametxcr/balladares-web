@@ -7,7 +7,7 @@ import { Resend } from 'resend';
 
 const TBK = {
   ID: '597055555532',
-  SECRET: '579B532A7440BB0C9079DED94D31EA1615BACEB36B38C77FB7D7179E317BD139F',
+  SECRET: '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
   URL: 'https://webpay3gint.transbank.cl/rswebpaytransaction/api/webpay/v1.2/transactions'
 };
 
@@ -17,7 +17,6 @@ const genCode = () => `BM${Math.floor(1000000 + Math.random() * 9000000)}`;
 async function processPayment(token: string, req: NextRequest) {
   const client = await pool.connect();
   try {
-    // SIN agent, fetch nativo
     const tbkRes = await fetch(`${TBK.URL}/${token}`, {
       method: 'PUT',
       headers: {

@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
     method: 'POST',
     headers: {
       'Tbk-Api-Key-Id': '597055555532',
-      'Tbk-Api-Key-Secret': '579B532A7440BB0C9079DED94D31EA1615BACEB36B38C77FB7D7179E317BD139F',
+      'Tbk-Api-Key-Secret': '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
@@ -31,6 +31,7 @@ export async function POST(req: NextRequest) {
   });
 
   const data = await tbkRes.json();
+  console.log('TBK CREATE', tbkRes.status, data);
   if (!tbkRes.ok) return NextResponse.json({ error: 'TBK Error', detail: data }, { status: 500 });
   return NextResponse.json({ url: data.url, token: data.token, order_code });
 }
