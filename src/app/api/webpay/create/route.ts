@@ -1,5 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Pool } from 'pg';
+import https from 'https';
+
+// PARCHE SOLO PARA INTEGRACIÓN - arregla el self-signed certificate
+if (process.env.TRANSBANK_ENV === 'INTEGRATION') {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+}
 
 const pool = new Pool({ 
   connectionString: process.env.DATABASE_URL, 
@@ -21,14 +27,22 @@ export async function POST(req: NextRequest) {
       [order_code, email, nombre, rut, pack_id, totalStickers, amount]
     );
 
-    const baseUrl = process.env.NEXT_PUBLIC_URL || 'http://localhost:3000';
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_URL || 'http://localhost:3000';
 
-    // SECRET BUENO - EL MISMO QUE TE FUNCIONÓ EN EL CURL
+    const commerceCode = process.env.TRANSBANK_COMMERCE_CODE || '597055555532';
+    const apiKeySecret = process.env.TRANSBANK_API_KEY || '579B532A7440BB0C9079DED94D31EA1615BACEB36B38C77FB7D7179E317BD139F1';
+
+    const agent = new https.Agent({
+      rejectUnauthorized: false
+    });
+
     const tbkRes = await fetch('https://webpay3gint.transbank.cl/rswebpaytransaction/api/webpay/v1.2/transactions', {
       method: 'POST',
+      // @ts-ignore - agent para fix del cert en Vercel
+      agent,
       headers: {
-        'Tbk-Api-Key-Id': '597055555532',
-        'Tbk-Api-Key-Secret': '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
+        'Tbk-Api-Key-Id': commerceCode,
+        'Tbk-Api-Key-Secret': apiKeySecret,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -37,7 +51,7 @@ export async function POST(req: NextRequest) {
         amount,
         return_url: `${baseUrl}/api/webpay/commit`
       })
-    });
+    } as any);
 
     const data = await tbkRes.json();
     console.log('TBK RESP', tbkRes.status, data);
