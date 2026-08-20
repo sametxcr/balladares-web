@@ -55,14 +55,36 @@ export default function Page(){
   const [selectedImg,setSelectedImg]=useState<string | null>(null);
   const [showAll,setShowAll]=useState(false);
   const [activeService,setActiveService]=useState<string | null>(null);
-  const [showIntro,setShowIntro]=useState(true);
+ 
   const [showGaleria, setShowGaleria] = useState(false);
   const [fotoZoom, setFotoZoom] = useState<string | null>(null);
   const [zoom, setZoom] = useState(1);
+  const [menuOpen, setMenuOpen] = useState(false);
   
   
   
-  useEffect(()=>{ const t=setInterval(()=>setI(p=>(p+1)%slides.length),5000); return()=>clearInterval(t) },[]);
+const [showIntro, setShowIntro] = useState(false);
+const [mounted, setMounted] = useState(false);
+
+useEffect(() => {
+  setMounted(true);
+  if (sessionStorage.getItem("bm_from_sorteos")) {
+    sessionStorage.removeItem("bm_from_sorteos");
+    setShowIntro(false);
+  } else {
+    const seen = sessionStorage.getItem("bm_intro_seen");
+    if (!seen) setShowIntro(true);
+  }
+  const t = setInterval(() => setI(p => (p + 1) % slides.length), 5000);
+  return () => clearInterval(t);
+}, []);
+
+const closeIntro = () => {
+  sessionStorage.setItem("bm_intro_seen", "1");
+  setShowIntro(false);
+}
+
+
   const waLinkNeumatico = "https://wa.me/" + WHATSAPP_NEUMATICO + "?text=" + encodeURIComponent(
   "Hola Balladares Motors! - Quiero cotizar NEUMATICO:\n\n" +
   "- Marca neumatico: \n" +
@@ -83,24 +105,35 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
     <main className="bg-black text-white overflow-x-hidden">
       {showIntro && (
         <div className="fixed inset-0 bg-black flex items-center justify-center" style={{zIndex:200}}>
-          <button onClick={()=>setShowIntro(false)} className="absolute top-4 right-4 w-12 h-12 bg-white/10 hover:bg-red-600 border border-white/20 rounded-full flex items-center justify-center text-white text-xl font-black transition" style={{zIndex:30}}>✕</button>
+          <button onClick={closeIntro} className="absolute top-4 right-4 w-12 h-12 bg-white/10 hover:bg-red-600 border border-white/20 rounded-full flex items-center justify-center text-white text-xl font-black transition" style={{zIndex:30}}>✕</button>
           <iframe className="w-full h-full" style={{maxWidth:420, aspectRatio:"9/16"}} src={`https://www.youtube.com/embed/${YOUTUBE_ID}?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1&playsinline=1`} title="Intro" allow="autoplay; encrypted-media" allowFullScreen />
           <div className="absolute bottom-24 left-1/2 -translate-x-1/2" style={{zIndex:20}}>
-            <button onClick={()=>setShowIntro(false)} className="bg-white/10 border border-white/20 text-white px-6 py-2.5 font-black text-sm hover:bg-white hover:text-black transition" style={{transform:"skewX(-12deg)"}}><span style={{transform:"skewX(12deg)", display:"block"}}>SALTAR INTRO →</span></button>
+            <button onClick={closeIntro} className="bg-white/10 border border-white/20 text-white px-6 py-2.5 font-black text-sm hover:bg-white hover:text-black transition" style={{transform:"skewX(-12deg)"}}><span style={{transform:"skewX(12deg)", display:"block"}}>SALTAR INTRO →</span></button>
           </div>
         </div>
       )}
 
       <style>{`@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } } .marquee { animation: marquee 25s linear infinite; }`}</style>
 
-      <nav className="fixed top-0 w-full bg-black border-b-2 border-red-600 flex justify-between items-center pl-1 pr-4 py-2.5" style={{zIndex:50}}>
-  <img src="/BB.png" alt="Balladares Motors" className="h-11 w-auto -ml-2" style={{objectFit:"contain", transform:"scaleX(1.44) scaleY(1.06)", transformOrigin:"left center", height:52}} />
-  <div className="hidden lg:flex gap-3 text-sm font-black tracking-wider absolute left-1/2 -translate-x-1/2">
-    {[{id:"inicio", label:"INICIO"},{id:"nosotros", label:"NOSOTROS"},{id:"servicios", label:"SERVICIOS"},{id:"galeria", label:"GALERÍA"},{id:"contacto", label:"CONTACTO"}].map(link=>(
-      <a key={link.id} href={`#${link.id}`} className="relative px-4 py-2 border border-white/10 hover:border-red-600 hover:bg-red-600/10 group" style={{transform:"skewX(-12deg)"}}><span className="group-hover:text-red-500" style={{transform:"skewX(12deg)", display:"block"}}>{link.label}</span></a>
+   <nav className="fixed top-0 w-full bg-black border-b-2 border-red-600 flex justify-between items-center pl-1 pr-4 py-2.5" style={{zIndex:50}}>
+  <img src="/BB.png" alt="Balladares Motors" className="h-11 w-auto -ml-2 shrink-0" style={{objectFit:"contain", transform:"scaleX(1.44) scaleY(1.06)", transformOrigin:"left center", height:52}} />
+  
+  <div className="hidden lg:flex gap-3 text-sm font-black tracking-wider" style={{position:'absolute', left:'50%', top:'50%', transform:'translate(-50%, -50%)'}}>
+    {[
+      {id:"inicio", label:"INICIO", href:"/#inicio"},
+{id:"nosotros", label:"NOSOTROS", href:"/#nosotros"},
+{id:"servicios", label:"SERVICIOS", href:"/#servicios"},
+{id:"galeria", label:"GALERÍA", href:"/#galeria"},
+{id:"contacto", label:"CONTACTO", href:"/#contacto"},
+//{id:"sorteos", label:"SORTEOS 🎟", href:"/sorteos", destacado:true},
+    ].map(link=>(
+      <a key={link.id} href={link.href} className={`relative px-4 py-2 border group ${link.destacado ? "bg-red-600 border-red-600 text-white" : "border-white/10 hover:border-red-600 hover:bg-red-600/10"}`} style={{transform:"skewX(-12deg)"}}>
+        <span className={`${link.destacado ? "" : "group-hover:text-red-500"}`} style={{transform:"skewX(12deg)", display:"block"}}>{link.label}</span>
+      </a>
     ))}
-</div>
-  <h2 className={`${holtwood.className} absolute bottom-[4px] right-[10px] md:bottom-[8px] md:right-[14px] text-[13px] md:text-[16px] font-black italic leading-[0.9] tracking-wider text-white text-right`}>
+  </div>
+
+ <h2 className={`${holtwood.className} absolute bottom-[4px] right-[10px] md:bottom-[8px] md:right-[14px] text-[13px] md:text-[16px] font-black italic leading-[0.9] tracking-wider text-white text-right`}>
   <span className="block md:inline">EL PODER DE UN</span>
   <span className="block text-red-600 md:inline md:ml-1.5">BUEN SERVICIO</span>
 </h2>

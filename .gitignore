@@ -3,3 +3,5 @@ node_modules/
 .vercel/
 .env.localpublic/mivideo.mp4 
 *.mp4 
+".env.local" 
+".env" 
