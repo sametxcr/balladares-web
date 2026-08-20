@@ -131,7 +131,7 @@ export default function SorteosPage() {
   <div className="max-w-7xl mx-auto relative z-10">
     <div className="text-center mb-12">
       <span className="bg-yellow-400 text-black font-black text- tracking-[0.3em] px-5 py-2 rounded-full">BALLADARES VAULT • AÑO 2026</span>
-      <h2 className="font-black italic text-[28px] leading-[0.9] md:text-5xl lg:text-6xl mt-6 tracking-tighter">
+      <h2 className="font-black italic text-[32px] leading-[0.9] md:text-5xl lg:text-6xl mt-6 tracking-tighter">
   PREMIOS QUE SE <span className="text-yellow-400">DESBLOQUEAN</span>
 </h2>
       <p className="text-zinc-400 text-xs md:text-sm mt-4 font-bold tracking-wide max-w-3xl mx-auto">
@@ -199,20 +199,84 @@ export default function SorteosPage() {
   </div>
 </section>
 
-      <section id="packs" className="py-16 px-6">
-        <h2 className="font-black italic text-5xl text-center">COMPRA TUS STICKERS HOY</h2>
-        <p className="text-center text-white/60 font-bold text-sm mt-2">El link de descarga de tus stickers te llegará por correo posterior a realizada la compra.</p>
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mt-10">
-          {PACKS.map(p=>(
-            <div key={p.id} className="bg-zinc-900 border-2 border-white/10 rounded- p-6 relative overflow-hidden">
-              {p.tag && <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-blue-900 border border-white/20 px-4 py-1 rounded-full text-xs font-black">⭐ {p.tag}</div>}
-              <h3 className="font-black italic text-3xl mt-8">{p.nombre.includes("X4")? "PACK X4" : "UNIDAD"}<br/><span className="text-red-600 text-5xl">{p.qty}X STICKERS</span></h3>
-              <div className="text-5xl font-black italic mt-4">${p.precio.toLocaleString("es-CL")}</div>
-              <button onClick={()=>goCheckout(p)} className="w-full mt-6 bg-red-600 hover:bg-red-700 py-4 rounded-full font-black">COMPRAR {p.qty === 1? "STICKER" : "STICKERS"}</button>
+     <section id="packs" className="py-24 px-6 bg-black relative overflow-hidden">
+  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w- h- bg-red-600/10 blur- pointer-events-none" />
+
+  <div className="relative z-10 max-w-5xl mx-auto">
+    <h2 className="font-black italic text-4xl md:text-6xl text-center tracking-tighter leading-[0.85]">
+      COMPRA TUS <span className="text-red-600">STICKERS</span> HOY
+    </h2>
+    <p className="text-center text-white/50 font-bold text- md:text-sm mt-4 tracking-wide uppercase">
+      El link de descarga te llegará al correo • Participas al instante
+    </p>
+
+    <div className="grid md:grid-cols-2 gap-10 md:gap-12 max-w-4xl mx-auto mt-14">
+      {PACKS.map((p) => {
+        const isPopular = p.qty === 4;
+        return (
+          <div key={p.id} className="relative flex">
+            {/* COSTADO LATERAL MAS A LA DERECHA Y TRANSPARENTE */}
+            {isPopular && (
+              <div className="absolute top-10 -right-6 md:-right-20 z-20 flex flex-col gap-2 items-start">
+                <div className="bg-yellow-400/90 backdrop-blur-md text-black px-4 py-2 rounded-full text- font-black tracking-widest shadow-[0_0_20px_rgba(250,204,21,0.5)] flex items-center gap-1.5 border border-yellow-300/50">
+                  ⭐ PACK MÁS VENDIDO
+                </div>
+                <div className="bg-black/40 backdrop-blur-md border border-white/20 text-white/90 px-4 py-2 rounded-full text- font-black tracking-widest">
+                  AHORRA $2.000
+                </div>
+              </div>
+            )}
+
+            <div
+              className={`group relative rounded- p- overflow-hidden transition-all duration-300 w-full h-full
+              ${isPopular? "shadow-[0_0_50px_rgba(250,204,21,0.3)] md:scale-[1.05]" : "hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]"}`}
+            >
+              <div className={`absolute inset-0 rounded- ${isPopular? "bg-gradient-to-b from-yellow-400 to-yellow-600/20" : "bg-gradient-to-b from-white/20 to-white/5"}`} />
+
+              <div
+                className="relative rounded- overflow-hidden p-8 flex flex-col justify-between h-full min-h- bg-black"
+                style={{
+                  backgroundImage: `url('/fondotarjeta.jpg')`,
+                  backgroundSize: 'contain',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'center',
+                }}
+              >
+                <div className="absolute inset-0 bg-black/65 group-hover:bg-black/55 transition-colors" />
+
+                <div className="relative z-10">
+                  <h3 className="font-black italic text-white/80 text- tracking-[0.2em]">
+                    {p.qty === 1? "UNIDAD" : "PACK X4"}
+                  </h3>
+                  <p className={`font-black italic text-6xl mt-1 tracking-tighter leading-none ${isPopular? "text-yellow-400" : "text-red-600"}`}>
+                    {p.qty}X <span className="text-white block">STICKERS</span>
+                  </p>
+
+                  <div className="mt-8">
+                    <p className="text- font-black tracking-[0.2em] text-white/30">PRECIO</p>
+                    <div className="font-black italic text-5xl text-white mt-1">
+                      ${p.precio.toLocaleString("es-CL")}
+                    </div>
+                    {isPopular && <p className="text-white/40 text-xs font-bold mt-3">4 oportunidades de ganar la Copa 350Z</p>}
+                    {!isPopular && <div className="h-4" />}
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => goCheckout(p)}
+                  className={`relative z-10 w-full mt-8 py-4 rounded-full font-black italic text- tracking-wide transition-all active:scale-[0.98]
+                  ${isPopular? "bg-yellow-400 text-black hover:bg-yellow-300 shadow-[0_0_20px_rgba(250,204,21,0.4)]" : "bg-white text-black hover:bg-zinc-200"}`}
+                >
+                  {p.qty === 1? "COMPRAR STICKER" : "COMPRAR PACK X4 →"}
+                </button>
+              </div>
             </div>
-          ))}
-        </div>
-      </section>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>
 	  <div className="fixed bottom-6 right-6 flex flex-row gap-4 items-center" style={{ zIndex: 9999 }}>
   <a href={INSTAGRAM} target="_blank" className="w- h- bg-white rounded-full flex items-center justify-center border- border-black shadow-[5px_5px_0px_black] hover:scale-110 transition">
     <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" className="w-11 h-11 object-contain" alt="IG" />
