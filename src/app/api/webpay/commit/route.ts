@@ -14,7 +14,7 @@ const TBK = {
 const resend = new Resend(process.env.RESEND_API_KEY);
 const genCode = () => `BM${Math.floor(1000000 + Math.random() * 9000000)}`;
 
-html: getHtml(job.order_code, tickets, job.email, (job.tickets?.length || tickets.length)) => `
+const getHtml = (orderCode: string, tickets: string[], email: string, qty: number) => `
 <!DOCTYPE html>
 <html lang="es">
 <body style="margin:0;padding:0;background-color:#f4f4f5;">

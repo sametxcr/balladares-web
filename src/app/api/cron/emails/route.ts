@@ -7,38 +7,31 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-html: getHtml(job.order_code, tickets, job.email, (job.tickets?.length || tickets.length)) => `
+const getHtml = (orderCode: string, tickets: string[], email: string, qty: number) => `
 <!DOCTYPE html>
 <html lang="es">
 <body style="margin:0;padding:0;background-color:#f4f4f5;">
 <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f5;padding:24px 0;">
 <tr><td align="center">
 <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#0a0a0a;border-radius:16px;overflow:hidden;border:1px solid #1f1f1f;">
-  
-  <!-- HEADER LOGO GRANDE -->
   <tr>
     <td style="background:#000000;padding:32px 24px 20px;text-align:center;border-bottom:4px solid #E30613;">
       <img src="https://www.balladares-motors.cl/BB.png" alt="Balladares Motors" style="height:72px;width:auto;display:block;margin:0 auto 14px;" />
       <div style="font-family:Arial, sans-serif;color:#ffffff;font-size:11px;letter-spacing:4px;font-weight:900;opacity:0.6;">BALLADARES MOTORS</div>
     </td>
   </tr>
-
-  <!-- ESTADO -->
   <tr>
     <td style="padding:28px 32px 8px;text-align:center;background:#0f0f0f;">
       <img src="https://www.balladares-motors.cl/escudo.png" style="height:64px;width:auto;display:block;margin:0 auto 16px;" />
       <div style="background:#FFD700;color:#000;font-family:Arial Black, Arial, sans-serif;display:inline-block;padding:7px 18px;border-radius:100px;font-weight:900;font-size:11px;letter-spacing:1px;">✓ PAGO APROBADO</div>
-      <h1 style="font-family:Arial Black, Arial, sans-serif;color:#fff;margin:18px 0 8px;font-weight:900;font-size:26px;line-height:1.1;letter-spacing:-0.5px;">¡Gracias por tu compra!</h1>
+      <h1 style="font-family:Arial Black, Arial, sans-serif;color:#fff;margin:18px 0 8px;font-weight:900;font-size:26px;line-height:1.1;">¡Gracias por tu compra!</h1>
       <p style="font-family:Arial, sans-serif;color:#a1a1aa;font-size:14px;margin:0;line-height:1.5;">Tu pago se confirmó. Aquí tienes el detalle de tu orden.</p>
     </td>
   </tr>
-
-  <!-- DETALLE ORDEN -->
   <tr>
     <td style="padding:20px 24px;background:#0f0f0f;">
       <table width="100%" cellpadding="0" cellspacing="0" style="background:#171717;border:1px solid #262626;border-radius:12px;">
-        <tr>
-          <td style="padding:16px 18px;">
+        <tr><td style="padding:16px 18px;">
             <table width="100%" cellpadding="0" cellspacing="0">
               <tr>
                 <td style="font-family:Arial, sans-serif;color:#71717a;font-size:11px;font-weight:700;letter-spacing:1px;padding-bottom:4px;">ORDEN</td>
@@ -53,17 +46,12 @@ html: getHtml(job.order_code, tickets, job.email, (job.tickets?.length || ticket
                 <td style="padding-top:12px;font-family:Arial, sans-serif;color:#a1a1aa;font-size:13px;">Pack x${qty} • ${tickets.length} ticket(s)</td>
                 <td style="padding-top:12px;font-family:Arial, sans-serif;color:#FFD700;font-size:13px;font-weight:900;text-align:right;">PAGADO - Webpay</td>
               </tr>
-              <tr>
-                <td style="padding-top:4px;font-family:Arial, sans-serif;color:#71717a;font-size:12px;">Enviado a: ${email}</td>
-              </tr>
+              <tr><td style="padding-top:4px;font-family:Arial, sans-serif;color:#71717a;font-size:12px;">Enviado a: ${email}</td></tr>
             </table>
-          </td>
-        </tr>
+        </td></tr>
       </table>
     </td>
   </tr>
-
-  <!-- TICKETS -->
   <tr>
     <td style="padding:0 24px 8px;background:#0f0f0f;">
       <div style="font-family:Arial, sans-serif;color:#fff;font-size:12px;font-weight:900;letter-spacing:2px;margin:12px 0 12px;">TUS TICKETS VÁLIDOS</div>
@@ -83,8 +71,6 @@ html: getHtml(job.order_code, tickets, job.email, (job.tickets?.length || ticket
       `).join('')}
     </td>
   </tr>
-
-  <!-- INSTRUCCIONES -->
   <tr>
     <td style="padding:16px 24px 24px;background:#0f0f0f;">
       <table width="100%" cellpadding="0" cellspacing="0" style="background:#111;border:1px dashed #27272a;border-radius:10px;">
@@ -99,15 +85,12 @@ html: getHtml(job.order_code, tickets, job.email, (job.tickets?.length || ticket
       </table>
     </td>
   </tr>
-
-  <!-- FOOTER -->
   <tr>
     <td style="padding:20px 24px;text-align:center;background:#000;border-top:1px solid #1f1f1f;">
       <p style="font-family:Arial, sans-serif;color:#52525b;font-size:11px;margin:0 0 8px;line-height:1.5;">¿Dudas? Responde a este correo a <a href="mailto:hola@balladares-motors.cl" style="color:#fff;text-decoration:none;">hola@balladares-motors.cl</a></p>
       <p style="font-family:Arial, sans-serif;color:#3f3f46;font-size:10px;margin:0;">Este correo fue enviado a ${email} porque compraste en balladares-motors.cl<br/>Balladares Motors © 2026 - Todos los derechos reservados</p>
     </td>
   </tr>
-
 </table>
 </td></tr>
 </table>
@@ -139,8 +122,8 @@ export async function GET() {
         const { error } = await resend.emails.send({
           from: 'Balladares Motors <hola@balladares-motors.cl>',
           to: job.email,
-          subject: `Tus tickets ${job.order_code} - Balladares Motors`,
-          html: getHtml(order.order_code, tickets, order.email, order.qty)
+          subject: `Tus ${ticketsArray.length} tickets ${job.order_code} - Balladares Motors`,
+          html: getHtml(job.order_code, ticketsArray, job.email, ticketsArray.length)
         });
 
         if (error) throw error;
