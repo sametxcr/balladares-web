@@ -3,6 +3,7 @@ export const dynamic = 'force-dynamic'
 
 import { NextRequest, NextResponse } from 'next/server';
 import { pool } from '@/lib/db';
+import { Resend } from 'resend';
 
 const TBK = {
   ID: '597055555532',
@@ -10,6 +11,7 @@ const TBK = {
   URL: 'https://webpay3gint.transbank.cl/rswebpaytransaction/api/webpay/v1.2/transactions'
 };
 
+const resend = new Resend(process.env.RESEND_API_KEY);
 const genCode = () => `BM${Math.floor(1000000 + Math.random() * 9000000)}`;
 
 async function processPayment(token: string, req: NextRequest) {
@@ -25,7 +27,6 @@ async function processPayment(token: string, req: NextRequest) {
     });
     
     const tbk = await tbkRes.json();
-    console.log('TBK COMMIT', tbkRes.status, tbk);
 
     if (tbk.status !== 'AUTHORIZED' && tbk.response_code !== 0) {
       return NextResponse.redirect(new URL(`/?error=pago&status=${tbk.status || tbk.response_code}`, req.url));
@@ -61,24 +62,27 @@ async function processPayment(token: string, req: NextRequest) {
     }
 
     await client.query(`UPDATE orders SET status='PAID' WHERE id=$1`, [order.id]);
-    
-    // Encola el mail
-    await client.query(
-      `INSERT INTO email_jobs (order_code, email, tickets, status) VALUES ($1,$2,$3,'pending')`,
-      [order.order_code, order.email, tickets]
-    );
-
+    await client.query(`INSERT INTO email_jobs (order_code, email, tickets, status) VALUES ($1,$2,$3,'pending')`, [order.order_code, order.email, tickets]);
     await client.query('COMMIT');
 
-    // DISPARO INSTANTANEO - llega en 3 seg
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.balladares-motors.cl';
-    fetch(`${siteUrl}/api/cron/emails`, { method: 'GET' }).catch(() => {});
+    // MANDA AL TIRO DIRECTO (no esperes al cron)
+    try {
+      await resend.emails.send({
+        from: 'Balladares Motors <hola@balladares-motors.cl>',
+        to: order.email,
+        subject: `¡PAGO CONFIRMADO! Tus ${tickets.length} tickets - ${order.order_code}`,
+        html: `<div style="background:#000;color:#fff;padding:30px;font-family:Arial"><h1 style="color:#FFD700">¡PAGO CONFIRMADO! ${order.order_code}</h1><p>${tickets.length} tickets</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">${tickets.map(t=>`<div style="border:1px dashed #FFD700;padding:10px;text-align:center;font-weight:900">${t}</div>`).join('')}</div><p><a href="https://www.balladares-motors.cl/sorteos/exito?orden=${order.order_code}&tickets=${tickets.join(',')}" style="color:#FFD700">Ver tickets</a></p></div>`
+      });
+      // Si llega, lo marcamos SENT
+      await pool.query(`UPDATE email_jobs SET status='SENT', attempts=1 WHERE order_code=$1`, [order.order_code]);
+    } catch (e) {
+      console.error('MAIL FALLA, QUEDA PENDIENTE PARA CRON DIARIO', e);
+    }
 
     return NextResponse.redirect(new URL(`/sorteos/exito?orden=${order.order_code}&tickets=${tickets.join(',')}`, req.url));
 
   } catch (e: any) {
     await client.query('ROLLBACK');
-    console.error('COMMIT CRASH', e);
     return NextResponse.redirect(new URL(`/?error=commit&msg=${encodeURIComponent(e.message)}`, req.url));
   } finally {
     client.release();
