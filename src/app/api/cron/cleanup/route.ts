@@ -5,15 +5,15 @@ import { pool } from '@/lib/db';
 
 export async function GET() {
   try {
-    // Borra órdenes PENDING con más de 2 horas sin pagar
+    // Borra órdenes PENDING con más de 15 minutos sin pagar
     const result = await pool.query(
-      `DELETE FROM orders WHERE status='PENDING' AND created_at < NOW() - INTERVAL '2 hours' RETURNING order_code`
+      `DELETE FROM orders WHERE status='PENDING' AND created_at < NOW() - INTERVAL '15 minutes' RETURNING order_code`
     );
 
     console.log(`[CLEANUP] ${result.rowCount} órdenes PENDING borradas:`, result.rows);
 
-    return NextResponse.json({ 
-      ok: true, 
+    return NextResponse.json({
+      ok: true,
       deleted: result.rowCount,
       codes: result.rows.map(r => r.order_code)
     });

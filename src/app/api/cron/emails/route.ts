@@ -11,7 +11,7 @@ const getHtml = (orderCode: string, tickets: string[]) => `
 <!DOCTYPE html><html><body style="margin:0;padding:0;background:#050505;font-family:Arial;">
 <div style="max-width:600px;margin:0 auto;">
   <div style="background:#000;padding:22px;text-align:center;border-bottom:4px solid #E30613;">
-    <img src="https://www.balladares-motors.cl/logo-principal.png" style="height:48px;" />
+    <img src="https://www.balladares-motors.cl/BB.png" style="height:48px;" />
   </div>
   <div style="background:#121212;padding:28px;text-align:center;">
     <img src="https://www.balladares-motors.cl/escudo.png" style="height:72px;margin-bottom:12px;" />
@@ -25,7 +25,6 @@ const getHtml = (orderCode: string, tickets: string[]) => `
         <div><div style="color:#E30613;font-size:10px;font-weight:900;">TICKET #${i+1}</div><div style="color:#000;font-size:18px;font-weight:900;letter-spacing:2px;">${t}</div></div>
         <div style="background:#000;color:#FFD700;font-size:10px;font-weight:900;padding:6px 10px;border-radius:4px;">VALIDO</div>
       </div>`).join('')}
-    <a href="https://www.balladares-motors.cl/sorteos/exito?orden=${orderCode}&tickets=${tickets.join(',')}" style="display:block;background:#FFD700;color:#000;text-align:center;padding:15px;border-radius:8px;text-decoration:none;font-weight:900;margin-top:18px;">VER MIS TICKETS →</a>
   </div>
 </div></body></html>`;
 
