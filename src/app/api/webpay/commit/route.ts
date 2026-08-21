@@ -70,7 +70,7 @@ async function processPayment(token: string, req: NextRequest) {
     // EN PRO SÍ ALCANZAMOS A HACER AWAIT TRANQUILO
     console.log('ENVIANDO MAIL PRO...', order.email);
     const { data, error } = await resend.emails.send({
-      from: 'Balladares Motors <hola@send.balladares-motors.cl>',
+      from: 'Balladares Motors <hola@balladares-motors.cl>',
       to: order.email,
       subject: `Tus tickets ${order.order_code} - Balladares Motors`,
       html: getHtml(order.order_code, tickets)

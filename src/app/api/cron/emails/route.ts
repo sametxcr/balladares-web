@@ -51,7 +51,7 @@ export async function GET() {
         }
 
         const { error } = await resend.emails.send({
-          from: 'Balladares Motors <hola@send.balladares-motors.cl>',
+          from: 'Balladares Motors <hola@balladares-motors.cl>',
           to: job.email,
           subject: `Tus tickets ${job.order_code} - Balladares Motors`,
           html: getHtml(job.order_code, ticketsArray)
@@ -64,7 +64,7 @@ export async function GET() {
 
       } catch (e: any) {
         console.error('CRON MAIL ERROR', job.order_code, e);
-        await pool.query(`UPDATE email_jobs SET attempts=attempts+1, status=CASE WHEN attempts>=4 THEN 'FAILED' ELSE 'pending' END WHERE id=$1`, [job.id]);
+        await pool.query(`UPDATE email_jobs SET attempts=attempts+1, status=CASE WHEN attempts>=10 THEN 'FAILED' ELSE 'pending' END WHERE id=$1`, [job.id]);
       }
     }
 
