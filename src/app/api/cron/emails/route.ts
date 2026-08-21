@@ -7,7 +7,7 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-const getHtml = (orderCode: string, tickets: string[], email: string, qty: number) => `
+html: getHtml(job.order_code, tickets, job.email, (job.tickets?.length || tickets.length)) => `
 <!DOCTYPE html>
 <html lang="es">
 <body style="margin:0;padding:0;background-color:#f4f4f5;">
