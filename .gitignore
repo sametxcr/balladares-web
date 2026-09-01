@@ -1,0 +1,15 @@
+node_modules/
+.next/
+.vercel/
+.env.localpublic/mivideo.mp4 
+*.mp4 
+".env.local" 
+".env" 
+".env.local" 
+".env" 
+".env.local" 
+".env" 
+".env.local" 
+".env" 
+.env.local
+.env
