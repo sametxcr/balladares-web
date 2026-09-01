@@ -74,6 +74,7 @@ const getHtml = (orderCode: string, tickets: string[], email: string, qty: numbe
       `).join('')}
     </td>
   </tr>
+  
    <!-- BLOQUE NUEVO - DESCARGA STICKERS -->
   <tr>
     <td style="padding:0 24px 16px;background:#111111;">
@@ -82,7 +83,7 @@ const getHtml = (orderCode: string, tickets: string[], email: string, qty: numbe
           <td style="padding:20px;text-align:center;">
             <div style="font-family:Arial Black, Arial, sans-serif;color:#FFD700;font-size:14px;font-weight:900;letter-spacing:1px;margin-bottom:6px;">🎁 REGALO EXCLUSIVO</div>
             <div style="font-family:Arial, sans-serif;color:#fff;font-size:13px;font-weight:700;margin-bottom:16px;">Pack de Stickers Balladares Motors</div>
-            <a href="https://www.balladares-motors.cl/stickers-pack.zip" target="_blank" style="background:#FFD700;color:#000;font-family:Arial Black, Arial, sans-serif;font-size:13px;font-weight:900;padding:14px 28px;border-radius:100px;text-decoration:none;display:inline-block;letter-spacing:0.5px;">⬇ DESCARGAR STICKERS.ZIP</a>
+            <a href="https://www.balladares-motors.cl/stickers-pack.zip" target="_blank" style="background:#FFD700;color:#000;font-family:Arial Black, Arial, sans-serif;font-size:13px;font-weight:900;padding:14px 28px;border-radius:100px;text-decoration:none;display:inline-block;letter-spacing:0.5px;">⬇ DESCARGAR STICKERS .ZIP</a>
             <div style="font-family:Arial, sans-serif;color:#71717a;font-size:11px;margin-top:10px;">Incluye todos los diseños en alta calidad</div>
           </td>
         </tr>
@@ -117,62 +118,55 @@ const getHtml = (orderCode: string, tickets: string[], email: string, qty: numbe
 
 async function processOrder(rawToken: string, orderFromUrl: string) {
   const token = rawToken.replace(/ /g, '+').trim()
-  if (!token ||!orderFromUrl) return { orderCode: orderFromUrl, paid: false }
-
+  if (process.env.FLOW_ENV === 'sandbox') {
+    const orderCode = orderFromUrl
+    const client = await pool.connect()
+    try {
+      await client.query('BEGIN')
+      const { rows } = await client.query(`SELECT * FROM orders WHERE order_code=$1 FOR UPDATE`, [orderCode])
+      const order = rows[0]
+      if (!order) { await client.query('ROLLBACK'); return { orderCode, paid: false } }
+      if (order.status === 'PAID') {
+        const t = await client.query(`SELECT ticket_code FROM tickets WHERE order_id=$1`, [order.id])
+        await client.query('COMMIT')
+        return { orderCode, paid: true, tickets: t.rows.map((x:any)=>x.ticket_code), email: order.email }
+      }
+      const qty = order.qty || 1
+      const tickets: string[] = []
+      for (let i=0;i<qty;i++){
+        let ok=false
+        while(!ok){
+          const code=genCode()
+          try{
+            await client.query(`INSERT INTO tickets (ticket_code, order_id, email) VALUES ($1,$2,$3)`, [code, order.id, order.email])
+            ok=true; tickets.push(code)
+          } catch(e:any){ if(e.code!=='23505') throw e }
+        }
+      }
+      await client.query(`UPDATE orders SET status='PAID', flow_token=$2 WHERE id=$1`, [order.id, token])
+      await client.query('COMMIT')
+      try {
+        
+        const resend = new Resend(process.env.RESEND_API_KEY!.trim())
+resend.emails.send({
+  from: 'Balladares Motors <hola@balladares-motors.cl>',
+  to: order.email,
+  subject: `Tus tickets ${order.order_code}`,
+  html: getHtml(order.order_code, tickets, order.email, qty)
+}).catch(e=>console.error('RESEND', e))
+      } catch(e){ console.error('RESEND', e) }
+      return { orderCode, paid: true, tickets, email: order.email }
+    } catch(e){ await client.query('ROLLBACK'); throw e } finally { client.release() }
+  }
   const apiKey = process.env.FLOW_API_KEY!.trim()
   const secret = process.env.FLOW_SECRET_KEY!.trim()
-  const flowUrl = process.env.FLOW_ENV === 'sandbox'
-   ? 'https://sandbox.flow.cl/api/payment/getStatus'
-    : 'https://www.flow.cl/api/payment/getStatus'
-
-  let toSign = ""; const params:any={apiKey, token}
-  for (const k of Object.keys(params).sort()) toSign += k + params[k]
+  let toSign = ""; const params:any={apiKey, token}; for (const k of Object.keys(params).sort()) toSign += k + params[k]
   const s = crypto.createHmac('sha256', secret).update(toSign).digest('hex')
   const body = new URLSearchParams({ apiKey, token, s })
-
-  const r = await fetch(flowUrl, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body })
+  const r = await fetch(`https://www.flow.cl/api/payment/getStatus`, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body })
   const data = await r.json()
-  console.log('FLOW STATUS', data.status, data)
-
   if (data.status!== 2) return { orderCode: data.commerceOrder || orderFromUrl, paid: false }
-
-  const orderCode = data.commerceOrder || orderFromUrl
-  const client = await pool.connect()
-  try {
-    await client.query('BEGIN')
-    const { rows } = await client.query(`SELECT * FROM orders WHERE order_code=$1 FOR UPDATE`, [orderCode])
-    const order = rows[0]
-    if (!order) { await client.query('ROLLBACK'); return { orderCode, paid: false } }
-    if (order.status === 'PAID') {
-      const t = await client.query(`SELECT ticket_code FROM tickets WHERE order_id=$1`, [order.id])
-      await client.query('COMMIT')
-      return { orderCode, paid: true, tickets: t.rows.map((x:any)=>x.ticket_code), email: order.email }
-    }
-    const qty = order.qty || 1
-    const tickets: string[] = []
-    for (let i=0;i<qty;i++){
-      let ok=false
-      while(!ok){
-        const code=genCode()
-        try{
-          await client.query(`INSERT INTO tickets (ticket_code, order_id, email) VALUES ($1,$2,$3)`, [code, order.id, order.email])
-          ok=true; tickets.push(code)
-        } catch(e:any){ if(e.code!=='23505') throw e }
-      }
-    }
-    await client.query(`UPDATE orders SET status='PAID', flow_token=$2 WHERE id=$1`, [order.id, token])
-    await client.query('COMMIT')
-
-    const resend = new Resend(process.env.RESEND_API_KEY!.trim())
-    resend.emails.send({
-      from: 'Balladares Motors <hola@balladares-motors.cl>',
-      to: order.email,
-      subject: `Tus tickets ${order.order_code}`,
-      html: getHtml(order.order_code, tickets, order.email, qty)
-    }).catch(e=>console.error('RESEND', e))
-
-    return { orderCode, paid: true, tickets, email: order.email }
-  } catch(e){ await client.query('ROLLBACK'); throw e } finally { client.release() }
+  return { orderCode: data.commerceOrder || orderFromUrl, paid: true } as any
 }
 
 export async function GET(req: NextRequest) {
