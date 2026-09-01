@@ -74,7 +74,6 @@ const getHtml = (orderCode: string, tickets: string[], email: string, qty: numbe
       `).join('')}
     </td>
   </tr>
-  
    <!-- BLOQUE NUEVO - DESCARGA STICKERS -->
   <tr>
     <td style="padding:0 24px 16px;background:#111111;">
@@ -116,16 +115,11 @@ const getHtml = (orderCode: string, tickets: string[], email: string, qty: numbe
 </body>
 </html>`;
 
-
-
 async function processOrder(rawToken: string, orderFromUrl: string) {
   const token = rawToken.replace(/ /g, '+').trim()
   const apiKey = process.env.FLOW_API_KEY!.trim()
   const secret = process.env.FLOW_SECRET_KEY!.trim().replace(/\n|\r/g, '')
-
   let commerceOrder = orderFromUrl
-
-  // Solo validamos con Flow si estamos en LIVE
   if (process.env.FLOW_ENV!== 'sandbox') {
     const toSign = `apiKey${apiKey}token${token}`
     const s = crypto.createHmac('sha256', secret).update(toSign).digest('hex')
@@ -140,19 +134,16 @@ async function processOrder(rawToken: string, orderFromUrl: string) {
     if (data.status!== 2) return { orderCode: data.commerceOrder || orderFromUrl, paid: false }
     commerceOrder = data.commerceOrder
   }
-
   const client = await pool.connect()
   try {
     await client.query('BEGIN')
     const { rows } = await client.query(`SELECT * FROM orders WHERE order_code=$1 FOR UPDATE`, [commerceOrder])
     const order = rows[0]
     if (!order) { await client.query('ROLLBACK'); return { orderCode: commerceOrder, paid: false } }
-
     if (order.status === 'PAID') {
-  await client.query('COMMIT')
-  return { orderCode: order.order_code, paid: true }
-}
-
+      await client.query('COMMIT')
+      return { orderCode: order.order_code, paid: true }
+    }
     const qty = order.qty || 1
     const tickets: string[] = []
     for (let i=0;i<qty;i++){
@@ -167,8 +158,6 @@ async function processOrder(rawToken: string, orderFromUrl: string) {
     }
     await client.query(`UPDATE orders SET status='PAID', flow_token=$2 WHERE id=$1`, [order.id, token])
     await client.query('COMMIT')
-
-    // CORREO PARA TODOS
     try {
       const resend = new Resend(process.env.RESEND_API_KEY!.trim())
       await resend.emails.send({
@@ -179,8 +168,7 @@ async function processOrder(rawToken: string, orderFromUrl: string) {
       })
       console.log('CORREO ENVIADO A', order.email)
     } catch(e){ console.error('RESEND ERROR', e) }
-
-    return { orderCode, paid: true }
+    return { orderCode: order.order_code, paid: true }
   } catch(e){
     await client.query('ROLLBACK'); throw e
   } finally { client.release() }
