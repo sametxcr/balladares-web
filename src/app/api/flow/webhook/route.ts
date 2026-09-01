@@ -71,7 +71,7 @@ export async function POST(req: NextRequest) {
     if (!token) return NextResponse.json({ ok: true, noToken: true });
 
     const apiKey = process.env.FLOW_API_KEY!.trim();
-    const secret = process.env.FLOW_SECRET_KEY!.trim();
+    const secret = process.env.FLOW_SECRET_KEY!.trim().replace(/\n|\r/g, '');
 
     const params: any = { apiKey, token };
     const s = sign(params, secret);
