@@ -149,10 +149,9 @@ async function processOrder(rawToken: string, orderFromUrl: string) {
     if (!order) { await client.query('ROLLBACK'); return { orderCode: commerceOrder, paid: false } }
 
     if (order.status === 'PAID') {
-      const t = await client.query(`SELECT ticket_code FROM tickets WHERE order_id=$1`, [order.id])
-      await client.query('COMMIT')
-      return { orderCode, paid: true }
-    }
+  await client.query('COMMIT')
+  return { orderCode: order.order_code, paid: true }
+}
 
     const qty = order.qty || 1
     const tickets: string[] = []
