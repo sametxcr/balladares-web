@@ -136,9 +136,20 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
     ))}
   </div>
 
-  <button onClick={()=>setMenuOpen(!menuOpen)} className="lg:hidden w-10 h-10 bg-white text-black border-2 border-black flex items-center justify-center text-xl font-black">
-    {menuOpen ? '✕' : '☰'}
-  </button>
+<button
+  onClick={()=>setMenuOpen(!menuOpen)}
+  className="lg:hidden absolute top-2 right-2 w-7 h-7 bg-black flex items-center justify-center z-[101] active:scale-95"
+>
+  <img
+  src={menuOpen? "/X.png" : "/casco.png"}
+  alt="menu"
+  className="w-8 h-8 object-contain"
+  style={{
+    filter: menuOpen? "none" : "brightness(0) invert(1)",
+    mixBlendMode: "screen"
+  }}
+/>
+</button>
 
 
  <h2 className={`${holtwood.className} absolute bottom-[4px] right-[10px] md:bottom-[8px] md:right-[14px] text-[13px] md:text-[16px] font-black italic leading-[0.9] tracking-wider text-white text-right`}>
