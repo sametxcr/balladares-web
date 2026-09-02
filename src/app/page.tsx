@@ -128,7 +128,7 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
       {id:"servicios", label:"SERVICIOS", href:"/#servicios"},
       {id:"galeria", label:"GALERÍA", href:"/#galeria"},
       {id:"contacto", label:"CONTACTO", href:"/#contacto"},
-      {id:"stickers", label:"STICKERS 🎟", href:"/ventasticker", highlight: true},
+      {id:"stickers", label:"STICKERS", href:"/ventasticker", highlight: true},
     ].map(link=>(
       <a key={link.id} href={link.href} className={`relative px-4 py-2 border hover:border-red-600 hover:bg-red-600/10 group ${link.highlight ? 'bg-red-600 border-red-600 text-white' : 'border-white/10'}`} style={{transform:"skewX(-12deg)"}}>
         <span className="group-hover:text-red-500" style={{transform:"skewX(12deg)", display:"block"}}>{link.label}</span>
@@ -152,7 +152,7 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
 </button>
 
 
- <h2 className={`${holtwood.className} absolute bottom-[4px] right-[10px] md:bottom-[8px] md:right-[14px] text-[13px] md:text-[16px] font-black italic leading-[0.9] tracking-wider text-white text-right`}>
+ <h2 className={`${holtwood.className} absolute bottom-[4px] right-[10px] md:bottom-[8px] md:right-[14px] text-[12px] md:text-[12px] font-black italic leading-[0.9] tracking-wider text-white text-right`}>
   <span className="block md:inline">EL PODER DE UN</span>
   <span className="block text-red-600 md:inline md:ml-1.5">BUEN SERVICIO</span>
 </h2>
@@ -165,7 +165,7 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
       {label:"SERVICIOS", href:"/#servicios"},
       {label:"GALERÍA", href:"/#galeria"},
       {label:"CONTACTO", href:"/#contacto"},
-      {label:"STICKERS 🎟", href:"/ventasticker", highlight: true},
+      {label:"STICKERS", href:"/ventasticker", highlight: true},
     ].map(link=>(
       <a key={link.label} href={link.href} onClick={()=>setMenuOpen(false)} className={`text-center py-4 font-black text-lg tracking-widest border ${link.highlight ? 'bg-red-600 border-red-600 text-white' : 'bg-white/5 border-white/10 text-white'}`}>
         {link.label}
