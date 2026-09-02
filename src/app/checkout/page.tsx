@@ -186,10 +186,15 @@ function CheckoutContent() {
             </div>
           </div>
 
-          <button disabled={loading} className="w-full mt-6 md:mt-8 bg-[#d50000] hover:bg-black text-white font-black text- md:text-base py-4 rounded-full tracking-wide transition-colors disabled:opacity-50 shadow-[0_4px_14px_rgba(213,0,0,0.4)]">
+          {/*<button disabled={loading} className="w-full mt-6 md:mt-8 bg-[#d50000] hover:bg-black text-white font-black text- md:text-base py-4 rounded-full tracking-wide transition-colors disabled:opacity-50 shadow-[0_4px_14px_rgba(213,0,0,0.4)]">
             {loading? 'CONECTANDO CON WEBPAY...' : `PAGAR $${total.toLocaleString("es-CL")} CON WEBPAY →`}
-          </button>
-        </form>
+          </button>*/}
+		  
+           <span className="text-2xl md:text-2xl font-black tracking-widest text-zinc-800">
+           PROXIMAMENTE!!!!
+           </span>
+  
+          </form>
 
         <div className="bg-[#f5f5f5] p-5 md:p-10 flex flex-col order-first md:order-last">
           <div className="flex gap-3 items-start">

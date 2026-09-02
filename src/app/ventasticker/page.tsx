@@ -1,6 +1,6 @@
 "use client"
 import { useState } from "react"
-const YOUTUBE_ID = "XwMZ5Q70CAk"
+import { Holtwood_One_SC } from "next/font/google";
 
 type Pack = { id: string, nombre: string, qty: number, precio: number, tag?: string }
 
@@ -9,24 +9,10 @@ const PACKS: Pack[] = [
   { id: "x4", nombre: "PACK X4 4X STICKERS", qty: 4, precio: 10000, tag: "MAS POPULAR - MAS VENDIDO" },
 ]
 
-function SwiftCard() {
-  const [play, setPlay] = useState(false);
-  return (
-    <div className="bg-zinc-100 rounded-2xl p-4 text-center border border-black/5 flex flex-col">
-      <div className="h-36 bg-white rounded-xl mb-3 overflow-hidden relative flex items-center justify-center">
-        <img src={play? "/swiftupgrade.gif" : "/swiftupgrade.jpg"} alt="Swift Sport Balladares Motors" className="w-full h-full object-contain" />
-      </div>
-      <div className="bg-blue-900 text-white font-black text-xs py-2 rounded-full">SWIFT SPORT</div>
-      <button onClick={() => setPlay(!play)} className={`relative mt-3 w-full font-black text- leading-[0.9] py-3.5 rounded-full border-2 border-black shadow-[4px_4px_0px_black] tracking-wider overflow-hidden transition-all active:translate-x- active:translate-y- active:shadow-[1px_1px_0px_black] ${!play? 'bg-[#FFD400] text-black animate-bounce' : 'bg-red-600 text-white animate-pulse'}`}>
-        <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/60 to-transparent skew-x-12"></div>
-        <span className="relative">{!play? (<>¿REGALAMOS UNO<br/>STOCK? 🤔</>) : (<>¡NO WN!<br/>¡STAGE 2! 🔥</>)}</span>
-      </button>
-      <style>{`@keyframes shimmer { 100% { transform: translateX(200%) skewX(12deg); } }`}</style>
-    </div>
-  );
-}
+
 
 export default function ventastickerPage() {
+	const [menuOpen, setMenuOpen] = useState(false);
 	const YOUTUBE_ID = "XwMZ5Q70CAk"
 	const WHATSAPP = "56982637808";
     const WHATSAPP_NEUMATICO = "56982637808";
@@ -39,23 +25,50 @@ export default function ventastickerPage() {
 
   return (
     <div className="bg-black text-white min-h-screen">
-      <nav className="fixed top-0 w-full bg-black border-b-2 border-red-600 flex justify-between items-center pl-1 pr-4 py-2.5" style={{zIndex:50}}>
-        <img src="/BB.png" alt="Balladares Motors" className="h-11 w-auto -ml-2 shrink-0" style={{objectFit:"contain", transform:"scaleX(1.44) scaleY(1.06)", transformOrigin:"left center", height:52}} />
-        <div className="hidden lg:flex gap-3 text-sm font-black tracking-wider" style={{position:'absolute', left:'50%', top:'50%', transform:'translate(-50%, -50%)'}}>
-          {[
-            {id:"inicio", label:"INICIO", href:"/#inicio"},
-            {id:"nosotros", label:"NOSOTROS", href:"/#nosotros"},
-            {id:"servicios", label:"SERVICIOS", href:"/#servicios"},
-            {id:"galeria", label:"GALERÍA", href:"/#galeria"},
-            {id:"contacto", label:"CONTACTO", href:"/#contacto"},
-            {id:"ventasticker", label:"STICKERS 🎟", href:"/ventasticker", destacado:true},
-          ].map(link=>(
-            <a key={link.id} href={link.href} onClick={()=>{ if(link.id!== "ventasticker"){ sessionStorage.setItem("bm_from_ventasticker","1") } }} className={`relative px-4 py-2 border group ${link.destacado? "bg-red-600 border-red-600 text-white" : "border-white/10 hover:border-red-600 hover:bg-red-600/10"}`} style={{transform:"skewX(-12deg)"}}>
-              <span className={`${link.destacado? "" : "group-hover:text-red-500"}`} style={{transform:"skewX(12deg)", display:"block"}}>{link.label}</span>
-            </a>
-          ))}
-        </div>
-      </nav>
+      <nav className="fixed top-0 w-full bg-black border-b-2 border-red-600 flex justify-between items-center pl-1 pr-4 py-2.5 z-50">
+  <img src="/BB.png" alt="Balladares Motors" className="h-11 w-auto -ml-2 shrink-0" style={{objectFit:"contain", transform:"scaleX(1.44) scaleY(1.06)", transformOrigin:"left center", height:52}} />
+  
+  {/* DESKTOP */}
+  <div className="hidden lg:flex gap-3 text-sm font-black tracking-wider" style={{position:'absolute', left:'50%', top:'50%', transform:'translate(-50%, -50%)'}}>
+    {[
+      {id:"inicio", label:"INICIO", href:"/#inicio"},
+      {id:"nosotros", label:"NOSOTROS", href:"/#nosotros"},
+      {id:"servicios", label:"SERVICIOS", href:"/#servicios"},
+      {id:"galeria", label:"GALERÍA", href:"/#galeria"},
+      {id:"contacto", label:"CONTACTO", href:"/#contacto"},
+      {id:"stickers", label:"STICKERS 🎟", href:"/ventasticker", highlight: true},
+    ].map(link=>(
+      <a key={link.id} href={link.href} className={`relative px-4 py-2 border hover:border-red-600 hover:bg-red-600/10 group ${link.highlight ? 'bg-red-600 border-red-600 text-white' : 'border-white/10'}`} style={{transform:"skewX(-12deg)"}}>
+        <span className="group-hover:text-red-500" style={{transform:"skewX(12deg)", display:"block"}}>{link.label}</span>
+      </a>
+    ))}
+  </div>
+
+  {/* BOTON HAMBURGUESA MOBILE */}
+  <button onClick={()=>setMenuOpen(!menuOpen)} className="lg:hidden w-10 h-10 bg-white/10 border border-white/20 flex items-center justify-center text-white text-xl">
+    {menuOpen ? '✕' : '☰'}
+  </button>
+
+  
+</nav>
+
+{/* MENU MOBILE DESPLEGABLE */}
+{menuOpen && (
+  <div className="fixed inset-0 bg-black/95 z-40 lg:hidden flex flex-col pt-24 px-6 gap-3">
+    {[
+      {label:"INICIO", href:"/#inicio"},
+      {label:"NOSOTROS", href:"/#nosotros"},
+      {label:"SERVICIOS", href:"/#servicios"},
+      {label:"GALERÍA", href:"/#galeria"},
+      {label:"CONTACTO", href:"/#contacto"},
+      {label:"STICKERS 🛞", href:"/ventasticker", highlight: true},
+    ].map(link=>(
+      <a key={link.label} href={link.href} onClick={()=>setMenuOpen(false)} className={`text-center py-4 font-black text-lg tracking-widest border ${link.highlight ? 'bg-red-600 border-red-600 text-white' : 'bg-white/5 border-white/10 text-white hover:bg-red-600'}`} style={{transform:"skewX(-12deg)"}}>
+        <span style={{transform:"skewX(12deg)", display:"block"}}>{link.label}</span>
+      </a>
+    ))}
+  </div>
+)}
 
 <section className="relative bg-zinc-900 py-24 md:py-32 px-6 border-b-2 border-red-900 overflow-hidden flex flex-col items-center justify-center min-h-" style={{marginTop:58}}>
 
@@ -132,7 +145,7 @@ export default function ventastickerPage() {
     <div className="text-center mb-12">
       <span className="bg-yellow-400 text-black font-black text- tracking-[0.3em] px-5 py-2 rounded-full">BALLADARES VAULT • AÑO 2026</span>
       <h2 className="font-black italic text-[32px] leading-[0.9] md:text-5xl lg:text-6xl mt-6 tracking-tighter">
-  STICKERS QUE SE <span className="text-yellow-400">DESBLOQUEAN</span>
+  PREMIOS QUE SE <span className="text-yellow-400">DESBLOQUEAN</span>
 </h2>
       <p className="text-zinc-400 text-xs md:text-sm mt-4 font-bold tracking-wide max-w-3xl mx-auto">
         TODOS LOS STICKERS PARA USTEDES!!! - TODOS NUESTROS CODIGOS EMPIEZAN CON <span className="text-white font-mono">BMxxxxxxx</span>
@@ -150,15 +163,15 @@ export default function ventastickerPage() {
           <div className="relative flex-1 bg-gradient-to-b from-[#111] to-black flex items-center justify-center py-10 min-h-">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(250,204,21,0.28),_transparent_65%)]" />
             <img
-              src="/copa_350z_negro_goldbase.png"
+              src="/premio_incognito_transparente.png"
               alt="Copa 350Z Negro Gold"
               className="relative z-10 w-[90%] max-w- object-contain drop-shadow-[0_0_60px_rgba(250,204,21,0.7)] hover:scale-105 transition-transform duration-700"
             />
           </div>
           <div className="p-7 bg-zinc-950 border-t border-white/5">
-            <h3 className="font-black italic text-3xl leading-none">COPA 350Z NEGRO GOLD BASE</h3>
-            <p className="text-yellow-400 font-black text-xs tracking-[0.2em] mt-2">EDICIÓN BALLADARES MOTORS</p>
-            <p className="text-zinc-400 text-sm mt-3">La primera venta oficial de stickers  1/1. Base gold premium.(imagen de referencia)</p>
+           <h3 className="font-black italic text-3xl leading-none">PROXIMAMENTE UNA JOYA</h3>
+           {/*  <p className="text-yellow-400 font-black text-xs tracking-[0.2em] mt-2">EDICIÓN BALLADARES MOTORS</p>
+            <p className="text-zinc-400 text-sm mt-3">La primera venta oficial de stickers  1/1. Base gold premium.(imagen de referencia)</p>*/}
             <div className="mt-5 flex gap-2">
               <div className="flex-1 bg-white text-black font-black text-center text-xs py-3 rounded-full">INCLUIDO EN TU COMPRA</div>
               <div className="bg-zinc-900 border border-white/10 text-white font-mono text-xs px-4 py-3 rounded-full">BM•TICKET</div>
