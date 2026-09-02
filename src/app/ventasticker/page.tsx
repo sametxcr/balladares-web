@@ -25,7 +25,7 @@ export default function ventastickerPage() {
 
   return (
     <div className="bg-black text-white min-h-screen">
-   // REEMPLAZA TODO TU <nav> + EL DIV DEL MENU POR ESTO:
+  
 <nav className="fixed top-0 w-full bg-black border-b-2 border-red-600 flex justify-between items-center pl-1 pr-4 py-2.5" style={{zIndex: 100}}>
   <img src="/BB.png" alt="Balladares Motors" className="h-11 w-auto -ml-2 shrink-0" style={{objectFit:"contain", transform:"scaleX(1.44) scaleY(1.06)", transformOrigin:"left center", height:52}} />
   

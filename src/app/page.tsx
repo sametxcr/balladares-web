@@ -117,32 +117,51 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
 
       <style>{`@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } } .marquee { animation: marquee 25s linear infinite; }`}</style>
 
-   <nav className="fixed top-0 w-full bg-black border-b-2 border-red-600 flex justify-between items-center pl-1 pr-4 py-2.5" style={{zIndex:50}}>
+<nav className="fixed top-0 w-full bg-black border-b-2 border-red-600 flex justify-between items-center pl-1 pr-4 py-2.5" style={{zIndex: 100}}>
   <img src="/BB.png" alt="Balladares Motors" className="h-11 w-auto -ml-2 shrink-0" style={{objectFit:"contain", transform:"scaleX(1.44) scaleY(1.06)", transformOrigin:"left center", height:52}} />
   
+  {/* DESKTOP */}
   <div className="hidden lg:flex gap-3 text-sm font-black tracking-wider" style={{position:'absolute', left:'50%', top:'50%', transform:'translate(-50%, -50%)'}}>
-    {
-		[
+    {[
       {id:"inicio", label:"INICIO", href:"/#inicio"},
-{id:"nosotros", label:"NOSOTROS", href:"/#nosotros"},
-{id:"servicios", label:"SERVICIOS", href:"/#servicios"},
-{id:"galeria", label:"GALERÍA", href:"/#galeria"},
-{id:"contacto", label:"CONTACTO", href:"/#contacto"},
-{id:"sorteos", label:"STICKERS 🎟", href:"/ventasticker", destacado:true},
+      {id:"nosotros", label:"NOSOTROS", href:"/#nosotros"},
+      {id:"servicios", label:"SERVICIOS", href:"/#servicios"},
+      {id:"galeria", label:"GALERÍA", href:"/#galeria"},
+      {id:"contacto", label:"CONTACTO", href:"/#contacto"},
+      {id:"stickers", label:"STICKERS 🎟", href:"/ventasticker", highlight: true},
     ].map(link=>(
-      <a key={link.id} href={link.href} className={`relative px-4 py-2 border group ${link.destacado ? "bg-red-600 border-red-600 text-white" : "border-white/10 hover:border-red-600 hover:bg-red-600/10"}`} style={{transform:"skewX(-12deg)"}}>
-        <span className={`${link.destacado ? "" : "group-hover:text-red-500"}`} style={{transform:"skewX(12deg)", display:"block"}}>{link.label}</span>
+      <a key={link.id} href={link.href} className={`relative px-4 py-2 border hover:border-red-600 hover:bg-red-600/10 group ${link.highlight ? 'bg-red-600 border-red-600 text-white' : 'border-white/10'}`} style={{transform:"skewX(-12deg)"}}>
+        <span className="group-hover:text-red-500" style={{transform:"skewX(12deg)", display:"block"}}>{link.label}</span>
       </a>
-    ))
-   }
+    ))}
   </div>
+
+  <button onClick={()=>setMenuOpen(!menuOpen)} className="lg:hidden w-10 h-10 bg-white text-black border-2 border-black flex items-center justify-center text-xl font-black">
+    {menuOpen ? '✕' : '☰'}
+  </button>
+
 
  <h2 className={`${holtwood.className} absolute bottom-[4px] right-[10px] md:bottom-[8px] md:right-[14px] text-[13px] md:text-[16px] font-black italic leading-[0.9] tracking-wider text-white text-right`}>
   <span className="block md:inline">EL PODER DE UN</span>
   <span className="block text-red-600 md:inline md:ml-1.5">BUEN SERVICIO</span>
 </h2>
 </nav>
-
+{menuOpen && (
+  <div className="fixed inset-0 bg-black z-[90] lg:hidden flex flex-col pt-24 px-6 gap-3">
+    {[
+      {label:"INICIO", href:"/#inicio"},
+      {label:"NOSOTROS", href:"/#nosotros"},
+      {label:"SERVICIOS", href:"/#servicios"},
+      {label:"GALERÍA", href:"/#galeria"},
+      {label:"CONTACTO", href:"/#contacto"},
+      {label:"STICKERS 🎟", href:"/ventasticker", highlight: true},
+    ].map(link=>(
+      <a key={link.label} href={link.href} onClick={()=>setMenuOpen(false)} className={`text-center py-4 font-black text-lg tracking-widest border ${link.highlight ? 'bg-red-600 border-red-600 text-white' : 'bg-white/5 border-white/10 text-white'}`}>
+        {link.label}
+      </a>
+    ))}
+  </div>
+)}
       <section id="inicio" className="relative overflow-hidden bg-zinc-900" style={{height:"92vh", marginTop:58}}>
         {slides.map((s,idx)=>(
           <div key={idx} className={`absolute inset-0 transition-opacity duration-1000 ${idx===i?"opacity-100 pointer-events-auto z-10":"opacity-0 pointer-events-none"}`}>
