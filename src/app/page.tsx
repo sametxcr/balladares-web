@@ -15,10 +15,12 @@ const INSTAGRAM = "https://www.instagram.com/balladaresmotor/";
 const YOUTUBE_ID = "0q6KurtImDI";
 
 const slides = [
+
+ { title: ["","","","Venos por youtube"], titleImgs: ["/hero/titles/diagnostico_de_transparent.png", "/hero/titles/ultima_generacion_transparent.png"], sub: "VIDEO LICEO COLLAO. ▶️ VER EN YOUTUBE", subLink: "https://www.youtube.com/watch?v=PnHtorbaHC0&t=553s", img: "/hero/liceocollao.jpg", pos: "50% 15%" },
+  { title: ["Corre y  ", " cuida tu motor"], titleImgs: ["/hero/titles/diagnostico_de_transparent.png", "/hero/titles/ultima_generacion_transparent.png"], sub: "Nueva linea ETANOL y METANOL corre con seguridad.", img: "/hero/metanol.jpg", pos: "50% 50%" },
   { title: ["repro stage", "DPF-EGR-ADBLUE"], titleImgs: ["/hero/titles/repro_stage_transparent.png", "/hero/titles/1and2_transparent.png"], sub: "Potencia real +25% torque +30%", img: "/hero/repro.jpg", pos: "50% 50%" },
   { title: ["servicios de", "pista y calle"], titleImgs: ["/hero/titles/servicios_de_transparent.png", "/hero/titles/pista_y_calle_transparent.png"], sub: "Alineación 3D, balanceo, elevadores pro", img: "/hero/pista.jpg", pos: "50% 82%" },
   { title: ["diagnostico de", "ultima generacion"], titleImgs: ["/hero/titles/diagnostico_de_transparent.png", "/hero/titles/ultima_generacion_transparent.png"], sub: "Scanner multimarca - Todas las marcas", img: "/hero/scanner.jpg", pos: "50% 50%" },
-  { title: ["Corre y  ", " cuida tu motor"], titleImgs: ["/hero/titles/diagnostico_de_transparent.png", "/hero/titles/ultima_generacion_transparent.png"], sub: "Nueva linea ETANOL y METANOL corre con seguridad.", img: "/hero/metanol.jpg", pos: "50% 50%" },
 ];
 
 const servicios = [
@@ -140,7 +142,7 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
 
       <section id="inicio" className="relative overflow-hidden bg-zinc-900" style={{height:"92vh", marginTop:58}}>
         {slides.map((s,idx)=>(
-          <div key={idx} className={`absolute inset-0 transition-opacity duration-1000 ${idx===i?"opacity-100":"opacity-0"}`}>
+          <div key={idx} className={`absolute inset-0 transition-opacity duration-1000 ${idx===i?"opacity-100 pointer-events-auto z-10":"opacity-0 pointer-events-none"}`}>
             <img src={s.img} alt={s.title.join(" ")} className="absolute inset-0 w-full h-full object-cover" style={{objectPosition: s.pos}} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent" />
             <div className="relative h-full flex flex-col justify-between px-4 md:px-24 py-10 md:py-20">
@@ -154,14 +156,28 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
     </div>
   ))}
 </div>
-              <div className="flex flex-col gap-3 items-start mb-2">
-                <a href="#servicios" className="w-fit bg-red-600 px-10 py-3.5 font-black text-sm hover:bg-white hover:text-black transition" style={{transform:"skewX(-12deg)", boxShadow:"4px 4px 0px rgba(0,0,0,0.8)"}}><span style={{transform:"skewX(12deg)", display:"block"}}>VER SERVICIOS →</span></a>
-                <div className="bg-white text-black inline-flex px-6 py-2.5 font-black text-xs w-fit" style={{transform:"skewX(-12deg)", boxShadow:"4px 4px 0px #dc2626"}}><span style={{transform:"skewX(12deg)", display:"block"}}>{s.sub}</span></div>
-              </div>
+             <div className="flex flex-col gap-3 items-start mb-2">
+  <a href="#servicios" className="w-fit bg-red-600 px-10 py-3.5 font-black text-sm hover:bg-white hover:text-black transition" style={{transform:"skewX(-12deg)", boxShadow:"4px 4px 0px rgba(0,0,0,0.8)"}}><span style={{transform:"skewX(12deg)", display:"block"}}>VER SERVICIOS →</span></a>
+  
+  {s.subLink ? (
+    <a href={s.subLink} target="_blank" rel="noopener noreferrer" className="bg-white text-black inline-flex items-center gap-2 px-6 py-2.5 font-black text-xs w-fit hover:bg-red-600 hover:text-white transition" style={{transform:"skewX(-12deg)", boxShadow:"4px 4px 0px #dc2626"}}>
+      <span style={{transform:"skewX(12deg)", display:"flex"}} className="items-center gap-2">
+        {s.sub}
+        <span className="bg-red-600 text-white rounded p-1">
+          <svg viewBox="0 0 24 24" className="w-4 h-4 fill-white"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </span>
+      </span>
+    </a>
+  ) : (
+    <div className="bg-white text-black inline-flex px-6 py-2.5 font-black text-xs w-fit" style={{transform:"skewX(-12deg)", boxShadow:"4px 4px 0px #dc2626"}}><span style={{transform:"skewX(12deg)", display:"block"}}>{s.sub}</span></div>
+  )}
+</div>
             </div>
           </div>
         ))}
-        <div className="absolute bottom-2 left-4 md:left-24 flex gap-2">{slides.map((_,idx)=><button key={idx} onClick={()=>setI(idx)} className={`h-1 transition-all ${idx===i?"w-12 bg-red-600":"w-8 bg-white/40"}`} />)}</div>
+        <div className="absolute bottom-2 left-4 md:left-24 flex gap-2 z-30 pointer-events-auto">
+  {slides.map((_,idx)=><button key={idx} onClick={()=>setI(idx)} className={`h-1 transition-all cursor-pointer ${idx===i?"w-12 bg-red-600":"w-8 bg-white/40 hover:bg-white/70"}`} />)}
+</div>
       </section>
 
       <section className="bg-black border-y border-white/10 grid grid-cols-2 lg:grid-cols-4" style={{backgroundColor:"#0f0f0f"}}>
