@@ -25,7 +25,8 @@ export default function ventastickerPage() {
 
   return (
     <div className="bg-black text-white min-h-screen">
-      <nav className="fixed top-0 w-full bg-black border-b-2 border-red-600 flex justify-between items-center pl-1 pr-4 py-2.5 z-50">
+   // REEMPLAZA TODO TU <nav> + EL DIV DEL MENU POR ESTO:
+<nav className="fixed top-0 w-full bg-black border-b-2 border-red-600 flex justify-between items-center pl-1 pr-4 py-2.5" style={{zIndex: 100}}>
   <img src="/BB.png" alt="Balladares Motors" className="h-11 w-auto -ml-2 shrink-0" style={{objectFit:"contain", transform:"scaleX(1.44) scaleY(1.06)", transformOrigin:"left center", height:52}} />
   
   {/* DESKTOP */}
@@ -44,27 +45,23 @@ export default function ventastickerPage() {
     ))}
   </div>
 
-  {/* BOTON HAMBURGUESA MOBILE */}
-  <button onClick={()=>setMenuOpen(!menuOpen)} className="lg:hidden w-10 h-10 bg-white/10 border border-white/20 flex items-center justify-center text-white text-xl">
+  <button onClick={()=>setMenuOpen(!menuOpen)} className="lg:hidden w-10 h-10 bg-white text-black border-2 border-black flex items-center justify-center text-xl font-black">
     {menuOpen ? '✕' : '☰'}
   </button>
-
-  
 </nav>
 
-{/* MENU MOBILE DESPLEGABLE */}
 {menuOpen && (
-  <div className="fixed inset-0 bg-black/95 z-40 lg:hidden flex flex-col pt-24 px-6 gap-3">
+  <div className="fixed inset-0 bg-black z-[90] lg:hidden flex flex-col pt-24 px-6 gap-3">
     {[
       {label:"INICIO", href:"/#inicio"},
       {label:"NOSOTROS", href:"/#nosotros"},
       {label:"SERVICIOS", href:"/#servicios"},
       {label:"GALERÍA", href:"/#galeria"},
       {label:"CONTACTO", href:"/#contacto"},
-      {label:"STICKERS 🛞", href:"/ventasticker", highlight: true},
+      {label:"STICKERS 🎟", href:"/ventasticker", highlight: true},
     ].map(link=>(
-      <a key={link.label} href={link.href} onClick={()=>setMenuOpen(false)} className={`text-center py-4 font-black text-lg tracking-widest border ${link.highlight ? 'bg-red-600 border-red-600 text-white' : 'bg-white/5 border-white/10 text-white hover:bg-red-600'}`} style={{transform:"skewX(-12deg)"}}>
-        <span style={{transform:"skewX(12deg)", display:"block"}}>{link.label}</span>
+      <a key={link.label} href={link.href} onClick={()=>setMenuOpen(false)} className={`text-center py-4 font-black text-lg tracking-widest border ${link.highlight ? 'bg-red-600 border-red-600 text-white' : 'bg-white/5 border-white/10 text-white'}`}>
+        {link.label}
       </a>
     ))}
   </div>
