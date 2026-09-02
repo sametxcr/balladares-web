@@ -152,7 +152,7 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
 </button>
 
 
- <h2 className={`${holtwood.className} absolute bottom-[4px] right-[10px] md:bottom-[8px] md:right-[14px] text-[12px] md:text-[12px] font-black italic leading-[0.9] tracking-wider text-white text-right`}>
+ <h2 className={`${holtwood.className} absolute bottom-[4px] right-[10px] md:bottom-[8px] md:right-[14px] text-[12px] md:text-[16px] font-black italic leading-[0.9] tracking-wider text-white text-right`}>
   <span className="block md:inline">EL PODER DE UN</span>
   <span className="block text-red-600 md:inline md:ml-1.5">BUEN SERVICIO</span>
 </h2>
