@@ -16,8 +16,8 @@ const YOUTUBE_ID = "0q6KurtImDI";
 
 const slides = [
 
- { title: ["","","","Venos por youtube"], titleImgs: ["/hero/titles/diagnostico_de_transparent.png", "/hero/titles/ultima_generacion_transparent.png"], sub: "VIDEO LICEO COLLAO. ▶️ VER EN YOUTUBE", subLink: "https://www.youtube.com/watch?v=PnHtorbaHC0&t=553s", img: "/hero/liceocollao.jpg", pos: "50% 15%" },
-  { title: ["Corre y  ", " cuida tu motor"], titleImgs: ["/hero/titles/diagnostico_de_transparent.png", "/hero/titles/ultima_generacion_transparent.png"], sub: "Nueva linea ETANOL y METANOL corre con seguridad.", img: "/hero/metanol.jpg", pos: "50% 50%" },
+  { title: [""], titleImgs: ["/hero/titles/diagnostico_de_transparent.png", "/hero/titles/ultima_generacion_transparent.png"], sub: "VIDEO LICEO COLLAO. ▶ VER EN YOUTUBE", subLink: "https://www.youtube.com/watch?v=PnHtorbaHC0&t=553s", img: "/hero/liceocollao.jpg", imgMobile: "/hero/liceocollaovertical.jpg", pos: "50% 15%", posMobile: "50% -15%" },
+  { title: [""], titleImgs: ["/hero/titles/diagnostico_de_transparent.png", "/hero/titles/ultima_generacion_transparent.png"], sub: "Nueva linea ETANOL y METANOL corre con seguridad.", img: "/hero/metanol.jpg", pos: "50% 50%" },
   { title: ["repro stage", "DPF-EGR-ADBLUE"], titleImgs: ["/hero/titles/repro_stage_transparent.png", "/hero/titles/1and2_transparent.png"], sub: "Potencia real +25% torque +30%", img: "/hero/repro.jpg", pos: "50% 50%" },
   { title: ["servicios de", "pista y calle"], titleImgs: ["/hero/titles/servicios_de_transparent.png", "/hero/titles/pista_y_calle_transparent.png"], sub: "Alineación 3D, balanceo, elevadores pro", img: "/hero/pista.jpg", pos: "50% 82%" },
   { title: ["diagnostico de", "ultima generacion"], titleImgs: ["/hero/titles/diagnostico_de_transparent.png", "/hero/titles/ultima_generacion_transparent.png"], sub: "Scanner multimarca - Todas las marcas", img: "/hero/scanner.jpg", pos: "50% 50%" },
@@ -176,7 +176,11 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
       <section id="inicio" className="relative overflow-hidden bg-zinc-900" style={{height:"92vh", marginTop:58}}>
         {slides.map((s,idx)=>(
           <div key={idx} className={`absolute inset-0 transition-opacity duration-1000 ${idx===i?"opacity-100 pointer-events-auto z-10":"opacity-0 pointer-events-none"}`}>
-            <img src={s.img} alt={s.title.join(" ")} className="absolute inset-0 w-full h-full object-cover" style={{objectPosition: s.pos}} />
+           {/* PC - horizontal */}
+<img src={s.img} alt="" className="hidden md:block absolute inset-0 w-full h-full object-cover" style={{objectPosition: s.pos}} />
+
+{/* CELU - vertical con pos independiente */}
+<img src={(s as any).imgMobile || s.img} alt="" className="block md:hidden absolute inset-0 w-full h-full object-cover" style={{objectPosition: (s as any).posMobile || "50% 80%"}} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent" />
             <div className="relative h-full flex flex-col justify-between px-4 md:px-24 py-10 md:py-20">
       <div className={`${holtwood.className} mt-12 md:mt-20 flex flex-col items-start gap-4 md:gap-6`}>
