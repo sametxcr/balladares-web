@@ -123,7 +123,7 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
   {/* DESKTOP */}
   <div className="hidden lg:flex gap-3 text-sm font-black tracking-wider" style={{position:'absolute', left:'50%', top:'50%', transform:'translate(-50%, -50%)'}}>
     {[
-      {id:"inicio", label:"INICIO", href:"/#inicio"},
+      {id:"inicio", label:"INICIO", href:"/#top"},
       {id:"nosotros", label:"NOSOTROS", href:"/#nosotros"},
       {id:"servicios", label:"SERVICIOS", href:"/#servicios"},
       {id:"galeria", label:"GALERÍA", href:"/#galeria"},
@@ -158,19 +158,43 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
 </h2>
 </nav>
 {menuOpen && (
-  <div className="fixed inset-0 bg-black z-[90] lg:hidden flex flex-col pt-24 px-6 gap-3">
+  <div className="fixed inset-0 bg-black/95 backdrop-blur-md z-[90] lg:hidden flex flex-col pt-24 px-6 gap-3 animate-in fade-in slide-in-from-top-5 duration-300">
     {[
-      {label:"INICIO", href:"/#inicio"},
+      {label:"INICIO", href:"/"},
       {label:"NOSOTROS", href:"/#nosotros"},
       {label:"SERVICIOS", href:"/#servicios"},
       {label:"GALERÍA", href:"/#galeria"},
       {label:"CONTACTO", href:"/#contacto"},
       {label:"STICKERS", href:"/ventasticker", highlight: true},
-    ].map(link=>(
-      <a key={link.label} href={link.href} onClick={()=>setMenuOpen(false)} className={`text-center py-4 font-black text-lg tracking-widest border ${link.highlight ? 'bg-red-600 border-red-600 text-white' : 'bg-white/5 border-white/10 text-white'}`}>
+    ].map((link, idx)=>(
+      <a
+        key={link.label}
+        href={link.href}
+        onClick={()=>{
+          if(link.label==="INICIO") window.scrollTo({top:0, behavior:'smooth'});
+          setMenuOpen(false);
+        }}
+        className={`text-center py-2 font-black text-lg tracking-widest border transition-all duration-300 hover:scale-[1.02] hover:bg-red-600 ${link.highlight? 'bg-red-600 border-red-600 text-white shadow-[4px_4px_0px_white]' : 'bg-white/5 border-white/10 text-white hover:border-red-600/50'}`}
+        style={{
+          animation: `slideIn 0.4s ease-out ${idx * 0.07}s both`,
+          transform: "skewX(-2deg)"
+        }}
+      >
         {link.label}
       </a>
     ))}
+
+    {/* LOGOS ABAJO */}
+    <div className="mt-auto mb-8 flex justify-center gap-4 opacity-60">
+      <img src="/BB.png" className="h-8" />
+    </div>
+
+    <style>{`
+      @keyframes slideIn {
+        from { opacity: 0; transform: translateX(30px) skewX(-2deg); }
+        to { opacity: 1; transform: translateX(0) skewX(-2deg); }
+      }
+    `}</style>
   </div>
 )}
       <section id="inicio" className="relative overflow-hidden bg-zinc-900" style={{height:"92vh", marginTop:58}}>

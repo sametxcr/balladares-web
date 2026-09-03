@@ -32,7 +32,7 @@ export default function ventastickerPage() {
   {/* DESKTOP */}
   <div className="hidden lg:flex gap-3 text-sm font-black tracking-wider" style={{position:'absolute', left:'50%', top:'50%', transform:'translate(-50%, -50%)'}}>
     {[
-      {id:"inicio", label:"INICIO", href:"/#inicio"},
+      {id:"inicio", label:"INICIO", href:"/#top"},
       {id:"nosotros", label:"NOSOTROS", href:"/#nosotros"},
       {id:"servicios", label:"SERVICIOS", href:"/#servicios"},
       {id:"galeria", label:"GALERÍA", href:"/#galeria"},
@@ -71,7 +71,7 @@ export default function ventastickerPage() {
 {menuOpen && (
   <div className="fixed inset-0 bg-black z-[90] lg:hidden flex flex-col pt-24 px-6 gap-3">
     {[
-      {label:"INICIO", href:"/#inicio"},
+      {label:"INICIO", href:"/"},
       {label:"NOSOTROS", href:"/#nosotros"},
       {label:"SERVICIOS", href:"/#servicios"},
       {label:"GALERÍA", href:"/#galeria"},
@@ -117,7 +117,7 @@ export default function ventastickerPage() {
   <img src="/copa_balladares_3d_FINAL.png" alt="Copa Balladares" className="w-14 h-14 md:w-20 md:h-20 object-contain drop-shadow-[0_0_20px_rgba(250,204,21,0.6)] flex-shrink-0" />
   <p className="text-lg md:text-xl font-black tracking-wide text-white/60 leading-none">
     Y GANA UNO DE LOS <br />
-    <span className="text-white">INCREÍBLES DESCUENTOS BALLADARES</span>
+    <span className="text-white">INCREÍBLES PREMIOS BALLADARES</span>
   </p>
 </div>
 
