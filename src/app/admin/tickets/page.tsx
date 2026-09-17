@@ -58,7 +58,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ q
             </div>
           </div>
           <form className="flex gap-2">
-            <input name="q" defaultValue={q} placeholder="RUT / NOMBRE / REGIÓN" className="w- md:w- bg-zinc-900 border border-zinc-800 rounded-full px-5 h-10 text- font-bold placeholder:text-zinc-600 focus:outline-none focus:border-red-600" />
+            <input name="q" defaultValue={q} placeholder="RUT /NOMBRE /REGIÓN" className="w- md:w- bg-zinc-900 border border-zinc-800 rounded-full px-5 h-10 text- font-bold placeholder:text-zinc-600 focus:outline-none focus:border-red-600" />
             <button className="h-10 px-6 bg-white text-black rounded-full font-black italic text- hover:bg-zinc-200 transition">BUSCAR</button>
           </form>
         </div>

@@ -6,7 +6,7 @@ type Pack = { id: string, nombre: string, qty: number, precio: number, tag?: str
 
 const PACKS: Pack[] = [
   { id: "x1", nombre: "UNIDAD 1X STICKER", qty: 1, precio: 3000 },
-  { id: "x4", nombre: "PACK X4 4X STICKERS", qty: 4, precio: 10000, tag: "MAS POPULAR - MAS VENDIDO" },
+  { id: "x4", nombre: "PACK X4 4X STICKERS", qty: 4, precio: 10000, tag: "MAS VENDIDO" },
 ]
 
 
@@ -117,7 +117,7 @@ export default function ventastickerPage() {
   <img src="/copa_balladares_3d_FINAL.png" alt="Copa Balladares" className="w-14 h-14 md:w-20 md:h-20 object-contain drop-shadow-[0_0_20px_rgba(250,204,21,0.6)] flex-shrink-0" />
   <p className="text-lg md:text-xl font-black tracking-wide text-white/60 leading-none">
     Y GANA UNO DE LOS <br />
-    <span className="text-white">INCREÍBLES PREMIOS BALLADARES</span>
+    <span className="text-white">INCREÍBLES STICKERS BALLADARES</span>
   </p>
 </div>
 
@@ -160,7 +160,7 @@ export default function ventastickerPage() {
     <div className="text-center mb-12">
       <span className="bg-yellow-400 text-black font-black text- tracking-[0.3em] px-5 py-2 rounded-full">BALLADARES VAULT • AÑO 2026</span>
       <h2 className="font-black italic text-[32px] leading-[0.9] md:text-5xl lg:text-6xl mt-6 tracking-tighter">
-  PREMIOS QUE SE <span className="text-yellow-400">DESBLOQUEAN</span>
+  STICKERS QUE SE <span className="text-yellow-400">DESBLOQUEAN</span>
 </h2>
       <p className="text-zinc-400 text-xs md:text-sm mt-4 font-bold tracking-wide max-w-3xl mx-auto">
         TODOS LOS STICKERS PARA USTEDES!!! - TODOS NUESTROS CODIGOS EMPIEZAN CON <span className="text-white font-mono">BMxxxxxxx</span>
@@ -172,7 +172,7 @@ export default function ventastickerPage() {
       <div className="lg:col-span-6 relative bg-gradient-to-b from-zinc-900 to-black rounded- border border-yellow-400/40 p-[1.5px]">
         <div className="bg-black rounded- overflow-hidden h-full flex flex-col">
           <div className="p-6 flex justify-between items-center bg-black">
-            <span className="bg-yellow-400 text-black font-black text-xs px-4 py-1.5 rounded-full">🔥 PREMIO ACTIVO</span>
+            <span className="bg-yellow-400 text-black font-black text-xs px-4 py-1.5 rounded-full">🔥 STICKERS ACTIVO</span>
             <span className="font-mono text- text-zinc-500">VAULT #01 / 04</span>
           </div>
           <div className="relative flex-1 bg-gradient-to-b from-[#111] to-black flex items-center justify-center py-10 min-h-">
@@ -285,7 +285,7 @@ export default function ventastickerPage() {
                     <div className="font-black italic text- md:text-5xl text-white mt-1">
                       ${p.precio.toLocaleString("es-CL")}
                     </div>
-                    {isPopular && <p className="text-white/40 text- md:text-xs font-bold mt-2 md:mt-3">4 oportunidades de ganar la Copa 350Z</p>}
+                    {isPopular && <p className="text-white/40 text- md:text-xs font-bold mt-2 md:mt-3"></p>}
                     {!isPopular && <div className="h-3 md:h-4" />}
                   </div>
                 </div>
