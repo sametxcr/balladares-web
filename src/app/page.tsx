@@ -242,7 +242,7 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
 */}
 <h1 className={`${holtwood.className} text-4xl md:text-7xl font-black italic leading-none mt-2`}>
       <span className="text-white block">PREMIOS</span>
-      <span className="text-yellow block">BALLADARES</span>
+      <span className="text-red-600 block">BALLADARES</span>
     </h1>
     
     <h1 className={`${holtwood.className} text-3xl md:text-5xl font-black italic leading-none mt-2`}>
@@ -258,6 +258,8 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
       <div className="text-white/60 text- font-black tracking-[0.3em] mt-2 text-center">TIEMPO RESTANTE</div>
     </div>
 */}
+  <img src="/copa_balladares_3d_FINAL.png" alt="Copa Balladares" className="w-14 h-14 md:w-40 md:h-40 object-contain drop-shadow-[0_0_20px_rgba(250,204,21,0.6)] flex-shrink-0" />
+
     <p className="mt-6 text-white/70 text-sm max-w-md">
       Compra tus tickets y participa. Tu próxima aventura empieza hoy en Balladares Motors.
     </p>
@@ -265,6 +267,7 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
     <a href="/ventasticker" className="mt-6 bg-[#7a2d3d] hover:bg-red-600 text-white px-12 py-4 rounded-full font-black text-base transition">
       Participa Ahora
     </a>
+	
     <div className="mt-3 text-[#c9a86a] text- tracking-widest">🔒 PAGO SEGURO Y PROTEGIDO</div>
   </div>
 
