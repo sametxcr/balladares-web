@@ -163,7 +163,7 @@ export default function ventastickerPage() {
   PREMIOS QUE SE <span className="text-yellow-400">DESBLOQUEAN</span>
 </h2>
 <h2 className="font-black italic text-[20px] leading-[0.9] md:text-5xl lg:text-3xl mt-3 tracking-tighter">
-  COMIENZA LA TRILOGIA  <span className="text-red-500">NISSAN</span>
+  COMIENZA LA TRILOGIA  <span className="text-red-500"></span>
 </h2>
 <h2 className="font-black italic text-[20px] leading-[0.9] md:text-5xl lg:text-2xl mt-2 tracking-tighter">
   NINGUN AUTO ESTA  <span className="text-red-500">STOCK!!!</span>
