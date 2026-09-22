@@ -177,9 +177,9 @@ if(data.url || data.sandbox_url){
             </div>
           </div>
 
-          <button disabled={loading} className="w-full mt-6 md:mt-8 bg-[#FFE600] hover:bg-[#FFD600] text-black font-black text- md:text-base py-4 rounded-full tracking-wide transition-colors disabled:opacity-50 shadow-[0_4px_14px_rgba(255,230,0,0.4)] border border-black">
+         {/* <button disabled={loading} className="w-full mt-6 md:mt-8 bg-[#FFE600] hover:bg-[#FFD600] text-black font-black text- md:text-base py-4 rounded-full tracking-wide transition-colors disabled:opacity-50 shadow-[0_4px_14px_rgba(255,230,0,0.4)] border border-black">
   {loading? 'CONECTANDO CON MERCADO PAGO...' : `PAGAR $${total.toLocaleString("es-CL")} CON MERCADO PAGO →`}
-</button>
+</button>*/}
 		  
            <h2 className="font-black text-sm tracking-widest mb-3">PAGINA EN CONSTRUCCION NO COMPRAR!</h2>
   
