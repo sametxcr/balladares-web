@@ -103,10 +103,9 @@ function CheckoutContent() {
         })
       })
       const data = await res.json()
-      if(data.url || data.sandbox_url){
-        // En test usamos sandbox_url, en prod url
-        window.location.href = data.sandbox_url || data.url;
-      } else {
+if(data.url || data.sandbox_url){
+  window.location.href = data.url || data.sandbox_url;
+} else {
         console.error(data)
         alert('Error Mercado Pago: '+JSON.stringify(data));
         setLoading(false)
