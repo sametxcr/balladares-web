@@ -6,12 +6,16 @@ import { useEffect, useState, Suspense } from 'react';
 function GraciasContent() {
   const searchParams = useSearchParams()
   const orden = searchParams.get('orden') || searchParams.get('order') || '';
-  const token = searchParams.get('token') || '';
+  const payment_id = searchParams.get('payment_id') || searchParams.get('collection_id') || searchParams.get('preference_id') || '';
   const [tickets, setTickets] = useState<string[]>([])
   const [loading, setLoading] = useState(true)
 
    useEffect(() => {
     if (!orden) { setLoading(false); return }
+
+    // Disparamos la validación en MP para que cree los tickets
+    fetch(`/api/mercadopago/webhook?orden=${orden}&payment_id=${payment_id}`).catch(()=>{})
+
     let tries = 0
     const load = async () => {
       try {
@@ -23,22 +27,21 @@ function GraciasContent() {
           setLoading(false)
           clearInterval(i)
         }
-        if(tries > 15) setLoading(false)
+        if(tries > 20) setLoading(false)
       } catch {
-        if(tries > 15) setLoading(false)
+        if(tries > 20) setLoading(false)
       }
     }
     load()
     const i = setInterval(load, 2000)
-    setTimeout(() => { clearInterval(i); setLoading(false) }, 30000)
+    setTimeout(() => { clearInterval(i); setLoading(false) }, 40000)
     return () => clearInterval(i)
-  }, [orden])
+  }, [orden, payment_id])
 
   return (
     <div className="min-h-screen w-full bg-black flex flex-col items-center justify-start md:justify-center p-0 md:p-8">
-      <div className="w-full max-w- bg-black md:bg-zinc-900 md:border md:border-zinc-800 md:rounded- p-6 md:p-8 text-center min-h-screen md:min-h-0">
+      <div className="w-full max-w- bg-black md:bg-zinc-900 md:border md:border-zinc-800 md:rounded-2xl p-6 md:p-8 text-center min-h-screen md:min-h-0">
 
-        {/* LOGO BB.png */}
         <div className="flex justify-center mb-8 mt-4">
           <img src="/BB.png" alt="Balladares Motors" className="h-14 w-auto object-contain invert-0" />
         </div>
@@ -53,18 +56,18 @@ function GraciasContent() {
         <div className="bg-zinc-900 md:bg-black rounded-2xl p-4 mb-4 text-left border border-zinc-800">
           <p className="text- text-zinc-500 mb-3 tracking-widest font-bold">TUS CÓDIGOS ({loading? '...' : tickets.length}):</p>
           {loading? (
-            <div className="font-mono text-zinc-500 animate-pulse">Generando...</div>
+            <div className="font-mono text-zinc-500 animate-pulse">Generando tus tickets... no cierres esta pestaña</div>
           ) : tickets.length > 0? (
             <div className="space-y-2">
               {tickets.map(t => (
                 <div key={t} className="bg-zinc-800 md:bg-zinc-900 border border-yellow-500/20 rounded-xl px-4 py-3 flex justify-between items-center">
                   <span className="font-mono text-yellow-400 font-bold text-lg tracking-wider">{t}</span>
-                  <span className="text- bg-[#FFD600] text-black font-bold px-2 py-1 rounded-md">STICKER</span>
+                  <span className="text- bg-[#FFD600] text-black font-bold px-2 py-1 rounded-md">VÁLIDO</span>
                 </div>
               ))}
             </div>
           ) : (
-            <div className="font-mono text-zinc-500 text-sm">Te llegarán al correo. Recarga. Token:{token.slice(0,6)}...</div>
+            <div className="font-mono text-zinc-500 text-sm">Te llegarán al correo. Recarga en 10 segundos.</div>
           )}
         </div>
 

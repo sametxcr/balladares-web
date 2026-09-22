@@ -36,17 +36,16 @@ export async function POST(req: NextRequest){
         ],
         payer: {
           email: email,
-          name: nombre,
         },
         external_reference: order_code,
         auto_return: "approved", 
         back_urls: {
-          // CAMBIO CLAVE WN: NO VA A /gracias, VA A TU WEBHOOK QUE VALIDA Y LUEGO REDIRIGE A GRACIAS
-          success: `${baseUrl}/api/mercadopago/webhook?orden=${order_code}`,
-          failure: `${baseUrl}/ventasticker/fallido`,
-          pending: `${baseUrl}/ventasticker/fallido`,
+          success: `${baseUrl}/ventasticker/gracias?orden=${order_code}`,
+          failure: `${baseUrl}/ventasticker`,
+          pending: `${baseUrl}/ventasticker`,
         },
         notification_url: `${baseUrl}/api/mercadopago/webhook`,
+        statement_descriptor: "BALLADARES",
         metadata: {
           order_code,
           pack_id,
@@ -57,7 +56,7 @@ export async function POST(req: NextRequest){
       }
     });
 
-    console.log('[MP CREATE] pack:', pack_id, 'packs:', packs, 'tickets:', qty, 'total:', total, 'order:', order_code, 'pref:', result.id);
+    console.log('[MP CREATE] pack:', pack_id, 'packs:', packs, 'tickets:', qty, 'total:', total, 'order:', order_code, 'pref:', result.id, 'init_point:', result.init_point);
 
     await pool.query(
       `INSERT INTO orders(order_code, email, nombre, rut, pack_id, total, status, qty, celular, direccion, comuna, ciudad, region)
