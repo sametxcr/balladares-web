@@ -128,9 +128,9 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
       {id:"servicios", label:"SERVICIOS", href:"/#servicios"},
       {id:"galeria", label:"GALERÍA", href:"/#galeria"},
       {id:"contacto", label:"CONTACTO", href:"/#contacto"},
-     
+     {/* {id:"stickers", label:"STICKERS", href:"/ventasticker", highlight: true},*/}
     ].map(link=>(
-      <a key={link.id} href={link.href} className={`relative px-4 py-2 border hover:border-red-600 hover:bg-red-600/10 group ${link.highlight ? 'bg-red-600 border-red-600 text-white' : 'border-white/10'}`} style={{transform:"skewX(-12deg)"}}>
+      <a key={link.id} href={link.href} className={'relative px-4 py-2 border hover:border-red-600 hover:bg-red-600/10 group'}>
         <span className="group-hover:text-red-500" style={{transform:"skewX(12deg)", display:"block"}}>{link.label}</span>
       </a>
     ))}
