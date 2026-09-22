@@ -182,7 +182,7 @@ function CheckoutContent() {
   {loading? 'CONECTANDO CON MERCADO PAGO...' : `PAGAR $${total.toLocaleString("es-CL")} CON MERCADO PAGO →`}
 </button>
 		  
-           
+           <h2 className="font-black text-sm tracking-widest mb-3">PAGINA EN CONSTRUCCION NO COMPRAR!</h2>
   
           </form>
 
