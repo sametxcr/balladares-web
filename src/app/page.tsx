@@ -8,9 +8,9 @@ import { Analytics } from "@vercel/analytics/react"
 const montserrat = Montserrat({ subsets: ["latin"], weight: ["400","700","900"] });
 const holtwood = Holtwood_One_SC({ weight: "400", subsets: ["latin"] });
 
-const WHATSAPP = "56982637808";// numero principal general
-const WHATSAPP_NEUMATICO = "56982637808"; // pon aquí el numero de neumáticos
-const WHATSAPP_REPUESTO = "56982637808"; // pon aquí el numero de repuestos
+const WHATSAPP = "56998804732";// numero principal general
+const WHATSAPP_NEUMATICO = "56998804732"; // pon aquí el numero de neumáticos
+const WHATSAPP_REPUESTO = "56998804732"; // pon aquí el numero de repuestos
 const INSTAGRAM = "https://www.instagram.com/balladaresmotor/";
 const YOUTUBE_ID = "0q6KurtImDI";
 
