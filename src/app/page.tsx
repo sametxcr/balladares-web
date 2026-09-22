@@ -132,7 +132,7 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
 );
   return (
     <main className="bg-black text-white overflow-x-hidden">
-      {showIntro && (
+     {/* {showIntro && (
         <div className="fixed inset-0 bg-black flex items-center justify-center" style={{zIndex:200}}>
           <button onClick={closeIntro} className="absolute top-4 right-4 w-12 h-12 bg-white/10 hover:bg-red-600 border border-white/20 rounded-full flex items-center justify-center text-white text-xl font-black transition" style={{zIndex:30}}>✕</button>
           <iframe className="w-full h-full" style={{maxWidth:420, aspectRatio:"9/16"}} src={`https://www.youtube.com/embed/${YOUTUBE_ID}?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1&playsinline=1`} title="Intro" allow="autoplay; encrypted-media" allowFullScreen />
@@ -140,7 +140,7 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
             <button onClick={closeIntro} className="bg-white/10 border border-white/20 text-white px-6 py-2.5 font-black text-sm hover:bg-white hover:text-black transition" style={{transform:"skewX(-12deg)"}}><span style={{transform:"skewX(12deg)", display:"block"}}>SALTAR INTRO →</span></button>
           </div>
         </div>
-      )}
+      )}*/}
 
       <style>{`@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } } .marquee { animation: marquee 25s linear infinite; }`}</style>
 
@@ -236,29 +236,33 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
   {/* TEXTO FIJO TIPO GONZALOKO PERO BALLADARES */}
   <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
 
-    <div className={`${holtwood.className} text-white/60 text- tracking-[0.3em] font-black border border-white/10 bg-black/40 px-4 py-1 rounded-full backdrop-blur mb-3`}>
+  {/*  <div className={`${holtwood.className} text-white/60 text- tracking-[0.3em] font-black border border-white/10 bg-black/40 px-4 py-1 rounded-full backdrop-blur mb-3`}>
       PRÓXIMO SORTEO
     </div>
-
-    <h2 className="text-white font-black text-sm tracking-[0.4em]">SORTEO BALLADARES</h2>
-    <h1 className={`${holtwood.className} text-4xl md:text-7xl font-black italic leading-none mt-2`}>
-      <span className="text-white block">SUNNY B13 DRAG</span>
+*/}
+<h1 className={`${holtwood.className} text-4xl md:text-7xl font-black italic leading-none mt-2`}>
+      <span className="text-white block">PREMIOS</span>
+      <span className="text-yellow block">BALLADARES</span>
+    </h1>
+    
+    <h1 className={`${holtwood.className} text-3xl md:text-5xl font-black italic leading-none mt-2`}>
+      <span className="text-white block">B13 DRAG</span>
       <span className="text-red-600 block">RACING</span>
     </h1>
-    <p className="text-white/40 text- font-black tracking-[0.3em] mt-2">AZUL</p>
+   
 
-    {/* CAJA CONTADOR */}
+    {/* CAJA CONTADOR 
 <div className="mt-6 bg-black/30 backdrop-blur-xl border border-white/10 rounded-2xl px-8 md:px-14 py-6">      <div className="text-white font-black text-2xl md:text-4xl">
         Faltan {tiempo.d} días {String(tiempo.h).padStart(2,'0')}:{String(tiempo.m).padStart(2,'0')}:{String(tiempo.s).padStart(2,'0')}
       </div>
       <div className="text-white/60 text- font-black tracking-[0.3em] mt-2 text-center">TIEMPO RESTANTE</div>
     </div>
-
+*/}
     <p className="mt-6 text-white/70 text-sm max-w-md">
       Compra tus tickets y participa. Tu próxima aventura empieza hoy en Balladares Motors.
     </p>
 
-    <a href="#contacto" className="mt-6 bg-[#7a2d3d] hover:bg-red-600 text-white px-12 py-4 rounded-full font-black text-base transition">
+    <a href="/ventasticker" className="mt-6 bg-[#7a2d3d] hover:bg-red-600 text-white px-12 py-4 rounded-full font-black text-base transition">
       Participa Ahora
     </a>
     <div className="mt-3 text-[#c9a86a] text- tracking-widest">🔒 PAGO SEGURO Y PROTEGIDO</div>
