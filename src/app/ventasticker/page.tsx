@@ -117,7 +117,7 @@ export default function ventastickerPage() {
   <img src="/copa_balladares_3d_FINAL.png" alt="Copa Balladares" className="w-14 h-14 md:w-20 md:h-20 object-contain drop-shadow-[0_0_20px_rgba(250,204,21,0.6)] flex-shrink-0" />
   <p className="text-lg md:text-xl font-black tracking-wide text-white/60 leading-none">
     Y GANA UNO DE LOS <br />
-    <span className="text-white">INCREÍBLES STICKERS BALLADARES</span>
+    <span className="text-white">INCREÍBLES PREMIOS BALLADARES</span>
   </p>
 </div>
 
@@ -160,10 +160,16 @@ export default function ventastickerPage() {
     <div className="text-center mb-12">
       <span className="bg-yellow-400 text-black font-black text- tracking-[0.3em] px-5 py-2 rounded-full">BALLADARES VAULT • AÑO 2026</span>
       <h2 className="font-black italic text-[32px] leading-[0.9] md:text-5xl lg:text-6xl mt-6 tracking-tighter">
-  STICKERS QUE SE <span className="text-yellow-400">DESBLOQUEAN</span>
+  PREMIOS QUE SE <span className="text-yellow-400">DESBLOQUEAN</span>
+</h2>
+<h2 className="font-black italic text-[20px] leading-[0.9] md:text-5xl lg:text-3xl mt-3 tracking-tighter">
+  COMIENZA LA TRILOGIA  <span className="text-red-500">NISSAN</span>
+</h2>
+<h2 className="font-black italic text-[20px] leading-[0.9] md:text-5xl lg:text-2xl mt-2 tracking-tighter">
+  NINGUN AUTO ESTA  <span className="text-red-500">STOCK!!!</span>
 </h2>
       <p className="text-zinc-400 text-xs md:text-sm mt-4 font-bold tracking-wide max-w-3xl mx-auto">
-        TODOS LOS STICKERS PARA USTEDES!!! - TODOS NUESTROS CODIGOS EMPIEZAN CON <span className="text-white font-mono">BMxxxxxxx</span>
+        TODOS LOS PREMIOS PARA USTEDES!!! - TODOS NUESTROS CODIGOS EMPIEZAN CON <span className="text-white font-mono">BMxxxxxxx</span>
       </p>
     </div>
 
@@ -172,21 +178,21 @@ export default function ventastickerPage() {
       <div className="lg:col-span-6 relative bg-gradient-to-b from-zinc-900 to-black rounded- border border-yellow-400/40 p-[1.5px]">
         <div className="bg-black rounded- overflow-hidden h-full flex flex-col">
           <div className="p-6 flex justify-between items-center bg-black">
-            <span className="bg-yellow-400 text-black font-black text-xs px-4 py-1.5 rounded-full">🔥 STICKERS ACTIVO</span>
-            <span className="font-mono text- text-zinc-500">VAULT #01 / 04</span>
+            <span className="bg-yellow-400 text-black font-black text-xs px-4 py-1.5 rounded-full">🔥 PREMIO ACTIVO</span>
+            <span className="font-mono text- text-zinc-500">VAULT #01 / 03</span>
           </div>
           <div className="relative flex-1 bg-gradient-to-b from-[#111] to-black flex items-center justify-center py-10 min-h-">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(250,204,21,0.28),_transparent_65%)]" />
             <img
-              src="/premio_incognito_transparente.png"
+              src="/image_20260922_153731_SIN_FONDO.png"
               alt="Copa 350Z Negro Gold"
               className="relative z-10 w-[90%] max-w- object-contain drop-shadow-[0_0_60px_rgba(250,204,21,0.7)] hover:scale-105 transition-transform duration-700"
             />
           </div>
           <div className="p-7 bg-zinc-950 border-t border-white/5">
-           <h3 className="font-black italic text-3xl leading-none">PROXIMAMENTE UNA JOYA</h3>
-           {/*  <p className="text-yellow-400 font-black text-xs tracking-[0.2em] mt-2">EDICIÓN BALLADARES MOTORS</p>
-            <p className="text-zinc-400 text-sm mt-3">La primera venta oficial de stickers  1/1. Base gold premium.(imagen de referencia)</p>*/}
+           <h3 className="font-black italic text-3xl leading-none">SUNNY B13 DRAG</h3>
+            <p className="text-yellow-400 font-black text-xs tracking-[0.2em] mt-2">EDICIÓN BALLADARES MOTORS "SUNNY B13"</p>
+            
             <div className="mt-5 flex gap-2">
               <div className="flex-1 bg-white text-black font-black text-center text-xs py-3 rounded-full">INCLUIDO EN TU COMPRA</div>
               <div className="bg-zinc-900 border border-white/10 text-white font-mono text-xs px-4 py-3 rounded-full">BM•TICKET</div>
@@ -200,7 +206,7 @@ export default function ventastickerPage() {
   {[
     { id: 2, cat: "DRIFT /JDM /RACING/4X4", name: "VAULT #02 • AUTO SORPRESA" },
     { id: 3, cat: "DRIFT /JDM /RACING/4X4", name: "VAULT #03 • AUTO SORPRESA" },
-    { id: 4, cat: "DRIFT /JDM /RACING/4X4", name: "VAULT #04 • AUTO SORPRESA" },
+    
   ].map((sorteo) => (
     <div key={sorteo.id} className="relative bg-[#141414] border border-white/5 rounded-xl p-6 pt-10 flex items-center gap-6 hover:border-white/10 transition-colors">
 

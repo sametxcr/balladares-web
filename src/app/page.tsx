@@ -16,11 +16,17 @@ const YOUTUBE_ID = "0q6KurtImDI";
 
 const slides = [
 
-  { title: [""], titleImgs: ["/hero/titles/diagnostico_de_transparent.png", "/hero/titles/ultima_generacion_transparent.png"], sub: "VIDEO LICEO COLLAO. ▶ VER EN YOUTUBE", subLink: "https://www.youtube.com/watch?v=PnHtorbaHC0&t=553s", img: "/hero/liceocollao.jpg", imgMobile: "/hero/liceocollaovertical.jpg", pos: "50% 15%", posMobile: "50% -15%" },
-  { title: [""], titleImgs: ["/hero/titles/diagnostico_de_transparent.png", "/hero/titles/ultima_generacion_transparent.png"], sub: "Nueva linea ETANOL y METANOL corre con seguridad.", img: "/hero/metanol.jpg", pos: "50% 50%" },
-  { title: ["repro stage", "DPF-EGR-ADBLUE"], titleImgs: ["/hero/titles/repro_stage_transparent.png", "/hero/titles/1and2_transparent.png"], sub: "Potencia real +25% torque +30%", img: "/hero/repro.jpg", pos: "50% 50%" },
-  { title: ["servicios de", "pista y calle"], titleImgs: ["/hero/titles/servicios_de_transparent.png", "/hero/titles/pista_y_calle_transparent.png"], sub: "Alineación 3D, balanceo, elevadores pro", img: "/hero/pista.jpg", pos: "50% 82%" },
-  { title: ["diagnostico de", "ultima generacion"], titleImgs: ["/hero/titles/diagnostico_de_transparent.png", "/hero/titles/ultima_generacion_transparent.png"], sub: "Scanner multimarca - Todas las marcas", img: "/hero/scanner.jpg", pos: "50% 50%" },
+
+  {  title: [""],img: "/IMG_20260922_115912.jpg", imgMobile: "/IMG_20260922_115912.jpg", pos: "50% 30%" },
+  {  title: [""],img: "/IMG_20260922_115927.jpg", imgMobile: "/IMG_20260922_115927.jpg", pos: "50% 50%" },
+  {  title: [""],img: "/IMG_20260922_120037.jpg", imgMobile: "/IMG_20260922_120037.jpg", pos: "50% 50%" },
+
+ // { title: [""], titleImgs: ["/hero/titles/diagnostico_de_transparent.png", "/hero/titles/ultima_generacion_transparent.png"], sub: "VIDEO LICEO COLLAO. ▶ VER EN YOUTUBE", subLink: "https://www.youtube.com/watch?v=PnHtorbaHC0&t=553s", img: "/hero/liceocollao.jpg", imgMobile: "/hero/liceocollaovertical.jpg", pos: "50% 15%", posMobile: "50% -15%" },
+  //{ title: [""], titleImgs: ["/hero/titles/diagnostico_de_transparent.png", "/hero/titles/ultima_generacion_transparent.png"], sub: "Nueva linea ETANOL y METANOL corre con seguridad.", img: "/hero/metanol.jpg", pos: "50% 50%" },
+  //{ title: ["repro stage", "DPF-EGR-ADBLUE"], titleImgs: ["/hero/titles/repro_stage_transparent.png", "/hero/titles/1and2_transparent.png"], sub: "Potencia real +25% torque +30%", img: "/hero/repro.jpg", pos: "50% 50%" },
+ //{ title: ["servicios de", "pista y calle"], titleImgs: ["/hero/titles/servicios_de_transparent.png", "/hero/titles/pista_y_calle_transparent.png"], sub: "Alineación 3D, balanceo, elevadores pro", img: "/hero/pista.jpg", pos: "50% 82%" },
+  //{ title: ["diagnostico de", "ultima generacion"], titleImgs: ["/hero/titles/diagnostico_de_transparent.png", "/hero/titles/ultima_generacion_transparent.png"], sub: "Scanner multimarca - Todas las marcas", img: "/hero/scanner.jpg", pos: "50% 50%" },
+  
 ];
 
 const servicios = [
@@ -51,8 +57,29 @@ const marcas = [
   { name: "PEUGEOT", logo: "/brands/brand_peugeot_3d.png" },
 ];
 
+const SORTEO_FECHA = "2026-10-15T20:00:00"; // AAAA-MM-DD Hora - CAMBIA ESTO
+
+
 export default function Page(){
   const [i,setI]=useState(0);
+  const [tiempo, setTiempo] = useState({ d:0, h:0, m:0, s:0 });
+
+useEffect(() => {
+  const calcular = () => {
+    const diff = new Date(SORTEO_FECHA).getTime() - new Date().getTime();
+    if (diff <= 0) return { d:0, h:0, m:0, s:0 };
+    return {
+      d: Math.floor(diff / (1000*60*60*24)),
+      h: Math.floor((diff / (1000*60*60)) % 24),
+      m: Math.floor((diff / (1000*60)) % 60),
+      s: Math.floor((diff / 1000) % 60),
+    }
+  };
+  setTiempo(calcular());
+  const t = setInterval(() => setTiempo(calcular()), 1000);
+  return () => clearInterval(t);
+}, []);
+
   const [form,setForm]=useState({marca:"", modelo:"", ano:"", servicio:"Repro Stage 1/2"});
   const [selectedImg,setSelectedImg]=useState<string | null>(null);
   const [showAll,setShowAll]=useState(false);
@@ -197,49 +224,50 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
     `}</style>
   </div>
 )}
-      <section id="inicio" className="relative overflow-hidden bg-zinc-900" style={{height:"92vh", marginTop:58}}>
-        {slides.map((s,idx)=>(
-          <div key={idx} className={`absolute inset-0 transition-opacity duration-1000 ${idx===i?"opacity-100 pointer-events-auto z-10":"opacity-0 pointer-events-none"}`}>
-           {/* PC - horizontal */}
-<img src={s.img} alt="" className="hidden md:block absolute inset-0 w-full h-full object-cover" style={{objectPosition: s.pos}} />
+    <section id="inicio" className="relative overflow-hidden bg-black" style={{height:"92vh", marginTop:58}}>
 
-{/* CELU - vertical con pos independiente */}
-<img src={(s as any).imgMobile || s.img} alt="" className="block md:hidden absolute inset-0 w-full h-full object-cover" style={{objectPosition: (s as any).posMobile || "50% 80%"}} />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent" />
-            <div className="relative h-full flex flex-col justify-between px-4 md:px-24 py-10 md:py-20">
-      <div className={`${holtwood.className} mt-12 md:mt-20 flex flex-col items-start gap-4 md:gap-6`}>
-  {s.title.map((t, li) => (
-    <div key={li} className="racer-wrap" style={{transform: li===1 ? "skewX(-14deg) translateX(18px)" : "skewX(-14deg)"}}>
-      <div className="racer-lines"></div>
-      <h1 data-text={t.toUpperCase()} className="racer-main text-[2.1rem] md:text-[3.6rem]">
-        {t.toUpperCase()}
-      </h1>
+  {slides.map((s,idx)=>(
+    <div key={idx} className={`absolute inset-0 transition-opacity duration- ${idx===i?"opacity-100":"opacity-0"}`}>
+      <img src={s.img} alt="" className="absolute inset-0 w-full h-full object-cover" style={{objectPosition: s.pos}} />
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/50" />
     </div>
   ))}
-</div>
-             <div className="flex flex-col gap-3 items-start mb-2">
-  <a href="#servicios" className="w-fit bg-red-600 px-10 py-3.5 font-black text-sm hover:bg-white hover:text-black transition" style={{transform:"skewX(-12deg)", boxShadow:"4px 4px 0px rgba(0,0,0,0.8)"}}><span style={{transform:"skewX(12deg)", display:"block"}}>VER SERVICIOS →</span></a>
-  
-  {s.subLink ? (
-    <a href={s.subLink} target="_blank" rel="noopener noreferrer" className="bg-white text-black inline-flex items-center gap-2 px-6 py-2.5 font-black text-xs w-fit hover:bg-red-600 hover:text-white transition" style={{transform:"skewX(-12deg)", boxShadow:"4px 4px 0px #dc2626"}}>
-      <span style={{transform:"skewX(12deg)", display:"flex"}} className="items-center gap-2">
-        {s.sub}
-        <span className="bg-red-600 text-white rounded p-1">
-          <svg viewBox="0 0 24 24" className="w-4 h-4 fill-white"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-        </span>
-      </span>
+
+  {/* TEXTO FIJO TIPO GONZALOKO PERO BALLADARES */}
+  <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
+
+    <div className={`${holtwood.className} text-white/60 text- tracking-[0.3em] font-black border border-white/10 bg-black/40 px-4 py-1 rounded-full backdrop-blur mb-3`}>
+      PRÓXIMO SORTEO
+    </div>
+
+    <h2 className="text-white font-black text-sm tracking-[0.4em]">SORTEO BALLADARES</h2>
+    <h1 className={`${holtwood.className} text-4xl md:text-7xl font-black italic leading-none mt-2`}>
+      <span className="text-white block">SUNNY B13 DRAG</span>
+      <span className="text-red-600 block">RACING</span>
+    </h1>
+    <p className="text-white/40 text- font-black tracking-[0.3em] mt-2">AZUL</p>
+
+    {/* CAJA CONTADOR */}
+<div className="mt-6 bg-black/30 backdrop-blur-xl border border-white/10 rounded-2xl px-8 md:px-14 py-6">      <div className="text-white font-black text-2xl md:text-4xl">
+        Faltan {tiempo.d} días {String(tiempo.h).padStart(2,'0')}:{String(tiempo.m).padStart(2,'0')}:{String(tiempo.s).padStart(2,'0')}
+      </div>
+      <div className="text-white/60 text- font-black tracking-[0.3em] mt-2 text-center">TIEMPO RESTANTE</div>
+    </div>
+
+    <p className="mt-6 text-white/70 text-sm max-w-md">
+      Compra tus tickets y participa. Tu próxima aventura empieza hoy en Balladares Motors.
+    </p>
+
+    <a href="#contacto" className="mt-6 bg-[#7a2d3d] hover:bg-red-600 text-white px-12 py-4 rounded-full font-black text-base transition">
+      Participa Ahora
     </a>
-  ) : (
-    <div className="bg-white text-black inline-flex px-6 py-2.5 font-black text-xs w-fit" style={{transform:"skewX(-12deg)", boxShadow:"4px 4px 0px #dc2626"}}><span style={{transform:"skewX(12deg)", display:"block"}}>{s.sub}</span></div>
-  )}
-</div>
-            </div>
-          </div>
-        ))}
-        <div className="absolute bottom-2 left-4 md:left-24 flex gap-2 z-30 pointer-events-auto">
-  {slides.map((_,idx)=><button key={idx} onClick={()=>setI(idx)} className={`h-1 transition-all cursor-pointer ${idx===i?"w-12 bg-red-600":"w-8 bg-white/40 hover:bg-white/70"}`} />)}
-</div>
-      </section>
+    <div className="mt-3 text-[#c9a86a] text- tracking-widest">🔒 PAGO SEGURO Y PROTEGIDO</div>
+  </div>
+
+  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+    {slides.map((_,idx)=><button key={idx} onClick={()=>setI(idx)} className={`h-1.5 rounded-full transition-all ${idx===i?"w-10 bg-red-600":"w-6 bg-white/30"}`} />)}
+  </div>
+</section>
 
       <section className="bg-black border-y border-white/10 grid grid-cols-2 lg:grid-cols-4" style={{backgroundColor:"#0f0f0f"}}>
         {[
@@ -385,7 +413,7 @@ Taller mecánico en Concepción. Balladares Motors especialistas en Repro Stage 
         <span className="text-red-600 block">BUSCANOS!</span>
       </h2>
       <p className="text-white/50 text-sm font-bold mt-4">
-        Rodolfo Briceño 2718, Chiguayante
+        Rodolfo Briceño 2718, CONCEPCION
       </p>
     </div>
 
