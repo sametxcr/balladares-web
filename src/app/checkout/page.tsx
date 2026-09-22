@@ -87,7 +87,7 @@ function CheckoutContent() {
     if(!validarTodo()) return
     setLoading(true)
     try {
-      const res = await fetch('/api/webpay/create',{
+      const res = await fetch('/api/mercadopago/create',{
         method:'POST', headers:{'Content-Type':'application/json'},
         body: JSON.stringify({
           email: form.email.trim(),
@@ -103,25 +103,17 @@ function CheckoutContent() {
         })
       })
       const data = await res.json()
-      if(data.url && data.token){
-        const formEl = document.createElement('form')
-        formEl.method = 'POST'
-        formEl.action = data.url
-        const input = document.createElement('input')
-        input.type = 'hidden'
-        input.name = 'token_ws'
-        input.value = data.token
-        formEl.appendChild(input)
-        document.body.appendChild(formEl)
-        formEl.submit()
+      if(data.url || data.sandbox_url){
+        // En test usamos sandbox_url, en prod url
+        window.location.href = data.sandbox_url || data.url;
       } else {
         console.error(data)
-        alert('Error Transbank: '+JSON.stringify(data));
+        alert('Error Mercado Pago: '+JSON.stringify(data));
         setLoading(false)
       }
     } catch(err) {
       console.error(err)
-      alert('Error conectando con Webpay')
+      alert('Error conectando con Mercado Pago')
       setLoading(false)
     }
   }
@@ -186,13 +178,11 @@ function CheckoutContent() {
             </div>
           </div>
 
-          {/*<button disabled={loading} className="w-full mt-6 md:mt-8 bg-[#d50000] hover:bg-black text-white font-black text- md:text-base py-4 rounded-full tracking-wide transition-colors disabled:opacity-50 shadow-[0_4px_14px_rgba(213,0,0,0.4)]">
-            {loading? 'CONECTANDO CON WEBPAY...' : `PAGAR $${total.toLocaleString("es-CL")} CON WEBPAY →`}
-          </button>*/}
+          <button disabled={loading} className="w-full mt-6 md:mt-8 bg-[#FFE600] hover:bg-[#FFD600] text-black font-black text- md:text-base py-4 rounded-full tracking-wide transition-colors disabled:opacity-50 shadow-[0_4px_14px_rgba(255,230,0,0.4)] border border-black">
+  {loading? 'CONECTANDO CON MERCADO PAGO...' : `PAGAR $${total.toLocaleString("es-CL")} CON MERCADO PAGO →`}
+</button>
 		  
-           <span className="text-2xl md:text-2xl font-black tracking-widest text-zinc-800">
-           PROXIMAMENTE!!!!
-           </span>
+           
   
           </form>
 

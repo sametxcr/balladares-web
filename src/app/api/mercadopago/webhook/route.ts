@@ -3,46 +3,42 @@ export const dynamic = 'force-dynamic';
 
 import { NextRequest, NextResponse } from 'next/server';
 import { pool } from '@/lib/db';
-import { WebpayPlus, Options, Environment, IntegrationCommerceCodes, IntegrationApiKeys } from 'transbank-sdk';
+import { MercadoPagoConfig, Payment } from 'mercadopago';
 import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY!);
 const genCode = () => `BM${Math.floor(1000000 + Math.random()*9000000)}`;
 
-// FIX LOGOS: PARA CORREO SIEMPRE USAR PRODUCCION, NO LOCALHOST
 function getBase(req: NextRequest){
   const prod = process.env.NEXT_PUBLIC_URL?.replace(/\/$/, '');
-  // Si estas en local igual usa produccion para que Gmail vea las imagenes
   if(prod && prod.includes('localhost')) return 'https://www.balladares-motors.cl';
   return prod || 'https://www.balladares-motors.cl';
 }
 
-async function processOrder(token_ws: string, req: NextRequest) {
+// TU MISMA FUNCION PERO AHORA RECIBE order_code EN VEZ DE token_ws
+async function processOrder(order_code: string, mpPaymentId: string | null, req: NextRequest) {
   const base = getBase(req);
-  const origin = req.nextUrl.origin; // para los redirect nomas
+  const origin = req.nextUrl.origin;
 
-  const isLive = process.env.TBK_ENV === 'LIVE';
-  const options = isLive
-   ? new Options(process.env.TBK_API_KEY_ID!.trim(), process.env.TBK_API_KEY_SECRET!.trim(), Environment.Production)
-    : new Options(IntegrationCommerceCodes.WEBPAY_PLUS, IntegrationApiKeys.WEBPAY, Environment.Integration);
+  // VALIDAMOS CON MERCADO PAGO QUE EL PAGO ESTÉ REALMENTE APROBADO
+  if(mpPaymentId){
+    const clientMP = new MercadoPagoConfig({ accessToken: process.env.MP_ACCESS_TOKEN! });
+    const payment = new Payment(clientMP);
+    const mpData = await payment.get({ id: mpPaymentId });
 
-  const tx = new WebpayPlus.Transaction(options);
-  const commit: any = await tx.commit(token_ws);
+    console.log('[MP VALIDATE]', mpData.id, mpData.status, mpData.external_reference);
 
-  const buyOrder = commit.buyOrder || commit.buy_order;
-  const responseCode = commit.response_code?? commit.responseCode;
-
-  if (responseCode!== 0) {
-    if (buyOrder) await pool.query(`UPDATE orders SET status='FAILED' WHERE order_code=$1`, [buyOrder]);
-    return { ok: false, order: buyOrder, origin };
+    if(mpData.status!== 'approved'){
+      await pool.query(`UPDATE orders SET status='FAILED' WHERE order_code=$1`, [order_code]);
+      return { ok: false, order: order_code, origin };
+    }
   }
-  if (!buyOrder) throw new Error('buyOrder undefined');
 
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
-    const { rows } = await client.query(`SELECT * FROM orders WHERE order_code=$1 FOR UPDATE`, [buyOrder]);
-    if (!rows[0]) throw new Error(`Orden no existe: ${buyOrder}`);
+    const { rows } = await client.query(`SELECT * FROM orders WHERE order_code=$1 FOR UPDATE`, [order_code]);
+    if (!rows[0]) throw new Error(`Orden no existe: ${order_code}`);
     const order = rows[0];
 
     if (order.status === 'PAID') {
@@ -93,7 +89,7 @@ async function processOrder(token_ws: string, req: NextRequest) {
       <div style="background:#161616;border:1px solid #262626;border-radius:16px;padding:18px;text-align:left;margin-bottom:22px;">
         <div style="display:flex;justify-content:space-between;"><span style="color:#666;font-size:11px;letter-spacing:1px;font-weight:700;">ORDEN</span><span style="color:#666;font-size:11px;letter-spacing:1px;font-weight:700;">FECHA</span></div>
         <div style="display:flex;justify-content:space-between;margin-top:6px;"><span style="color:#fff;font-weight:900;font-size:14px;word-break:break-all;">${order.order_code}</span><span style="color:#fff;font-weight:700;font-size:14px;">${fecha}</span></div>
-        <div style="display:flex;justify-content:space-between;margin-top:14px;align-items:center;"><span style="color:#aaa;font-size:13px;">${packLabel}</span><span style="color:#FFD600;font-weight:900;font-size:11px;">PAGADO - Webpay</span></div>
+        <div style="display:flex;justify-content:space-between;margin-top:14px;align-items:center;"><span style="color:#aaa;font-size:13px;">${packLabel}</span><span style="color:#FFD600;font-weight:900;font-size:11px;">PAGADO - Mercado Pago</span></div>
         <div style="margin-top:6px;color:#666;font-size:12px;">Enviado a: <a href="mailto:${order.email}" style="color:#60a5fa;text-decoration:none;">${order.email}</a></div>
       </div>
 
@@ -133,31 +129,50 @@ async function processOrder(token_ws: string, req: NextRequest) {
   }
 }
 
+// WEBHOOK QUE MANDA MERCADO PAGO (backend a backend)
 export async function POST(req: NextRequest) {
   try {
-    const form = await req.formData();
-    const token_ws = form.get('token_ws') as string;
-    const TBK_TOKEN = form.get('TBK_TOKEN') as string;
-    if (TBK_TOKEN ||!token_ws) return NextResponse.redirect(`${req.nextUrl.origin}/`);
-    const result = await processOrder(token_ws, req);
-    if (!result.ok) return NextResponse.redirect(`${result.origin}/`);
-    return NextResponse.redirect(`${result.origin}/ventasticker/gracias?orden=${result.order}&token=${token_ws}`);
+    const body = await req.json();
+    console.log('[WEBHOOK MP RAW]', body);
+
+    if (body.type === 'payment' || body.action === 'payment.created' || body.topic === 'payment') {
+      const paymentId = body.data?.id || body.resource?.split('/').pop();
+      if (!paymentId) return NextResponse.json({ ok: true });
+
+      const clientMP = new MercadoPagoConfig({ accessToken: process.env.MP_ACCESS_TOKEN! });
+      const payment = new Payment(clientMP);
+      const mpData = await payment.get({ id: paymentId });
+
+      const order_code = mpData.external_reference;
+      if (!order_code) return NextResponse.json({ ok: true });
+
+      if (mpData.status === 'approved') {
+        await processOrder(order_code, String(paymentId), req);
+      }
+    }
+
+    return NextResponse.json({ received: true });
   } catch (e: any) {
-    console.error('COMMIT FATAL', e.message);
-    return NextResponse.redirect(`${getBase(req)}/ventasticker/fallido`);
+    console.error('WEBHOOK FATAL', e.message);
+    // Mercado Pago necesita 200 siempre, si no reintenta infinito
+    return NextResponse.json({ ok: true }, { status: 200 });
   }
 }
 
+// GET para cuando el usuario vuelve de pagar (success url)
 export async function GET(req: NextRequest) {
   try {
-    const token_ws = req.nextUrl.searchParams.get('token_ws');
-    const TBK_TOKEN = req.nextUrl.searchParams.get('TBK_TOKEN');
-    if (TBK_TOKEN ||!token_ws) return NextResponse.redirect(`${req.nextUrl.origin}/`);
-    const result = await processOrder(token_ws!, req);
-    if (!result.ok) return NextResponse.redirect(`${result.origin}/`);
-    return NextResponse.redirect(`${result.origin}/ventasticker/gracias?orden=${result.order}&token=${token_ws}`);
+    const order_code = req.nextUrl.searchParams.get('orden');
+    const payment_id = req.nextUrl.searchParams.get('payment_id') || req.nextUrl.searchParams.get('collection_id');
+
+    if (!order_code) return NextResponse.redirect(`${getBase(req)}/ventasticker/fallido`);
+
+    const result = await processOrder(order_code, payment_id, req);
+    if (!result.ok) return NextResponse.redirect(`${getBase(req)}/ventasticker/fallido`);
+
+    return NextResponse.redirect(`${getBase(req)}/ventasticker/gracias?orden=${result.order}`);
   } catch (e: any) {
-    console.error('COMMIT FATAL GET', e.message);
+    console.error('SUCCESS FATAL GET', e.message);
     return NextResponse.redirect(`${getBase(req)}/ventasticker/fallido`);
   }
 }
