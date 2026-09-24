@@ -163,7 +163,7 @@ export default function ventastickerPage() {
   PREMIOS QUE SE <span className="text-yellow-400">DESBLOQUEAN</span>
 </h2>
 <h2 className="font-black italic text-[20px] leading-[0.9] md:text-5xl lg:text-3xl mt-3 tracking-tighter">
-  COMIENZA LA TRILOGIA  <span className="text-red-500"></span>
+  COMIENZA LA TRILOGIA  <span className="text-red-500">NISSAN</span>
 </h2>
 <h2 className="font-black italic text-[20px] leading-[0.9] md:text-5xl lg:text-2xl mt-2 tracking-tighter">
   NINGUN AUTO ESTA  <span className="text-red-500">STOCK!!!</span>
@@ -201,30 +201,54 @@ export default function ventastickerPage() {
         </div>
       </div>
 
-      {/* 3 PRÓXIMOS ventasticker */}
-<div className="lg:col-span-6 grid grid-cols-1 gap-5">
+   <div className="lg:col-span-6 grid grid-cols-1 md:grid-cols-2 gap-5">
   {[
-    { id: 2, cat: "DRIFT /JDM /RACING/4X4", name: "VAULT #02 • AUTO SORPRESA" },
-    { id: 3, cat: "DRIFT /JDM /RACING/4X4", name: "VAULT #03 • AUTO SORPRESA" },
-    
+    {
+      id: 2,
+      label: "VAULT #02",
+      cat: "DRIFT /JDM /RACING/4X4",
+      title: "PRIMERA CAMINO",
+      subtitle: "EDICIÓN BALLADARES MOTORS NEO VVL",
+      img: "/2.png"
+    },
+    {
+      id: 3,
+      label: "VAULT #03",
+      cat: "DRIFT /JDM /RACING/4X4",
+      title: "350Z HR MANUAL",
+      subtitle: "EDICIÓN BALLADARES MOTORS \"350Z HR MANUAL\"",
+      img: "/350Z_sin_fondo.png"
+    },
   ].map((sorteo) => (
-    <div key={sorteo.id} className="relative bg-[#141414] border border-white/5 rounded-xl p-6 pt-10 flex items-center gap-6 hover:border-white/10 transition-colors">
+    <div key={sorteo.id} className="relative bg-gradient-to-b from-zinc-900 to-black rounded-xl border border-white/10 p-[1.5px] hover:border-yellow-400/40 transition-all group">
+      <div className="bg-black rounded-xl overflow-hidden h-full flex flex-col">
 
-      {/* BADGE ARRIBA DERECHA DONDE MARCASTE */}
-      <span className="absolute top-3 left-1/2 -translate-x-1/2 bg-white/10 text-white/70 text-[15px] font-black px-6 py-1 rounded-full tracking-widest whitespace-nowrap">
-  PRÓXIMAMENTE
-</span>
-
-      <div className="w-28 h-28 rounded-2xl bg-black border border-dashed border-white/10 flex items-center justify-center flex-shrink-0">
-        <div className="text-center">
-          <div className="w-10 h-10 mx-auto rounded-full bg-yellow-400/10 border border-yellow-400/20 flex items-center justify-center text-yellow-400">🔒</div>
-          <p className="font-black text- mt-2 tracking-widest text-zinc-500">VAULT 0{sorteo.id}</p>
+        {/* HEADER IGUAL QUE B13 */}
+        <div className="p-5 flex justify-between items-center bg-black">
+          <span className="bg-white/10 text-white/70 text- font-black px-4 py-1.5 rounded-full tracking-widest">PRÓXIMAMENTE</span>
+          <span className="font-mono text- text-zinc-500">VAULT #0{sorteo.id} / 03</span>
         </div>
-      </div>
-      <div className="flex-1">
-        <span className="text- font-black tracking-widest text-yellow-400">{sorteo.cat}</span>
-        <h4 className="font-black italic text-xl mt-1 leading-none">{sorteo.name}</h4>
-        <p className="text-zinc-400 text-sm mt-2 leading-snug">Próximos ventasticker, autos distintos y diferentes disciplinas.</p>
+
+        {/* IMAGEN GRANDE COMO B13 */}
+        <div className="relative flex-1 bg-gradient-to-b from-[#111] to-black flex items-center justify-center py-8 min-h-">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(250,204,21,0.15),_transparent_65%)]" />
+          <img
+            src={sorteo.img}
+            alt={sorteo.title}
+            className="relative z-10 w-[85%] object-contain drop-shadow-[0_0_40px_rgba(250,204,21,0.5)] group-hover:scale-105 transition-transform duration-700"
+          />
+        </div>
+
+        {/* PIES IGUAL QUE B13 */}
+        <div className="p-6 bg-zinc-950 border-t border-white/5">
+          <h3 className="font-black italic text-2xl leading-none">{sorteo.title}</h3>
+          <p className="text-yellow-400 font-black text- tracking-[0.2em] mt-2 uppercase">{sorteo.subtitle}</p>
+          <div className="mt-4 flex gap-2">
+            <div className="flex-1 bg-white/5 border border-white/10 text-white/50 font-black text-center text- py-3 rounded-full tracking-widest">PRÓXIMAMENTE</div>
+            <div className="bg-zinc-900 border border-white/10 text-white font-mono text- px-4 py-3 rounded-full">BM•TICKET</div>
+          </div>
+        </div>
+
       </div>
     </div>
   ))}

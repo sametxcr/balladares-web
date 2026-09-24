@@ -266,9 +266,14 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
       Compra tus tickets y participa. Tu próxima aventura empieza hoy en Balladares Motors.
     </p>
 
-    <a href="/ventasticker" className="mt-6 bg-[#7a2d3d] hover:bg-red-600 text-white px-12 py-4 rounded-full font-black text-base transition">
-      Participa Ahora
-    </a>
+    <a href="/ventasticker" className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-[#ff1a1a] to-[#ff4d4d] hover:from-[#ff0000] hover:to-[#ff3333] text-white px-14 py-5 rounded-full font-black text-lg tracking-wide shadow-[0_0_60px_rgba(255,26,26,0.6)] hover:shadow-[0_0_80px_rgba(255,26,26,0.8)] hover:scale-105 transition-all duration-300 animate-pulse">
+  {/* Flechas apuntando */}
+  <span className="absolute -left-12 text-3xl animate-bounce">👉</span>
+  <span className="absolute -right-12 text-3xl animate-bounce">👈</span>
+
+  🏆 Participa Ahora
+  <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+</a>
 	
     <div className="mt-3 text-[#c9a86a] text- tracking-widest">🔒 PAGO SEGURO Y PROTEGIDO</div>
   </div>
