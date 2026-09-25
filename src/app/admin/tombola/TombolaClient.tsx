@@ -21,6 +21,27 @@ const CarSVG = ({ eliminated = false, color = '#fff' }: any) => (
 
 const COLORS = ['#fff', '#E10600', '#00D2FF', '#00FF88', '#FF6B00', '#A855F7', '#FFD000', '#FF2D78'];
 
+const MARCAS_AUSPICIADORES = [
+  { name: 'Apexi', logo: '/marcas/apexi.png' },
+  { name: 'Bride', logo: '/marcas/bride.png' },
+  { name: 'Nismo', logo: '/marcas/nismo.png' },
+  { name: 'Garrett', logo: '/marcas/garrett.png' },
+  { name: 'HKS', logo: '/marcas/hks.png' },
+  { name: 'AEM', logo: '/marcas/aem.png' },
+  { name: 'GReddy', logo: '/marcas/greddy.png' },
+  { name: 'BMotors', logo: '/marcas/BB.png' },
+];
+
+const shuffleReal = <T,>(array: T[]): T[] => {
+  const a = [...array];
+  for (let i = a.length - 1; i > 0; i--) {
+    const rand = crypto.getRandomValues(new Uint32Array(1))[0] / 4294967295;
+    const j = Math.floor(rand * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
+
 export default function TombolaClient({ tickets, adminKey }: { tickets: any[], adminKey: string }) {
   const [search, setSearch] = useState('');
   const [ronda, setRonda] = useState(0);
@@ -53,21 +74,17 @@ export default function TombolaClient({ tickets, adminKey }: { tickets: any[], a
   setIsShuffling(true);
   setDisplay50([]);
 
-  // sonido opcional - si no tienes el mp3 no se cae
-  
-
   let ticks = 0;
   const interval = setInterval(() => {
-    const fake = [...tickets].sort(() => Math.random() - 0.5).slice(0, 50);
+    const fake = shuffleReal(tickets).slice(0, 50);
     setDisplay50(fake);
     ticks++;
-    if (ticks > 60) { // 3.5 segundos de suspenso
+    if (ticks > 60) {
       clearInterval(interval);
-      const finalFifty = [...tickets].sort(() => Math.random() - 0.5).slice(0, 50);
+      const finalFifty = shuffleReal(tickets).slice(0, 50);
       setRandom50(finalFifty);
       setDisplay50(finalFifty);
       setIsShuffling(false);
-      
     }
   }, 80);
 };
@@ -140,8 +157,8 @@ const nextRondaReal = async () => {
   const interval = setInterval(() => { current = Math.max(target, current - Math.ceil((current - target) / 4) - 1); setSlotCount(current); if (current <= target) clearInterval(interval); }, 60);
   await new Promise(r => setTimeout(r, 800));
 
-  const shuffled = [...alive].sort(() => Math.random() - 0.5);
-  const survivorsList = shuffled.slice(0, keep);
+  const shuffled = shuffleReal(alive);
+const survivorsList = shuffled.slice(0, keep);
   const survivors = new Set(survivorsList.map(s => s.ticket_code));
 
   const spacing = keep === 1? 0 : Math.min(5.5, 70 / (keep - 1));
@@ -342,40 +359,49 @@ const nextRondaReal = async () => {
 )}
 </div>
 
-           <div className="h-10 bg-black border-t-2 border-[#E10600] flex items-center overflow-hidden shrink-0 relative">
+         <div className="h-[62px] bg-black border-t-2 border-[#E10600] flex items-center overflow-hidden shrink-0 relative z-10">
 
-  <div className="flex-1 overflow-hidden">
-    <div
-      style={{ animation: 'marquee 15s linear infinite' }}
-      className="flex w-max gap-12 whitespace-nowrap items-center"
-    >
-      <span className="text-white font-black text-xs tracking-[0.3em]">🏁 BALLADARES MOTORS</span>
-      <span className="text-zinc-500 font-black text-xs">R33 • R34 • SUPRA • SILVIA • 350Z • 370Z</span>
-      <span className="text-[#FFD000] font-black text-xs tracking-[0.3em]">TALLER • LUBRICENTRO • DETAILING</span>
-      <span className="text-white font-black text-xs tracking-[0.3em]">🏁 BALLADARES MOTORS</span>
-      <span className="text-zinc-500 font-black text-xs">R33 • R34 • SUPRA • SILVIA • 350Z • 370Z</span>
-      <span className="text-[#FFD000] font-black text-xs tracking-[0.3em]">TALLER • LUBRICENTRO • DETAILING</span>
-      <span className="text-white font-black text-xs tracking-[0.3em]">🏁 BALLADARES MOTORS</span>
-      <span className="text-zinc-500 font-black text-xs">R33 • R34 • SUPRA • SILVIA • 350Z • 370Z</span>
+  <div className="flex-1 overflow-hidden h-full flex items-center relative">
+    <div className="flex w-max items-center gap-0 animate-marquee">
+      {[...MARCAS_AUSPICIADORES,...MARCAS_AUSPICIADORES,...MARCAS_AUSPICIADORES].map((marca, i) => (
+        <div key={`${marca.name}-${i}`} className="flex items-center gap-10 shrink-0 px-10">
+          <img
+            src={marca.logo}
+            alt={marca.name}
+            className="h-[34px] md:h-[42px] w-auto object-contain"
+          />
+          <span className="w-1 h-1 bg-zinc-700 rounded-full" />
+        </div>
+      ))}
+      <div className="flex items-center gap-10 shrink-0 px-10">
+        <span className="text-white font-black text-xs tracking-[0.4em]">🏁 BALLADARES MOTORS</span>
+        <span className="w-1 h-1 bg-[#E10600] rounded-full" />
+        <span className="text-[#FFD000] font-black text-[10px] tracking-widest">TALLER • LUBRICENTRO • DETAILING</span>
+        <span className="w-1 h-1 bg-zinc-700 rounded-full" />
+      </div>
     </div>
+
+    <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-black to-transparent pointer-events-none" />
+    <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-black to-transparent pointer-events-none" />
   </div>
 
   <button
-  onClick={handleNextClick}
-  disabled={racers.length === 0 || vivos.length === 0 || animating || countdown!== null}
-  className={`h-full px-6 font-black text-xs shrink-0 ml-2 transition-all ${
-    racers.length === 0 || vivos.length === 0
-     ? 'bg-zinc-800 text-zinc-500 cursor-not-allowed'
-      : 'bg-white text-black hover:bg-[#FFD000]'
-  }`}
->
-  {racers.length === 0? '⚠️ CARGA AUTOS' : `▶ ${rondasConfig[ronda]?.label} → ${rondasConfig[ronda + 1]?.count?? 1}`}
-</button>
+    onClick={handleNextClick}
+    disabled={racers.length === 0 || vivos.length === 0 || animating || countdown!== null}
+    className={`h-full px-7 font-black text-[11px] tracking-widest shrink-0 ml-2 transition-all border-l border-zinc-800 ${
+      racers.length === 0? 'bg-zinc-900 text-zinc-600' : 'bg-white text-black hover:bg-[#FFD000]'
+    }`}
+  >
+    {racers.length === 0? '⚠ CARGA AUTOS' : `▶ ${rondasConfig[ronda]?.label} → ${rondasConfig[ronda + 1]?.count?? 1}`}
+  </button>
 
   <style jsx global>{`
     @keyframes marquee {
       0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+      100% { transform: translateX(-25%); }
+    }
+  .animate-marquee {
+      animation: marquee 25s linear infinite;
     }
   `}</style>
 </div>
