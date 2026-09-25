@@ -167,7 +167,7 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
 
 <button
   onClick={()=>setMenuOpen(!menuOpen)}
-  className="lg:hidden absolute top-2 right-2 w-7 h-7 bg-black flex items-center justify-center z-[101] active:scale-95"
+  className="lg:hidden absolute top-2 right-2 w-10 h-10 bg-black flex items-center justify-center z-[101] active:scale-95"
 >
   <img
   src={menuOpen? "/X.png" : "/casco.png"}
