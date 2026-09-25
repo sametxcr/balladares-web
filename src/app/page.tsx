@@ -266,14 +266,41 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
       Compra tus tickets y participa. Tu próxima aventura empieza hoy en Balladares Motors.
     </p>
 
-    <a href="/ventasticker" className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-[#ff1a1a] to-[#ff4d4d] hover:from-[#ff0000] hover:to-[#ff3333] text-white px-14 py-5 rounded-full font-black text-lg tracking-wide shadow-[0_0_60px_rgba(255,26,26,0.6)] hover:shadow-[0_0_80px_rgba(255,26,26,0.8)] hover:scale-105 transition-all duration-300 animate-pulse">
-  {/* Flechas apuntando */}
-  <span className="absolute -left-12 text-3xl animate-bounce">👉</span>
-  <span className="absolute -right-12 text-3xl animate-bounce">👈</span>
+   <div className="mt-10 w-full flex justify-center px-4">
+  <div className="relative flex items-center justify-center">
 
-  🏆 Participa Ahora
-  <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
-</a>
+    {/* FLECHAS PC - apuntando */}
+    <div className="hidden md:flex absolute -left-20 items-center animate-[bounce_1s_infinite]">
+      <span className="text-white font-black text-2xl tracking-tighter">›››</span>
+    </div>
+    <div className="hidden md:flex absolute -right-20 items-center animate-[bounce_1s_infinite]">
+      <span className="text-white font-black text-2xl tracking-tighter">‹‹‹</span>
+    </div>
+
+    {/* BOTON PRO */}
+    <a
+      href="/ventasticker"
+      className="group relative inline-flex w-full md:w-auto justify-center items-center gap-3 bg-[#E10600] text-white px-8 md:px-14 py-4 md:py-5 rounded-full font-black text- md:text-lg tracking-wide shadow-[0_0_60px_rgba(225,6,0,0.6)] hover:shadow-[0_0_80px_rgba(225,6,0,0.9)] hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 border-2 border-white/10"
+    >
+      {/* brillo que cruza */}
+      <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
+        <div className="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-[-20deg] group-hover:left-[100%] transition-all duration-700" />
+      </div>
+
+      <span className="relative z-10 flex items-center gap-2">
+        <span className="text-xl">🏆</span>
+        PARTICIPA AHORA
+        <span className="ml-2 text-xl group-hover:translate-x-2 transition-transform duration-300">→</span>
+      </span>
+    </a>
+
+  </div>
+</div>
+
+{/* Texto chico abajo solo en mobile pa que apunte */}
+<div className="md:hidden flex justify-center items-center gap-2 mt-3 animate-bounce">
+  <span className="text-[#FFD000] text-xs font-black tracking-[0.3em]">↑ ↑ ↑ TOCA AQUÍ ↑ ↑ ↑</span>
+</div>
 	
     <div className="mt-3 text-[#c9a86a] text- tracking-widest">🔒 PAGO SEGURO Y PROTEGIDO</div>
   </div>
