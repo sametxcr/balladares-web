@@ -47,7 +47,7 @@ export default function ventastickerPage() {
 
   <button
   onClick={()=>setMenuOpen(!menuOpen)}
-  className="lg:hidden absolute top-2 right-2 w-7 h-7 bg-black flex items-center justify-center z-[101] active:scale-95"
+  className="lg:hidden absolute top-2 right-2 w-10 h-10 bg-black flex items-center justify-center z-[101] active:scale-95"
 >
   <img
   src={menuOpen? "/X.png" : "/casco.png"}
@@ -121,35 +121,94 @@ export default function ventastickerPage() {
   </p>
 </div>
 
+<div className="mt-10 relative flex flex-col items-center">
+  {/* FLECHAS QUE APUNTAN - ARRIBA */}
+  <div className="flex items-center gap-3 mb-3 animate-bounce">
+    <span className="text-[#FFD000] text-2xl font-black">↘</span>
+    <span className="bg-[#FFD000] text-black font-black italic text- tracking-[0.2em] px-3 py-1 rounded-full">¡CLICK AQUÍ!</span>
+    <span className="text-[#FFD000] text-2xl font-black">↙</span>
+  </div>
+
+  {/* FLECHAS LATERALES + BOTON */}
+  <div className="relative flex items-center gap-4">
+    {/* flecha izquierda */}
+    <div className="hidden md:flex items-center gap-2 animate-[pulse_1s_ease-in-out_infinite]">
+      <span className="text-[#E10600] font-black text-3xl">›</span>
+      <span className="text-[#E10600] font-black text-3xl -ml-2">›</span>
+      <span className="text-[#E10600] font-black text-3xl -ml-2">›</span>
+    </div>
+
     <a
       href="#packs"
-      className="mt-8 inline-block bg-red-600 hover:bg-red-700 px-12 py-4 rounded-full font-black italic text-lg text-white transition-all hover:scale-105 shadow-[0_0_40px_rgba(220,38,38,0.5)]"
+      className="group relative inline-flex items-center gap-4 bg-[#E10600] text-white pl-2 pr-8 py-2.5 rounded-full font-black italic tracking-wider hover:bg-white hover:text-black transition-all duration-300 hover:scale-[1.05] shadow-[0_0_60px_rgba(225,6,0,0.8)] border-2 border-white/10 hover:border-black"
     >
-      COMPRAR STICKERS
+      <div className="w-12 h-12 bg-black text-[#FFD000] rounded-full grid place-items-center">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      </div>
+      <div className="flex flex-col items-start leading-none">
+        <span className="text- tracking-tighter">COMPRAR STICKERS</span>
+        <span className="text- not-italic font-mono font-bold tracking-[0.2em] opacity-80">DESDE $3.000 • SORTEO ACTIVO</span>
+      </div>
+      <div className="ml-2 w-8 h-8 bg-white/20 group-hover:bg-black/10 rounded-full grid place-items-center group-hover:translate-x-1 transition-transform">
+        <span className="text-xl">→</span>
+      </div>
+      {/* brillo */}
+      <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
+        <div className="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg] group-hover:left-[100%] transition-all duration-700" />
+      </div>
     </a>
 
-  {/* 3 BADGES PRO - BALLADARES */}
-<div className="mt-12 flex flex-wrap gap-3 justify-center">
-  <div className="group flex items-center gap-3 bg-zinc-900 border border-white/5 rounded-full pl-1.5 pr-5 py-1.5 hover:border-yellow-400/30 transition-all">
-    <div className="w-8 h-8 bg-yellow-400 text-black rounded-full flex items-center justify-center font-black text-">✓</div>
-    <span className="font-black italic text- tracking-widest text-white">COMPRA <span className="text-zinc-500 not-italic font-bold">100% SEGURA</span></span>
+    {/* flecha derecha */}
+    <div className="hidden md:flex items-center gap-2 animate-[pulse_1s_ease-in-out_infinite]">
+      <span className="text-[#E10600] font-black text-3xl">‹</span>
+      <span className="text-[#E10600] font-black text-3xl -ml-2">‹</span>
+      <span className="text-[#E10600] font-black text-3xl -ml-2">‹</span>
+    </div>
   </div>
 
-  <div className="group flex items-center gap-3 bg-zinc-900 border border-white/5 rounded-full pl-1.5 pr-5 py-1.5 hover:border-yellow-400/30 transition-all">
-    <div className="w-8 h-8 bg-white text-black rounded-full flex items-center justify-center">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-    </div>
-    <span className="font-black italic text- tracking-widest text-white">STICKERS <span className="text-zinc-500 not-italic font-bold">AL INSTANTE</span></span>
-  </div>
-
-  <div className="group flex items-center gap-3 bg-zinc-900 border border-white/5 rounded-full pl-1.5 pr-5 py-1.5 hover:border-yellow-400/30 transition-all">
-    <div className="w-8 h-8 bg-white text-black rounded-full flex items-center justify-center">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
-    </div>
-    <span className="font-black italic text- tracking-widest text-white">VENTA <span className="text-zinc-500 not-italic font-bold">TRANSPARENTE</span></span>
+  {/* flechas abajo apuntando arriba */}
+  <div className="md:hidden flex gap-8 mt-3 animate-bounce">
+    <span className="text-[#E10600] text-3xl font-black">↑</span>
+    <span className="text-[#E10600] text-3xl font-black">↑</span>
   </div>
 </div>
+
+{/* 3 BADGES PRO - BALLADARES */}
+<div className="mt-12 flex flex-col items-center gap-4">
+  <div className="flex flex-wrap gap-3 justify-center">
+    <div className="group flex items-center gap-3 bg-zinc-900 border border-white/5 rounded-full pl-1.5 pr-5 py-1.5 hover:border-yellow-400/30 transition-all">
+      <div className="w-8 h-8 bg-yellow-400 text-black rounded-full flex items-center justify-center font-black">✓</div>
+      <span className="font-black italic tracking-widest text-white">COMPRA <span className="text-zinc-500 not-italic font-bold">100% SEGURA</span></span>
+    </div>
+
+    <div className="group flex items-center gap-3 bg-zinc-900 border border-white/5 rounded-full pl-1.5 pr-5 py-1.5 hover:border-yellow-400/30 transition-all">
+      <div className="w-8 h-8 bg-white text-black rounded-full flex items-center justify-center">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      </div>
+      <span className="font-black italic tracking-widest text-white">STICKERS <span className="text-zinc-500 not-italic font-bold">AL INSTANTE</span></span>
+    </div>
+
+    <div className="group flex items-center gap-3 bg-zinc-900 border border-white/5 rounded-full pl-1.5 pr-5 py-1.5 hover:border-yellow-400/30 transition-all">
+      <div className="w-8 h-8 bg-white text-black rounded-full flex items-center justify-center">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+      </div>
+      <span className="font-black italic tracking-widest text-white">VENTA <span className="text-zinc-500 not-italic font-bold">TRANSPARENTE</span></span>
+    </div>
   </div>
+
+  {/* BOTON NUEVO */}
+  <a
+    href="#como-funciona"
+    className="group flex items-center gap-3 bg-white text-black border border-white rounded-full pl-1.5 pr-6 py-1.5 font-black italic text- tracking-widest  hover:border-yellow-400 transition-all hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.15)]"
+  >
+    <div className="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center">
+      <span className="text-">⚡</span>
+    </div>
+    SORTEO DIGITAL PERSONALIZADO
+  </a>
+</div>
+</div>
+  
 </section>
 
     <section className="py-20 px-6 bg-[#080808] text-white relative overflow-hidden">
@@ -169,7 +228,7 @@ export default function ventastickerPage() {
   NINGUN AUTO ESTA  <span className="text-red-500">STOCK!!!</span>
 </h2>
       <p className="text-zinc-400 text-xs md:text-sm mt-4 font-bold tracking-wide max-w-3xl mx-auto">
-        SORTEO DIGITAL PERSONALIZADO - TODOS NUESTROS CODIGOS EMPIEZAN CON <span className="text-white font-mono">BMxxxxxxx</span>
+        TODOS NUESTROS CODIGOS EMPIEZAN CON <span className="text-white font-mono">BMxxxxxxx</span>
       </p>
     </div>
 
@@ -185,8 +244,8 @@ export default function ventastickerPage() {
             <div className="w-8 h-8 rounded-full bg-yellow-400 text-black grid place-items-center font-black text-sm shrink-0">1</div>
             <div>
               <div className="font-black italic text-sm text-white leading-none">B13 EDICIÓN BALLADARES</div>
-              <div className="text-[10px] font-black bg-red-600 text-white inline-block px-2 py-0.5 rounded-full mt-1.5">META: 1.500 NÚMEROS</div>
-              <p className="text-[11px] text-zinc-400 mt-1.5 leading-[1.3]">Primer Sorteo. llegando a los 1500 numeros, empieza la cuenta regresiva....</p>
+              <div className="text-[10px] font-black bg-red-600 text-white inline-block px-2 py-0.5 rounded-full mt-1.5">META: 1.000 NÚMEROS</div>
+              <p className="text-[11px] text-zinc-400 mt-1.5 leading-[1.3]">Primer Sorteo. llegando a los 1000 numeros, empieza la cuenta regresiva....</p>
             </div>
           </div>
           <div className="p-4 flex gap-3 items-start opacity-60">
