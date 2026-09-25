@@ -14,9 +14,9 @@ const PACKS: Pack[] = [
 export default function ventastickerPage() {
 	const [menuOpen, setMenuOpen] = useState(false);
 	const YOUTUBE_ID = "XwMZ5Q70CAk"
-	const WHATSAPP = "56982637808";
-    const WHATSAPP_NEUMATICO = "56982637808";
-    const WHATSAPP_REPUESTO = "56982637808";
+	const WHATSAPP = "56998804732";
+    const WHATSAPP_NEUMATICO = "56998804732";
+    const WHATSAPP_REPUESTO = "56998804732";
     const INSTAGRAM = "https://www.instagram.com/balladaresmotor/"; 
 	
   function goCheckout(pack: Pack) {
