@@ -112,7 +112,7 @@ async function processOrder(order_code: string, mpPaymentId: string | null, req:
     <div style="padding:20px;text-align:center;background:#0a0a0a;">
       <p style="color:#777;font-size:11px;margin:0;">Guarda este correo. Presenta tus códigos el día del evento.</p>
       <p style="color:#777;font-size:11px;margin:6px 0 0 0;">¿Dudas? <a href="mailto:hola@balladares-motors.cl" style="color:#fff;text-decoration:none;font-weight:700;">hola@balladares-motors.cl</a></p>
-      <p style="color:#444;font-size:10px;margin:16px 0 0 0;">Balladares Motors © 2026 — Chiguayante, Bío Bío</p>
+      <p style="color:#444;font-size:10px;margin:16px 0 0 0;">Balladares Motors © 2026 — CONCEPCION, Bío Bío</p>
     </div>
   </div>
 </div>`

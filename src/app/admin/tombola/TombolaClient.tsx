@@ -30,6 +30,7 @@ const MARCAS_AUSPICIADORES = [
   { name: 'AEM', logo: '/marcas/aem.png' },
   { name: 'GReddy', logo: '/marcas/greddy.png' },
   { name: 'BMotors', logo: '/marcas/BB.png' },
+  { name: 'Ntronic', logo: '/marcas/nismotronic_ecu.png' },
 ];
 
 const shuffleReal = <T,>(array: T[]): T[] => {
