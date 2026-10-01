@@ -205,13 +205,13 @@ const survivorsList = shuffled.slice(0, keep);
     <div className="flex items-center gap-1.5 bg-gradient-to-b from-[#E10600] to-[#B00000] text-white px-3 py-1 rounded-full font-black border border-[#FF3333] text-xs">📹 EN VIVO <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" /></div>
     <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Buscar BM..." className="w-44 h-8 bg-[#1a1a1a] border border-zinc-700 rounded-full px-4 text-xs font-mono outline-none" />
     <div className="hidden md:flex items-center gap-2 text- font-mono text-zinc-400 tracking-widest border border-zinc-800 rounded-full px-3 py-1 bg-black">
-      BALLADARES MOTORS © 2026 • <span className="text-white font-black">{tickets.length} tickets en BD</span>
+      BALLADARES MOTORS © 2026  
     </div>
   </div>
   <button onClick={get50Random} className="h-8 px-8 rounded-full bg-gradient-to-b from-[#FFD000] to-[#FFB000] text-black font-black text-xs border border-[#FFD000]">🎲 TRAER 50 AL AZAR</button>
   <div className="flex gap-1.5 shrink-0">
 <button onClick={reset} className="h-8 px-8 rounded-full bg-white text-black text-xs font-black">↻ RESET</button>
-    <Link href={`/admin/tickets`} className="h-8 px-3 rounded-full bg-zinc-900 border border-zinc-700 text-xs font-black grid place-items-center">VOLVER</Link>
+    <Link href={`/ruth/Alexandra`} className="h-8 px-3 rounded-full bg-zinc-900 border border-zinc-700 text-xs font-black grid place-items-center">VOLVER</Link>
   </div>
 </div>
 
