@@ -69,6 +69,11 @@ export default function TombolaClient({ tickets, adminKey }: { tickets: any[], a
   const [show50, setShow50] = useState(false);
   const [random50, setRandom50] = useState<any[]>([]);
   const [activePool, setActivePool] = useState<any[] | null>(null);
+  
+  const [finalRaceActive, setFinalRaceActive] = useState(false);
+const [raceProgress, setRaceProgress] = useState<any[]>([]); // {ticket_code, y, x, pos, speed, isOvertaking}
+const [raceWinner, setRaceWinner] = useState<any>(null);
+const [cameraShake, setCameraShake] = useState(false);
 
  const get50Random = () => {
   setShow50(true);
@@ -124,9 +129,14 @@ export default function TombolaClient({ tickets, adminKey }: { tickets: any[], a
 
 const handleNextClick = () => {
   if (racers.length === 0 || vivos.length === 0) return;
-  if (animating || ronda >= 4 || countdown!== null) return;
+  if (animating || ronda >= 4 || countdown!== null || finalRaceActive) return;
 
-  // suena UNA vez los 5 seg
+  // Si es la FINAL, entra directo sin cuenta de 5
+  if (vivos.length === 5 && ronda === 3) {
+    nextRondaReal();
+    return;
+  }
+
   try {
     const s = new Audio('/flutter.MP3');
     s.volume = 0.8;
@@ -149,6 +159,14 @@ const handleNextClick = () => {
 
 const nextRondaReal = async () => {
   if (animating || ronda >= 4) return;
+
+  // SI QUEDAN 5 -> CARRERA FINAL ÉPICA
+  if (vivos.length === 5 && ronda === 3) {
+    startFinalRace();
+    return;
+  }
+
+  //... tu lógica normal para los otros niveles igual que antes
   setAnimating(true);
   const alive = racers.filter(r =>!r.eliminated);
   const nextConfig = rondasConfig[ronda + 1];
@@ -159,9 +177,8 @@ const nextRondaReal = async () => {
   await new Promise(r => setTimeout(r, 800));
 
   const shuffled = shuffleReal(alive);
-const survivorsList = shuffled.slice(0, keep);
+  const survivorsList = shuffled.slice(0, keep);
   const survivors = new Set(survivorsList.map(s => s.ticket_code));
-
   const spacing = keep === 1? 0 : Math.min(5.5, 70 / (keep - 1));
   const totalWidth = (keep - 1) * spacing;
   const startX = 50 - totalWidth / 2;
@@ -176,26 +193,158 @@ const survivorsList = shuffled.slice(0, keep);
 
   setRacers(newRacers);
   setRonda(r => r+1); setSlotCount(keep); setAnimating(false);
-  if (keep === 1) {
-    setWinner(survivorsList[0]);
-    setTimeout(() => {
-      setIsFinalCelebration(true);
-      try { new Audio('/fireworks.mp3').play().catch(()=>{}) } catch {}
-      setTimeout(() => setShow(true), 3000);
-    }, 1100);
-  }
 };
 
-  const reset = () => {
-  setActivePool(null); // 👈 vacía la pista
+const startFinalRace = async () => {
+  setAnimating(true);
+  setFinalRaceActive(true);
+  setCountdown(null);
+
+  let winnerTicket = shuffleReal(vivos)[0]; // elegido al inicio pero NO SE MUESTRA
+  let order = shuffleReal(vivos);
+
+  const initial = order.map((r:any, i:number) => ({
+   ...r,
+    raceY: 92 + Math.random()*4, // todos abajo desordenados
+    raceX: 15 + i * 14 + (Math.random()-0.5)*4,
+    targetX: 15 + i * 14,
+    baseSpeed: 0.09 + Math.random()*0.04, // velocidad base 1080p friendly
+    speed: 0.09 + Math.random()*0.04,
+    pos: i+1,
+    isLeader: false,
+    smoke: false,
+    nitro: false,
+    blocked: false,
+    lastOvertake: 0
+  }));
+  setRaceProgress(initial);
+
+  // SEMÁFORO
+  setCountdown(3);
+  for(let c=3; c>0; c--) {
+    setCountdown(c);
+    try { new Audio('/beep.mp3').play().catch(()=>{}) } catch {}
+    await new Promise(r=> setTimeout(r, 800));
+  }
+  setCountdown(null);
+  try { new Audio('/go.mp3').play().catch(()=>{}) } catch {}
+  await new Promise(r=> setTimeout(r, 300)); // largada
+
+  // CARRERA 40 SEGUNDOS
+  let elapsed = 0;
+  const duration = 40000;
+  const tick = 50; // 20 fps
+  const totalTicks = duration / tick; // 800 ticks
+
+  const raceInterval = setInterval(() => {
+    elapsed += tick;
+    const progressPct = elapsed / duration; // 0 a 1
+
+    setRaceProgress(prev => {
+      let next = [...prev].map(p => {
+        // velocidad varia segun zona de carrera
+        let speedMod = 1;
+        if(progressPct < 0.3) speedMod = 0.8 + Math.random()*0.4; // inicio caótico
+        else if(progressPct < 0.7) speedMod = 0.9 + Math.random()*0.6; // mitad peleada
+        else speedMod = 1.0 + Math.random()*0.3; // final apretado
+
+        let newY = p.raceY - p.baseSpeed * speedMod;
+        let newX = p.raceX + (p.targetX - p.raceX) * 0.05; // va hacia su targetX suave
+
+        // EVENTO ALEATORIO CADA ~2 SEG
+        if(Math.random() < 0.025 && elapsed - p.lastOvertake > 1500) {
+          // CRUCE / OVER TAKE
+          const newTarget = 12 + Math.random()*66; // cualquier carril
+          p.targetX = newTarget;
+          p.smoke = true;
+          p.lastOvertake = elapsed;
+          p.blocked = Math.random() < 0.3;
+          if(Math.random() < 0.5){
+            setCameraShake(true);
+            setTimeout(()=>setCameraShake(false), 150);
+          }
+          setTimeout(()=> { p.smoke = false; p.blocked = false; }, 600);
+        } else {
+          // drift leve normal
+          newX += (Math.random()-0.5)*0.3;
+        }
+
+        // NITRO SOLO DEL GANADOR Y SOLO AL FINAL 85% - 100%
+        let isNitro = false;
+        if(progressPct > 0.85 && p.ticket_code === winnerTicket.ticket_code){
+          newY -= 0.35; // empuje final
+          isNitro = progressPct > 0.88; // solo muestra efecto últimos 5 seg
+        }
+
+        return {...p, raceY: Math.max(4, newY), raceX: newX, nitro: isNitro, smoke: p.smoke };
+      });
+
+      // RECALCULAR POSICIONES (por Y) pero SIN MOSTRAR AMARILLO HASTA EL FINAL
+      next.sort((a,b) => a.raceY - b.raceY);
+      next = next.map((p,i)=>({...p, pos: i+1, isLeader: false})); // nadie es lider con color hasta el final
+
+      // Si es el último 8%, ahora si marcamos lider pero solo con efecto blanco, no amarillo ganador
+      if(progressPct > 0.92){
+        next[0].isLeader = true;
+      }
+
+      // Termina cuando llega el tiempo o el primero cruza meta
+      if(elapsed >= duration || next[0].raceY <= 8.5){
+        clearInterval(raceInterval);
+        // orden final = el ganador que elegimos debe ser el primero, lo forzamos sutilmente
+        const winnerInList = next.find(p=> p.ticket_code === winnerTicket.ticket_code);
+        if(winnerInList){
+          winnerInList.raceY = Math.min(...next.map(n=>n.raceY)) - 0.5; // lo pone 1ro
+        }
+        next.sort((a,b) => a.raceY - b.raceY);
+        setTimeout(()=> finishRace(winnerTicket, next), 600);
+      }
+      return next;
+    });
+  }, tick);
+};
+
+const finishRace = (winnerTicket:any, finalOrder:any[]) => {
+  setRaceProgress(finalOrder.map((p,i)=>({...p, pos: i+1, isLeader: i===0})));
+  setRaceWinner(winnerTicket);
+  setCameraShake(true);
+  try { new Audio('/fireworks.mp3').play().catch(()=>{}) } catch {}
+
+  setTimeout(()=>{
+    setFinalRaceActive(false);
+    setIsFinalCelebration(true);
+    setWinner(winnerTicket);
+    setRacers(prev => prev.map(r => ({
+     ...r,
+      x: r.ticket_code === winnerTicket.ticket_code? 50 : r.x,
+      y: r.ticket_code === winnerTicket.ticket_code? 8 : r.y,
+      eliminated: r.ticket_code!== winnerTicket.ticket_code
+    })));
+    setRonda(4);
+    setSlotCount(1);
+    setAnimating(false);
+    setTimeout(()=> setShow(true), 1500);
+  }, 1200);
+};
+
+const reset = () => {
+  setActivePool(null);
   setRandom50([]);
-  setRacers([]); // 👈 borra todos los autos
+  setRacers([]);
   setRonda(0);
   setWinner(null);
   setShow(false);
   setShow50(false);
   setSlotCount(0);
   setSearch('');
+  // FIX FINAL RACE
+  setFinalRaceActive(false);
+  setRaceProgress([]);
+  setRaceWinner(null);
+  setIsFinalCelebration(false);
+  setCameraShake(false);
+  setCountdown(null);
+  setAnimating(false);
 };
 
   return (
@@ -256,12 +405,68 @@ const survivorsList = shuffled.slice(0, keep);
     <img src="/copa_balladares_3d_FINAL.png" className="w- h- object-contain opacity-[0.07]" />
   </div>
 
-  {/* BORDES LATERALES TIPO PISTA */}
-  <div className="absolute top-0 left-0 w-3 h-full bg-[repeating-linear-gradient(0deg,white_0px,white_12px,red_12px,red_24px)] opacity-60" />
-  <div className="absolute top-0 right-0 w-3 h-full bg-[repeating-linear-gradient(0deg,white_0px,white_12px,red_12px,red_24px)] opacity-60" />
+{/* BORDES LATERALES TIPO PISTA - DIAGONAL REAL */}
+{!finalRaceActive && (
+  <>
+    <div className="absolute top-0 left-0 w-3 h-full bg-[repeating-linear-gradient(0deg,white_0px,white_12px,red_12px,red_24px)] opacity-60" />
+    <div className="absolute top-0 right-0 w-3 h-full bg-[repeating-linear-gradient(0deg,white_0px,white_12px,red_12px,red_24px)] opacity-60" />
+    <div className="absolute top-0 left-0 right-0 h-4 bg-[repeating-linear-gradient(90deg,white_0px,white_20px,black_20px,black_40px)] border-b-2 border-white/50 z-20" />
+  </>
+)}
+ 
+{finalRaceActive && (
+  <div className={`absolute inset-0 z-40 bg-[#080808] ${cameraShake? 'animate-[shake_0.12s_ease_infinite]' : ''}`}>
+    {/* PISTA NEGRA */}
+    <div className="absolute inset-0 bg-[#0a0a0a]" />
 
-  {/* LINEA DE META ARRIBA */}
-  <div className="absolute top-0 left-0 right-0 h-4 bg-[repeating-linear-gradient(90deg,white_0px,white_20px,black_20px,black_40px)] border-b-2 border-white/50 z-20" />
+    {/* CEBRAS LATERALES ROJO/BLANCO - ESTAS SON LAS QUE TE FALTAN WN */}
+    <div className="absolute top-0 bottom-0 left-0 w-7 z-30" style={{ backgroundImage: `repeating-linear-gradient(-45deg, #ffffff 0px, #ffffff 14px, #E10600 14px, #E10600 28px)`, borderRight: `2px solid white` }} />
+    <div className="absolute top-0 bottom-0 right-0 w-7 z-30" style={{ backgroundImage: `repeating-linear-gradient(45deg, #ffffff 0px, #ffffff 14px, #E10600 14px, #E10600 28px)`, borderLeft: `2px solid white` }} />
+
+    {/* META EN LA LINEA ROJA QUE MARCASTE - 14% */}
+    <div className="absolute top-[3%] left-7 right-7 h-8 z-30 flex items-center justify-center" style={{ backgroundImage: `repeating-linear-gradient(90deg, white 0px, white 24px, black 24px, black 48px)`, boxShadow: `0 0 20px white`, borderTop: `2px solid white`, borderBottom: `2px solid white` }}>
+      <div className="bg-black border border-white px-5 py-1">
+        <span className="text-white font-black text- tracking-[0.4em]">META FINAL 2026 • 1/2 Milla </span>
+      </div>
+    </div>
+
+    {/* CARRILES QUE SE MUEVEN - ARREGLADO */}
+    <div className="absolute inset-0 left-7 right-7 pointer-events-none">
+      <div className="absolute inset-0 flex justify-evenly opacity-60">
+        {[...Array(4)].map((_, i) => (
+          <div key={i} className="w- h-[200%] -mt-[50%]" style={{ backgroundImage: `repeating-linear-gradient(180deg, white 0px, white 22px, transparent 22px, transparent 44px)`, animation: `scrollDown 0.28s linear infinite` }} />
+        ))}
+      </div>
+    </div>
+
+    {/* ASFALTO QUE BAJA */}
+    <div className="absolute inset-0 left-7 right-7 opacity-20" style={{ backgroundImage: `linear-gradient(transparent 0%, transparent 90%, rgba(255,255,255,0.15) 90%, rgba(255,255,255,0.15) 100%)`, backgroundSize: '100% 80px', animation: 'scrollDown 0.6s linear infinite' }} />
+
+    {/* TABLA Y AUTOS IGUAL QUE ANTES */}
+    <div className="absolute top-[40%] left-10 bg-black/95 border border-zinc-700 rounded-xl p-3 z-50 backdrop-blur">
+      <div className="text-white font-black text- tracking-[0.3em] mb-2 flex items-center gap-2"><span className="w-2 h-2 bg-[#E10600] rounded-full animate-pulse" /> CARRERA FINAL - 1/2 Milla</div>
+      {raceProgress.slice().sort((a,b)=>a.pos-b.pos).map((p:any)=>(
+        <div key={p.ticket_code} className={`flex items-center gap-2 text-xs font-mono font-black py-1.5 px-2 rounded-full ${p.pos===1 && p.raceY < 15? 'bg-white text-black scale-105' : 'text-zinc-400 bg-zinc-900/50'}`}>
+          <span className="w-5">{p.pos}.</span><span className="w-2 h-2 rounded-full" style={{background: p.color}} /><span className="truncate">{p.ticket_code}</span>
+        </div>
+      ))}
+    </div>
+
+    {raceProgress.map((p:any)=>(
+      <div key={p.ticket_code} className="absolute" style={{ left: `${p.raceX}%`, top: `${p.raceY}%`, transform: 'translateX(-50%)', transition: 'left 0.8s ease-out' }}>
+        {p.smoke && <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-16 h-10 bg-white/40 blur rounded-full" />}
+        {p.nitro && <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 w-14 h-10 bg-gradient-to-t from-cyan-400 to-transparent blur" />}
+        <CarSVG color={p.color} eliminated={false} />
+        <div className="absolute -top-7 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-full text- font-black bg-zinc-900 border border-zinc-700 text-white whitespace-nowrap">{p.ticket_code}</div>
+      </div>
+    ))}
+  </div>
+)}
+
+<style jsx global>{`
+  @keyframes shake { 0%{transform:translate(1px,1px)} 50%{transform:translate(-1px,-1px)} 100%{transform:translate(1px,-1px)} }
+  @keyframes scrollDown { 0%{transform:translateY(0)} 100%{transform:translateY(60px)} }
+`}</style>
 
   {/* CARRILES */}
   <div className="absolute inset-0 opacity-20 pointer-events-none" style={{ backgroundImage: `linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)`, backgroundSize: '50px 50px' }} />
@@ -310,7 +515,7 @@ const survivorsList = shuffled.slice(0, keep);
   <div className="absolute top-[58%] left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
   <div className="absolute top-[78%] left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
-  {racers.map((r:any) => {
+ {!finalRaceActive && racers.map((r:any) => {
     if (isFinalCelebration && winner && r.ticket_code === winner.ticket_code) return null;
     const xPos = r.x?? (5 + (r.lane * 3.6));
     return (

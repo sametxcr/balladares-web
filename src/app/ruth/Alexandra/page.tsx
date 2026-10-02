@@ -117,11 +117,19 @@ const [{ rows }, { rows: countRows }, { rows: ticketRows }, { rows: statsRows }]
                       <div className="text-white font-bold text-">{o.rut}</div>
                       <div className="text-zinc-500 text-">{o.celular}</div>
                     </td>
-                    <td className="p-3 leading-tight max-w-">
-                      <div className="truncate text-zinc-300 text-">{o.email}</div>
-                      <div className="text- truncate"><span className="text-red-500 font-black">{o.region || 'SIN REGIÓN'}</span><span className="text-zinc-500"> • {o.ciudad}{o.comuna? ` / ${o.comuna}`:''}</span></div>
-                      <div className="text- text-zinc-600 truncate">{o.direccion}</div>
-                    </td>
+                    <td className="p-3 leading-tight max-w-[380px]">
+  <div className="truncate text-zinc-300 text-[12px] max-w-[350px]" title={o.email}>{o.email}</div>
+  <div className="truncate text-[12px] max-w-[350px]"><span className="text-red-500 font-black">{o.region || 'SIN REGIÓN'}</span><span className="text-zinc-500"> • {o.ciudad}{o.comuna? ` / ${o.comuna}`:''}</span></div>
+  {/* AQUI ESTA EL FIX */}
+  <div
+    className="text-[12px] text-zinc-600 truncate max-w-[350px] cursor-help hover:text-zinc-300 transition"
+    title={o.direccion}
+  >
+    {o.direccion && o.direccion.length > 60
+     ? `${o.direccion.slice(0, 60)}...`
+      : o.direccion}
+  </div>
+</td>
                     <td className="p-3 text-center">
                       <div className="w-8 h-8 mx-auto grid place-items-center bg-red-600 text-black font-black rounded-full italic -skew-x-6 text-">{o.qty}</div>
                     </td>

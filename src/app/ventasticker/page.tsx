@@ -268,6 +268,32 @@ export default function ventastickerPage() {
       </div>
     </div>
     {/* ==== FIN - COMO FUNCIONA ==== */}
+	
+	    {/* ==== SHORTS YOUTUBE - 2 VIDEOS VERTICALES ==== */}
+    <div className="max-w-4xl mx-auto mb-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+      {/* SHORT 1 */}
+      <div className="relative rounded-2xl overflow-hidden border-2 border-red-600/50 bg-black aspect-[9/16] max-h-">
+        <iframe
+          src="https://www.youtube.com/embed/BRUEl8nuAZs?autoplay=1&mute=1&loop=1&playlist=BRUEl8nuAZs&controls=1&modestbranding=1&rel=0&playsinline=1"
+          className="absolute inset-0 w-full h-full"
+          allow="autoplay; encrypted-media"
+          allowFullScreen
+        />
+        <div className="absolute top-3 left-3 bg-red-600 text-white font-black text- px-3 py-1 rounded-full z-10">🔥TEAM BM#1</div>
+      </div>
+
+      {/* SHORT 2 */}
+      <div className="relative rounded-2xl overflow-hidden border-2 border-yellow-400/50 bg-black aspect-[9/16] max-h-">
+        <iframe
+          src="https://www.youtube.com/embed/CglGlNRYHfk?autoplay=1&mute=1&loop=1&playlist=CglGlNRYHfk&controls=1&modestbranding=1&rel=0&playsinline=1"
+          className="absolute inset-0 w-full h-full"
+          allow="autoplay; encrypted-media"
+          allowFullScreen
+        />
+        <div className="absolute top-3 left-3 bg-yellow-400 text-black font-black text- px-3 py-1 rounded-full z-10">⚡TEAM BM#2</div>
+      </div>
+    </div>
+    {/* ==== FIN SHORTS ==== */}
 
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
       {/* PREMIO 1 - COPA 350Z */}
