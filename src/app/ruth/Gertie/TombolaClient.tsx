@@ -2,11 +2,11 @@
 import { useEffect, useState, useMemo } from 'react';
 import Link from 'next/link';
 
-const CarSVG = ({ eliminated = false, color = '#fff' }: any) => (
+const CarSVG = ({ eliminated = false, color = '#fff', size = 70 }: any) => (
   <div style={{
-    width: '70px',
-    height: '70px',
-    filter: eliminated? 'grayscale(1) brightness(0.25)' : `drop-shadow(0 0 8px ${color}80)`,
+    width: `${size}px`,
+    height: `${size}px`,
+    filter: eliminated? 'grayscale(1) brightness(0.25)' : `drop-shadow(0 0 12px ${color}90)`,
     opacity: eliminated? 0.80 : 1,
     transition: 'all 1s'
   }}>
@@ -14,7 +14,7 @@ const CarSVG = ({ eliminated = false, color = '#fff' }: any) => (
       src="/skyline96_final_nobg.png"
       alt="skyline"
       className="w-full h-full object-contain"
-      style={{ transform: 'rotate(180deg)' }} // punta hacia arriba
+      style={{ transform: 'rotate(180deg)' }}
     />
   </div>
 );
@@ -43,8 +43,42 @@ const shuffleReal = <T,>(array: T[]): T[] => {
   return a;
 };
 
+const DragTree = ({ step, fading }: { step: number, fading: boolean }) => {
+  return (
+    <div className={`flex flex-col items-center bg-black border-4 border-zinc-700 rounded- p-3 shadow-[0_0_60px_rgba(255,0,0,0.6)] transition-all duration-1000 ${fading? 'opacity-0 scale-90 pointer-events-none' : 'opacity-100 scale-100'}`}>
+      <div className="text-red-500 font-mono font-black text- tracking-widest mb-2">BALLADARES</div>
+      <div className="flex gap-3 mb-2">
+        <div className={`w-5 h-5 rounded-full ${step >= 1? 'bg-[#FFD000] shadow-[0_0_12px_#FFD000]' : 'bg-zinc-800'}`} />
+        <div className={`w-5 h-5 rounded-full ${step >= 1? 'bg-[#FFD000] shadow-[0_0_12px_#FFD000]' : 'bg-zinc-800'}`} />
+      </div>
+      <div className="flex gap-3 mb-4">
+        <div className={`w-5 h-5 rounded-full ${step >= 2? 'bg-[#FFD000] shadow-[0_0_12px_#FFD000]' : 'bg-zinc-800'}`} />
+        <div className={`w-5 h-5 rounded-full ${step >= 2? 'bg-[#FFD000] shadow-[0_0_12px_#FFD000]' : 'bg-zinc-800'}`} />
+      </div>
+      <div className="flex flex-col gap-2 mb-3">
+        <div className={`w-11 h-11 rounded-full border-2 ${step >= 3? 'bg-[#FFD000] border-white shadow-[0_0_20px_#FFD000]' : 'bg-zinc-900 border-zinc-700'}`} />
+        <div className={`w-11 h-11 rounded-full border-2 ${step >= 4? 'bg-[#FFD000] border-white shadow-[0_0_20px_#FFD000]' : 'bg-zinc-900 border-zinc-700'}`} />
+        <div className={`w-11 h-11 rounded-full border-2 ${step >= 5? 'bg-[#FFD000] border-white shadow-[0_0_20px_#FFD000]' : 'bg-zinc-900 border-zinc-700'}`} />
+      </div>
+      <div className="flex flex-col gap-2">
+        <div className={`w-11 h-11 rounded-full border-2 ${step === 6? 'bg-[#00FF00] border-white shadow-[0_0_30px_#00FF00]' : 'bg-zinc-900 border-zinc-700'}`} />
+        <div className={`w-11 h-11 rounded-full border-2 ${step === 7? 'bg-[#E10600] border-white shadow-[0_0_30px_#E10600]' : 'bg-zinc-900 border-zinc-700'}`} />
+      </div>
+    </div>
+  );
+};
+
+
+
+
 export default function TombolaClient({ tickets, adminKey }: { tickets: any[], adminKey: string }) {
   const [search, setSearch] = useState('');
+  const [trackMoving, setTrackMoving] = useState(false);
+  const [trafficLight, setTrafficLight] = useState(0); // 0=apagado 1-5=rojas prendidas 6=verde
+const [gridReady, setGridReady] = useState(false);
+const [trashTalk, setTrashTalk] = useState<{code:string, text:string} | null>(null);
+const [greenTime, setGreenTime] = useState(0);
+const PUTEADAS = ["TE PASO CTM!", "CHAO NOMAS", "MUY LENTO WN", "COME POLVO!", "PÁ' LA CASA", "QUIEN TE CONOCE?", "SACA LA CHALA", "JAJAJA"];
   const [ronda, setRonda] = useState(0);
   const [racers, setRacers] = useState<any[]>([]);
   const [winner, setWinner] = useState<any>(null);
@@ -179,9 +213,10 @@ const nextRondaReal = async () => {
   const shuffled = shuffleReal(alive);
   const survivorsList = shuffled.slice(0, keep);
   const survivors = new Set(survivorsList.map(s => s.ticket_code));
-  const spacing = keep === 1? 0 : Math.min(5.5, 70 / (keep - 1));
+  const spacing = keep === 5? 16 : keep === 1? 0 : Math.min(5.5, 70 / (keep - 1));
+  
   const totalWidth = (keep - 1) * spacing;
-  const startX = 50 - totalWidth / 2;
+  const startX = keep === 5? 18 : 50 - totalWidth / 2;
 
   const newRacers = racers.map(r => {
     if (r.eliminated) return r;
@@ -195,109 +230,114 @@ const nextRondaReal = async () => {
   setRonda(r => r+1); setSlotCount(keep); setAnimating(false);
 };
 
+const [treeStep, setTreeStep] = useState(0);
+
 const startFinalRace = async () => {
   setAnimating(true);
   setFinalRaceActive(true);
-  setCountdown(null);
+  setTreeStep(0);
+  setRaceProgress([]);
+  setGreenTime(0);
 
-  let winnerTicket = shuffleReal(vivos)[0]; // elegido al inicio pero NO SE MUESTRA
   let order = shuffleReal(vivos);
+  const gridX = [20, 35, 50, 65, 80];
 
+  // VELOCIDAD CALCULADA PARA 40 SEGUNDOS REALES
+  // Distancia 88 -> 6 = 82 unidades / (40000ms / 40ms = 1000 ticks) = 0.082 por tick
   const initial = order.map((r:any, i:number) => ({
-   ...r,
-    raceY: 92 + Math.random()*4, // todos abajo desordenados
-    raceX: 15 + i * 14 + (Math.random()-0.5)*4,
-    targetX: 15 + i * 14,
-    baseSpeed: 0.09 + Math.random()*0.04, // velocidad base 1080p friendly
-    speed: 0.09 + Math.random()*0.04,
+  ...r,
+    raceY: 88,
+    raceX: gridX[i],
+    targetX: gridX[i],
+    baseSpeed: 0.065 + Math.random()*0.03, // 0.065 a 0.095 - LENTO
+    speedJitter: Math.random()*0.015,
     pos: i+1,
-    isLeader: false,
     smoke: false,
     nitro: false,
-    blocked: false,
-    lastOvertake: 0
+    lastOvertake: 0,
+    pathSeed: Math.random()*100,
+    reaction: 0,
+    reactionStart: 0,
+    hasStarted: false,
   }));
   setRaceProgress(initial);
 
-  // SEMÁFORO
-  setCountdown(3);
-  for(let c=3; c>0; c--) {
-    setCountdown(c);
-    try { new Audio('/beep.mp3').play().catch(()=>{}) } catch {}
-    await new Promise(r=> setTimeout(r, 800));
-  }
-  setCountdown(null);
-  try { new Audio('/go.mp3').play().catch(()=>{}) } catch {}
-  await new Promise(r=> setTimeout(r, 300)); // largada
+  // SEMAFORO
+  setTreeStep(1); await new Promise(r=>setTimeout(r, 600));
+  setTreeStep(2); try{ new Audio('/beep.mp3').play().catch(()=>{}) }catch{}; await new Promise(r=>setTimeout(r, 700));
+  for(let i=3; i<=5; i++){ setTreeStep(i); try{ new Audio('/beep.mp3').play().catch(()=>{}) }catch{}; await new Promise(r=>setTimeout(r, 500)); }
 
-  // CARRERA 40 SEGUNDOS
+  await new Promise(r=>setTimeout(r, 200 + Math.random()*600));
+  const gTime = Date.now();
+  setGreenTime(gTime);
+  setTreeStep(6);
+  setTrackMoving(true);
+  try{ new Audio('/go.mp3').play().catch(()=>{}) }catch{}
+  setCameraShake(true); setTimeout(()=>setCameraShake(false), 300);
+
+  setRaceProgress(prev => prev.map(p => ({
+  ...p,
+    reactionStart: gTime + 80 + Math.random()*470,
+    reaction: 0,
+    hasStarted: false
+  })));
+
+  setTimeout(()=> setTreeStep(10), 2000);
+
   let elapsed = 0;
-  const duration = 40000;
-  const tick = 50; // 20 fps
-  const totalTicks = duration / tick; // 800 ticks
+  const tick = 40;
+  const duration = 40000; // 40 SEGUNDOS REALES
 
   const raceInterval = setInterval(() => {
     elapsed += tick;
-    const progressPct = elapsed / duration; // 0 a 1
+
+    if(elapsed % 2500 < 50){
+      const randomCode = raceProgress[Math.floor(Math.random()*5)]?.ticket_code;
+      if(randomCode){
+        setTrashTalk({ code: randomCode, text: PUTEADAS[Math.floor(Math.random()*PUTEADAS.length)] });
+        setTimeout(()=> setTrashTalk(null), 1500);
+      }
+    }
 
     setRaceProgress(prev => {
-      let next = [...prev].map(p => {
-        // velocidad varia segun zona de carrera
-        let speedMod = 1;
-        if(progressPct < 0.3) speedMod = 0.8 + Math.random()*0.4; // inicio caótico
-        else if(progressPct < 0.7) speedMod = 0.9 + Math.random()*0.6; // mitad peleada
-        else speedMod = 1.0 + Math.random()*0.3; // final apretado
-
-        let newY = p.raceY - p.baseSpeed * speedMod;
-        let newX = p.raceX + (p.targetX - p.raceX) * 0.05; // va hacia su targetX suave
-
-        // EVENTO ALEATORIO CADA ~2 SEG
-        if(Math.random() < 0.025 && elapsed - p.lastOvertake > 1500) {
-          // CRUCE / OVER TAKE
-          const newTarget = 12 + Math.random()*66; // cualquier carril
-          p.targetX = newTarget;
-          p.smoke = true;
-          p.lastOvertake = elapsed;
-          p.blocked = Math.random() < 0.3;
-          if(Math.random() < 0.5){
-            setCameraShake(true);
-            setTimeout(()=>setCameraShake(false), 150);
+      let next = prev.map(p => {
+        const now = Date.now();
+        if(!p.hasStarted){
+          if(now >= p.reactionStart){
+            return {...p, hasStarted: true, reaction: now - gTime, raceY: p.raceY - 0.1 };
+          } else {
+            return p;
           }
-          setTimeout(()=> { p.smoke = false; p.blocked = false; }, 600);
-        } else {
-          // drift leve normal
-          newX += (Math.random()-0.5)*0.3;
         }
 
-        // NITRO SOLO DEL GANADOR Y SOLO AL FINAL 85% - 100%
-        let isNitro = false;
-        if(progressPct > 0.85 && p.ticket_code === winnerTicket.ticket_code){
-          newY -= 0.35; // empuje final
-          isNitro = progressPct > 0.88; // solo muestra efecto últimos 5 seg
-        }
+        const wave = Math.sin(elapsed*0.001 + p.pathSeed) * p.speedJitter;
+        let s = p.baseSpeed + wave;
 
-        return {...p, raceY: Math.max(4, newY), raceX: newX, nitro: isNitro, smoke: p.smoke };
+        // Solo al final el primero se escapa un poco
+        if((elapsed/duration) > 0.85 && p.pos === 1) s += 0.02;
+
+        let newY = p.raceY - s;
+        let newX = p.raceX;
+
+        if(Math.random() < 0.012 && elapsed - p.lastOvertake > 3000 && p.pos > 1){
+          p.targetX = 18 + Math.random()*64;
+          p.lastOvertake = elapsed;
+          p.smoke = true;
+          setTimeout(()=>p.smoke=false, 600);
+        }
+        newX += (p.targetX - newX) * 0.02; // LERP SUAVE
+
+        return {...p, raceY: newY, raceX: Math.max(15, Math.min(85, newX)), nitro: (elapsed/duration)>0.9 && p.pos===1 };
       });
 
-      // RECALCULAR POSICIONES (por Y) pero SIN MOSTRAR AMARILLO HASTA EL FINAL
       next.sort((a,b) => a.raceY - b.raceY);
-      next = next.map((p,i)=>({...p, pos: i+1, isLeader: false})); // nadie es lider con color hasta el final
+      next = next.map((p,i)=>({...p, pos: i+1}));
 
-      // Si es el último 8%, ahora si marcamos lider pero solo con efecto blanco, no amarillo ganador
-      if(progressPct > 0.92){
-        next[0].isLeader = true;
-      }
-
-      // Termina cuando llega el tiempo o el primero cruza meta
-      if(elapsed >= duration || next[0].raceY <= 8.5){
+      // AHORA TERMINA SOLO POR TIEMPO, NO POR CRUZAR ANTES
+      if(elapsed >= duration || next[0].raceY <= 14){
         clearInterval(raceInterval);
-        // orden final = el ganador que elegimos debe ser el primero, lo forzamos sutilmente
-        const winnerInList = next.find(p=> p.ticket_code === winnerTicket.ticket_code);
-        if(winnerInList){
-          winnerInList.raceY = Math.min(...next.map(n=>n.raceY)) - 0.5; // lo pone 1ro
-        }
         next.sort((a,b) => a.raceY - b.raceY);
-        setTimeout(()=> finishRace(winnerTicket, next), 600);
+        setTimeout(()=> finishRace(next[0], next), 400);
       }
       return next;
     });
@@ -345,6 +385,7 @@ const reset = () => {
   setCameraShake(false);
   setCountdown(null);
   setAnimating(false);
+  setTrackMoving(false);
 };
 
   return (
@@ -415,58 +456,102 @@ const reset = () => {
 )}
  
 {finalRaceActive && (
-  <div className={`absolute inset-0 z-40 bg-[#080808] ${cameraShake? 'animate-[shake_0.12s_ease_infinite]' : ''}`}>
-    {/* PISTA NEGRA */}
-    <div className="absolute inset-0 bg-[#0a0a0a]" />
+  <div className={`absolute inset-0 z-40 bg-[#0f0f0f] overflow-hidden ${cameraShake? 'animate-[shake_0.08s_ease_infinite]' : ''}`}>
+    {/* ASFALTO EN MOVIMIENTO */}
+    <div className="absolute inset-0 bg-[#181818]" />
+    <div className="absolute inset-0 opacity-20" style={{
+  backgroundImage: `linear-gradient(transparent 0%, transparent 96%, rgba(255,255,255,0.4) 96%, rgba(255,255,255,0.4) 100%)`,
+  backgroundSize: '100% 80px',
+  animation: trackMoving? 'roadMove 0.4s linear infinite' : 'none'
+}} />
+    <div className="absolute inset-0 opacity-10" style={{ backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)`, backgroundSize: '28px 28px' }} />
 
-    {/* CEBRAS LATERALES ROJO/BLANCO - ESTAS SON LAS QUE TE FALTAN WN */}
-    <div className="absolute top-0 bottom-0 left-0 w-7 z-30" style={{ backgroundImage: `repeating-linear-gradient(-45deg, #ffffff 0px, #ffffff 14px, #E10600 14px, #E10600 28px)`, borderRight: `2px solid white` }} />
-    <div className="absolute top-0 bottom-0 right-0 w-7 z-30" style={{ backgroundImage: `repeating-linear-gradient(45deg, #ffffff 0px, #ffffff 14px, #E10600 14px, #E10600 28px)`, borderLeft: `2px solid white` }} />
-
-    {/* META EN LA LINEA ROJA QUE MARCASTE - 14% */}
-    <div className="absolute top-[3%] left-7 right-7 h-8 z-30 flex items-center justify-center" style={{ backgroundImage: `repeating-linear-gradient(90deg, white 0px, white 24px, black 24px, black 48px)`, boxShadow: `0 0 20px white`, borderTop: `2px solid white`, borderBottom: `2px solid white` }}>
-      <div className="bg-black border border-white px-5 py-1">
-        <span className="text-white font-black text- tracking-[0.4em]">META FINAL 2026 • 1/2 Milla </span>
-      </div>
+    {/* BORDES */}
+    <div className="absolute top-0 bottom-0 left-0 w-8 bg-[#2a2a2a] border-r-2 border-white z-20" />
+    <div className="absolute top-0 bottom-0 right-0 w-8 bg-[#2a2a2a] border-l-2 border-white z-20" />
+    
+	
+<div className="absolute top-0 bottom-0 left-0 w-3 z-30" style={{
+  backgroundImage: `repeating-linear-gradient(0deg, white 0px, white 12px, #E10600 12px, #E10600 24px)`,
+  animation: trackMoving? 'roadMove 0.3s linear infinite' : 'none'
+}} />    
+	
+<div className="absolute top-0 bottom-0 right-0 w-3 z-30" style={{
+  backgroundImage: `repeating-linear-gradient(0deg, white 0px, white 12px, #E10600 12px, #E10600 24px)`,
+  animation: trackMoving? 'roadMove 0.3s linear infinite' : 'none'
+}} />
+    {/* META */}
+<div className="absolute top-[12%] left-8 right-8 h-7 z-30 rounded-sm" style={{ backgroundImage: `repeating-linear-gradient(90deg, white 0px, white 20px, black 20px, black 40px)`, boxShadow: `0 0 20px white` }} />    {/* LINEA CENTRAL */}
+    
+	
+<div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[3px] z-10 opacity-50" style={{
+  backgroundImage: `repeating-linear-gradient(180deg, white 0px, white 20px, transparent 20px, transparent 40px)`,
+  backgroundSize: '100% 80px',
+  animation: trackMoving? 'roadMove 0.2s linear infinite' : 'none'
+}} />
+    {/* ARBOLITO */}
+    <div className="absolute top-[9%] left-1/2 -translate-x-1/2 z-50">
+      <DragTree step={treeStep >= 10? 6 : treeStep} fading={treeStep >= 10} />
     </div>
 
-    {/* CARRILES QUE SE MUEVEN - ARREGLADO */}
-    <div className="absolute inset-0 left-7 right-7 pointer-events-none">
-      <div className="absolute inset-0 flex justify-evenly opacity-60">
-        {[...Array(4)].map((_, i) => (
-          <div key={i} className="w- h-[200%] -mt-[50%]" style={{ backgroundImage: `repeating-linear-gradient(180deg, white 0px, white 22px, transparent 22px, transparent 44px)`, animation: `scrollDown 0.28s linear infinite` }} />
-        ))}
+    {/* PANEL IZQ - POSICIONES MÁS CLARO Y CON NOMBRE */}
+    <div className="absolute left-6 top-[20%] w-[240px] bg-black/45 backdrop-blur-md border border-zinc-600/50 rounded-2xl p-3 z-40 shadow-[0_0_30px_rgba(0,0,0,0.8)]">
+      <div className="text- font-black tracking-[0.25em] text-white mb-3 flex items-center gap-2 border-b border-zinc-700 pb-2">
+        <span className="w-2.5 h-2.5 bg-[#E10600] rounded-full animate-pulse" /> POSICIONES EN VIVO
       </div>
-    </div>
-
-    {/* ASFALTO QUE BAJA */}
-    <div className="absolute inset-0 left-7 right-7 opacity-20" style={{ backgroundImage: `linear-gradient(transparent 0%, transparent 90%, rgba(255,255,255,0.15) 90%, rgba(255,255,255,0.15) 100%)`, backgroundSize: '100% 80px', animation: 'scrollDown 0.6s linear infinite' }} />
-
-    {/* TABLA Y AUTOS IGUAL QUE ANTES */}
-    <div className="absolute top-[40%] left-10 bg-black/95 border border-zinc-700 rounded-xl p-3 z-50 backdrop-blur">
-      <div className="text-white font-black text- tracking-[0.3em] mb-2 flex items-center gap-2"><span className="w-2 h-2 bg-[#E10600] rounded-full animate-pulse" /> CARRERA FINAL - 1/2 Milla</div>
       {raceProgress.slice().sort((a,b)=>a.pos-b.pos).map((p:any)=>(
-        <div key={p.ticket_code} className={`flex items-center gap-2 text-xs font-mono font-black py-1.5 px-2 rounded-full ${p.pos===1 && p.raceY < 15? 'bg-white text-black scale-105' : 'text-zinc-400 bg-zinc-900/50'}`}>
-          <span className="w-5">{p.pos}.</span><span className="w-2 h-2 rounded-full" style={{background: p.color}} /><span className="truncate">{p.ticket_code}</span>
+        <div key={p.ticket_code} className={`flex items-center gap-2.5 text- font-black py-2 px-3 rounded-xl mb-2 transition-all ${p.pos===1? 'bg-[#FFD000] text-black scale-[1.03] shadow-[0_0_15px_#FFD000]' : 'bg-zinc-800/90 text-white border border-zinc-700'}`}>
+          <span className={`w-6 h-6 rounded-full grid place-items-center text- ${p.pos===1?'bg-black text-[#FFD000]':'bg-white text-black'}`}>{p.pos}°</span>
+          <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{background: p.color}} />
+          <span className="truncate">{(p.nombre||p.name||'PILOTO').split(' ')[0].toUpperCase()}</span>
         </div>
       ))}
     </div>
 
+    {/* PANEL DER - REACCIÓN MÁS CLARO Y CON NOMBRE */}
+    <div className="absolute right-6 top-[20%] w-[220px] bg-black/45 backdrop-blur-md border border-zinc-600/50 rounded-2xl p-3 z-40 shadow-[0_0_30px_rgba(0,0,0,0.8)]">
+      <div className="text- font-black tracking-[0.25em] text-[#00FF88] mb-3 border-b border-zinc-700 pb-2">⚡ REACCIÓN SALIDA</div>
+      {raceProgress.slice().sort((a,b)=>a.reaction-b.reaction).map((p:any)=>(
+        <div key={p.ticket_code+'react'} className="flex justify-between items-center text- py-2 px-3 rounded-xl bg-zinc-800/90 border border-zinc-700 mb-2">
+          <span className="text-white font-black truncate">{(p.nombre||p.name||'').split(' ')[0].toUpperCase()}</span>
+          <span className={`font-mono font-black ${p.reaction===0? 'text-zinc-500' : p.reaction<200? 'text-[#00FF66]' : p.reaction<350? 'text-[#FFD000]' : 'text-[#FF4444]'}`}>
+            {p.reaction===0? '...' : `${(p.reaction/1000).toFixed(3)}s`}
+          </span>
+        </div>
+      ))}
+      <div className="mt-2 text- text-zinc-500 text-center">* Tiempo desde verde hasta largar</div>
+    </div>
+
+    {/* AUTOS - MOVIMIENTO SUAVE */}
     {raceProgress.map((p:any)=>(
-      <div key={p.ticket_code} className="absolute" style={{ left: `${p.raceX}%`, top: `${p.raceY}%`, transform: 'translateX(-50%)', transition: 'left 0.8s ease-out' }}>
-        {p.smoke && <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-16 h-10 bg-white/40 blur rounded-full" />}
-        {p.nitro && <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 w-14 h-10 bg-gradient-to-t from-cyan-400 to-transparent blur" />}
-        <CarSVG color={p.color} eliminated={false} />
-        <div className="absolute -top-7 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-full text- font-black bg-zinc-900 border border-zinc-700 text-white whitespace-nowrap">{p.ticket_code}</div>
+      <div key={p.ticket_code} className="absolute z-30" style={{ left: `${p.raceX}%`, top: `${p.raceY}%`, transform: 'translate(-50%,-50%)', transition: p.hasStarted? 'top 0.4s linear, left 1.2s ease-out' : 'all 0.8s ease-out' }}>
+        {p.smoke && <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-20 h-10 bg-white/15 blur-xl rounded-full" />}
+        <CarSVG color={p.color} size={92} />
+        <div className="absolute -top-14 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center gap-1 pointer-events-none">
+          <div className="relative z-50 px-3 py-1 rounded-full bg-white text-black font-black text- tracking-widest shadow-[0_0_12px_white] whitespace-nowrap">
+            {(p.nombre||p.name||'PILOTO').split(' ')[0].toUpperCase()}
+          </div>
+          <div className="relative z-50 px-2.5 py-0.5 rounded-full bg-black/90 border border-zinc-500 text-white font-mono font-black text- backdrop-blur whitespace-nowrap">
+            {p.ticket_code}
+          </div>
+        </div>
+        {/* PUTEADAS EN ROJO */}
+        {trashTalk?.code === p.ticket_code && (
+          <div className="absolute -top-24 left-1/2 -translate-x-1/2 z-[60] bg-[#E10600] text-white font-black text- px-4 py-1.5 rounded-full border-2 border-white whitespace-nowrap animate-bounce shadow-[0_0_20px_#E10600]">
+            {trashTalk.text}
+          </div>
+        )}
       </div>
     ))}
+
+    <style jsx>{`
+      @keyframes roadMove { 0% { background-position-y: 0; } 100% { background-position-y: 80px; } }
+      @keyframes shake { 0%{transform:translate(1px,1px)} 50%{transform:translate(-1px,-1px)} 100%{transform:translate(1px,-1px)} }
+    `}</style>
   </div>
 )}
 
-<style jsx global>{`
-  @keyframes shake { 0%{transform:translate(1px,1px)} 50%{transform:translate(-1px,-1px)} 100%{transform:translate(1px,-1px)} }
-  @keyframes scrollDown { 0%{transform:translateY(0)} 100%{transform:translateY(60px)} }
-`}</style>
+
 
   {/* CARRILES */}
   <div className="absolute inset-0 opacity-20 pointer-events-none" style={{ backgroundImage: `linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)`, backgroundSize: '50px 50px' }} />
@@ -515,17 +600,36 @@ const reset = () => {
   <div className="absolute top-[58%] left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
   <div className="absolute top-[78%] left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
- {!finalRaceActive && racers.map((r:any) => {
+{!finalRaceActive && racers.map((r:any) => {
     if (isFinalCelebration && winner && r.ticket_code === winner.ticket_code) return null;
+    const isLast5 = vivos.length === 5 &&!r.eliminated;
     const xPos = r.x?? (5 + (r.lane * 3.6));
-    return (
-      <div key={r.ticket_code} className="absolute transition-all duration-1000 ease-out" style={{ left: `${xPos}%`, top: `${r.y}%`, transform: 'translateX(-50%)' }} onMouseEnter={() => setHovered(r.ticket_code)} onMouseLeave={() => setHovered(null)}>
-        <CarSVG color={r.color} eliminated={r.eliminated} />
-        {hovered === r.ticket_code &&!r.eliminated && (
-          <div className="absolute -top-7 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-full text- font-mono font-black bg-white text-black border-2 border-white whitespace-nowrap z-30 pointer-events-none">
-            {r.ticket_code}
+
+    // SI QUEDAN 5 - VISTA NUEVA: NOMBRE ARRIBA / TICKET ABAJO
+    if (isLast5) {
+      const firstName = (r.nombre || r.name || 'PILOTO').split(' ')[0].toUpperCase();
+      return (
+        <div key={r.ticket_code} className="absolute z-30 transition-all duration-1000 ease-out" style={{ left: `${xPos}%`, top: `${r.y}%`, transform: 'translateX(-50%)' }}>
+          <div className="flex flex-col items-center gap-2">
+            {/* NOMBRE ARRIBA */}
+           <div className="relative z-50 px-3 py-1 rounded-full bg-white text-black font-black text-[11px] tracking-widest shadow-[0_0_12px_white] whitespace-nowrap">
+  {firstName}
+</div>
+<div className="relative z-10 my-2">
+  <CarSVG color={r.color} eliminated={false} size={68} />
+</div>
+<div className="relative z-50 px-3 py-1 rounded-full bg-black/90 border border-zinc-600 text-white font-mono font-black text-[11px] backdrop-blur whitespace-nowrap">
+  {r.ticket_code}
+</div>
           </div>
-        )}
+        </div>
+      );
+    }
+
+    // PARA LOS OTROS NIVELES (50,25,15) NORMAL SIN NADA
+    return (
+      <div key={r.ticket_code} className="absolute transition-all duration-1000 ease-out" style={{ left: `${xPos}%`, top: `${r.y}%`, transform: 'translateX(-50%)' }}>
+        <CarSVG color={r.color} eliminated={r.eliminated} />
       </div>
     );
   })}
@@ -615,91 +719,143 @@ const reset = () => {
       </div>
 
 {show50 && (
-  <div className="fixed inset-0 bg-black z-[60] flex items-center justify-center">
-    <div className="bg-black w-full max-w-4xl flex flex-col h- overflow-hidden">
+  <div className="fixed inset-0 bg-[#050505] z-[60] flex items-center justify-center p-2 md:p-4">
+    <div className="bg-black w-full max-w-5xl rounded- border border-zinc-800 overflow-hidden flex flex-col max-h- shadow-[0_0_80px_rgba(225,6,0,0.25)]">
 
-      <div className="p-4 flex justify-between items-center bg-black shrink-0">
-        <div>
-          <div className="font-black italic text-lg">
-            {isShuffling? '🔥 MEZCLANDO TÓMBOLA...' : '🎲 50 STICKERS AL AZAR'}
+      {/* HEADER - SIN NUMEROS */}
+      <div className="relative p-5 md:p-6 bg-gradient-to-b from-[#1a1a1a] to-black border-b-2 border-[#E10600] shrink-0 overflow-hidden">
+        <div className="absolute inset-0 bg-[repeating-linear-gradient(90deg,transparent_0px,transparent_20px,rgba(255,255,255,0.03)_20px,rgba(255,255,255,0.03)_21px)] pointer-events-none" />
+        <div className="relative flex justify-between items-start gap-4">
+          <div>
+            {isShuffling? (
+              <>
+                <div className="flex items-center gap-3">
+                  <div className="w-2 h-2 bg-[#E10600] rounded-full animate-ping" />
+                  <h2 className="font-black italic text-2xl md:text-3xl tracking-tighter leading-none">
+                    CALENTANDO<span className="text-[#E10600]"> NEUMÁTICOS</span>
+                  </h2>
+                </div>
+                <p className="mt-2 font-mono text- tracking-[0.3em] text-zinc-500 uppercase">
+                  Revolviendo tickets • Crypto random 
+                </p>
+              </>
+            ) : (
+              <>
+                <div className="flex items-center gap-3">
+                  <span className="px-3 py-1 rounded-full bg-[#FFD000] text-black font-black text- tracking-widest">PARRILLA DE LARGADA</span>
+                  <span className="font-mono text-xs text-zinc-500">{random50.length} / 50 PILOTOS</span>
+                </div>
+                <h2 className="mt-2 font-black italic text-3xl md:text-4xl tracking-tighter leading-none">
+                  50 <span className="text-zinc-600">ELEGIDOS</span> <span className="text-[#E10600]">AL AZAR</span>
+                </h2>
+                <p className="mt-1 font-mono text- tracking-[0.2em] text-zinc-500 uppercase">Desde la base total • Orden aleatorio verificado</p>
+              </>
+            )}
           </div>
-          <div className="text-xs font-mono text-zinc-500">
-            {isShuffling? `Revolviendo ${tickets.length} tickets...` : `Se trajeron ${random50.length} de ${tickets.length} totales`}
+          <div className={`px-4 py-1.5 rounded-full font-black text-sm border-2 shrink-0 ${isShuffling? 'bg-[#E10600] border-[#FF3333] text-white animate-pulse' : 'bg-white border-white text-black'}`}>
+            {isShuffling? '🔥 MEZCLANDO...' : `⚡️ ${random50.length} / 50`}
           </div>
-        </div>
-        <div className={`px-3 py-1 rounded-full text-sm font-black ${isShuffling? 'bg-red-600 text-white animate-pulse' : 'bg-[#FFD000] text-black'}`}>
-          {isShuffling? '🎰' : `${random50.length} / 50`}
         </div>
       </div>
 
-      <div className="flex-1 bg-black flex flex-col items-center justify-center overflow-hidden">
+{/* CONTENIDO */}
+      <div className="flex-1 bg-[#080808] relative overflow-hidden flex flex-col">
         {isShuffling? (
-          <div className="w-full h-full flex flex-col items-center justify-center gap-8 bg-black">
-            <div className="w-full h- bg-black relative">
-              <video
-                src="/burn.mp4"
-                autoPlay
-               loop={false}
-                
-                playsInline
-                preload="auto"
-                className="w-full h-full object-cover block"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent pointer-events-none" />
-            </div>
-            <div className="text-3xl font-black tracking-[0.3em] text-white animate-pulse">
-              MEZCLANDO...
-            </div>
-          </div>
-        ) : (
-          <div className="w-full p-6 grid grid-cols-5 gap-2 overflow-auto">
-            {random50.map((t:any, i:number) => (
-              <div
-                key={t.ticket_code}
-                className="h-7 bg-[#1a1a1a] border border-zinc-800 rounded-full grid place-items-center text- font-mono font-black animate-[popIn_0.3s_ease_forwards] opacity-0 translate-y-2"
-                style={{ animationDelay: `${i * 20}ms` }}
-              >
-                <span className="flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full" style={{ background: COLORS[i % COLORS.length] }} />
-                  {t.ticket_code}
-                </span>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+                    <div className="relative w-full flex-1 min-h-[600px] flex flex-col items-center justify-center overflow-hidden">
+            {/* VIDEO - AGRANDADO Y LIBRE */}
+            <video
+              src="/burn.mp4"
+              autoPlay
+              loop={false}
+              
+              playsInline
+              preload="auto"
+              className="absolute inset-0 w-full h-full object-cover "
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/50" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-transparent" />
 
-      <div className="p-4 flex justify-between bg-black shrink-0 border-t border-zinc-900">
-        <button onClick={() => setShow50(false)} className="h-9 px-5 rounded-full bg-zinc-900 border border-zinc-800 text-white font-black text-xs">
-          ✕ CERRAR
-        </button>
+          {/* LAYOUT EN 3 PARTES - SEPARADO DE VERDAD */}
+<div className="relative z-10 w-full h-full flex flex-col p-6 pt-2 pb-6">
+
+  {/* LOGO BIEN ARRIBA */}
+  <div className="flex justify-center shrink-0">
+    <img
+      src="/BB.png"
+      alt="Balladares Motors"
+      className="h- md:h- w-[350px] object-contain drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]"
+    />
+  </div>
+
+  {/* ESPACIO GIGANTE PA QUE EL SKYLINE QUEDE SOLO - ESTE ES EL TRUCO */}
+  <div className="flex-1 min-h-[220px] md:min-h-[300px]" />
+
+  {/* TODO ABAJO BIEN SEPARADO */}
+  <div className="flex flex-col items-center gap-3 shrink-0">
+    <h1 className="font-black italic text-3xl md:text-4xl leading-[0.85] tracking-tighter text-white text-center [text-shadow:_0_0_30px_rgba(225,6,0,0.8)]">
+      MEZCLANDO <span className="text-transparent" style={{ WebkitTextStroke: '1.5px white' }}>TÓMBOLA</span>
+    </h1>
+
+    <div className="flex items-center gap-2 bg-black/90 backdrop-blur border border-zinc-700 rounded-full px-5 py-2">
+      <span className="w-2 h-2 bg-[#FFD000] rounded-full animate-pulse" />
+      <span className="font-mono text- tracking-[0.3em] text-white uppercase">Barajando tickets • Aleatorio puro</span>
+    </div>
+
+    <div className="h-6 overflow-hidden opacity-60 w-full">
+      <div className="animate-[marquee_0.6s_linear_infinite] flex gap-3 font-mono font-black text- text-white whitespace-nowrap">
+        {display50.slice(0,10).map((t:any) => (
+          <span key={t.ticket_code + Math.random()} className="px-2.5 py-1 bg-zinc-900/80 rounded-full border border-zinc-800">{t.ticket_code}</span>
+        ))}
+        {display50.slice(0,10).map((t:any) => (
+          <span key={t.ticket_code + 'dup' + Math.random()} className="px-2.5 py-1 bg-zinc-900/80 rounded-full border border-zinc-800">{t.ticket_code}</span>
+        ))}
+      </div>
+    </div>
+  </div>
+  
+   
+
+
+
+      </div>
+    </div>
+  ) : (
+    /*... tu parte de los 50 igual... */
+    <div className="p-4 md:p-5 overflow-auto">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2.5">
+        {random50.map((t:any, i:number) => (
+          <div
+            key={t.ticket_code}
+            className="group relative h- rounded- bg-gradient-to-b from-[#1e1e1e] to-[#111] border border-zinc-800 flex items-center gap-2.5 px-3 overflow-hidden animate-[popIn_0.35s_ease_forwards] opacity-0 translate-y-3 hover:border-zinc-600 hover:scale-[1.02] transition-all"
+            style={{ animationDelay: `${i * 18}ms` }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-white/[0.07] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="w-7 h-7 rounded-full bg-black border border-zinc-700 grid place-items-center font-black text- text-zinc-400 group-hover:text-white group-hover:border-white transition-colors shrink-0">
+              {i+1}
+            </div>
+            <div className="w-2.5 h-2.5 rounded-full shadow-[0_0_8px_currentColor] shrink-0" style={{ background: COLORS[i % COLORS.length], color: COLORS[i % COLORS.length] }} />
+            <div className="flex-1 min-w-0">
+              <div className="font-mono font-black text- leading-none text-white truncate">{t.ticket_code}</div>
+              <div className="font-mono text- tracking-widest text-zinc-500 truncate uppercase mt-0.5">{(t.nombre || t.name || 'Piloto').split(' ')[0]}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+</div>
+
+      <div className="p-3 md:p-4 flex justify-between items-center bg-black border-t border-zinc-900 shrink-0">
+        <button onClick={() => setShow50(false)} className="h-10 px-5 rounded-full bg-zinc-900 border border-zinc-800 text-white font-black text-xs tracking-widest hover:bg-zinc-800 transition-colors">✕ CERRAR</button>
         <div className="flex gap-2">
-          <button
-            onClick={get50Random}
-            disabled={isShuffling}
-            className="h-9 px-5 rounded-full bg-zinc-800 text-white font-black text-xs disabled:opacity-20"
-          >
-            🎲 50 NUEVOS
-          </button>
-          <button
-            onClick={cargar50EnPista}
-            disabled={isShuffling}
-            className="h-9 px-6 rounded-full bg-[#E10600] text-white font-black text-xs disabled:opacity-20"
-          >
-            🏁 CARGAR {isShuffling? '...' : `${random50.length} EN PISTA`}
-          </button>
+          <button onClick={get50Random} disabled={isShuffling} className="h-10 px-5 rounded-full bg-zinc-900 border border-zinc-800 text-white font-black text-xs tracking-widest hover:bg-white hover:text-black transition-colors disabled:opacity-20">🎲 MEZCLAR OTRA VEZ</button>
+          <button onClick={cargar50EnPista} disabled={isShuffling} className="h-10 px-6 rounded-full bg-[#E10600] border border-[#FF3333] text-white font-black text-xs tracking-widest shadow-[0_0_20px_rgba(225,6,0,0.4)] hover:shadow-[0_0_30px_rgba(225,6,0,0.6)] hover:scale-[1.02] transition-all disabled:opacity-20">🏁 CARGAR {isShuffling? '...' : `${random50.length} EN PISTA`}</button>
         </div>
       </div>
     </div>
-
     <style jsx>{`
-	@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-      @keyframes popIn {
-        to { opacity: 1; transform: translateY(0); }
-      }
+      @keyframes popIn { to { opacity: 1; transform: translateY(0); } }
+      @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
     `}</style>
   </div>
 )}

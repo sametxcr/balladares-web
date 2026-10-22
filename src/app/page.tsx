@@ -59,7 +59,7 @@ const marcas = [
   { name: "PEUGEOT", logo: "/brands/brand_peugeot_3d.png" },
 ];
 
-const SORTEO_FECHA = "2026-10-15T20:00:00"; // AAAA-MM-DD Hora - CAMBIA ESTO
+const SORTEO_FECHA = "2026-11-14T20:00:00"; // AAAA-MM-DD Hora - CAMBIA ESTO
 
 
 export default function Page(){
@@ -253,13 +253,13 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
     </h1>
    
 
-    {/* CAJA CONTADOR 
+     CAJA CONTADOR 
 <div className="mt-6 bg-black/30 backdrop-blur-xl border border-white/10 rounded-2xl px-8 md:px-14 py-6">      <div className="text-white font-black text-2xl md:text-4xl">
         Faltan {tiempo.d} días {String(tiempo.h).padStart(2,'0')}:{String(tiempo.m).padStart(2,'0')}:{String(tiempo.s).padStart(2,'0')}
       </div>
-      <div className="text-white/60 text- font-black tracking-[0.3em] mt-2 text-center">TIEMPO RESTANTE</div>
+      <div className="text-white/60 text- font-black tracking-[0.3em] mt-2 text-center">TIEMPO RESTANTE PARA CONOCER AL GANADOR DEL B13</div>
     </div>
-*/}
+
   <img src="/copa_balladares_3d_FINAL.png" alt="Copa Balladares" className="w-14 h-14 md:w-40 md:h-40 object-contain drop-shadow-[0_0_20px_rgba(250,204,21,0.6)] flex-shrink-0" />
 
     <p className="mt-6 text-white/70 text-sm max-w-md">
