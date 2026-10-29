@@ -226,7 +226,7 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
     `}</style>
   </div>
 )}
-    <section id="inicio" className="relative overflow-hidden bg-black" style={{height:"92vh", marginTop:58}}>
+    <section id="inicio" className="relative bg-black overflow-visible" style={{minHeight:"92vh", marginTop:58, paddingBottom:"40px"}}>
 
   {slides.map((s,idx)=>(
     <div key={idx} className={`absolute inset-0 transition-opacity duration- ${idx===i?"opacity-100":"opacity-0"}`}>
@@ -236,32 +236,31 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
   ))}
 
   {/* TEXTO FIJO TIPO GONZALOKO PERO BALLADARES */}
-  <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
+<div className="relative z-10 h-full flex flex-col items-center justify-start pt-24 md:pt-10 text-center px-4">
 
   {/*  <div className={`${holtwood.className} text-white/60 text- tracking-[0.3em] font-black border border-white/10 bg-black/40 px-4 py-1 rounded-full backdrop-blur mb-3`}>
       PRÓXIMO SORTEO
     </div>
 */}
-<h1 className={`${holtwood.className} text-4xl md:text-7xl font-black italic leading-none mt-2`}>
+<h1 className={`${holtwood.className} text-5xl md:text-7xl font-black italic leading-none mt-2`}>
       <span className="text-white block">PREMIOS</span>
       <span className="text-red-600 block">BALLADARES</span>
     </h1>
     
-    <h1 className={`${holtwood.className} text-3xl md:text-5xl font-black italic leading-none mt-2`}>
+    <h1 className={`${holtwood.className} text-4xl md:text-5xl font-black italic leading-none mt-2`}>
       <span className="text-white block">B13 DRAG</span>
       <span className="text-red-600 block">RACING</span>
     </h1>
    
 
-     CAJA CONTADOR 
+     
 <div className="mt-6 bg-black/30 backdrop-blur-xl border border-white/10 rounded-2xl px-8 md:px-14 py-6">      <div className="text-white font-black text-2xl md:text-4xl">
         Faltan {tiempo.d} días {String(tiempo.h).padStart(2,'0')}:{String(tiempo.m).padStart(2,'0')}:{String(tiempo.s).padStart(2,'0')}
       </div>
       <div className="text-white/60 text- font-black tracking-[0.3em] mt-2 text-center">TIEMPO RESTANTE PARA CONOCER AL GANADOR DEL B13</div>
     </div>
 
-  <img src="/copa_balladares_3d_FINAL.png" alt="Copa Balladares" className="w-14 h-14 md:w-40 md:h-40 object-contain drop-shadow-[0_0_20px_rgba(250,204,21,0.6)] flex-shrink-0" />
-
+<img src="/copa_balladares_3d_FINAL.png" alt="Copa Balladares" className="w-28 h-28 md:w-40 md:h-40 object-contain drop-shadow-[0_0_20px_rgba(250,204,21,0.6)] flex-shrink-0" />
     <p className="mt-6 text-white/70 text-sm max-w-md">
       Compra tus tickets y participa. Tu próxima aventura empieza hoy en Balladares Motors.
     </p>

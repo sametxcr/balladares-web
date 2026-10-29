@@ -211,6 +211,33 @@ export default function ventastickerPage() {
   
 </section>
 
+{/* ===== NUESTROS PARTNERS ===== */}
+<section className="py-16 px-6 bg-[#050505] border-y border-yellow-400/10 relative overflow-hidden">
+  {/* glow sutil detrás del titulo */}
+  <div className="absolute top-0 left-1/2 -translate-x-1/2 w- h- bg-yellow-400/5 blur- pointer-events-none" />
+  
+  <div className="max-w-6xl mx-auto text-center relative z-10">
+    <div className="inline-flex items-center gap-3 mb-2">
+      <div className="w-8 h- bg-yellow-400" />
+      <span className="bg-yellow-400 text-black font-black text- tracking-[0.4em] px-3 py-1 rounded-full">ALIANZA OFICIAL</span>
+      <div className="w-8 h- bg-yellow-400" />
+    </div>
+    
+    <h2 className="font-black italic text-3xl md:text-5xl tracking-tighter leading-none">
+      NUESTROS <span className="text-yellow-400">PARTNERS</span>
+    </h2>
+    <p className="text-white/30 text- font-bold tracking-[0.3em] mt-3 uppercase">Marcas que creen en el proyecto Balladares</p>
+    
+    <div className="mt-10 flex flex-wrap justify-center items-center gap-12">
+  <img 
+    src="/gruas.png" 
+    alt="Meneses Grúas y Transportes" 
+    className="h-28 md:h-36 w-auto object-contain opacity-100 hover:scale-[1.05] transition-all duration-300 drop-shadow-[0_0_25px_rgba(255,255,255,0.1)]"
+  />
+</div>
+  </div>
+</section>
+
     <section className="py-20 px-6 bg-[#080808] text-white relative overflow-hidden">
   {/* glow amarillo */}
   <div className="absolute top-0 left-1/2 -translate-x-1/2 w- h- bg-yellow-400/20 blur- rounded-full pointer-events-none" />
