@@ -1,5 +1,6 @@
 "use client"
-import { useState } from "react"
+
+import { useState, useEffect, useRef } from "react";
 import { Holtwood_One_SC } from "next/font/google";
 const holtwood = Holtwood_One_SC({ weight: "400", subsets: ["latin"] });
 type Pack = { id: string, nombre: string, qty: number, precio: number, tag?: string }
@@ -12,12 +13,37 @@ const PACKS: Pack[] = [
 
 
 export default function ventastickerPage() {
-	const [menuOpen, setMenuOpen] = useState(false);
-	const YOUTUBE_ID = "XwMZ5Q70CAk"
-	const WHATSAPP = "56998804732";
-    const WHATSAPP_NEUMATICO = "56998804732";
-    const WHATSAPP_REPUESTO = "56998804732";
-    const INSTAGRAM = "https://www.instagram.com/balladaresmotor/"; 
+const [menuOpen, setMenuOpen] = useState(false);
+const [waMenuOpen, setWaMenuOpen] = useState(false);
+const waRef = useRef<HTMLDivElement>(null);
+useEffect(() => {
+  if (!waMenuOpen) return;
+  const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+    if (waRef.current && !waRef.current.contains(e.target as Node)) {
+      setWaMenuOpen(false);
+    }
+  };
+  // espera un tick pa que no se cierre al mismo click que lo abre
+  setTimeout(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+  }, 100);
+  return () => {
+    document.removeEventListener('mousedown', handleClickOutside);
+    document.removeEventListener('touchstart', handleClickOutside);
+  };
+}, [waMenuOpen]);
+
+const WHATSAPP_BALLADARESMOTORS = "56932285399";
+const WHATSAPP_PREMIOSBALLADARES = "56998804732";
+const WHATSAPP_GRUAS = "56966362779";
+const INSTAGRAM = "https://www.instagram.com/balladaresmotor/";
+
+const WHATSAPPS = [
+  { label: "BALLADARES-MOTORS", num: WHATSAPP_BALLADARESMOTORS, msg: "Hola Balladares Motors! Quiero info general", icon: "🏁" },
+  { label: "PREMIOS-BALLADARES", num: WHATSAPP_PREMIOSBALLADARES, msg: "Hola Premios Balladares! - Quiero Informacion acerca de..." , icon: "🏆" },
+  { label: "GRÚAS MENESES", num: WHATSAPP_GRUAS, msg: "Hola Grúas Meneses! Vengo de Balladares Motors", icon: "🪝" },
+];
 	
   function goCheckout(pack: Pack) {
     window.location.href = `/checkout?pack=${pack.id}&qty=1`
@@ -484,13 +510,37 @@ export default function ventastickerPage() {
     </div>
   </div>
 </section>
-	  <div className="fixed bottom-6 right-6 flex flex-row gap-4 items-center" style={{ zIndex: 9999 }}>
-  <a href={INSTAGRAM} target="_blank" className="w- h- bg-white rounded-full flex items-center justify-center border- border-black shadow-[5px_5px_0px_black] hover:scale-110 transition">
+<div ref={waRef} className="fixed bottom-6 right-6 flex flex-col items-end gap-3" style={{ zIndex: 9999 }}>  {waMenuOpen && (
+    <div className="bg-black border-2 border-white/10 rounded-2xl overflow-hidden shadow-[8px_8px_0px_black] min-w-">
+      <div className="bg-white text-black text- font-black tracking-[0.3em] px-4 py-2">ELIGE UN WHATSAPP</div>
+      {WHATSAPPS.map((w) => (
+  <a
+    key={w.label}
+    href={`https://wa.me/${w.num}?text=${encodeURIComponent(w.msg)}`}
+    target="_blank"
+    onClick={() => setWaMenuOpen(false)}
+    className="flex items-center gap-3 px-4 py-3.5 hover:bg-[#25D366] group border-b border-white/5 last:border-0 transition"
+  >
+    <div className="w-8 h-8 bg-white/10 group-hover:bg-black rounded-full flex items-center justify-center text-[16px] shrink-0">
+      {w.icon}
+    </div>
+    <span className="text-white group-hover:text-black font-black text-[13px] tracking-wide flex-1 text-left">
+      {w.label}
+    </span>
+    <span className="text-white/20 group-hover:text-black text-xs">→</span>
+  </a>
+))}
+    </div>
+  )}
+
+  <div className="flex flex-row gap-3 items-center">
+    <a href={INSTAGRAM} target="_blank" className="w- h- bg-white rounded-full flex items-center justify-center border- border-black shadow-[5px_5px_0px_black] hover:scale-110 transition">
     <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" className="w-11 h-11 object-contain" alt="IG" />
   </a>
-  <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="w- h- bg-[#25D366] rounded-full flex items-center justify-center border- border-black shadow-[5px_5px_0px_black] hover:scale-110 transition">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" className="w-12 h-12 object-contain" alt="WA" />
-  </a>
+    <button onClick={() => setWaMenuOpen(!waMenuOpen)} className="w-12 h-12 bg-[#25D366] rounded-full flex items-center justify-center border-2 border-black shadow-[4px_4px_0px_black] hover:scale-110 transition">
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" className="w-12 h-12 object-contain" alt="WA" />
+    </button>
+  </div>
 </div>
     </div>
   )

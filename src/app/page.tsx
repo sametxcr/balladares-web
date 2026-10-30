@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Montserrat, Holtwood_One_SC } from "next/font/google";
 import dynamic from "next/dynamic";
 const RoadFighterArcade = dynamic(() => import("../components/RoadFighterArcade"), { ssr: false });
@@ -8,11 +8,18 @@ import { Analytics } from "@vercel/analytics/react"
 const montserrat = Montserrat({ subsets: ["latin"], weight: ["400","700","900"] });
 const holtwood = Holtwood_One_SC({ weight: "400", subsets: ["latin"] });
 
-const WHATSAPP = "56998804732";// numero principal general
-const WHATSAPP_NEUMATICO = "56998804732"; // pon aquí el numero de neumáticos
-const WHATSAPP_REPUESTO = "56998804732"; // pon aquí el numero de repuestos
+const WHATSAPP_BALLADARESMOTORS = "56932285399";
+const WHATSAPP_PREMIOSBALLADARES = "56998804732";
+const WHATSAPP_GRUAS = "56966362779";
 const INSTAGRAM = "https://www.instagram.com/balladaresmotor/";
 const YOUTUBE_ID = "0q6KurtImDI";
+
+const WHATSAPPS = [
+  { label: "BALLADARES-MOTORS", num: WHATSAPP_BALLADARESMOTORS, msg: "Hola Balladares Motors! Quiero info general", icon: "🏁" },
+  { label: "PREMIOS-BALLADARES", num: WHATSAPP_PREMIOSBALLADARES, msg: "Hola Premios Balladares! - Quiero Informacion acerca de..." , icon: "🏆" },
+  { label: "GRÚAS MENESES", num: WHATSAPP_GRUAS, msg: "Hola Grúas Meneses! Vengo de Balladares Motors", icon: "🪝" },
+];
+
 
 const slides = [
 
@@ -91,6 +98,25 @@ useEffect(() => {
   const [fotoZoom, setFotoZoom] = useState<string | null>(null);
   const [zoom, setZoom] = useState(1);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [waMenuOpen, setWaMenuOpen] = useState(false);
+  const waRef = useRef<HTMLDivElement>(null);
+useEffect(() => {
+  if (!waMenuOpen) return;
+  const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+    if (waRef.current && !waRef.current.contains(e.target as Node)) {
+      setWaMenuOpen(false);
+    }
+  };
+  // espera un tick pa que no se cierre al mismo click que lo abre
+  setTimeout(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+  }, 100);
+  return () => {
+    document.removeEventListener('mousedown', handleClickOutside);
+    document.removeEventListener('touchstart', handleClickOutside);
+  };
+}, [waMenuOpen]);
   
   
   
@@ -116,14 +142,14 @@ const closeIntro = () => {
 }
 
 
-  const waLinkNeumatico = "https://wa.me/" + WHATSAPP_NEUMATICO + "?text=" + encodeURIComponent(
+  const waLinkNeumatico = "https://wa.me/" + WHATSAPP_BALLADARESMOTORS + "?text=" + encodeURIComponent(
   "Hola Balladares Motors! - Quiero cotizar NEUMATICO:\n\n" +
   "- Marca neumatico: \n" +
   "- Medida: ej 195/50R15\n\n" +
   "Quedo atento!"
 );
 
-const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeURIComponent(
+const waLinkRepuesto = "https://wa.me/" + WHATSAPP_BALLADARESMOTORS + "?text=" + encodeURIComponent(
   "Hola Balladares Motors! - Quiero cotizar REPUESTO:\n\n" +
   "- Envianos una foto de tu patente o padrón \n" +
   "- Envianos 2 o 3 fotos de referencia de tu repuesto \n\n" +
@@ -242,12 +268,12 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
       PRÓXIMO SORTEO
     </div>
 */}
-<h1 className={`${holtwood.className} text-5xl md:text-7xl font-black italic leading-none mt-2`}>
+<h1 className={`${holtwood.className} text-4xl md:text-7xl font-black not-italic leading-none mt-2`}>
       <span className="text-white block">PREMIOS</span>
       <span className="text-red-600 block">BALLADARES</span>
     </h1>
     
-    <h1 className={`${holtwood.className} text-4xl md:text-5xl font-black italic leading-none mt-2`}>
+    <h1 className={`${holtwood.className} text-3xl md:text-5xl font-black not-italic leading-none mt-2`}>
       <span className="text-white block">B13 DRAG</span>
       <span className="text-red-600 block">RACING</span>
     </h1>
@@ -309,6 +335,33 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
   </div>
 </section>
 
+{/* ===== NUESTROS PARTNERS ===== */}
+<section className="py-16 px-6 bg-[#050505] border-y border-yellow-400/10 relative overflow-hidden">
+  {/* glow sutil detrás del titulo */}
+  <div className="absolute top-0 left-1/2 -translate-x-1/2 w- h- bg-yellow-400/5 blur- pointer-events-none" />
+  
+  <div className="max-w-6xl mx-auto text-center relative z-10">
+    <div className="inline-flex items-center gap-3 mb-2">
+      <div className="w-8 h- bg-yellow-400" />
+      <span className="bg-yellow-400 text-black font-black text- tracking-[0.4em] px-3 py-1 rounded-full">ALIANZA OFICIAL</span>
+      <div className="w-8 h- bg-yellow-400" />
+    </div>
+    
+    <h2 className="font-black italic text-3xl md:text-5xl tracking-tighter leading-none">
+      NUESTROS <span className="text-yellow-400">PARTNERS</span>
+    </h2>
+    <p className="text-white/30 text- font-bold tracking-[0.3em] mt-3 uppercase">Marcas que creen en el proyecto Balladares</p>
+    
+    <div className="mt-10 flex flex-wrap justify-center items-center gap-12">
+  <img 
+    src="/gruas.png" 
+    alt="Meneses Grúas y Transportes" 
+    className="h-28 md:h-36 w-auto object-contain opacity-100 hover:scale-[1.05] transition-all duration-300 drop-shadow-[0_0_25px_rgba(255,255,255,0.1)]"
+  />
+</div>
+  </div>
+</section>
+
       <section className="bg-black border-y border-white/10 grid grid-cols-2 lg:grid-cols-4" style={{backgroundColor:"#0f0f0f"}}>
         {[
           { t: "+15 AÑOS EXPERIENCIA", icon: "🏆", desc: "Pista y calle" },
@@ -317,6 +370,8 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_REPUESTO + "?text=" + encodeU
           { t: "SERVICIO DE PISTA", icon: "🏁", desc: "Set-up competición" },
         ].map(f=><div key={f.t} className="p-6 text-center border-r border-white/5"><div className="flex flex-col items-center gap-2"><div className="w-12 h-12 bg-gradient-to-br from-zinc-800 to-black border border-white/10 flex items-center justify-center text-xl" style={{boxShadow:"2px 2px 0px #dc2626", transform:"rotate(-3deg)"}}>{f.icon}</div><div className="font-black text-sm">{f.t}</div><div className="text-xs text-white/40 font-bold">{f.desc}</div></div></div>)}
       </section>
+
+
 
      <section id="nosotros" className="bg-black border-b border-white/5 px-4 md:px-24 py-16 md:py-24">
         {/* ESLOGAN EN GRANDE */}
@@ -362,7 +417,7 @@ Taller mecánico en Concepción. Balladares Motors especialistas en Repro Stage 
                         <div className="text-white/70 text-sm leading-relaxed">{s.d}</div>
                       </div>
                     </div>
-                    <div className="p-5"><div className="font-black text-lg italic tracking-tight leading-tight">{s.n.toUpperCase()}</div><div className="mt-2 text-red-600 font-black text-sm">{s.p}</div><a href={`https://wa.me/${WHATSAPP}?text=Hola, quiero cotizar ${encodeURIComponent(s.n)}`} target="_blank" onClick={e=>e.stopPropagation()} className="mt-4 inline-flex w-full justify-center bg-black text-white py-3 text-sm font-black group-hover:bg-red-600 transition">COTIZAR →</a></div>
+                    <div className="p-5"><div className="font-black text-lg italic tracking-tight leading-tight">{s.n.toUpperCase()}</div><div className="mt-2 text-red-600 font-black text-sm">{s.p}</div><a href={`https://wa.me/${WHATSAPP_BALLADARESMOTORS}?text=Hola, quiero cotizar ${encodeURIComponent(s.n)}`} target="_blank" onClick={e=>e.stopPropagation()} className="mt-4 inline-flex w-full justify-center bg-black text-white py-3 text-sm font-black group-hover:bg-red-600 transition">COTIZAR →</a></div>
                   </div>
                 </div>
               </div>
@@ -393,7 +448,7 @@ Taller mecánico en Concepción. Balladares Motors especialistas en Repro Stage 
             <div className="p-5 flex flex-col flex-1 bg-white">
               <div className="font-black italic">REVISIÓN PRE-COMPRA</div>
               <div className="mt-2 text-black/60 text- leading-tight flex-1">Háblanos, deja agendada y reservada tu hr para revisión pre-compra</div>
-              <a href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Hola, quiero agendar Revisión Pre-Compra")}`} target="_blank" onClick={e=>e.stopPropagation()} className="mt-4 inline-flex w-full justify-center bg-black text-white py-3 text-sm font-black group-hover:bg-red-600 transition">AGENDAR HORA →</a>
+              <a href={`https://wa.me/${WHATSAPP_BALLADARESMOTORS}?text=${encodeURIComponent("Hola, quiero agendar Revisión Pre-Compra")}`} target="_blank" onClick={e=>e.stopPropagation()} className="mt-4 inline-flex w-full justify-center bg-black text-white py-3 text-sm font-black group-hover:bg-red-600 transition">AGENDAR HORA →</a>
             </div>
           </div>
         </div>
@@ -428,7 +483,7 @@ Taller mecánico en Concepción. Balladares Motors especialistas en Repro Stage 
             <div className="p-5 flex flex-col flex-1 bg-white">
               <div className="font-black italic text- leading-tight">¿QUIERES QUE TU MARCA APAREZCA EN NUESTRA PAGINA?</div>
               <div className="mt-2 text-black/60 text- leading-tight flex-1">Envianos un mensaje para contactarnos</div>
-              <a href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Hola, quiero postular mi taller a la vitrina")}`} target="_blank" onClick={e=>e.stopPropagation()} className="mt-4 inline-flex w-full justify-center bg-black text-white py-3 text-sm font-black group-hover:bg-red-600 transition">POSTULAR TALLER →</a>
+              <a href={`https://wa.me/${WHATSAPP_BALLADARESMOTORS}?text=${encodeURIComponent("Hola, quiero postular mi taller a la vitrina")}`} target="_blank" onClick={e=>e.stopPropagation()} className="mt-4 inline-flex w-full justify-center bg-black text-white py-3 text-sm font-black group-hover:bg-red-600 transition">POSTULAR TALLER →</a>
             </div>
           </div>
         </div>
@@ -654,13 +709,38 @@ Taller mecánico en Concepción. Balladares Motors especialistas en Repro Stage 
   BALLADARES-MOTORS.CL © 2026
 </footer>
 
-<div className="fixed bottom-6 right-6 flex flex-row gap-4 items-center" style={{ zIndex: 9999 }}>
-  <a href={INSTAGRAM} target="_blank" className="w- h- bg-white rounded-full flex items-center justify-center border- border-black shadow-[5px_5px_0px_black] hover:scale-110 transition">
+<div ref={waRef} className="fixed bottom-6 right-6 flex flex-col items-end gap-3" style={{ zIndex: 9999 }}>
+  {waMenuOpen && (
+    <div className="bg-black border-2 border-white/10 rounded-2xl overflow-hidden shadow-[8px_8px_0px_black] min-w-">
+      <div className="bg-white text-black text- font-black tracking-[0.3em] px-4 py-2">ELIGE UN WHATSAPP</div>
+     {WHATSAPPS.map((w) => (
+  <a
+    key={w.label}
+    href={`https://wa.me/${w.num}?text=${encodeURIComponent(w.msg)}`}
+    target="_blank"
+    onClick={() => setWaMenuOpen(false)}
+    className="flex items-center gap-3 px-4 py-3.5 hover:bg-[#25D366] group border-b border-white/5 last:border-0 transition"
+  >
+    <div className="w-8 h-8 bg-white/10 group-hover:bg-black rounded-full flex items-center justify-center text-[16px] shrink-0">
+      {w.icon}
+    </div>
+    <span className="text-white group-hover:text-black font-black text-[13px] tracking-wide flex-1 text-left">
+      {w.label}
+    </span>
+    <span className="text-white/20 group-hover:text-black text-xs">→</span>
+  </a>
+))}
+    </div>
+  )}
+
+  <div className="flex flex-row gap-3 items-center">
+    <a href={INSTAGRAM} target="_blank" className="w- h- bg-white rounded-full flex items-center justify-center border- border-black shadow-[5px_5px_0px_black] hover:scale-110 transition">
     <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" className="w-11 h-11 object-contain" alt="IG" />
   </a>
-  <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="w- h- bg-[#25D366] rounded-full flex items-center justify-center border- border-black shadow-[5px_5px_0px_black] hover:scale-110 transition">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" className="w-12 h-12 object-contain" alt="WA" />
-  </a>
+    <button onClick={() => setWaMenuOpen(!waMenuOpen)} className="w-12 h-12 bg-[#25D366] rounded-full flex items-center justify-center border-2 border-black shadow-[4px_4px_0px_black] hover:scale-110 transition">
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" className="w-12 h-12 object-contain" alt="WA" />
+    </button>
+  </div>
 </div>
 
     </main>
