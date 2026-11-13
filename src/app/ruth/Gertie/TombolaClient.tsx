@@ -217,9 +217,9 @@ const handleNextClick = () => {
 
     // MARCAR TÍTULO ACTUAL COMO VISTO PARA QUE NO VUELVA
   setTitulosVistos(prev => {
-    const idx = TITULOS_POR_PISO.findIndex(t => t.condicion(vivos.length));
-    return idx === -1 ? prev : [...new Set([...prev, idx])];
-  });
+  const idx = TITULOS_POR_PISO.findIndex(t => t.condicion(vivos.length));
+  return idx === -1 ? prev : prev.includes(idx) ? prev : [...prev, idx];
+});
   setTituloActivo(false);
 setCountdown(5);
 let c = 5;
