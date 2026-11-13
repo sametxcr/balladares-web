@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useRef } from 'react';
 import Link from 'next/link';
 
 const CarSVG = ({ eliminated = false, color = '#fff', size = 70 }: any) => (
@@ -33,17 +33,51 @@ const MARCAS_AUSPICIADORES = [
   { name: 'Ntronic', logo: '/marcas/nismotronic_ecu.png' },
 ];
 
+const TITULOS_POR_PISO = [
+  { linea1: <>PRIMEROS <span className="text-[#FFD000]">50</span> PILOTOS</>, linea2: "SELECCIONADOS", sub: "LOS QUE ESTÁN EN PISTA • SOLO 1 SE LLEVA LA COPA", condicion: (total: number) => total === 0 },
+  { linea1: <>LOS PRIMEROS <span className="text-[#FFD000]">50</span></>, linea2: "SOLO PASAN 25", sub: "PROBLEMAS MECÁNICOS... • 25 QUEDAN FUERA", condicion: (total: number) => total === 50 },
+  { linea1: <>A REVISIÓN <span className="text-[#FFD000]">TÉCNICA</span></>, linea2: "CHUUUUU...", sub: "QUEDAN 25 • SOLO PASAN 15", condicion: (total: number) => total === 25 },
+  { linea1: <>A <span className="text-[#FFD000]">CLASIFICACIÓN</span></>, linea2: "QUEDAN 15", sub: "SOLO PASAN 5 • SE PONE BRÍGIDO", condicion: (total: number) => total === 15 },
+  { linea1: <>TOP <span className="text-[#FFD000]">5</span> FINALISTAS</>, linea2: "SOLO PASA 1", sub: "FINAL • PREMIOS BALLADARES", condicion: (total: number) => total === 5 },
+];
+const primerNombre = (n: string) => (n || "PILOTO").trim().split(" ")[0].toUpperCase();
+
+// ===== ALEATORIO CASINO-GRADE - SOLO crypto.getRandomValues, NADA DE Math.random =====
+const cryptoFloat = (): number => {
+  // 0 a 1, sin sesgo, con rechazo como los casinos
+  const arr = new Uint32Array(1);
+  let v: number;
+  do {
+    crypto.getRandomValues(arr);
+    v = arr[0];
+  } while (v > 4294967295 - (4294967296 % 4294967296));
+  return v / 4294967296;
+};
+const cryptoInt = (min: number, max: number): number => {
+  // entero entre min y max inclusive, sin sesgo de módulo
+  const range = max - min + 1;
+  const maxValid = Math.floor(4294967296 / range) * range;
+  const arr = new Uint32Array(1);
+  let v: number;
+  do {
+    crypto.getRandomValues(arr);
+    v = arr[0];
+  } while (v >= maxValid);
+  return min + (v % range);
+};
+const cryptoRange = (min: number, max: number): number => min + cryptoFloat() * (max - min);
+
 const shuffleReal = <T,>(array: T[]): T[] => {
   const a = [...array];
   for (let i = a.length - 1; i > 0; i--) {
-    const rand = crypto.getRandomValues(new Uint32Array(1))[0] / 4294967295;
-    const j = Math.floor(rand * (i + 1));
+    const j = cryptoInt(0, i);
     [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
 };
 
 const DragTree = ({ step, fading }: { step: number, fading: boolean }) => {
+  const isGreenGo = step >= 6; // las 2 de abajo verdes juntas
   return (
     <div className={`flex flex-col items-center bg-black border-4 border-zinc-700 rounded- p-3 shadow-[0_0_60px_rgba(255,0,0,0.6)] transition-all duration-1000 ${fading? 'opacity-0 scale-90 pointer-events-none' : 'opacity-100 scale-100'}`}>
       <div className="text-red-500 font-mono font-black text- tracking-widest mb-2">BALLADARES</div>
@@ -61,8 +95,9 @@ const DragTree = ({ step, fading }: { step: number, fading: boolean }) => {
         <div className={`w-11 h-11 rounded-full border-2 ${step >= 5? 'bg-[#FFD000] border-white shadow-[0_0_20px_#FFD000]' : 'bg-zinc-900 border-zinc-700'}`} />
       </div>
       <div className="flex flex-col gap-2">
-        <div className={`w-11 h-11 rounded-full border-2 ${step === 6? 'bg-[#00FF00] border-white shadow-[0_0_30px_#00FF00]' : 'bg-zinc-900 border-zinc-700'}`} />
-        <div className={`w-11 h-11 rounded-full border-2 ${step === 7? 'bg-[#E10600] border-white shadow-[0_0_30px_#E10600]' : 'bg-zinc-900 border-zinc-700'}`} />
+        {/* FIX: LAS 2 VERDES JUNTAS */}
+        <div className={`w-11 h-11 rounded-full border-2 ${isGreenGo? 'bg-[#00FF00] border-white shadow-[0_0_30px_#00FF00]' : 'bg-zinc-900 border-zinc-700'}`} />
+        <div className={`w-11 h-11 rounded-full border-2 ${isGreenGo? 'bg-[#00FF00] border-white shadow-[0_0_30px_#00FF00]' : 'bg-zinc-900 border-zinc-700'}`} />
       </div>
     </div>
   );
@@ -90,13 +125,18 @@ const PUTEADAS = ["TE PASO CTM!", "CHAO NOMAS", "MUY LENTO WN", "COME POLVO!", "
   const [display50, setDisplay50] = useState<any[]>([]);
   const [countdown, setCountdown] = useState<number | null>(null);
   const [isFinalCelebration, setIsFinalCelebration] = useState(false);
+  const [titulosVistos, setTitulosVistos] = useState<number[]>([]);
+const [tituloActivo, setTituloActivo] = useState(true);
+const [semaforoIniciado, setSemaforoIniciado] = useState(false);
+const semaforoAudioRef = useRef<HTMLAudioElement | null>(null);
+  
   const [rondasConfig] = useState(() => {
     const total = tickets.length >= 50? 50 : tickets.length;
     return [
       { label: 'NIVEL 1', count: total, y: 88 },
       { label: 'NIVEL 2', count: Math.min(total, 25), y: 68 },
-      { label: 'NIVEL 3', count: 15, y: 48 },
-      { label: 'NIVEL 4', count: 5, y: 28 },
+      { label: 'NIVEL 3', count: 15, y: 58 },
+      { label: 'NIVEL 4', count: 5, y: 48 },
       { label: 'NIVEL 5', count: 1, y: 8 },
     ];
   });
@@ -146,18 +186,16 @@ const [cameraShake, setCameraShake] = useState(false);
     return sourceTickets.filter((t: any) => t.ticket_code.toLowerCase().includes(s)).sort((a: any, b: any) => a.ticket_code.localeCompare(b.ticket_code));
   }, [sourceTickets, search]);
 
-  useEffect(() => {
-	    if (!activePool) return;
-    const initial = filtered.map((t, i) => ({
-     ...t,
-      x: 5 + (i % 25) * 3.8,
-      y: 90 - Math.floor(i / 25) * 12,
-      lane: i % 25,
-      color: COLORS[i % COLORS.length],
-      eliminated: false
-    }));
-    setRacers(initial); setRonda(0); setSlotCount(initial.length);
-  }, [filtered]);
+// CARTEL PINCHA NOS AL 50% - SOLO 1 VEZ POR CARRERA
+useEffect(() => {
+  if (!finalRaceActive || raceProgress.length === 0) return;
+  const algunoEnMitad = raceProgress.some((p:any) => p.hasStarted && p.raceY <= 65);
+  if (algunoEnMitad && !nosMostradoRef.current) {
+    nosMostradoRef.current = true;
+    setShowNos(true);
+    setTimeout(() => setShowNos(false), 3500);
+  }
+}, [raceProgress, finalRaceActive]);
 
   const vivos = useMemo(() => racers.filter(r =>!r.eliminated), [racers]);
 
@@ -177,8 +215,14 @@ const handleNextClick = () => {
     s.play().catch(()=>{});
   } catch {}
 
-  setCountdown(5);
-  let c = 5;
+    // MARCAR TÍTULO ACTUAL COMO VISTO PARA QUE NO VUELVA
+  setTitulosVistos(prev => {
+    const idx = TITULOS_POR_PISO.findIndex(t => t.condicion(vivos.length));
+    return idx === -1 ? prev : [...new Set([...prev, idx])];
+  });
+  setTituloActivo(false);
+setCountdown(5);
+let c = 5;
   const timer = setInterval(() => {
     c--;
     if (c > 0) {
@@ -227,47 +271,58 @@ const nextRondaReal = async () => {
   });
 
   setRacers(newRacers);
-  setRonda(r => r+1); setSlotCount(keep); setAnimating(false);
+    setRonda(r => r+1); setSlotCount(keep); setAnimating(false);
+  setTituloActivo(true); // MOSTRAR TÍTULO DEL NUEVO PISO UNA SOLA VEZ
 };
 
 const [treeStep, setTreeStep] = useState(0);
+const [showNos, setShowNos] = useState(false);
+const nosMostradoRef = useRef(false);
+
+
 
 const startFinalRace = async () => {
   setAnimating(true);
   setFinalRaceActive(true);
+  setSemaforoIniciado(false);
   setTreeStep(0);
-  setRaceProgress([]);
   setGreenTime(0);
 
+  // 1. GRILLA ANTES DEL BOTÓN - LOS AUTOS YA ESTÁN EN PISTA
   let order = shuffleReal(vivos);
-  const gridX = [20, 35, 50, 65, 80];
+  const gridX = [22, 34, 50, 66, 78];
 
-  // VELOCIDAD CALCULADA PARA 40 SEGUNDOS REALES
-  // Distancia 88 -> 6 = 82 unidades / (40000ms / 40ms = 1000 ticks) = 0.082 por tick
   const initial = order.map((r:any, i:number) => ({
-  ...r,
+    ...r,
     raceY: 88,
     raceX: gridX[i],
-    targetX: gridX[i],
-    baseSpeed: 0.065 + Math.random()*0.03, // 0.065 a 0.095 - LENTO
-    speedJitter: Math.random()*0.015,
+    laneX: gridX[i],
+    baseSpeed: cryptoRange(0.068, 0.090),
+    speedJitter: cryptoRange(0, 0.008),
     pos: i+1,
     smoke: false,
     nitro: false,
     lastOvertake: 0,
-    pathSeed: Math.random()*100,
+    nitroUsed: false,
+    nitroBoost: 0,
+    pathSeed: cryptoRange(0, 100),
     reaction: 0,
     reactionStart: 0,
     hasStarted: false,
   }));
   setRaceProgress(initial);
 
-  // SEMAFORO
+  // 2. AHORA SÍ ESPERA AL BOTÓN - CON LOS AUTOS YA EN GRILLA
+  await new Promise<void>((resolve) => {
+    (window as any).__resolverSemaforo = resolve;
+  });
+  setTreeStep(0);
+
   setTreeStep(1); await new Promise(r=>setTimeout(r, 600));
   setTreeStep(2); try{ new Audio('/beep.mp3').play().catch(()=>{}) }catch{}; await new Promise(r=>setTimeout(r, 700));
   for(let i=3; i<=5; i++){ setTreeStep(i); try{ new Audio('/beep.mp3').play().catch(()=>{}) }catch{}; await new Promise(r=>setTimeout(r, 500)); }
 
-  await new Promise(r=>setTimeout(r, 200 + Math.random()*600));
+  await new Promise(r=>setTimeout(r, cryptoInt(200, 800)));
   const gTime = Date.now();
   setGreenTime(gTime);
   setTreeStep(6);
@@ -276,8 +331,8 @@ const startFinalRace = async () => {
   setCameraShake(true); setTimeout(()=>setCameraShake(false), 300);
 
   setRaceProgress(prev => prev.map(p => ({
-  ...p,
-    reactionStart: gTime + 80 + Math.random()*470,
+    ...p,
+    reactionStart: gTime + cryptoInt(80, 430),
     reaction: 0,
     hasStarted: false
   })));
@@ -286,62 +341,103 @@ const startFinalRace = async () => {
 
   let elapsed = 0;
   const tick = 40;
-  const duration = 40000; // 40 SEGUNDOS REALES
+  const duration = 40000;
 
   const raceInterval = setInterval(() => {
     elapsed += tick;
 
-    if(elapsed % 2500 < 50){
-      const randomCode = raceProgress[Math.floor(Math.random()*5)]?.ticket_code;
-      if(randomCode){
-        setTrashTalk({ code: randomCode, text: PUTEADAS[Math.floor(Math.random()*PUTEADAS.length)] });
-        setTimeout(()=> setTrashTalk(null), 1500);
-      }
+    if(elapsed % 2500 < 80){
+      // FIX: usa prev de adentro, no raceProgress de afuera
+      setTrashTalk(null);
     }
 
     setRaceProgress(prev => {
       let next = prev.map(p => {
-        const now = Date.now();
         if(!p.hasStarted){
-          if(now >= p.reactionStart){
-            return {...p, hasStarted: true, reaction: now - gTime, raceY: p.raceY - 0.1 };
-          } else {
-            return p;
+          if(Date.now() >= p.reactionStart){
+            return {...p, hasStarted: true, reaction: Date.now() - gTime, raceY: p.raceY - 0.1 };
           }
+          return p;
         }
 
-        const wave = Math.sin(elapsed*0.001 + p.pathSeed) * p.speedJitter;
-        let s = p.baseSpeed + wave;
+        const wave = Math.sin(elapsed*0.0008 + p.pathSeed) * p.speedJitter;
+let s = p.baseSpeed + wave;
 
-        // Solo al final el primero se escapa un poco
-        if((elapsed/duration) > 0.85 && p.pos === 1) s += 0.02;
+// ===== NITRO AL 50% DE LA PISTA - raceY 51 = MITAD =====
+// Solo se activa UNA vez, cuando cruza la mitad
+let nitroUsed = p.nitroUsed;
+let nitroBoost = p.nitroBoost;
+let nitroActivo = false;
 
-        let newY = p.raceY - s;
-        let newX = p.raceX;
+if (!nitroUsed && p.hasStarted && p.raceY <= 65) {
+  nitroUsed = true;
+  // 60% le toca nitro fuerte, 25% nitro medio, 15% no le toca nada - puro crypto
+  const suerte = cryptoFloat();
+  if (suerte < 0.60) {
+    nitroBoost = cryptoRange(0.060, 0.090); // BRIGIDO - pasa de 5° a 1°
+  } else if (suerte < 0.85) {
+    nitroBoost = cryptoRange(0.020, 0.035); // MEDIO - sube 1-2 puestos
+  } else {
+    nitroBoost = 0; // SIN NITRO - se queda atrás, pa que duela
+  }
+}
 
-        if(Math.random() < 0.012 && elapsed - p.lastOvertake > 3000 && p.pos > 1){
-          p.targetX = 18 + Math.random()*64;
-          p.lastOvertake = elapsed;
-          p.smoke = true;
-          setTimeout(()=>p.smoke=false, 600);
-        }
-        newX += (p.targetX - newX) * 0.02; // LERP SUAVE
+// Si tiene nitro, dura 3.5 segundos desde que cruzó la mitad
+if (nitroBoost > 0 && p.raceY <= 65 && p.raceY > 28) {
+  s += nitroBoost;
+  nitroActivo = true;
+}
 
-        return {...p, raceY: newY, raceX: Math.max(15, Math.min(85, newX)), nitro: (elapsed/duration)>0.9 && p.pos===1 };
+if((elapsed/duration) > 0.88 && p.pos === 1) s += 0.015;
+
+
+
+        const newY = p.raceY - s;
+        // FIX FANTASMA: no saltos, solo vibración de carril
+        const lateralWobble = Math.sin(elapsed*0.002 + p.pathSeed*2) * 1.2;
+        const newX = p.laneX + lateralWobble;
+
+        // Adelantamiento suave: solo cambia laneX si va más rápido que el de adelante
+        let newLaneX = p.laneX;
+       if(cryptoFloat() < 0.008 && elapsed - p.lastOvertake > 5000 && p.pos > 1){
+  newLaneX = gridX[cryptoInt(0, 4)];
+}
+
+        return {
+          ...p, 
+          raceY: newY, 
+          raceX: newX,
+          laneX: newLaneX !== p.laneX ? newLaneX : p.laneX,
+          lastOvertake: newLaneX !== p.laneX ? elapsed : p.lastOvertake,
+		  nitro: nitroActivo,
+          
+        };
       });
 
-      next.sort((a,b) => a.raceY - b.raceY);
-      next = next.map((p,i)=>({...p, pos: i+1}));
+      // ordena por Y pero no uses el orden para render, solo para pos
+      const sorted = [...next].sort((a,b) => a.raceY - b.raceY);
+      const posMap = new Map(sorted.map((p,i)=>[p.ticket_code, i+1]));
+      next = next.map(p => ({...p, pos: posMap.get(p.ticket_code)!}));
 
-      // AHORA TERMINA SOLO POR TIEMPO, NO POR CRUZAR ANTES
-      if(elapsed >= duration || next[0].raceY <= 14){
+      if(elapsed >= duration || sorted[0].raceY <= 12){
         clearInterval(raceInterval);
-        next.sort((a,b) => a.raceY - b.raceY);
-        setTimeout(()=> finishRace(next[0], next), 400);
+        setTimeout(()=> finishRace(sorted[0], sorted), 400);
       }
       return next;
     });
   }, tick);
+};
+
+const iniciarSemaforoManual = () => {
+  if (semaforoIniciado) return;
+  setSemaforoIniciado(true);
+  if (!semaforoAudioRef.current) semaforoAudioRef.current = new Audio('/semaforo.opus');
+  semaforoAudioRef.current.currentTime = 0;
+  semaforoAudioRef.current.play().catch(()=>{});
+  if ((window as any).__resolverSemaforo) {
+    (window as any).__resolverSemaforo();
+    (window as any).__resolverSemaforo = null;
+  }
 };
 
 const finishRace = (winnerTicket:any, finalOrder:any[]) => {
@@ -386,6 +482,9 @@ const reset = () => {
   setCountdown(null);
   setAnimating(false);
   setTrackMoving(false);
+  setTitulosVistos([]); setTituloActivo(true); setSemaforoIniciado(false);
+  setShowNos(false);
+  nosMostradoRef.current = false;
 };
 
   return (
@@ -481,8 +580,24 @@ const reset = () => {
   animation: trackMoving? 'roadMove 0.3s linear infinite' : 'none'
 }} />
     {/* META */}
-<div className="absolute top-[12%] left-8 right-8 h-7 z-30 rounded-sm" style={{ backgroundImage: `repeating-linear-gradient(90deg, white 0px, white 20px, black 20px, black 40px)`, boxShadow: `0 0 20px white` }} />    {/* LINEA CENTRAL */}
-    
+<div className="absolute top-[6%] left-8 right-8 h-7 z-30 rounded-sm" style={{ backgroundImage: `repeating-linear-gradient(90deg, white 0px, white 20px, black 20px, black 40px)`, boxShadow: `0 0 20px white` }} />    {/* LINEA CENTRAL */}
+    {/* CARTEL PINCHA NOS - 50% PISTA */}
+{showNos && (
+  <div className="absolute top-[60%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-[60] pointer-events-none">
+    <div className="relative flex flex-col items-center animate-[nosPop_0.4s_ease_forwards]">
+      {/* HALO */}
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-24 bg-[#FF6B00]/40 blur- rounded-full animate-pulse" />
+      {/* CARTEL */}
+      <div className="relative bg-gradient-to-b from-[#FF6B00] to-[#E10600] border-4 border-white rounded-2xl px-8 py-3 shadow-[0_0_50px_rgba(255,107,0,0.9)] -skew-x-6 rotate-[-2deg]">
+        <p className="text-white font-black italic text-3xl md:text-5xl tracking-tighter leading-none text-center drop-shadow-[0_2px_0_black]">
+          PINCHA <span className="text-[#FFD000]">NOS</span> 🔥
+        </p>
+        <p className="text-center text-white/90 font-black text- md:text-xs tracking-[0.4em] mt-1">¡MITAD DE PISTA • SE PRENDE ESTO!</p>
+      </div>
+      
+    </div>
+  </div>
+)}
 	
 <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[3px] z-10 opacity-50" style={{
   backgroundImage: `repeating-linear-gradient(180deg, white 0px, white 20px, transparent 20px, transparent 40px)`,
@@ -490,9 +605,24 @@ const reset = () => {
   animation: trackMoving? 'roadMove 0.2s linear infinite' : 'none'
 }} />
     {/* ARBOLITO */}
-    <div className="absolute top-[9%] left-1/2 -translate-x-1/2 z-50">
-      <DragTree step={treeStep >= 10? 6 : treeStep} fading={treeStep >= 10} />
+        {/* BOTÓN INICIAR SEMÁFORO - ARRIBA DEL SEMÁFORO */}
+   {treeStep < 10 && (
+   <div className="absolute top-[2%] left-1/2 -translate-x-1/2 z-[60] flex flex-col items-center gap-1">
+      {!semaforoIniciado ? (
+        <button onClick={iniciarSemaforoManual} className="bg-[#E10600] hover:bg-[#FFD000] hover:text-black text-white font-black italic text-sm px-6 py-2.5 rounded-full shadow-[0_0_25px_rgba(225,6,0,0.9)] border-2 border-white/40 tracking-widest animate-pulse">
+          🚦 INICIAR SEMÁFORO
+        </button>
+      ) : (
+        <span className="bg-black/80 border border-green-500/60 text-green-400 font-black text- px-4 py-1.5 rounded-full tracking-[0.25em]">● SEMÁFORO EN CURSO...</span>
+      )}
     </div>
+	)}
+      {treeStep < 10 && (
+  <div className="absolute top-[9%] left-1/2 -translate-x-1/2 z-[70]">
+    <DragTree step={treeStep} fading={false} />
+  </div>
+)}
+   
 
     {/* PANEL IZQ - POSICIONES MÁS CLARO Y CON NOMBRE */}
     <div className="absolute left-6 top-[20%] w-[240px] bg-black/45 backdrop-blur-md border border-zinc-600/50 rounded-2xl p-3 z-40 shadow-[0_0_30px_rgba(0,0,0,0.8)]">
@@ -524,9 +654,31 @@ const reset = () => {
 
     {/* AUTOS - MOVIMIENTO SUAVE */}
     {raceProgress.map((p:any)=>(
-      <div key={p.ticket_code} className="absolute z-30" style={{ left: `${p.raceX}%`, top: `${p.raceY}%`, transform: 'translate(-50%,-50%)', transition: p.hasStarted? 'top 0.4s linear, left 1.2s ease-out' : 'all 0.8s ease-out' }}>
+      <div key={p.ticket_code} className={`absolute z-30 ${p.nitro ? 'animate-[nitroShake_0.1s_ease_infinite] scale-110' : ''}`} style={{ left: `${p.raceX}%`, top: `${p.raceY}%`, transform: 'translate(-50%,-50%)', transition: p.hasStarted? 'top 0.4s linear, left 1.2s ease-out' : 'all 0.8s ease-out' }}>
         {p.smoke && <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-20 h-10 bg-white/15 blur-xl rounded-full" />}
-        <CarSVG color={p.color} size={92} />
+        {p.nitro && (
+  <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center">
+    <div className="text-[10px] font-black bg-[#FF6B00] text-white px-2 py-0.5 rounded-full animate-pulse shadow-[0_0_15px_#FF6B00] whitespace-nowrap">🔥 NITRO!</div>
+    <div className="w-10 h-8 bg-gradient-to-t from-[#FFD000] via-[#FF6B00] to-[#E10600] blur-[6px] rounded-full animate-ping" />
+  </div>
+)}
+		<div className="relative">
+  {p.nitro && (
+    <>
+      <div className="absolute top-1/2 -left-16 -translate-y-1/2 w-16 h- bg-gradient-to-l from-white to-transparent animate-pulse" />
+      <div className="absolute top-1/3 -left-14 -translate-y-1/2 w-12 h- bg-gradient-to-l from-[#FFD000] to-transparent animate-pulse" />
+      <div className="absolute top-2/3 -left-14 -translate-y-1/2 w-12 h- bg-gradient-to-l from-[#E10600] to-transparent animate-pulse" />
+    </>
+  )}
+  <CarSVG color={p.color} size={p.nitro ? 105 : 92} />
+  {p.nitro && (
+    <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none">
+      <div className="w-12 h-10 bg-gradient-to-t from-[#FFD000] via-[#FF6B00] to-[#E10600] blur- rounded-full animate-[nitroFlame_0.15s_ease_infinite]" />
+      <div className="w-6 h-6 bg-white blur- rounded-full -mt-4 animate-ping" />
+      <span className="mt-1 bg-[#FF6B00] text-white font-black text- px-2 py-0.5 rounded-full shadow-[0_0_15px_#FF6B00] whitespace-nowrap animate-bounce">🔥 NITRO!</span>
+    </div>
+  )}
+</div>
         <div className="absolute -top-14 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center gap-1 pointer-events-none">
           <div className="relative z-50 px-3 py-1 rounded-full bg-white text-black font-black text- tracking-widest shadow-[0_0_12px_white] whitespace-nowrap">
             {(p.nombre||p.name||'PILOTO').split(' ')[0].toUpperCase()}
@@ -547,6 +699,9 @@ const reset = () => {
     <style jsx>{`
       @keyframes roadMove { 0% { background-position-y: 0; } 100% { background-position-y: 80px; } }
       @keyframes shake { 0%{transform:translate(1px,1px)} 50%{transform:translate(-1px,-1px)} 100%{transform:translate(1px,-1px)} }
+	  @keyframes nitroShake { 0%{transform:translate(-50%,-50%) translateX(1px)} 50%{transform:translate(-50%,-50%) translateX(-1px)} 100%{transform:translate(-50%,-50%) translateX(1px)} }
+@keyframes nitroFlame { 0%{transform:scaleY(1)} 50%{transform:scaleY(1.4) scaleX(0.9)} 100%{transform:scaleY(1)} }
+@keyframes nosPop { 0%{transform:scale(0) rotate(-10deg); opacity:0} 60%{transform:scale(1.15) rotate(2deg); opacity:1} 100%{transform:scale(1) rotate(0deg); opacity:1} }
     `}</style>
   </div>
 )}
@@ -557,43 +712,107 @@ const reset = () => {
   <div className="absolute inset-0 opacity-20 pointer-events-none" style={{ backgroundImage: `linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)`, backgroundSize: '50px 50px' }} />
 
   {/* COPA + GIF GANADOR - SOLO UNA VEZ */}
-  <div className="absolute top-[2%] left-1/2 -translate-x-1/2 z-20 flex items-center gap-6 pointer-events-none">
+{/* ===== TITULO POR PISO - SOLO 1 VEZ CADA UNO ===== */}
+{!finalRaceActive && !isFinalCelebration && countdown === null && tituloActivo && (() => {
+  const total = vivos.length;
+  // Si es 0 es porque aún no cargas, si no usa vivos
+  const totalParaTitulo = racers.length === 0 ? 0 : total;
+  const idx = TITULOS_POR_PISO.findIndex(t => t.condicion(totalParaTitulo));
+  const titulo = TITULOS_POR_PISO[idx];
+  if (!titulo || titulosVistos.includes(idx)) return null;
+  return (
+    <div className={`absolute left-1/2 -translate-x-1/2 z-10 flex flex-col items-center pointer-events-none w-full px-4 ${racers.length === 0 ? 'top-[32%]' : 'top-[19%]'}`}>
+      <div className="flex items-center gap-3 mb-2">
+        <div className="h-1 w-16 rounded-sm bg-[repeating-linear-gradient(90deg,white_0px,white_8px,black_8px,black_16px)] border border-white/40" />
+        <span className="bg-[#FFD000] text-black font-black text-xs tracking-[0.35em] px-3 py-1 rounded-full shadow-[0_0_20px_rgba(255,208,0,0.6)]">PARRILLA OFICIAL • EN VIVO</span>
+        <div className="h-1 w-16 rounded-sm bg-[repeating-linear-gradient(90deg,white_0px,white_8px,black_8px,black_16px)] border border-white/40" />
+      </div>
+      <h2 className="font-black italic text-center leading-[0.85] tracking-tighter drop-shadow-[0_0_25px_rgba(225,6,0,0.8)]">
+        <span className="block text-white text-3xl md:text-5xl">{titulo.linea1}</span>
+        <span className="block text-[#E10600] text-4xl md:text-6xl mt-1 [text-shadow:0_0_30px_rgba(255,255,255,0.4)]">{titulo.linea2}</span>
+      </h2>
+      <p className="mt-4 text-zinc-400 font-black text-xl md:text-xl tracking-[0.3em] uppercase text-center">{titulo.sub}</p>
+      <div className="mt-3 h-1 w-56 md:w-96 bg-gradient-to-r from-transparent via-[#FFD000] to-transparent" />
+    </div>
+  );
+})()}
+
+{/* COPA + GIF GANADOR - SOLO UNA VEZ */}
+    {/* CELEBRACIÓN GANADOR - BENGALAS + SERPENTINAS + CONFETTI */}
     {isFinalCelebration && winner && (
-  <div className="absolute top-[1%] left-[58%] -translate-x-1/2 z-30 flex items-center gap-5 animate-[popIn_0.5s_ease_forwards] pointer-events-none">
+      <div className="fixed inset-0 z-[100] pointer-events-none overflow-hidden">
+        {Array.from({ length: 90 }).map((_, i) => (
+          <span key={i} className="absolute top-[-20px] animate-[caida_3s_linear_infinite]" style={{ left: `${(i * 1.11) % 100}%`, width: "8px", height: "14px", background: ["#E10600","#FFD000","#fff","#00E676","#00B0FF"][i % 5], animationDelay: `${(i % 20) * 0.15}s`, animationDuration: `${2.5 + (i % 5) * 0.5}s`, transform: `rotate(${i * 37}deg)` }} />
+        ))}
+        <div className="absolute left-[6%] bottom-[8%] flex flex-col items-center"><div className="w- h- bg-gradient-to-t from-[#FFD000] via-orange-400 to-transparent animate-pulse shadow-[0_0_20px_#FFD000]" /><span className="text-5xl animate-bounce">🎆</span></div>
+        <div className="absolute right-[6%] bottom-[8%] flex flex-col items-center"><div className="w- h- bg-gradient-to-t from-[#E10600] via-yellow-300 to-transparent animate-pulse shadow-[0_0_20px_#E10600]" /><span className="text-5xl animate-bounce">🎆</span></div>
+        <div className="absolute top-0 left-0 w-full flex justify-between px-6 text-4xl"><span className="animate-bounce">🎊</span><span className="animate-bounce">🎉</span><span className="animate-bounce">🎊</span><span className="animate-bounce">🎉</span></div>
+        <style>{`@keyframes caida { to { transform: translateY(110vh) rotate(720deg); } }`}</style>
+      </div>
+    )}
+{isFinalCelebration && winner && (
+  <div className="absolute inset-0 z-[80] flex items-center justify-center pointer-events-none">
+    {/* FONDO OSCURO PA QUE RESALTE EL GANADOR */}
+    <div className="absolute inset-0 bg-black/60 backdrop-blur-" />
 
-    {/* COPA */}
-    <img
-      src="/copa_balladares_3d_FINAL.png"
-      alt="copa"
-      className="w-20 h-20 md:w-28 md:h-28 object-contain drop-shadow-[0_0_20px_rgba(255,215,0,0.8)] shrink-0"
-    />
+    {/* HALO DORADO */}
+    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w- h- rounded-full bg-[#FFD000]/20 blur- animate-pulse" />
 
-    <div className="flex flex-col gap-2 pointer-events-auto relative shrink-0">
-      <div className="px-8 py-3 bg-white text-black font-black text-4xl italic -skew-x-6 shadow-[0_0_40px_white] whitespace-nowrap">
+    <div className="relative flex flex-col items-center text-center animate-[popIn_0.6s_ease_forwards] px-4">
+
+      {/* TITULO ARRIBA */}
+      <div className="flex items-center gap-3 mb-3">
+        <div className="h-1 w-14 rounded-sm bg-[repeating-linear-gradient(90deg,white_0px,white_8px,black_8px,black_16px)] border border-white/40" />
+        <span className="bg-[#FFD000] text-black font-black text-xs md:text-sm tracking-[0.4em] px-4 py-1.5 rounded-full shadow-[0_0_30px_rgba(255,208,0,0.8)]">🏆 CAMPEÓN OFICIAL • EN VIVO</span>
+        <div className="h-1 w-14 rounded-sm bg-[repeating-linear-gradient(90deg,white_0px,white_8px,black_8px,black_16px)] border border-white/40" />
+      </div>
+
+      {/* COPA GIGANTE */}
+      <img
+        src="/copa_balladares_3d_FINAL.png"
+        alt="copa"
+        className="w-36 h-36 md:w-48 md:h-48 object-contain drop-shadow-[0_0_40px_rgba(255,215,0,1)] animate-bounce"
+      />
+
+      {/* TITULO GANADOR */}
+      <h2 className="font-black italic leading-[0.85] tracking-tighter mt-2 drop-shadow-[0_0_30px_rgba(225,6,0,0.9)]">
+        <span className="block text-white text-4xl md:text-6xl">¡TENEMOS</span>
+        <span className="block text-[#E10600] text-5xl md:text-7xl mt-1 [text-shadow:0_0_30px_rgba(255,255,255,0.5)]">GANADOR!</span>
+      </h2>
+
+      {/* CODIGO GIGANTE */}
+      <div className="mt-4 px-10 py-3 bg-white text-black font-black text-4xl md:text-6xl italic -skew-x-6 shadow-[0_0_50px_white] whitespace-nowrap">
         {winner.ticket_code}
       </div>
 
-      <div className="px-5 py-1.5 bg-[#E10600] text-white font-black text-sm rounded-full animate-pulse text-center border border-white tracking-widest">
-        ¡GANADOR!
-      </div>
-
-      {/* NOMBRE DEL GANADOR */}
-      <div className="px-4 py-1.5 bg-black/80 backdrop-blur border border-[#FFD000]/50 rounded-full text-center">
-        <p className="text-[#FFD000] font-black text- tracking-widest uppercase truncate max-w-">
-          {winner.nombre || winner.name} • {winner.ticket_code}
+      {/* NOMBRE */}
+      <div className="mt-3 px-6 py-2 bg-black/90 backdrop-blur border-2 border-[#FFD000] rounded-full shadow-[0_0_30px_rgba(255,208,0,0.6)]">
+        <p className="text-[#FFD000] font-black text-xl md:text-3xl tracking-widest uppercase">
+          {(winner.nombre || winner.name || 'PILOTO').toUpperCase()}
         </p>
       </div>
-    </div>
 
-    {/* LOGO MOTORS */}
-    <img
-      src="/BB.png"
-      alt="Balladares Motors"
-      className="w-32 md:w-40 object-contain drop-shadow-[0_0_10px_rgba(0,0,0,0.8)] shrink-0"
-    />
+      {/* CELU + LOCALIDAD DEL GANADOR */}
+      <div className="mt-3 flex flex-wrap justify-center gap-2">
+        <span className="bg-[#E10600] text-white font-black px-4 py-1.5 rounded-full text-sm md:text-base shadow-[0_0_20px_rgba(225,6,0,0.8)]">
+          📱 {winner.celular || winner.telefono || winner.phone || winner.cel || '---'}
+        </span>
+        <span className="bg-[#FFD000] text-black font-black px-4 py-1.5 rounded-full text-sm md:text-base uppercase shadow-[0_0_20px_rgba(255,208,0,0.8)]">
+          📍 {winner.localidad || winner.ciudad || winner.comuna || winner.city || '---'}
+        </span>
+      </div>
+
+      {/* LOGO ABAJO */}
+      <img
+        src="/BB.png"
+        alt="Balladares Motors"
+        className="w-48 md:w-64 object-contain mt-5 drop-shadow-[0_0_15px_rgba(0,0,0,1)]"
+      />
+      <p className="mt-2 text-zinc-400 font-black text-xs tracking-[0.4em]">BALLADARES MOTORS • SE LLEVA LA COPA</p>
+    </div>
   </div>
 )}
-  </div>
+
 
    <div className="absolute top-[18%] left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
   <div className="absolute top-[38%] left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
@@ -606,25 +825,51 @@ const reset = () => {
     const xPos = r.x?? (5 + (r.lane * 3.6));
 
     // SI QUEDAN 5 - VISTA NUEVA: NOMBRE ARRIBA / TICKET ABAJO
+     // SI QUEDAN 5 - NOMBRE + TICKET + CELULAR + LOCALIDAD
     if (isLast5) {
-      const firstName = (r.nombre || r.name || 'PILOTO').split(' ')[0].toUpperCase();
+      const firstName = primerNombre(r.nombre || r.name || 'PILOTO');
       return (
         <div key={r.ticket_code} className="absolute z-30 transition-all duration-1000 ease-out" style={{ left: `${xPos}%`, top: `${r.y}%`, transform: 'translateX(-50%)' }}>
-          <div className="flex flex-col items-center gap-2">
-            {/* NOMBRE ARRIBA */}
-           <div className="relative z-50 px-3 py-1 rounded-full bg-white text-black font-black text-[11px] tracking-widest shadow-[0_0_12px_white] whitespace-nowrap">
-  {firstName}
-</div>
-<div className="relative z-10 my-2">
-  <CarSVG color={r.color} eliminated={false} size={68} />
-</div>
-<div className="relative z-50 px-3 py-1 rounded-full bg-black/90 border border-zinc-600 text-white font-mono font-black text-[11px] backdrop-blur whitespace-nowrap">
-  {r.ticket_code}
-</div>
+          <div className="flex flex-col items-center gap-1.5">
+            <div className="relative z-50 px-3 py-1 rounded-full bg-white text-black font-black text- tracking-widest shadow-[0_0_12px_white] whitespace-nowrap">
+              {firstName}
+            </div>
+            <div className="relative z-10 my-1">
+              <CarSVG color={r.color} eliminated={false} size={68} />
+            </div>
+            <div className="relative z-50 px-3 py-1 rounded-full bg-black/90 border border-zinc-600 text-white font-mono font-black text- backdrop-blur whitespace-nowrap">
+              {r.ticket_code}
+            </div>
+            {/* CELULAR + LOCALIDAD - SOLO CON 5 */}
+            <div className="flex flex-col items-center gap-1 mt-0.5">
+              <span className="bg-[#E10600] text-white text- font-black px-2.5 py-0.5 rounded-full whitespace-nowrap">📱 {r.celular || r.telefono || r.phone || r.cel || '---'}</span>
+              <span className="bg-[#FFD000] text-black text- font-black px-2.5 py-0.5 rounded-full whitespace-nowrap uppercase">📍 {r.localidad || r.ciudad || r.comuna || r.city || '---'}</span>
+            </div>
           </div>
         </div>
       );
     }
+
+    
+    // SI QUEDAN 15 - ZIGZAG: PAR ARRIBA, IMPAR ABAJO
+if (vivos.length === 15 && !r.eliminated) {
+  const idx15 = vivos.findIndex(v => v.ticket_code === r.ticket_code);
+  const arriba = idx15 % 2 === 0;
+  const nombre15 = (
+    <div className="px-3 py-1 rounded-full bg-white text-black font-black text- tracking-widest shadow-[0_0_12px_white] whitespace-nowrap uppercase">
+      {primerNombre(r.nombre || r.name || 'PILOTO')}
+    </div>
+  );
+  return (
+    <div key={r.ticket_code} className="absolute transition-all duration-1000 ease-out" style={{ left: `${xPos}%`, top: `${r.y}%`, transform: 'translate(-50%,-50%)' }}>
+      <div className="flex flex-col items-center">
+  {arriba && <div className="mb-3">{nombre15}</div>}
+  <CarSVG color={r.color} eliminated={r.eliminated} />
+  {!arriba && <div className="mt-3">{nombre15}</div>}
+</div>
+    </div>
+  );
+}
 
     // PARA LOS OTROS NIVELES (50,25,15) NORMAL SIN NADA
     return (
@@ -803,12 +1048,12 @@ const reset = () => {
 
     <div className="h-6 overflow-hidden opacity-60 w-full">
       <div className="animate-[marquee_0.6s_linear_infinite] flex gap-3 font-mono font-black text- text-white whitespace-nowrap">
-        {display50.slice(0,10).map((t:any) => (
-          <span key={t.ticket_code + Math.random()} className="px-2.5 py-1 bg-zinc-900/80 rounded-full border border-zinc-800">{t.ticket_code}</span>
-        ))}
-        {display50.slice(0,10).map((t:any) => (
-          <span key={t.ticket_code + 'dup' + Math.random()} className="px-2.5 py-1 bg-zinc-900/80 rounded-full border border-zinc-800">{t.ticket_code}</span>
-        ))}
+       {display50.slice(0,10).map((t:any, i:number) => (
+  <span key={t.ticket_code + '-' + i} className="px-2.5 py-1 bg-zinc-900/80 rounded-full border border-zinc-800">{t.ticket_code}</span>
+))}
+{display50.slice(0,10).map((t:any, i:number) => (
+  <span key={t.ticket_code + '-dup-' + i} className="px-2.5 py-1 bg-zinc-900/80 rounded-full border border-zinc-800">{t.ticket_code}</span>
+))}
       </div>
     </div>
   </div>

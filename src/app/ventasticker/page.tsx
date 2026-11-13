@@ -3,12 +3,19 @@
 import { useState, useEffect, useRef } from "react";
 import { Holtwood_One_SC } from "next/font/google";
 const holtwood = Holtwood_One_SC({ weight: "400", subsets: ["latin"] });
-type Pack = { id: string, nombre: string, qty: number, precio: number, tag?: string }
+type CartItem = { qty: number };
 
-const PACKS: Pack[] = [
-  { id: "x1", nombre: "UNIDAD 1X STICKER", qty: 1, precio: 3000 },
-  { id: "x4", nombre: "PACK X4 4X STICKERS", qty: 4, precio: 10000, tag: "MAS VENDIDO" },
-]
+const PRECIO_UNITARIO = 3000;
+const PRECIO_DESCUENTO = 2500;
+const MIN_DESCUENTO = 4;
+
+function calcularTotal(qty: number) {
+  const subtotalSinDescuento = qty * PRECIO_UNITARIO;
+  const precioUnitario = qty >= MIN_DESCUENTO ? PRECIO_DESCUENTO : PRECIO_UNITARIO;
+  const total = qty * precioUnitario;
+  const descuento = subtotalSinDescuento - total;
+  return { subtotalSinDescuento, total, descuento, precioUnitario };
+}
 
 
 
@@ -16,6 +23,7 @@ export default function ventastickerPage() {
 const [menuOpen, setMenuOpen] = useState(false);
 const [waMenuOpen, setWaMenuOpen] = useState(false);
 const waRef = useRef<HTMLDivElement>(null);
+const [basesOpen, setBasesOpen] = useState(false);
 useEffect(() => {
   if (!waMenuOpen) return;
   const handleClickOutside = (e: MouseEvent | TouchEvent) => {
@@ -34,6 +42,8 @@ useEffect(() => {
   };
 }, [waMenuOpen]);
 
+
+
 const WHATSAPP_BALLADARESMOTORS = "56932285399";
 const WHATSAPP_PREMIOSBALLADARES = "56998804732";
 const WHATSAPP_GRUAS = "56966362779";
@@ -45,9 +55,16 @@ const WHATSAPPS = [
   { label: "GRÚAS MENESES", num: WHATSAPP_GRUAS, msg: "Hola Grúas Meneses! Vengo de Balladares Motors", icon: "🪝" },
 ];
 	
-  function goCheckout(pack: Pack) {
-    window.location.href = `/checkout?pack=${pack.id}&qty=1`
-  }
+const [cartOpen, setCartOpen] = useState(false);
+const [cartQty, setCartQty] = useState(1);
+
+function openCart(initialQty: number) {
+  setCartQty(initialQty);
+  setCartOpen(true);
+}
+function goToCheckout() {
+  window.location.href = `/checkout?qty=${cartQty}`;
+}
 
   return (
     <div className="bg-black text-white min-h-screen">
@@ -432,84 +449,166 @@ const WHATSAPPS = [
   </div>
 </section>
 
-     <section id="packs" className="py-20 md:py-24 px-4 md:px-6 bg-black relative overflow-hidden">
+     <section id="packs" className="py-20 md:py-24 px-4 md:px-6 bg-black relative overflow-visible">
   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w- h- bg-red-600/10 blur- pointer-events-none" />
-
-  <div className="relative z-10 max-w-5xl mx-auto">
-    <h2 className="font-black italic text-3xl md:text-6xl text-center tracking-tighter leading-[0.85]">
+  <div className="relative z-10 max-w-5xl mx-auto overflow-visible">
+    <h2 className="font-black italic text-4xl md:text-6xl text-center tracking-tighter leading-[0.85]">
       COMPRA TUS <span className="text-red-600">STICKERS</span> HOY
     </h2>
-    <p className="text-center text-white/50 font-bold text- md:text-sm mt-4 tracking-wide uppercase">
+    <p className="text-center text-white/50 font-bold text-xs md:text-sm mt-4 tracking-wide uppercase">
       El link de descarga te llegará al correo • Participas al instante
     </p>
-
-    <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-4xl mx-auto mt-10 md:mt-14 place-items-center">
-      {PACKS.map((p) => {
-        const isPopular = p.qty === 4;
-        return (
-          <div key={p.id} className="relative flex w-full max-w- md:max-w-none mx-auto">
-            {/* BADGE COSTADO - MAS AFUERA Y TRANSPARENTE */}
-            {isPopular && (
-              <div className="absolute top-8 -right-4 md:-right-20 z-20 flex flex-col gap-1.5 md:gap-2 items-start scale-[0.85] md:scale-100 origin-left">
-               <div className="bg-yellow-400/10 backdrop-blur-xl text-yellow-400 border border-yellow-400/20 px-2.5 md:px-4 py-1 md:py-2 rounded-full text-[8px] md:text-[11px] font-black tracking-widest shadow-[0_0_15px_rgba(250,204,21,0.15)] flex items-center gap-1">
-  ⭐ PACK MÁS VENDIDO
-</div>
-<div className="bg-white/[0.06] backdrop-blur-xl border border-white/10 text-white/70 px-2.5 md:px-4 py-1 md:py-2 rounded-full text-[8px] md:text-[11px] font-black tracking-widest">
-  AHORRA $2.000
-</div>
-              </div>
-            )}
-
-            <div
-              className={`group relative rounded- md:rounded- p- overflow-hidden transition-all duration-300 w-full h-full
-              ${isPopular? "shadow-[0_0_40px_rgba(250,204,21,0.25)] md:shadow-[0_0_50px_rgba(250,204,21,0.3)] md:scale-[1.05]" : "hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]"}`}
-            >
-              <div className={`absolute inset-0 rounded- md:rounded- ${isPopular? "bg-gradient-to-b from-yellow-400 to-yellow-600/20" : "bg-gradient-to-b from-white/20 to-white/5"}`} />
-
-              <div
-                className="relative rounded- md:rounded- overflow-hidden p-6 md:p-8 flex flex-col justify-between h-full min-h- md:min-h- bg-black"
-                style={{
-                  backgroundImage: `url('/fondotarjeta.jpg')`,
-                  backgroundSize: 'contain',
-                  backgroundRepeat: 'no-repeat',
-                  backgroundPosition: 'center',
-                }}
-              >
-                <div className="absolute inset-0 bg-black/65 group-hover:bg-black/55 transition-colors" />
-
-                <div className="relative z-10">
-                  <h3 className="font-black italic text-white/80 text- md:text- tracking-[0.2em]">
-                    {p.qty === 1? "UNIDAD" : "PACK X4"}
-                  </h3>
-                  <p className={`font-black italic text- leading-none md:text-6xl mt-1 tracking-tighter ${isPopular? "text-yellow-400" : "text-red-600"}`}>
-                    {p.qty}X <span className="text-white block">STICKERS</span>
-                  </p>
-
-                  <div className="mt-6 md:mt-8">
-                    <p className="text- md:text- font-black tracking-[0.2em] text-white/30">PRECIO</p>
-                    <div className="font-black italic text- md:text-5xl text-white mt-1">
-                      ${p.precio.toLocaleString("es-CL")}
-                    </div>
-                    {isPopular && <p className="text-white/40 text- md:text-xs font-bold mt-2 md:mt-3"></p>}
-                    {!isPopular && <div className="h-3 md:h-4" />}
-                  </div>
-                </div>
-
-                <button
-                  onClick={() => goCheckout(p)}
-                  className={`relative z-10 w-full mt-6 md:mt-8 py-3 md:py-4 rounded-full font-black italic text- md:text- tracking-wide transition-all active:scale-[0.98]
-                  ${isPopular? "bg-yellow-400 text-black hover:bg-yellow-300 shadow-[0_0_20px_rgba(250,204,21,0.4)]" : "bg-white text-black hover:bg-zinc-200"}`}
-                >
-                  {p.qty === 1? "COMPRAR STICKER" : "COMPRAR PACK X4 →"}
-                </button>
-              </div>
+	
+    <div className="grid md:grid-cols-2 gap-10 md:gap-12 max-w-4xl mx-auto mt-10 md:mt-14 place-items-center overflow-visible">
+      {/* CARD 1x */}
+      <div className="relative w-full max-w- md:max-w-none rounded-2xl p-[1.5px] bg-white/10">
+        <div className="rounded-2xl bg-black p-7 md:p-8 relative overflow-hidden min-h- md:min-h- flex flex-col justify-between"
+             style={{ backgroundImage: `url('/fondotarjeta.jpg')`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
+          <div className="absolute inset-0 bg-black/65" />
+          <div className="relative z-10">
+            <p className="font-black tracking-[0.2em] text-white/50 text-">UNIDAD</p>
+            <p className="font-black italic text-5xl md:text-6xl mt-1 leading-[0.9]"><span className="text-red-600">1X</span> <span className="text-white">STICKERS</span></p>
+            <div className="mt-8">
+              <p className="font-black tracking-[0.2em] text-white/30 text-">PRECIO</p>
+              <p className="font-black italic text-4xl mt-1 text-white">$3.000</p>
             </div>
           </div>
-        );
-      })}
+          <button onClick={() => openCart(1)} className="relative z-10 w-full mt-auto bg-white text-black rounded-full py-4 font-black italic text-sm hover:bg-zinc-200 active:scale-[0.98]">COMPRAR STICKER</button>
+        </div>
+      </div>
+
+      {/* CARD X4 */}
+      <div className="relative w-full max-w- md:max-w-none rounded-2xl p-[1.5px] bg-yellow-400 shadow-[0_0_30px_rgba(250,204,21,0.25)] overflow-visible md:scale-[1.05]">
+        <div className="absolute top-5 -right-2 md:-right-12 z-20 flex flex-col gap-1.5 items-start scale-[0.9] md:scale-100">
+          <span className="bg-yellow-400/10 backdrop-blur-xl text-yellow-400 border border-yellow-400/20 text- font-black px-3 py-1.5 rounded-full tracking-widest flex items-center gap-1">⭐ PACK MÁS VENDIDO</span>
+          <span className="bg-white/[0.06] backdrop-blur-xl border border-white/10 text-white/70 text- font-black px-3 py-1.5 rounded-full tracking-widest">AHORRA $2.000</span>
+        </div>
+        <div className="rounded-2xl bg-black p-7 md:p-8 relative overflow-hidden min-h- md:min-h- flex flex-col justify-between"
+             style={{ backgroundImage: `url('/fondotarjeta.jpg')`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
+          <div className="absolute inset-0 bg-black/65" />
+          <div className="relative z-10 mt-4 md:mt-0">
+            <p className="font-black tracking-[0.2em] text-white/50 text-">PACK X4</p>
+            <p className="font-black italic text-5xl md:text-6xl mt-1 leading-[0.9]"><span className="text-yellow-400">4X</span> <span className="text-white">STICKERS</span></p>
+            <div className="mt-8">
+              <p className="font-black tracking-[0.2em] text-white/30 text-">PRECIO</p>
+              <p className="font-black italic text-4xl mt-1 text-white">$10.000</p>
+            </div>
+          </div>
+          <button onClick={() => openCart(4)} className="relative z-10 w-full mt-auto bg-yellow-400 text-black rounded-full py-4 font-black italic text-sm hover:bg-yellow-300 shadow-[0_0_20px_rgba(250,204,21,0.4)] active:scale-[0.98]">COMPRAR PACK X4 →</button>
+        </div>
+      </div>
     </div>
   </div>
+
+  {/* MODAL - FIX PC CHICO */}
+  {cartOpen && (
+  <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-[9999] flex items-center justify-center p-4" onClick={() => setCartOpen(false)}>
+    <div 
+  style={{ width: 'min(92vw, 360px)' }}
+  className="bg-[#0a0a0a] border border-white/10 text-white rounded-[20px] relative shadow-[0_0_50px_rgba(225,6,0,0.3)] overflow-hidden shrink-0" 
+  onClick={e => e.stopPropagation()}
+>
+      <div className="h- w-full bg-gradient-to-r from-red-600 via-yellow-400 to-red-600" />
+      
+      <button onClick={() => setCartOpen(false)} className="absolute top-3 right-3 w-7 h-7 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full grid place-items-center font-black text-">✕</button>
+
+      <div className="flex flex-col items-center pt-5 pb-3">
+        <img src="/BB.png" alt="Balladares Motors" className="h-10 w-auto object-contain" />
+        <div className="mt-2 flex items-center gap-2">
+          <div className="w-6 h- bg-yellow-400" />
+          
+          <div className="w-6 h- bg-yellow-400" />
+        </div>
+      </div>
+
+      <div className="px-4 pb-4">
+        <h3 className="font-black italic text-center text- leading-[0.9] tracking-tighter">ESTAS LISTO PARA<br /><span className="text-red-600">GANAR!</span></h3>
+
+        {(() => {
+          const { subtotalSinDescuento, total, descuento, precioUnitario } = calcularTotal(cartQty);
+          return (
+            <>
+              <div className="mt-4 bg-zinc-900 border border-white/5 rounded-xl overflow-hidden divide-y divide-white/5">
+                <div className="flex items-center justify-between p-3 gap-2">
+  <span className="font-black italic text-[11px] tracking-widest">STICKERS</span>
+  <div className="flex items-center gap-1">
+    <button onClick={() => setCartQty(q => Math.max(1, q - 1))} className="w-8 h-8 bg-black border border-white/20 rounded-lg grid place-items-center text-[14px] font-black text-white shrink-0">−</button>
+    <input type="number" inputMode="numeric" value={cartQty} onChange={(e) => {const v=parseInt(e.target.value); if(!isNaN(v)) setCartQty(Math.max(1,Math.min(1000,v)))}} className="w-14 h-8 bg-white text-black rounded-lg text-center font-black text-[14px] outline-none shrink-0" />
+    <button onClick={() => setCartQty(q => Math.min(1000, q + 1))} className="w-8 h-8 bg-black border border-white/20 rounded-lg grid place-items-center text-[14px] font-black text-white shrink-0">+</button>
+  </div>
+
+                </div>
+                <div className="flex justify-between p-2.5 px-3 text-"><span className="text-white/40 font-bold">Subtotal</span><span className="font-bold">${subtotalSinDescuento.toLocaleString('es-CL')}</span></div>
+                {descuento > 0 && <div className="flex justify-between p-2.5 px-3 text-"><span className="text-white/40 font-bold">Descuento</span><span className="font-black text-green-400">-${descuento.toLocaleString('es-CL')}</span></div>}
+                <div className="flex justify-between p-2.5 px-3 font-black text- bg-white/[0.04]"><span>TOTAL</span><span className="text-yellow-400">${total.toLocaleString('es-CL')}</span></div>
+              </div>
+
+              <button onClick={goToCheckout} className="w-full mt-3 bg-red-600 hover:bg-white hover:text-black text-white rounded-full py-3.5 font-black italic text- tracking-widest transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                ⚡ PAGAR AHORA →
+              </button>
+            </>
+          )
+        })()}
+      </div>
+    </div>
+  </div>
+)}
+{/* ===== FOOTER LEGAL ELEGANTE ===== */}
+<footer className="w-full bg-black border-t border-white/10 pt-10 pb-12 px-4">
+  <div className="max-w-4xl mx-auto flex flex-col items-center">
+    
+    {/* Titulo */}
+    <div className="flex items-center gap-3 mb-1">
+      <div className="w-10 h- bg-yellow-400/60" />
+      <span className="bg-yellow-400 text-black font-black text- tracking-[0.35em] px-3 py-1 rounded-full">DOCUMENTOS OFICIALES</span>
+      <div className="w-10 h- bg-yellow-400/60" />
+    </div>
+    <h3 className="font-black italic text-2xl md:text-3xl tracking-tighter text-white text-center leading-none">
+      <span className="text-yellow-400">PREMIOS BALLADARES</span>
+    </h3>
+    <p className="text-white/30 text- font-bold tracking-[0.25em] mt-2 uppercase">Transparencia total • Revisa todo antes de comprar</p>
+
+    {/* Grid 4 docs */}
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-7 w-full">
+      {[
+        { title: "BASES", sub: "Premios Balladares", href: "/BasesPremiosBalladares.pdf", icon: "🏆", hot: true },
+        { title: "TÉRMINOS", sub: "Términos de Servicio", href: "/TerminosdeServicio.pdf", icon: "§", hot: false },
+        { title: "REEMBOLSO", sub: "Política de Reembolso", href: "/PoliticadeReembolso.pdf", icon: "↩", hot: false },
+        { title: "PRIVACIDAD", sub: "Política de Privacidad", href: "/PoliticadePrivacidad.pdf", icon: "🔒", hot: false },
+      ].map((doc) => (
+        <a
+          key={doc.title}
+          href={doc.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`group relative bg-zinc-950 border ${doc.hot ? 'border-yellow-400/40 shadow-[0_0_25px_rgba(250,204,21,0.12)]' : 'border-white/10 hover:border-white/30'} rounded-2xl p-4 flex flex-col gap-3 hover:-translate-y-1 transition-all duration-300`}
+        >
+          {doc.hot && <span className="absolute -top-2 left-1/2 -translate-x-1/2 bg-yellow-400 text-black font-black text- tracking-[0.2em] px-2.5 py-0.5 rounded-full whitespace-nowrap">MÁS LEÍDO</span>}
+          <div className="flex justify-between items-start">
+            <div className="w-10 h-10 bg-white/5 group-hover:bg-yellow-400 group-hover:text-black rounded-full grid place-items-center text- transition-all">{doc.icon}</div>
+            <span className="text-white/20 group-hover:text-yellow-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all text-">↗</span>
+          </div>
+          <div>
+            <div className="font-black italic text- tracking-wide leading-none">{doc.title}</div>
+            <div className="text-white/40 text- font-bold mt-1 leading-tight">{doc.sub}</div>
+          </div>
+          <div className="text- font-black tracking-[0.2em] text-white/30 group-hover:text-white transition-all">VER PDF →</div>
+        </a>
+      ))}
+    </div>
+
+    {/* Bottom */}
+    <div className="mt-7 flex flex-col md:flex-row items-center gap-2 md:gap-4 text-center">
+      <img src="/BB.png" alt="Balladares" className="h-5 w-auto opacity-40" />
+      <span className="text-white/20 text- tracking-[0.2em] font-bold">BALLADARES SPA © 2026 — CONCEPCIÓN, BÍO BÍO • TODOS LOS DERECHOS RESERVADOS</span>
+    </div>
+  </div>
+</footer>
+
 </section>
+
+
+
 <div ref={waRef} className="fixed bottom-6 right-6 flex flex-col items-end gap-3" style={{ zIndex: 9999 }}>  {waMenuOpen && (
     <div className="bg-black border-2 border-white/10 rounded-2xl overflow-hidden shadow-[8px_8px_0px_black] min-w-">
       <div className="bg-white text-black text- font-black tracking-[0.3em] px-4 py-2">ELIGE UN WHATSAPP</div>

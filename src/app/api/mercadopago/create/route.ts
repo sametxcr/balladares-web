@@ -6,14 +6,20 @@ import { MercadoPagoConfig, Preference } from 'mercadopago';
 export async function POST(req: NextRequest){
   try {
     const body = await req.json();
-    const { email, nombre, rut, celular, direccion, comuna, ciudad, region, pack_id, pack_qty } = body;
     
-    const packs = Number(pack_qty) || 1;
-    const isX4 = pack_id === 'x4';
+    // SOPORTA NUEVO (qty) Y VIEJO (pack_qty/pack_id) por si queda algo cacheado
+    const rawQty = body.qty ?? body.pack_qty ?? 1;
+    const qty = parseInt(rawQty, 10);
+    if (!qty || qty < 1) return NextResponse.json({ error: 'qty inválido' }, { status: 400 });
+
+    const { email, nombre, rut, celular, direccion, comuna, ciudad, region } = body;
+
+    const PRECIO_U = 3000;
+    const PRECIO_D = 2500;
+    const total = qty >= 4 ? qty * PRECIO_D : qty * PRECIO_U;
     
-    const total = isX4 ? 10000 * packs : 3000 * packs;
-    const qty = isX4 ? 4 * packs : 1 * packs;
-    
+    // qty = tickets a generar (1 sticker = 1 ticket)
+    const ticketsQty = qty;
     const order_code = `BM${Date.now()}${Math.floor(100 + Math.random()*900)}`;
     
     const client = new MercadoPagoConfig({
@@ -27,16 +33,14 @@ export async function POST(req: NextRequest){
       body: {
         items: [
           {
-            id: pack_id,
-            title: isX4 ? `Pack x${qty} Tickets - Balladares` : `Ticket Balladares - ${pack_id}`,
+            id: `x${qty}`,
+            title: `${qty} STICKERS DIGITALES - PREMIOS BALLADARES`,
             quantity: 1,
             unit_price: total,
             currency_id: "CLP",
           }
         ],
-        payer: {
-          email: email,
-        },
+        payer: { email: email },
         external_reference: order_code,
         auto_return: "approved", 
         back_urls: {
@@ -48,25 +52,25 @@ export async function POST(req: NextRequest){
         statement_descriptor: "BALLADARES",
         metadata: {
           order_code,
-          pack_id,
-          qty,
+          qty: ticketsQty,
+          pack_id: `x${qty}`,
+          total,
           rut,
           celular
         }
       }
     });
 
-    console.log('[MP CREATE] pack:', pack_id, 'packs:', packs, 'tickets:', qty, 'total:', total, 'order:', order_code, 'pref:', result.id, 'init_point:', result.init_point);
+    console.log('[MP CREATE] qty:', qty, 'tickets:', ticketsQty, 'total:', total, 'order:', order_code, 'pref:', result.id);
 
     await pool.query(
       `INSERT INTO orders(order_code, email, nombre, rut, pack_id, total, status, qty, celular, direccion, comuna, ciudad, region)
        VALUES($1,$2,$3,$4,$5,$6,'PENDING',$7,$8,$9,$10,$11,$12)`,
-      [order_code, email, nombre, rut, pack_id, total, qty, celular, direccion, comuna, ciudad, region]
+      [order_code, email, nombre, rut, `x${qty}`, total, ticketsQty, celular, direccion, comuna, ciudad, region]
     );
 
     return NextResponse.json({ 
       url: result.init_point,
-      sandbox_url: result.sandbox_init_point,
       id: result.id,
       order_code 
     });

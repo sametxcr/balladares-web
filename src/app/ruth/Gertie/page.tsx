@@ -18,7 +18,7 @@ export default async function TombolaPage() {
 
   // Si está logueado, carga los tickets normal
   const { rows } = await pool.query(`
-    SELECT t.ticket_code, o.nombre, o.rut, o.region, o.ciudad, o.comuna, o.order_code
+    SELECT t.ticket_code, o.nombre, o.rut, o.celular, o.region, o.ciudad, o.comuna, o.order_code
     FROM tickets t
     JOIN orders o ON o.id = t.order_id
     WHERE o.status ILIKE 'paid'

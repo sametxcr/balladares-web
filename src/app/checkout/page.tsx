@@ -59,14 +59,22 @@ const validarTelefono = (t:string) => {
 
 function CheckoutContent() {
   const sp = useSearchParams()
-  const pack = sp.get('pack') || 'x1'
   const qtyParam = parseInt(sp.get('qty') || '1')
+  
+  const PRECIO_UNITARIO = 3000
+  const PRECIO_DESCUENTO = 2500
+  const MIN_DESCUENTO = 4
+
+  const precioUnitario = qtyParam >= MIN_DESCUENTO ? PRECIO_DESCUENTO : PRECIO_UNITARIO
+  const subtotalSinDescuento = qtyParam * 3000
+  const total = qtyParam * precioUnitario
+  const descuento = subtotalSinDescuento - total
+  const totalStickers = qtyParam
+  const [aceptaTerminos, setAceptaTerminos] = useState(false)
+
   const [loading, setLoading] = useState(false)
   const [form, setForm] = useState({ email: "", nombre: "", rut: "", direccion: "", ciudad: "", region: "", telefono: "" })
   const [errors, setErrors] = useState<Record<string,string>>({})
-
-  const total = pack === 'x1'? 3000 * qtyParam : 10000 * qtyParam
-  const totalStickers = pack === 'x1'? qtyParam : qtyParam * 4
   const comunas = useMemo(() => REGIONES[form.region] || [], [form.region])
 
   function validarTodo(){
@@ -78,6 +86,7 @@ function CheckoutContent() {
     if(!form.region) e.region = "Selecciona región"
     if(!form.ciudad) e.ciudad = "Selecciona comuna"
     if(!validarTelefono(form.telefono)) e.telefono = "Teléfono chileno inválido. Ej: +56 9 1234 5678"
+	if(!aceptaTerminos) e.terminos = "Debes aceptar los términos y condiciones"
     setErrors(e)
     return Object.keys(e).length === 0
   }
@@ -98,21 +107,22 @@ function CheckoutContent() {
           comuna: form.ciudad,
           ciudad: form.ciudad,
           region: form.region,
-          pack_id: pack,
+          qty: qtyParam,
+          pack_id: 'single',
           pack_qty: qtyParam
         })
       })
       const data = await res.json()
-if(data.url || data.sandbox_url){
-  window.location.href = data.url || data.sandbox_url;
-} else {
+      if(data.url){
+        window.location.href = data.url;
+      } else {
         console.error(data)
-        alert('Error Mercado Pago: '+JSON.stringify(data));
+        alert('Error 【entity-Mercado Pago¦canonical_name=Mercado Pago】: '+JSON.stringify(data));
         setLoading(false)
       }
     } catch(err) {
       console.error(err)
-      alert('Error conectando con Mercado Pago')
+      alert('Error conectando con 【entity-Mercado Pago¦canonical_name=Mercado Pago】')
       setLoading(false)
     }
   }
@@ -128,11 +138,12 @@ if(data.url || data.sandbox_url){
 
       <div className="max-w-6xl mx-auto grid md:grid-cols-[1.4fr_0.6fr]">
         <form onSubmit={pagar} noValidate className="p-5 md:p-10">
+          {/* ... todo tu form igual ... */}
           <div className="flex items-center gap-2.5 mb-6 md:mb-8">
             <div className="w-14 h-14 bg-white border border-black/10 rounded-xl flex items-center justify-center p-2 shadow-sm shrink-0">
               <img src="/escudo.png" alt="Checkout seguro" className="w-full h-full object-contain" />
             </div>
-            <span className="text- md:text-xs font-black tracking-widest text-zinc-500">CHECKOUT SEGURO · CONCEPCIÓN</span>
+            <span className="text- md:text-xs font-black tracking-widest text-zinc-500">CHECKOUT SEGURO · {qtyParam} TICKETS {qtyParam >= 4 ? `• AHORRO $${descuento.toLocaleString('es-CL')}` : ''}</span>
           </div>
 
           <h2 className="font-black text-sm tracking-widest mb-3">CONTACTO</h2>
@@ -177,13 +188,25 @@ if(data.url || data.sandbox_url){
             </div>
           </div>
 
-          <button disabled={loading} className="w-full mt-6 md:mt-8 bg-[#FFE600] hover:bg-[#FFD600] text-black font-black text- md:text-base py-4 rounded-full tracking-wide transition-colors disabled:opacity-50 shadow-[0_4px_14px_rgba(255,230,0,0.4)] border border-black">
-  {loading? 'CONECTANDO CON MERCADO PAGO...' : `PAGAR $${total.toLocaleString("es-CL")} CON MERCADO PAGO →`}
+          <div className="mt-6">
+  <label className="flex items-start gap-2.5 cursor-pointer group">
+    <input 
+      type="checkbox" 
+      checked={aceptaTerminos}
+      onChange={e=>setAceptaTerminos(e.target.checked)}
+      className="mt-0.5 w- h- rounded border-2 border-zinc-300 accent-black shrink-0"
+    />
+    <span className="text- font-bold text-zinc-600 group-hover:text-black leading-tight">
+      Acepto <a href="/BasesPremiosBalladares.pdf" target="_blank" className="underline text-black hover:text-red-600">términos y condiciones</a>
+    </span>
+  </label>
+  {errors.terminos && <p className="text- font-bold text-red-600 mt-1 ml-7">{errors.terminos}</p>}
+</div>
+
+<button disabled={loading || !aceptaTerminos} className="w-full mt-4 bg-[#FFE600] hover:bg-black hover:text-[#FFE600] disabled:bg-[#f5f5f5] disabled:text-zinc-400 disabled:border-zinc-200 text-black font-black text-[15px] py-4 rounded-full border-2 border-black shadow-[4px_4px_0px_black] hover:shadow-[2px_2px_0px_black] hover:translate-x-[2px] hover:translate-y-[2px] active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+  PAGAR ${total.toLocaleString("es-CL")} CON MERCADO PAGO →
 </button>
-		  
-           
-  
-          </form>
+        </form>
 
         <div className="bg-[#f5f5f5] p-5 md:p-10 flex flex-col order-first md:order-last">
           <div className="flex gap-3 items-start">
@@ -191,13 +214,14 @@ if(data.url || data.sandbox_url){
               <img src="/logo_abanico_4stickers.png" alt="Pack stickers" className="w-full h-full object-contain scale-[1.15]" />
             </div>
             <div className="flex-1 min-w-0">
-              <div className="font-black text- md:text-sm leading-tight">PACK {pack.toUpperCase()}<br/>BALLADARES MOTORS</div>
-              <div className="text-xs text-zinc-500 mt-1">{totalStickers} stickers + {totalStickers} tickets</div>
+              <div className="font-black text- md:text-sm leading-tight">{totalStickers}X STICKERS<br/>BALLADARES MOTORS</div>
+              <div className="text-xs text-zinc-500 mt-1">{qtyParam >= 4 ? `$${precioUnitario.toLocaleString('es-CL')} c/u • Ahorras $${descuento.toLocaleString('es-CL')}` : `$${precioUnitario.toLocaleString('es-CL')} c/u`}</div>
             </div>
             <div className="font-black text-sm md:text-base shrink-0">${total.toLocaleString("es-CL")}</div>
           </div>
           <div className="mt-6 md:mt-8 pt-6 border-t border-black/10 space-y-2 text-sm">
-            <div className="flex justify-between text-zinc-500"><span>Subtotal</span><span className="text-black font-bold">${total.toLocaleString("es-CL")}</span></div>
+            <div className="flex justify-between text-zinc-500"><span>Subtotal</span><span className="text-black font-bold">${subtotalSinDescuento.toLocaleString("es-CL")}</span></div>
+            {descuento > 0 && <div className="flex justify-between text-green-600 font-bold"><span>Descuento (20%)</span><span>-${descuento.toLocaleString("es-CL")}</span></div>}
             <div className="flex justify-between font-black text-base md:text-lg pt-2"><span>Total</span><span>CLP ${total.toLocaleString("es-CL")}</span></div>
           </div>
         </div>

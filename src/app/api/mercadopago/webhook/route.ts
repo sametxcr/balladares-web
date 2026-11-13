@@ -15,20 +15,16 @@ function getBase(req: NextRequest){
   return prod || 'https://www.balladares-motors.cl';
 }
 
-// TU MISMA FUNCION PERO AHORA RECIBE order_code EN VEZ DE token_ws
 async function processOrder(order_code: string, mpPaymentId: string | null, req: NextRequest) {
   const base = getBase(req);
   const origin = req.nextUrl.origin;
 
-  // VALIDAMOS CON MERCADO PAGO QUE EL PAGO ESTÉ REALMENTE APROBADO
   if(mpPaymentId){
     const clientMP = new MercadoPagoConfig({ accessToken: process.env.MP_ACCESS_TOKEN! });
     const payment = new Payment(clientMP);
     const mpData = await payment.get({ id: mpPaymentId });
-
     console.log('[MP VALIDATE]', mpData.id, mpData.status, mpData.external_reference);
-
-    if(mpData.status!== 'approved'){
+    if(mpData.status !== 'approved'){
       await pool.query(`UPDATE orders SET status='FAILED' WHERE order_code=$1`, [order_code]);
       return { ok: false, order: order_code, origin };
     }
@@ -47,7 +43,8 @@ async function processOrder(order_code: string, mpPaymentId: string | null, req:
     }
 
     const tickets: string[] = [];
-    for (let i = 0; i < order.qty; i++) {
+    const qtyToGen = Number(order.qty) || 1;
+    for (let i = 0; i < qtyToGen; i++) {
       let inserted = false;
       while (!inserted) {
         const code = genCode();
@@ -56,7 +53,7 @@ async function processOrder(order_code: string, mpPaymentId: string | null, req:
           tickets.push(code);
           inserted = true;
         } catch (e: any) {
-          if (e.code!== '23505') throw e;
+          if (e.code !== '23505') throw e;
         }
       }
     }
@@ -65,7 +62,8 @@ async function processOrder(order_code: string, mpPaymentId: string | null, req:
     await client.query('COMMIT');
 
     const fecha = new Date().toLocaleDateString('es-CL', { day:'2-digit', month:'2-digit', year:'numeric' });
-    const packLabel = order.pack_id === 'x4'? `Pack x4 • ${tickets.length} ticket(s)` : `Pack x1 • ${tickets.length} ticket(s)`;
+    const precioU = order.qty >= 4 ? 2500 : 3000;
+    const packLabel = `${order.qty} STICKERS • $${precioU.toLocaleString('es-CL')} c/u • Total $${Number(order.total).toLocaleString('es-CL')}`;
 
     try {
       await resend.emails.send({
@@ -107,7 +105,6 @@ async function processOrder(order_code: string, mpPaymentId: string | null, req:
         <div style="color:#888;font-size:13px;margin-bottom:18px;">Pack de Stickers Oficiales HD</div>
         <a href="${base}/stickers-pack.zip" style="display:inline-block;background:#ffffff;color:#000000;font-weight:900;font-size:13px;padding:14px 28px;border-radius:999px;text-decoration:none;letter-spacing:0.5px;">DESCARGAR PACK.ZIP</a>
       </div>
-
     </div>
     <div style="padding:20px;text-align:center;background:#0a0a0a;">
       <p style="color:#777;font-size:11px;margin:0;">Guarda este correo. Presenta tus códigos el día del evento.</p>
@@ -129,47 +126,36 @@ async function processOrder(order_code: string, mpPaymentId: string | null, req:
   }
 }
 
-// WEBHOOK QUE MANDA MERCADO PAGO (backend a backend)
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     console.log('[WEBHOOK MP RAW]', body);
-
     if (body.type === 'payment' || body.action === 'payment.created' || body.topic === 'payment') {
       const paymentId = body.data?.id || body.resource?.split('/').pop();
       if (!paymentId) return NextResponse.json({ ok: true });
-
       const clientMP = new MercadoPagoConfig({ accessToken: process.env.MP_ACCESS_TOKEN! });
       const payment = new Payment(clientMP);
       const mpData = await payment.get({ id: paymentId });
-
       const order_code = mpData.external_reference;
       if (!order_code) return NextResponse.json({ ok: true });
-
       if (mpData.status === 'approved') {
         await processOrder(order_code, String(paymentId), req);
       }
     }
-
     return NextResponse.json({ received: true });
   } catch (e: any) {
     console.error('WEBHOOK FATAL', e.message);
-    // Mercado Pago necesita 200 siempre, si no reintenta infinito
     return NextResponse.json({ ok: true }, { status: 200 });
   }
 }
 
-// GET para cuando el usuario vuelve de pagar (success url)
 export async function GET(req: NextRequest) {
   try {
     const order_code = req.nextUrl.searchParams.get('orden');
     const payment_id = req.nextUrl.searchParams.get('payment_id') || req.nextUrl.searchParams.get('collection_id');
-
     if (!order_code) return NextResponse.redirect(`${getBase(req)}/ventasticker/fallido`);
-
     const result = await processOrder(order_code, payment_id, req);
     if (!result.ok) return NextResponse.redirect(`${getBase(req)}/ventasticker/fallido`);
-
     return NextResponse.redirect(`${getBase(req)}/ventasticker/gracias?orden=${result.order}`);
   } catch (e: any) {
     console.error('SUCCESS FATAL GET', e.message);
