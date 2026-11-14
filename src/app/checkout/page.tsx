@@ -203,9 +203,9 @@ function CheckoutContent() {
   {errors.terminos && <p className="text- font-bold text-red-600 mt-1 ml-7">{errors.terminos}</p>}
 </div>
 
-<button disabled={loading || !aceptaTerminos} className="w-full mt-4 bg-[#FFE600] hover:bg-black hover:text-[#FFE600] disabled:bg-[#f5f5f5] disabled:text-zinc-400 disabled:border-zinc-200 text-black font-black text-[15px] py-4 rounded-full border-2 border-black shadow-[4px_4px_0px_black] hover:shadow-[2px_2px_0px_black] hover:translate-x-[2px] hover:translate-y-[2px] active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+{/* <button disabled={loading || !aceptaTerminos} className="w-full mt-4 bg-[#FFE600] hover:bg-black hover:text-[#FFE600] disabled:bg-[#f5f5f5] disabled:text-zinc-400 disabled:border-zinc-200 text-black font-black text-[15px] py-4 rounded-full border-2 border-black shadow-[4px_4px_0px_black] hover:shadow-[2px_2px_0px_black] hover:translate-x-[2px] hover:translate-y-[2px] active:scale-[0.98] transition-all flex items-center justify-center gap-2">
   PAGAR ${total.toLocaleString("es-CL")} CON MERCADO PAGO →
-</button>
+</button> */}
         </form>
 
         <div className="bg-[#f5f5f5] p-5 md:p-10 flex flex-col order-first md:order-last">
