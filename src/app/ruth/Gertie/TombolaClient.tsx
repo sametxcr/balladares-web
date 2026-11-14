@@ -41,6 +41,13 @@ const TITULOS_POR_PISO = [
   { linea1: <>TOP <span className="text-[#FFD000]">5</span> FINALISTAS</>, linea2: "SOLO PASA 1", sub: "FINAL • PREMIOS BALLADARES", condicion: (total: number) => total === 5 },
 ];
 const primerNombre = (n: string) => (n || "PILOTO").trim().split(" ")[0].toUpperCase();
+// TAPA LOS ÚLTIMOS 2 DÍGITOS DEL CELU - ANTI ESTAFA
+const taparCelu = (c: any): string => {
+  const s = String(c || '').trim();
+  if (!s || s === '---') return '---';
+  if (s.length <= 2) return 'XX';
+  return s.slice(0, -2) + 'XX';
+};
 
 // ===== ALEATORIO CASINO-GRADE - SOLO crypto.getRandomValues, NADA DE Math.random =====
 const cryptoFloat = (): number => {
@@ -297,7 +304,7 @@ const startFinalRace = async () => {
     raceY: 88,
     raceX: gridX[i],
     laneX: gridX[i],
-    baseSpeed: cryptoRange(0.068, 0.090),
+    baseSpeed: cryptoRange(0.060, 0.098),
     speedJitter: cryptoRange(0, 0.008),
     pos: i+1,
     smoke: false,
@@ -361,7 +368,9 @@ const startFinalRace = async () => {
         }
 
         const wave = Math.sin(elapsed*0.0008 + p.pathSeed) * p.speedJitter;
-let s = p.baseSpeed + wave;
+// MICRO EMPUJÓN CONSTANTE - PA QUE NUNCA QUEDEN IGUALADOS
+const micro = cryptoFloat() < 0.12 ? cryptoRange(0.008, 0.022) : 0;
+let s = p.baseSpeed + wave + micro;
 
 // ===== NITRO AL 50% DE LA PISTA - raceY 51 = MITAD =====
 // Solo se activa UNA vez, cuando cruza la mitad
@@ -371,14 +380,24 @@ let nitroActivo = false;
 
 if (!nitroUsed && p.hasStarted && p.raceY <= 65) {
   nitroUsed = true;
-  // 60% le toca nitro fuerte, 25% nitro medio, 15% no le toca nada - puro crypto
+  // MIENTRAS MÁS ATRÁS, MÁS FUERTE EL NITRO - PA QUE SE ACERQUEN AL FINAL
+  // p.pos es la posición al momento de pinchar: 1° = primero, 5° = último
   const suerte = cryptoFloat();
-  if (suerte < 0.60) {
-    nitroBoost = cryptoRange(0.060, 0.090); // BRIGIDO - pasa de 5° a 1°
-  } else if (suerte < 0.85) {
-    nitroBoost = cryptoRange(0.020, 0.035); // MEDIO - sube 1-2 puestos
+  if (p.pos === 5) {
+    // ÚLTIMO: NITRO BESTIA - PUEDE PASAR A TODOS
+    nitroBoost = suerte < 0.85 ? cryptoRange(0.095, 0.135) : cryptoRange(0.060, 0.090);
+  } else if (p.pos === 4) {
+    // 4°: MUY FUERTE - SE ACERCA AL PODIO
+    nitroBoost = suerte < 0.75 ? cryptoRange(0.075, 0.105) : cryptoRange(0.045, 0.065);
+  } else if (p.pos === 3) {
+    // 3°: FUERTE - PELEA EL 1°
+    nitroBoost = suerte < 0.70 ? cryptoRange(0.055, 0.080) : cryptoRange(0.030, 0.050);
+  } else if (p.pos === 2) {
+    // 2°: MEDIO - PA NO ESCAPARSE TANTO
+    nitroBoost = suerte < 0.50 ? cryptoRange(0.035, 0.055) : cryptoRange(0.020, 0.035);
   } else {
-    nitroBoost = 0; // SIN NITRO - se queda atrás, pa que duela
+    // 1°: SUAVE - TIENE QUE AGUANTAR, NO ESCAPARSE
+    nitroBoost = suerte < 0.40 ? cryptoRange(0.015, 0.030) : 0;
   }
 }
 
@@ -497,7 +516,9 @@ const reset = () => {
       BALLADARES MOTORS © 2026  
     </div>
   </div>
+  {activePool === null && (
   <button onClick={get50Random} className="h-8 px-8 rounded-full bg-gradient-to-b from-[#FFD000] to-[#FFB000] text-black font-black text-xs border border-[#FFD000]">🎲 TRAER 50 AL AZAR</button>
+)}
   <div className="flex gap-1.5 shrink-0">
 <button onClick={reset} className="h-8 px-8 rounded-full bg-white text-black text-xs font-black">↻ RESET</button>
     <Link href={`/ruth/Alexandra`} className="h-8 px-3 rounded-full bg-zinc-900 border border-zinc-700 text-xs font-black grid place-items-center">VOLVER</Link>
@@ -538,7 +559,21 @@ const reset = () => {
           <div className="flex-1 bg-[#0e0e0e] border- border-zinc-800 rounded-xl relative overflow-hidden min-h-0 shadow-[inset_0_0_100px_black]">
 
   {/* ASFALTO */}
-  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_#222_0%,_#0a0a0a_80%)]" />
+  {/* ASFALTO MEJORADO - PISTA DE DRAG */}
+<div className="absolute inset-0 bg-[#141414]" />
+{/* Textura asfalto + marcas de neumáticos */}
+<div className="absolute inset-0 opacity-40" style={{
+  backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.08) 1px, transparent 0), linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.35) 20%, transparent 40%, rgba(0,0,0,0.35) 60%, transparent 80%)`,
+  backgroundSize: '22px 22px, 100% 100%'
+}} />
+{/* Brillo central - donde van los autos */}
+<div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.08)_0%,_transparent_60%)]" />
+{/* Viñeta pa que se vea cine */}
+<div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_55%,_rgba(0,0,0,0.75)_100%)]" />
+{/* Líneas de carril horizontales sutiles */}
+<div className="absolute inset-0 opacity-20" style={{
+  backgroundImage: `repeating-linear-gradient(0deg, transparent 0px, transparent 110px, rgba(255,255,255,0.15) 110px, rgba(255,255,255,0.15) 111px)`
+}} />
 
   {/* MARCA DE AGUA COPA */}
   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -556,15 +591,27 @@ const reset = () => {
  
 {finalRaceActive && (
   <div className={`absolute inset-0 z-40 bg-[#0f0f0f] overflow-hidden ${cameraShake? 'animate-[shake_0.08s_ease_infinite]' : ''}`}>
-    {/* ASFALTO EN MOVIMIENTO */}
-    <div className="absolute inset-0 bg-[#181818]" />
-    <div className="absolute inset-0 opacity-20" style={{
-  backgroundImage: `linear-gradient(transparent 0%, transparent 96%, rgba(255,255,255,0.4) 96%, rgba(255,255,255,0.4) 100%)`,
-  backgroundSize: '100% 80px',
-  animation: trackMoving? 'roadMove 0.4s linear infinite' : 'none'
+   
+   {/* ASFALTO EN MOVIMIENTO - MEJORADO */}
+<div className="absolute inset-0 bg-[#171717]" />
+{/* Asfalto con grano + humo */}
+<div className="absolute inset-0 opacity-30" style={{
+  backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)`,
+  backgroundSize: '18px 18px'
 }} />
-    <div className="absolute inset-0 opacity-10" style={{ backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)`, backgroundSize: '28px 28px' }} />
-
+{/* Líneas de pista que se mueven - velocidad */}
+<div className="absolute inset-0 opacity-25" style={{
+  backgroundImage: `linear-gradient(transparent 0%, transparent 92%, rgba(255,255,255,0.5) 92%, rgba(255,255,255,0.5) 100%)`,
+  backgroundSize: '100% 70px',
+  animation: trackMoving? 'roadMove 0.35s linear infinite' : 'none'
+}} />
+{/* Marcas de quemada en el centro */}
+<div className="absolute top-[55%] bottom-0 left-1/2 -translate-x-1/2 w-[60%] opacity-20 bg-[linear-gradient(90deg,transparent,rgba(0,0,0,0.9)_20%,rgba(0,0,0,0.9)_80%,transparent)] blur-md" />
+{/* Luces del público a los lados */}
+<div className="absolute top-0 bottom-0 left-0 w-10 bg-gradient-to-r from-[#E10600]/20 to-transparent" />
+<div className="absolute top-0 bottom-0 right-0 w-10 bg-gradient-to-l from-[#FFD000]/20 to-transparent" />
+{/* Viñeta */}
+<div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_50%,_rgba(0,0,0,0.7)_100%)]" />
     {/* BORDES */}
     <div className="absolute top-0 bottom-0 left-0 w-8 bg-[#2a2a2a] border-r-2 border-white z-20" />
     <div className="absolute top-0 bottom-0 right-0 w-8 bg-[#2a2a2a] border-l-2 border-white z-20" />
@@ -572,11 +619,13 @@ const reset = () => {
 	
 <div className="absolute top-0 bottom-0 left-0 w-3 z-30" style={{
   backgroundImage: `repeating-linear-gradient(0deg, white 0px, white 12px, #E10600 12px, #E10600 24px)`,
+  boxShadow: '0 0 15px rgba(225,6,0,0.6)',
   animation: trackMoving? 'roadMove 0.3s linear infinite' : 'none'
 }} />    
 	
 <div className="absolute top-0 bottom-0 right-0 w-3 z-30" style={{
   backgroundImage: `repeating-linear-gradient(0deg, white 0px, white 12px, #E10600 12px, #E10600 24px)`,
+  boxShadow: '0 0 15px rgba(225,6,0,0.6)',
   animation: trackMoving? 'roadMove 0.3s linear infinite' : 'none'
 }} />
     {/* META */}
@@ -630,12 +679,15 @@ const reset = () => {
         <span className="w-2.5 h-2.5 bg-[#E10600] rounded-full animate-pulse" /> POSICIONES EN VIVO
       </div>
       {raceProgress.slice().sort((a,b)=>a.pos-b.pos).map((p:any)=>(
-        <div key={p.ticket_code} className={`flex items-center gap-2.5 text- font-black py-2 px-3 rounded-xl mb-2 transition-all ${p.pos===1? 'bg-[#FFD000] text-black scale-[1.03] shadow-[0_0_15px_#FFD000]' : 'bg-zinc-800/90 text-white border border-zinc-700'}`}>
-          <span className={`w-6 h-6 rounded-full grid place-items-center text- ${p.pos===1?'bg-black text-[#FFD000]':'bg-white text-black'}`}>{p.pos}°</span>
-          <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{background: p.color}} />
-          <span className="truncate">{(p.nombre||p.name||'PILOTO').split(' ')[0].toUpperCase()}</span>
-        </div>
-      ))}
+  <div key={p.ticket_code} className={`flex items-center gap-2.5 text- font-black py-2 px-3 rounded-xl mb-2 transition-all ${p.pos===1? 'bg-[#FFD000] text-black scale-[1.03] shadow-[0_0_15px_#FFD000]' : 'bg-zinc-800/90 text-white border border-zinc-700'}`}>
+    <span className={`w-6 h-6 rounded-full grid place-items-center text- shrink-0 ${p.pos===1?'bg-black text-[#FFD000]':'bg-white text-black'}`}>{p.pos}°</span>
+    <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{background: p.color}} />
+    <div className="flex flex-col leading-none min-w-0">
+      <span className="truncate">{(p.nombre||p.name||'PILOTO').split(' ')[0].toUpperCase()}</span>
+      <span className={`font-mono text- tracking-widest mt-0.5 ${p.pos===1? 'text-black/70' : 'text-zinc-400'}`}>{p.ticket_code}</span>
+    </div>
+  </div>
+))}
     </div>
 
     {/* PANEL DER - REACCIÓN MÁS CLARO Y CON NOMBRE */}
@@ -679,14 +731,12 @@ const reset = () => {
     </div>
   )}
 </div>
-        <div className="absolute -top-14 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center gap-1 pointer-events-none">
-          <div className="relative z-50 px-3 py-1 rounded-full bg-white text-black font-black text- tracking-widest shadow-[0_0_12px_white] whitespace-nowrap">
-            {(p.nombre||p.name||'PILOTO').split(' ')[0].toUpperCase()}
-          </div>
-          <div className="relative z-50 px-2.5 py-0.5 rounded-full bg-black/90 border border-zinc-500 text-white font-mono font-black text- backdrop-blur whitespace-nowrap">
-            {p.ticket_code}
-          </div>
-        </div>
+      {/* NOMBRE A LA IZQUIERDA DEL AUTO - SOLO NOMBRE */}
+<div className="absolute top-1/2 right-full mr-0.1 -translate-y-1/2 z-40 pointer-events-none">
+  <div className="relative z-50 px-3 py-1 rounded-full bg-white text-black font-black text- tracking-widest shadow-[0_0_12px_white] whitespace-nowrap">
+    {(p.nombre||p.name||'PILOTO').split(' ')[0].toUpperCase()}
+  </div>
+</div>
         {/* PUTEADAS EN ROJO */}
         {trashTalk?.code === p.ticket_code && (
           <div className="absolute -top-24 left-1/2 -translate-x-1/2 z-[60] bg-[#E10600] text-white font-black text- px-4 py-1.5 rounded-full border-2 border-white whitespace-nowrap animate-bounce shadow-[0_0_20px_#E10600]">
@@ -795,8 +845,8 @@ const reset = () => {
       {/* CELU + LOCALIDAD DEL GANADOR */}
       <div className="mt-3 flex flex-wrap justify-center gap-2">
         <span className="bg-[#E10600] text-white font-black px-4 py-1.5 rounded-full text-sm md:text-base shadow-[0_0_20px_rgba(225,6,0,0.8)]">
-          📱 {winner.celular || winner.telefono || winner.phone || winner.cel || '---'}
-        </span>
+			📱 {taparCelu(winner.celular || winner.telefono || winner.phone || winner.cel || '---')}
+		</span>
         <span className="bg-[#FFD000] text-black font-black px-4 py-1.5 rounded-full text-sm md:text-base uppercase shadow-[0_0_20px_rgba(255,208,0,0.8)]">
           📍 {winner.localidad || winner.ciudad || winner.comuna || winner.city || '---'}
         </span>
@@ -842,7 +892,7 @@ const reset = () => {
             </div>
             {/* CELULAR + LOCALIDAD - SOLO CON 5 */}
             <div className="flex flex-col items-center gap-1 mt-0.5">
-              <span className="bg-[#E10600] text-white text- font-black px-2.5 py-0.5 rounded-full whitespace-nowrap">📱 {r.celular || r.telefono || r.phone || r.cel || '---'}</span>
+              <span className="bg-[#E10600] text-white text- font-black px-2.5 py-0.5 rounded-full whitespace-nowrap">📱 {taparCelu(r.celular || r.telefono || r.phone || r.cel || '---')}</span>
               <span className="bg-[#FFD000] text-black text- font-black px-2.5 py-0.5 rounded-full whitespace-nowrap uppercase">📍 {r.localidad || r.ciudad || r.comuna || r.city || '---'}</span>
             </div>
           </div>
