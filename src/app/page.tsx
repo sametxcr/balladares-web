@@ -261,7 +261,7 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_BALLADARESMOTORS + "?text=" +
     </div>
   ))}
 
-  {/* TEXTO FIJO TIPO GONZALOKO PERO BALLADARES */}
+  {/* TEXTO FIJO  */}
 <div className="relative z-10 h-full flex flex-col items-center justify-start pt-24 md:pt-10 text-center px-4">
 
   {/*  <div className={`${holtwood.className} text-white/60 text- tracking-[0.3em] font-black border border-white/10 bg-black/40 px-4 py-1 rounded-full backdrop-blur mb-3`}>
@@ -280,11 +280,11 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_BALLADARESMOTORS + "?text=" +
    
 
      
-<div className="mt-6 bg-black/30 backdrop-blur-xl border border-white/10 rounded-2xl px-8 md:px-14 py-6">      <div className="text-white font-black text-2xl md:text-4xl">
+{/*<div className="mt-6 bg-black/30 backdrop-blur-xl border border-white/10 rounded-2xl px-8 md:px-14 py-6">      <div className="text-white font-black text-2xl md:text-4xl">
         Faltan {tiempo.d} días {String(tiempo.h).padStart(2,'0')}:{String(tiempo.m).padStart(2,'0')}:{String(tiempo.s).padStart(2,'0')}
       </div>
       <div className="text-white/60 text- font-black tracking-[0.3em] mt-2 text-center">TIEMPO RESTANTE PARA CONOCER AL GANADOR DEL B13</div>
-    </div>
+    </div>*/}
 
 <img src="/copa_balladares_3d_FINAL.png" alt="Copa Balladares" className="w-28 h-28 md:w-40 md:h-40 object-contain drop-shadow-[0_0_20px_rgba(250,204,21,0.6)] flex-shrink-0" />
     <p className="mt-6 text-white/70 text-sm max-w-md">

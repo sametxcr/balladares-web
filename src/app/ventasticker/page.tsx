@@ -315,6 +315,7 @@ function goToCheckout() {
             <div>
               <div className="font-black italic text-sm text-white leading-none">B13 EDICIÓN BALLADARES</div>
               <div className="text-[10px] font-black bg-red-600 text-white inline-block px-2 py-0.5 rounded-full mt-1.5">META: 1.000 NÚMEROS</div>
+
               <p className="text-[11px] text-zinc-400 mt-1.5 leading-[1.3]">Primer Sorteo. llegando a los 1000 numeros, empieza la cuenta regresiva....</p>
             </div>
           </div>
@@ -339,9 +340,11 @@ function goToCheckout() {
     </div>
     {/* ==== FIN - COMO FUNCIONA ==== */}
 	
-	    {/* ==== SHORTS YOUTUBE - 2 VIDEOS VERTICALES ==== */}
+	{/* AMBOS SHORT */}
+	
+ {/*	    
     <div className="max-w-4xl mx-auto mb-8 grid grid-cols-1 md:grid-cols-2 gap-4">
-      {/* SHORT 1 */}
+      
       <div className="relative rounded-2xl overflow-hidden border-2 border-red-600/50 bg-black aspect-[9/16] max-h-">
         <iframe
           src="https://www.youtube.com/embed/BRUEl8nuAZs?autoplay=1&mute=1&loop=1&playlist=BRUEl8nuAZs&controls=1&modestbranding=1&rel=0&playsinline=1"
@@ -352,7 +355,7 @@ function goToCheckout() {
         <div className="absolute top-3 left-3 bg-red-600 text-white font-black text- px-3 py-1 rounded-full z-10">🔥TEAM BM#1</div>
       </div>
 
-      {/* SHORT 2 */}
+      
       <div className="relative rounded-2xl overflow-hidden border-2 border-yellow-400/50 bg-black aspect-[9/16] max-h-">
         <iframe
           src="https://www.youtube.com/embed/CglGlNRYHfk?autoplay=1&mute=1&loop=1&playlist=CglGlNRYHfk&controls=1&modestbranding=1&rel=0&playsinline=1"
@@ -363,7 +366,7 @@ function goToCheckout() {
         <div className="absolute top-3 left-3 bg-yellow-400 text-black font-black text- px-3 py-1 rounded-full z-10">⚡TEAM BM#2</div>
       </div>
     </div>
-    {/* ==== FIN SHORTS ==== */}
+      */}
 
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
       {/* PREMIO 1 - COPA 350Z */}
@@ -371,20 +374,19 @@ function goToCheckout() {
         <div className="bg-black rounded- overflow-hidden h-full flex flex-col">
           <div className="p-6 flex justify-between items-center bg-black">
             <span className="bg-yellow-400 text-black font-black text-xs px-4 py-1.5 rounded-full">🔥 PREMIO ACTIVO</span>
-            <span className="font-mono text- text-zinc-500">VAULT #01 / 03</span>
+            <span className="font-mono text- text-zinc-500">VAULT #02 / 03</span>
           </div>
           <div className="relative flex-1 bg-gradient-to-b from-[#111] to-black flex items-center justify-center py-10 min-h-">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(250,204,21,0.28),_transparent_65%)]" />
             <img
-              src="/image_20260922_153731_SIN_FONDO.png"
+              src="/2.png"
               alt="Copa 350Z Negro Gold"
               className="relative z-10 w-[90%] max-w- object-contain drop-shadow-[0_0_60px_rgba(250,204,21,0.7)] hover:scale-105 transition-transform duration-700"
             />
           </div>
           <div className="p-7 bg-zinc-950 border-t border-white/5">
-           <h3 className="font-black italic text-3xl leading-none">SUNNY B13 DRAG</h3>
-            <p className="text-yellow-400 font-black text-xs tracking-[0.2em] mt-2">EDICIÓN BALLADARES MOTORS "SUNNY B13"</p>
-            
+           <h3 className="font-black italic text-3xl leading-none">PRIMERA CAMINO</h3>
+<p className="text-yellow-400 font-black text-xs tracking-[0.2em] mt-2">EDICIÓN BALLADARES MOTORS "NEO VVL"</p>
             <div className="mt-5 flex gap-2">
               <div className="flex-1 bg-white text-black font-black text-center text-xs py-3 rounded-full">INCLUIDO EN TU COMPRA</div>
               <div className="bg-zinc-900 border border-white/10 text-white font-mono text-xs px-4 py-3 rounded-full">BM•TICKET</div>
@@ -396,12 +398,12 @@ function goToCheckout() {
    <div className="lg:col-span-6 grid grid-cols-1 md:grid-cols-2 gap-5">
   {[
     {
-      id: 2,
+      id: 1,
       label: "VAULT #02",
       cat: "DRIFT /JDM /RACING/4X4",
-      title: "PRIMERA CAMINO",
-      subtitle: "EDICIÓN BALLADARES MOTORS NEO VVL",
-      img: "/2.png"
+      title: "B13",
+      subtitle: " B13 EDICIÓN BALLADARES MOTORS ",
+      img: "/image_20260922_153731_SIN_FONDO.png"
     },
     {
       id: 3,
@@ -436,7 +438,7 @@ function goToCheckout() {
           <h3 className="font-black italic text-2xl leading-none">{sorteo.title}</h3>
           <p className="text-yellow-400 font-black text- tracking-[0.2em] mt-2 uppercase">{sorteo.subtitle}</p>
           <div className="mt-4 flex gap-2">
-            <div className="flex-1 bg-white/5 border border-white/10 text-white/50 font-black text-center text- py-3 rounded-full tracking-widest">PRÓXIMAMENTE</div>
+            <div className="flex-1 bg-white/5 border border-white/10 text-white/50 font-black text-center text- py-3 rounded-full tracking-widest">BALLADARES</div>
             <div className="bg-zinc-900 border border-white/10 text-white font-mono text- px-4 py-3 rounded-full">BM•TICKET</div>
           </div>
         </div>

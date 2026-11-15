@@ -6,6 +6,7 @@ import ConteoButton from './ConteoButton';
 import AdminSearch from './AdminSearch';
 import RegionFilter from './RegionFilter';
 import TicketsCell from './TicketsCell';
+import ExportButton from './ExportButton';
 import Charts from './Charts';
 
 export const dynamic = 'force-dynamic';
@@ -115,7 +116,8 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ q
           </div>
 
           <div className="flex gap-2 items-center">
-            <RegionFilter regiones={regiones.map(r=>r.region)} current={regionFilter} q={q} />
+  <ExportButton q={q} region={regionFilter} />
+  <RegionFilter regiones={regiones.map(r=>r.region)} current={regionFilter} q={q} />
             <AdminSearch defaultValue={q} region={regionFilter} />
           </div>
         </div>
