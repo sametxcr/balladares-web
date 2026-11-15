@@ -303,41 +303,41 @@ function goToCheckout() {
     </div>
 
    {/* ==== INICIO - COMO FUNCIONA - PEGALO AQUI ==== */}
-    <div className="max-w-6xl mx-auto mb-8">
-      <div className="bg-zinc-900 border border-yellow-400/30 rounded-2xl overflow-hidden">
-        <div className="bg-yellow-400 text-black px-4 py-2 flex justify-between items-center">
-          <span className="font-black italic text-xs tracking-widest">¿CÓMO FUNCIONA? • TRILOGÍA NISSAN VAULT</span>
-          <span className="text-[10px] font-black bg-black text-yellow-400 px-2 py-0.5 rounded-full">BM•TICKET = 1 OPORTUNIDAD</span>
+ <div className="max-w-6xl mx-auto mb-8">
+  <div className="bg-zinc-900 border border-yellow-400/30 rounded-2xl overflow-hidden">
+    <div className="bg-yellow-400 text-black px-4 py-2 flex justify-between items-center">
+      <span className="font-black italic text-xs tracking-widest">¿CÓMO FUNCIONA? • TRILOGÍA VAULT</span>
+      <span className="text- font-black bg-black text-yellow-400 px-2 py-0.5 rounded-full">BM•TICKET = 1 OPORTUNIDAD</span>
+    </div>
+    <div className="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/5">
+      <div className="p-4 flex gap-3 items-start">
+        <div className="w-8 h-8 rounded-full bg-yellow-400 text-black grid place-items-center font-black text-sm shrink-0">1</div>
+        <div>
+          <div className="font-black italic text-sm text-white leading-none">B13 EDICIÓN BALLADARES</div>
+          <div className="text- font-black bg-green-600 text-white inline-block px-2 py-0.5 rounded-full mt-1.5">✓ PREMIO ENTREGADO</div>
+          <p className="text- font-black bg-RED-600 text-white inline-block px-1 py-0.5 rounded-full mt-1.5">Ganador: OSCAR ACUÑA VASQUEZ</p>
+		  <p className="text- font-black bg-yellow-600 text-white inline-block px-1 py-0.5 rounded-full mt-1.5">BM:2631398</p>
         </div>
-        <div className="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/5">
-          <div className="p-4 flex gap-3 items-start">
-            <div className="w-8 h-8 rounded-full bg-yellow-400 text-black grid place-items-center font-black text-sm shrink-0">1</div>
-            <div>
-              <div className="font-black italic text-sm text-white leading-none">B13 EDICIÓN BALLADARES</div>
-              <div className="text-[10px] font-black bg-red-600 text-white inline-block px-2 py-0.5 rounded-full mt-1.5">META: 1.000 NÚMEROS</div>
-
-              <p className="text-[11px] text-zinc-400 mt-1.5 leading-[1.3]">Primer Sorteo. llegando a los 1000 numeros, empieza la cuenta regresiva....</p>
-            </div>
-          </div>
-          <div className="p-4 flex gap-3 items-start opacity-60">
-            <div className="w-8 h-8 rounded-full bg-zinc-800 border border-white/10 text-zinc-400 grid place-items-center font-black text-sm shrink-0">2</div>
-            <div>
-              <div className="font-black italic text-sm text-zinc-300 leading-none">PRIMERA P11 NEO VVL</div>
-              <div className="text-[10px] font-black bg-zinc-800 text-zinc-400 inline-block px-2 py-0.5 rounded-full mt-1.5">META: (X) NÚMEROS</div>
-              <p className="text-[11px] text-zinc-500 mt-1.5 leading-[1.3]">Segundo sorteo. Joya por generaciones... </p>
-            </div>
-          </div>
-          <div className="p-4 flex gap-3 items-start opacity-60">
-            <div className="w-8 h-8 rounded-full bg-zinc-800 border border-white/10 text-zinc-400 grid place-items-center font-black text-sm shrink-0">3</div>
-            <div>
-              <div className="font-black italic text-sm text-zinc-300 leading-none">350Z HR MANUAL</div>
-              <div className="text-[10px] font-black bg-zinc-800 text-zinc-400 inline-block px-2 py-0.5 rounded-full mt-1.5">META: (X) NÚMEROS</div>
-              <p className="text-[11px] text-zinc-500 mt-1.5 leading-[1.3]">Tercer Sorteo. Gran final de la trilogía. Cierre de la saga.</p>
-            </div>
-          </div>
+      </div>
+      <div className="p-4 flex gap-3 items-start">
+        <div className="w-8 h-8 rounded-full bg-yellow-400 text-black grid place-items-center font-black text-sm shrink-0">2</div>
+        <div>
+          <div className="font-black italic text-sm text-white leading-none">PRIMERA P11 NEO VVL</div>
+          <div className="text- font-black bg-red-600 text-white inline-block px-2 py-0.5 rounded-full mt-1.5"> "3000" NÚMEROS</div>
+          <p className="text- text-zinc-400 mt-1.5 leading-[1.3]">Segundo sorteo. Joya por generaciones...</p>
+        </div>
+      </div>
+      <div className="p-4 flex gap-3 items-start opacity-60">
+        <div className="w-8 h-8 rounded-full bg-zinc-800 border border-white/10 text-zinc-400 grid place-items-center font-black text-sm shrink-0">3</div>
+        <div>
+          <div className="font-black italic text-sm text-zinc-300 leading-none">350Z HR MANUAL</div>
+          <div className="text- font-black bg-zinc-800 text-zinc-400 inline-block px-2 py-0.5 rounded-full mt-1.5">(X) NÚMEROS</div>
+          <p className="text- text-zinc-500 mt-1.5 leading-[1.3]">Tercer Sorteo. Gran final de la trilogía. Cierre de la saga.</p>
         </div>
       </div>
     </div>
+  </div>
+</div>
     {/* ==== FIN - COMO FUNCIONA ==== */}
 	
 	{/* AMBOS SHORT */}
@@ -419,7 +419,7 @@ function goToCheckout() {
 
         {/* HEADER IGUAL QUE B13 */}
         <div className="p-5 flex justify-between items-center bg-black">
-          <span className="bg-white/10 text-white/70 text- font-black px-4 py-1.5 rounded-full tracking-widest">PRÓXIMAMENTE</span>
+          <span className="bg-white/10 text-white/70 text- font-black px-4 py-1.5 rounded-full tracking-widest">PREMIO</span>
           <span className="font-mono text- text-zinc-500">VAULT #0{sorteo.id} / 03</span>
         </div>
 
