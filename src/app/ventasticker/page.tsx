@@ -57,6 +57,54 @@ const WHATSAPPS = [
 	
 const [cartOpen, setCartOpen] = useState(false);
 const [cartQty, setCartQty] = useState(1);
+const [specOpen, setSpecOpen] = useState(false);
+const [galeriaOpen, setGaleriaOpen] = useState(false);
+const [fotoActiva, setFotoActiva] = useState(0);
+
+const FOTOS_P11 = [
+  "/P11/IMG_20261116_113729.jpg.jpeg",
+  "/P11/IMG_20261116_113737.jpg.jpeg",
+  "/P11/IMG_20261116_113749.jpg.jpeg",
+  "/P11/IMG_20261116_113809.jpg.jpeg",
+  "/P11/IMG_20261116_113814.jpg.jpeg",
+  "/P11/IMG_20261116_113818.jpg.jpeg",
+  "/P11/IMG_20261116_114118.jpg.jpeg",
+  "/P11/IMG_20261116_114149.jpg.jpeg",
+  "/P11/IMG_20261116_114226.jpg.jpeg",
+  "/P11/IMG_20261116_114228.jpg.jpeg",
+  "/P11/IMG_20261116_114245.jpg.jpeg",
+  "/P11/IMG_20261116_114249.jpg.jpeg",
+  "/P11/IMG_20261116_114250_1.jpg.jpeg",
+  "/P11/IMG_20261116_114255.jpg.jpeg",
+  "/P11/IMG_20261116_114302.jpg.jpeg",
+  "/P11/IMG_20261116_114355.jpg.jpeg",
+  "/P11/IMG_20261116_114358.jpg.jpeg",
+  "/P11/IMG_20261116_114408.jpg.jpeg",
+  "/P11/IMG_20261116_114419.jpg.jpeg",
+  "/P11/IMG_20261116_114427.jpg.jpeg",
+  "/P11/IMG_20261116_114446.jpg.jpeg",
+  "/P11/IMG_20261116_114453.jpg.jpeg",
+  "/P11/IMG_20261116_114510.jpg.jpeg",
+  "/P11/IMG_20261116_114518.jpg.jpeg",
+  "/P11/IMG_20261116_114525.jpg.jpeg",
+  "/P11/IMG_20261116_114531.jpg.jpeg",
+  "/P11/IMG_20261116_114555.jpg.jpeg",
+  "/P11/IMG_20261116_114610.jpg.jpeg",
+  "/P11/IMG_20261116_114611_1.jpg.jpeg",
+  "/P11/IMG_20261116_114614.jpg.jpeg",
+  "/P11/IMG_20261116_114621.jpg.jpeg",
+  "/P11/IMG_20261116_114625.jpg.jpeg",
+  "/P11/IMG_20261116_114631.jpg.jpeg",
+  "/P11/IMG_20261116_114640.jpg.jpeg",
+  "/P11/IMG_20261116_114647.jpg.jpeg",
+  "/P11/IMG_20261116_114655.jpg.jpeg",
+  "/P11/IMG_20261116_114659.jpg.jpeg",
+  "/P11/IMG_20261116_114701.jpg.jpeg",
+  "/P11/IMG_20261116_114714.jpg.jpeg",
+  "/P11/IMG_20261116_114717.jpg.jpeg",
+  "/P11/IMG_20261116_114723.jpg.jpeg",
+  "/P11/IMG_20261116_114750.jpg.jpeg",
+];
 
 function openCart(initialQty: number) {
   setCartQty(initialQty);
@@ -324,7 +372,7 @@ function goToCheckout() {
         <div>
           <div className="font-black italic text-sm text-white leading-none">PRIMERA P11 NEO VVL</div>
           <div className="text- font-black bg-red-600 text-white inline-block px-2 py-0.5 rounded-full mt-1.5"> "X" NÚMEROS</div>
-          <p className="text- text-zinc-400 mt-1.5 leading-[1.3]">Segundo sorteo. Joya por generaciones...</p>
+          <p className="text- text-zinc-400 mt-1.5 leading-[1.3]">Segundo sorteo. Joya por Generaciones...</p>
         </div>
       </div>
       <div className="p-4 flex gap-3 items-start opacity-60">
@@ -368,9 +416,9 @@ function goToCheckout() {
     </div>
       */}
 
-   <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+   <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
       {/* PREMIO 1 - COPA 350Z */}
-      <div className="lg:col-span-6 relative bg-gradient-to-b from-zinc-900 to-black rounded- border border-yellow-400/40 p-[1.5px]">
+      <div className="lg:col-span-6 self-start relative bg-gradient-to-b from-zinc-900 to-black rounded- border border-yellow-400/40 p-[1.5px]">
         <div className="bg-black rounded- overflow-hidden h-full flex flex-col">
           <div className="p-6 flex justify-between items-center bg-black">
             <span className="bg-yellow-400 text-black font-black text-xs px-4 py-1.5 rounded-full">🔥 PREMIO ACTIVO</span>
@@ -384,18 +432,95 @@ function goToCheckout() {
               className="relative z-10 w-[90%] max-w- object-contain drop-shadow-[0_0_60px_rgba(250,204,21,0.7)] hover:scale-105 transition-transform duration-700"
             />
           </div>
-          <div className="p-7 bg-zinc-950 border-t border-white/5">
-           <h3 className="font-black italic text-3xl leading-none">PRIMERA CAMINO</h3>
-<p className="text-yellow-400 font-black text-xs tracking-[0.2em] mt-2">EDICIÓN BALLADARES MOTORS "NEO VVL"</p>
-            <div className="mt-5 flex gap-2">
-              <div className="flex-1 bg-white text-black font-black text-center text-xs py-3 rounded-full">INCLUIDO EN TU COMPRA</div>
-              <div className="bg-zinc-900 border border-white/10 text-white font-mono text-xs px-4 py-3 rounded-full">BM•TICKET</div>
-            </div>
-          </div>
+         
+
+		 <div className="p-7 bg-zinc-950 border-t border-white/5">
+  <h3 className="font-black italic text-3xl leading-none">PRIMERA CAMINO</h3>
+  <p className="text-yellow-400 font-black text-xs tracking-[0.2em] mt-2">EDICIÓN BALLADARES MOTORS "NEO VVL"</p>
+
+  {/* BOTON GALERIA - ARRIBA DE SPEC */}
+  <div className="mt-4 flex gap-2">
+    <button
+      onClick={() => setGaleriaOpen(!galeriaOpen)}
+      className="flex-1 bg-white text-black font-black text-xs py-3 rounded-full hover:bg-yellow-400 active:scale-[0.98] transition"
+    >
+      📸 GALERÍA DE FOTOS {galeriaOpen ? "▲" : "▼"}
+    </button>
+  </div>
+
+  {/* GALERIA DESPLEGABLE */}
+  {galeriaOpen && (
+    <div className="mt-3 bg-zinc-900 border border-white/10 rounded-xl p-3">
+      <div className="grid grid-cols-3 gap-2">
+        {FOTOS_P11.map((foto, i) => (
+          <button
+            key={foto}
+            onClick={() => setFotoActiva(i)}
+            className="relative aspect-square rounded-lg overflow-hidden border border-white/10 hover:border-yellow-400 transition group"
+          >
+            <img
+              src={foto}
+              alt={`Primera P11 ${i + 1}`}
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              loading="lazy"
+            />
+          </button>
+        ))}
+      </div>
+
+      {/* FOTO EN GRANDE */}
+      <div className="mt-3 relative rounded-xl overflow-hidden bg-black border border-white/10">
+        <img
+          src={FOTOS_P11[fotoActiva]}
+          alt="Primera P11 seleccionada"
+          className="w-full max-h- object-contain bg-black"
+        />
+        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-2">
+          <button
+            onClick={() => setFotoActiva((fotoActiva - 1 + FOTOS_P11.length) % FOTOS_P11.length)}
+            className="w-9 h-9 bg-black/70 border border-white/20 text-white rounded-full font-black"
+          >‹</button>
+          <span className="px-3 py-2 bg-black/70 border border-white/20 text-white text-xs font-black rounded-full">
+            {fotoActiva + 1} / {FOTOS_P11.length}
+          </span>
+          <button
+            onClick={() => setFotoActiva((fotoActiva + 1) % FOTOS_P11.length)}
+            className="w-9 h-9 bg-black/70 border border-white/20 text-white rounded-full font-black"
+          >›</button>
+        </div>
+      </div>
+    </div>
+  )}
+
+  {/* BOTONES ABAJO + SPEC */}
+  <div className="mt-5 flex gap-2">
+    <div className="flex-1 bg-white text-black font-black text-center text-xs py-3 rounded-full">INCLUIDO EN TU COMPRA</div>
+    <div className="bg-zinc-900 border border-white/10 text-white font-mono text-xs px-4 py-3 rounded-full">BM•TICKET</div>
+    <button
+      onClick={() => setSpecOpen(!specOpen)}
+      className="bg-yellow-400 text-black font-black text-xs px-4 py-3 rounded-full hover:bg-yellow-300 active:scale-95"
+    >
+      SPEC {specOpen ? "▲" : "▼"}
+    </button>
+  </div>
+
+  {specOpen && (
+    <div className="mt-3 bg-zinc-900 border border-yellow-400/30 rounded-xl p-4 text-left">
+      <p className="font-black italic text-sm text-yellow-400 tracking-widest">SPEC - PRIMERA NEO VVL</p>
+      <p className="text-zinc-300 text-sm font-bold mt-1">-Suspension regulable - D2 racing</p>
+	  <p className="text-zinc-300 text-sm font-bold mt-1">-ECU Nismotronic Con RJ45 a la vista</p>
+	  <p className="text-zinc-300 text-sm font-bold mt-1">-Llantas Originales</p>
+	  <p className="text-zinc-300 text-sm font-bold mt-1">-Motor NEO VVL</p>
+	  <p className="text-zinc-300 text-sm font-bold mt-1">-FULL CVT</p>
+	  <p className="text-zinc-300 text-sm font-bold mt-1">-Mecanico</p>
+	  <p className="text-zinc-300 text-sm font-bold mt-1">-Full Equipo</p>
+    </div>
+  )}
+</div>
         </div>
       </div>
 
-   <div className="lg:col-span-6 grid grid-cols-1 gap-5">
+   <div className="lg:col-span-6 self-start grid grid-cols-1 gap-5">
   {[
     {
       id: 3,
