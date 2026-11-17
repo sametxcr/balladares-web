@@ -323,7 +323,7 @@ function goToCheckout() {
         <div className="w-8 h-8 rounded-full bg-yellow-400 text-black grid place-items-center font-black text-sm shrink-0">2</div>
         <div>
           <div className="font-black italic text-sm text-white leading-none">PRIMERA P11 NEO VVL</div>
-          <div className="text- font-black bg-red-600 text-white inline-block px-2 py-0.5 rounded-full mt-1.5"> "3000" NÚMEROS</div>
+          <div className="text- font-black bg-red-600 text-white inline-block px-2 py-0.5 rounded-full mt-1.5"> "X" NÚMEROS</div>
           <p className="text- text-zinc-400 mt-1.5 leading-[1.3]">Segundo sorteo. Joya por generaciones...</p>
         </div>
       </div>
@@ -368,7 +368,7 @@ function goToCheckout() {
     </div>
       */}
 
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+   <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
       {/* PREMIO 1 - COPA 350Z */}
       <div className="lg:col-span-6 relative bg-gradient-to-b from-zinc-900 to-black rounded- border border-yellow-400/40 p-[1.5px]">
         <div className="bg-black rounded- overflow-hidden h-full flex flex-col">
@@ -395,16 +395,8 @@ function goToCheckout() {
         </div>
       </div>
 
-   <div className="lg:col-span-6 grid grid-cols-1 md:grid-cols-2 gap-5">
+   <div className="lg:col-span-6 grid grid-cols-1 gap-5">
   {[
-    {
-      id: 1,
-      label: "VAULT #02",
-      cat: "DRIFT /JDM /RACING/4X4",
-      title: "B13",
-      subtitle: " B13 EDICIÓN BALLADARES MOTORS ",
-      img: "/image_20260922_153731_SIN_FONDO.png"
-    },
     {
       id: 3,
       label: "VAULT #03",
@@ -446,6 +438,7 @@ function goToCheckout() {
       </div>
     </div>
   ))}
+
 </div>
     </div>
   </div>

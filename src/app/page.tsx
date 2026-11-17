@@ -24,12 +24,12 @@ const WHATSAPPS = [
 const slides = [
 
 
-  {  title: [""],img: "/IMG_20260923_171554.jpg", imgMobile: "/IMG_20260923_171554.jpg", pos: "50% 30%" },
-  {  title: [""],img: "/IMG_20260923_172527.jpg", imgMobile: "/IMG_20260923_172529.jpg", pos: "50% 50%" },
-  {  title: [""],img: "/IMG_20260923_172544.jpg", imgMobile: "/IMG_20260923_172544.jpg", pos: "50% 50%" },
-  {  title: [""],img: "/IMG_20260923_172830.jpg", imgMobile: "/IMG_20260923_172830.jpg", pos: "55% 100%" },
-  {  title: [""],img: "/IMG_20260923_172728.jpg", imgMobile: "/IMG_20260923_172728.jpg", pos: "50% 50%" },
-  {  title: [""],img: "/IMG_20260923_171756.jpg", imgMobile: "/IMG_20260923_171756.jpg", pos: "50% 1%" },
+  {  title: [""],img: "/IMG_20261116_114750.jpg", imgMobile: "/IMG_20261116_114750.jpg", pos: "50% 40%" },
+  {  title: [""],img: "/IMG_20261116_114355.jpg", imgMobile: "/IMG_20261116_114355.jpg", pos: "50% 20%" },
+  {  title: [""],img: "/IMG_20261116_113809.jpg", imgMobile: "/IMG_20261116_113809.jpg", pos: "30% 50%" },
+  {  title: [""],img: "/IMG_20261116_114555.jpg", imgMobile: "/IMG_20261116_114555.jpg", pos: "50% 50%" },
+  {  title: [""],img: "/IMG_20261116_114250_1.jpg", imgMobile: "/IMG_20261116_114250_1.jpg", pos: "50% 50%" },
+  {  title: [""],img: "/IMG_20261116_114701.jpg", imgMobile: "/IMG_20261116_114701", pos: "50% 70%" },
  // { title: [""], titleImgs: ["/hero/titles/diagnostico_de_transparent.png", "/hero/titles/ultima_generacion_transparent.png"], sub: "VIDEO LICEO COLLAO. ▶ VER EN YOUTUBE", subLink: "https://www.youtube.com/watch?v=PnHtorbaHC0&t=553s", img: "/hero/liceocollao.jpg", imgMobile: "/hero/liceocollaovertical.jpg", pos: "50% 15%", posMobile: "50% -15%" },
   //{ title: [""], titleImgs: ["/hero/titles/diagnostico_de_transparent.png", "/hero/titles/ultima_generacion_transparent.png"], sub: "Nueva linea ETANOL y METANOL corre con seguridad.", img: "/hero/metanol.jpg", pos: "50% 50%" },
   //{ title: ["repro stage", "DPF-EGR-ADBLUE"], titleImgs: ["/hero/titles/repro_stage_transparent.png", "/hero/titles/1and2_transparent.png"], sub: "Potencia real +25% torque +30%", img: "/hero/repro.jpg", pos: "50% 50%" },
@@ -274,8 +274,8 @@ const waLinkRepuesto = "https://wa.me/" + WHATSAPP_BALLADARESMOTORS + "?text=" +
     </h1>
     
     <h1 className={`${holtwood.className} text-3xl md:text-5xl font-black not-italic leading-none mt-2`}>
-      <span className="text-white block">B13 DRAG</span>
-      <span className="text-red-600 block">RACING</span>
+      <span className="text-white block">PRIMERA CAMINO</span>
+      <span className="text-red-600 block">P11 NEO VVL</span>
     </h1>
    
 
